@@ -12,6 +12,9 @@ AI should reduce blank-canvas work without turning the Product Designer into an 
 - Relevant acceptance criteria.
 - Relevant current-product context.
 - Existing product patterns or flows when they materially constrain the experience.
+- Relevant Design System guidance when available and applicable.
+- Relevant reusable components and interaction patterns.
+- Relevant content or language guidance.
 
 ## Workflow
 
@@ -22,16 +25,31 @@ Extract the context required to make design decisions, including:
 - what the experience must accomplish,
 - what behavior and constraints the PRD establishes,
 - what existing flows or patterns are relevant,
+- what relevant Design System constraints or guidance apply,
+- what reusable components or interaction patterns may materially shape the solution,
+- what relevant content or language guidance applies,
 - what material states the solution must account for,
 - and what remains intentionally unresolved.
 
 Retrieve deeper current-product context when necessary.
+
+Retrieve Design System and content context only to the extent relevant to the task. Do not retrieve or inspect the complete Design System by default.
+
+Design System and content guidance are external design-context sources. The Harness does not prescribe how they are structured, stored, retrieved, or represented in tools such as Figma.
+
+Missing or inaccessible Design System context does not block exploration by itself. AI should make the limitation visible when material and must not invent Design System rules, components, or guidance.
 
 Do not create a separate Design Context artifact by default.
 
 ### 2. Produce an AI design exploration draft
 
 Create a substantive starting point before asking the Designer to work from a blank canvas.
+
+Before proposing a design direction, AI should account for relevant retrieved Design System constraints, reusable patterns, and content guidance.
+
+Design System guidance constrains design choices within the Design domain; it does not establish product intent or product behavior.
+
+If Design System guidance appears to conflict with the PRD, AI must surface the conflict rather than changing product intent to conform to the Design System. It should identify whether resolution requires a Product decision or a Design/System decision.
 
 AI may:
 
