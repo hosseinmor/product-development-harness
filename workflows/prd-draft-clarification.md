@@ -4,7 +4,7 @@
 
 Turn an informal or incomplete PM intent into a product PRD that is sufficiently grounded and bounded for meaningful Design Exploration, while minimizing unnecessary human interruption.
 
-The workflow is draft-first, retrieval-first, and clarification-light.
+The workflow is draft-first, retrieval-first, normalization-before-clarification, and clarification-light.
 
 ## Inputs
 
@@ -58,6 +58,8 @@ Use:
 - reversible Assumptions when they help create a useful draft,
 - and explicit Unresolved items when human judgment is still required.
 
+When PM intent is solution-shaped or retrieved context does not establish the underlying problem, outcome, rationale, risk, or likely tradeoff, use relevant general model knowledge, domain knowledge, and common product patterns to generate informed hypotheses, candidate framings, alternatives, and recommendations. Do not present those as established Job Vision truth or decided Product intent. If a hypothesis materially affects Product framing or downstream decisions, keep that distinction visible and surface the Product judgment when needed.
+
 Populate the PRD metadata and semantic responsibilities defined by `../artifacts/prd.md` without rendering empty conditional sections merely for completeness.
 
 Retrieve the responsible Product owner or team when reasonably possible. Do not infer or fabricate ownership; when ownership cannot be established, use `owner: unresolved`.
@@ -72,9 +74,30 @@ Do not return a skeleton dominated by `TBD` fields when a meaningful draft can b
 
 Follow the PRD Artifact Contract in `../artifacts/prd.md`.
 
-### 4. Run an ambiguity scan
+### 4. Run semantic normalization
 
-Stress-test the draft rather than immediately asking questions.
+Clean the draft as one artifact before asking for clarification. The goal is semantic completeness with low redundancy, not minimum detail.
+
+Check that:
+
+- each material claim has one primary semantic home and is not repeated merely for completeness,
+- `Problem` and `Outcomes` describe problem framing and improved states rather than feature mechanics or requirement summaries,
+- `Affected Users` remains a concise actor view rather than carrying permissions or detailed behavior owned elsewhere,
+- `Current Behavior` describes the nearest concrete local product baseline that the intended change enters, extends, interrupts, or replaces,
+- `Scope` defines release boundaries without becoming a rule inventory,
+- `Key Product Scenarios` provide only the shortest coherent journey, handoff, or lifecycle sequence and do not duplicate Required Product Behavior,
+- `Required Product Behavior` states Product semantics and observable consequences without Design commentary or implementation strategy,
+- vague abstractions such as `reconcile`, `snapshot`, `ready`, `identity`, or `version` are replaced by observable Product semantics unless the abstraction itself is an intentional Product concept,
+- future-oriented or premature specification is removed when it is not needed to constrain the current release,
+- newly introduced configurable or shared resources have their materially relevant actor, lifecycle, ownership, and scope boundary considered,
+- `Dependencies` contains only materially relevant canonical Product Knowledge entities,
+- and Acceptance Criteria capture material correctness boundaries rather than restating Required Product Behavior line by line.
+
+Normalization must not silently resolve Product uncertainty. If cleanup exposes a material missing decision, preserve it for the ambiguity scan rather than inventing an answer.
+
+### 5. Run an ambiguity scan
+
+Stress-test the normalized draft rather than immediately asking questions.
 
 Check for material ambiguity in:
 
@@ -99,7 +122,7 @@ A missing Business Outcome is not by itself an Open Decision. Treat it as a sepa
 
 The ambiguity scan produces uncertainty, not questions.
 
-### 5. Resolve uncertainty before escalation
+### 6. Resolve uncertainty before escalation
 
 For each material uncertainty, attempt in order:
 
@@ -111,7 +134,7 @@ Do not ask the PM to restate facts that can reasonably be retrieved, including a
 
 Do not escalate a choice that belongs to Design rather than Product.
 
-### 6. Ask targeted clarification
+### 7. Ask targeted clarification
 
 Ask only unresolved choices that require PM judgment and materially affect product intent, User or Business Outcome, scope, Product Scenarios, required behavior, acceptance criteria, or downstream design direction.
 
@@ -126,7 +149,7 @@ Each clarification should, when useful, make clear:
 - the materially different options,
 - and an AI recommendation when there is a defensible basis for one.
 
-### 7. Reconcile PM decisions into the PRD
+### 8. Reconcile PM decisions into the PRD
 
 A clear PM statement is sufficient to establish a product decision.
 
@@ -138,17 +161,18 @@ After a decision:
 - update affected acceptance criteria,
 - remove or replace stale assumptions,
 - reconcile related scope, behavior, or dependency references,
+- re-run semantic normalization on materially affected sections,
 - and run a local consistency check.
 
 Do not require a second approval ceremony for the edit itself.
 
-### 8. Reassess remaining uncertainty
+### 9. Reassess remaining uncertainty
 
-If a PM decision creates new material ambiguity, repeat only the affected retrieval, clarification, and reconciliation work. Do not restart the workflow from zero.
+If a PM decision creates new material ambiguity, repeat only the affected retrieval, normalization, clarification, and reconciliation work. Do not restart the workflow from zero.
 
 Known material uncertainty must remain visible until resolved even when it does not block useful Design Exploration.
 
-### 9. Assess Problem Alignment
+### 10. Assess Problem Alignment
 
 Assess whether the PRD is `Problem Aligned` for Design Exploration.
 
@@ -166,4 +190,4 @@ If alignment is not reached, identify the specific blocking gap rather than repo
 
 The durable output is the reconciled PRD.
 
-Ambiguity scans, retrieval notes, clarification transcripts, and reasoning do not require separate durable artifacts unless a later demonstrated need justifies one.
+Semantic-normalization notes, ambiguity scans, retrieval notes, clarification transcripts, and reasoning do not require separate durable artifacts unless a later demonstrated need justifies one.
