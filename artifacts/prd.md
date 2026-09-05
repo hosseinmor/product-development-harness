@@ -52,7 +52,11 @@ Evidence may support the problem when available, but the absence of evidence doe
 
 Describe the outcome the product change is intended to create.
 
-Keep the outcome distinct from the proposed experience or implementation solution.
+Describe the improved state the change is intended to create for the affected user, business, or product.
+
+Keep the Intended Outcome distinct from Scope, Required Product Behavior, the proposed experience, and implementation. Do not use this section to summarize feature mechanics, constraints, states, rules, or acceptance criteria that belong elsewhere in the PRD.
+
+Prefer describing what becomes better, easier, faster, safer, more consistent, or newly possible if the change succeeds. Include only outcomes that are established by Product intent; do not invent benefits that have not been decided or supported.
 
 Include a success metric when it is known, meaningful, and part of product intent. A separate mandatory `Success Metrics` section is not required.
 
