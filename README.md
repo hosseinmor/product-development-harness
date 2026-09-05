@@ -52,20 +52,25 @@ The lifecycle is intentionally provisional beyond the current MVP.
 
 ```text
 .
+├── AGENTS.md
 ├── README.md
 ├── shared-harness-contract.md
 ├── workflows/
 │   ├── prd-draft-clarification.md
 │   ├── design-exploration.md
-│   └── design-review-prd-stress-test.md
-└── artifacts/
-    ├── prd.md
-    └── design.md
+│   ├── design-review-prd-stress-test.md
+│   └── harness-improvement.md
+├── artifacts/
+│   ├── prd.md
+│   └── design.md
+└── evals/
+    ├── README.md
+    └── cases/
 ```
 
 The structure follows one rule:
 
-> README navigates. Shared contract governs. Workflow files describe execution. Artifact files define durable outputs.
+> README navigates. Shared contract governs. Workflow files describe execution. Artifact files define durable outputs. Eval files test Harness behavior without redefining it.
 
 ## Scope boundaries
 

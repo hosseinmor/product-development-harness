@@ -19,6 +19,7 @@ Do not load every workflow by default.
 | PRD Draft + Clarification | `workflows/prd-draft-clarification.md` | `artifacts/prd.md` |
 | Design Exploration | `workflows/design-exploration.md` | `artifacts/design.md` |
 | Design Review + PRD Stress Test | `workflows/design-review-prd-stress-test.md` | `artifacts/prd.md` and `artifacts/design.md` |
+| Harness Improvement | `workflows/harness-improvement.md` | — |
 
 ## Context
 
