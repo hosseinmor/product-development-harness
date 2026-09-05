@@ -45,6 +45,14 @@ Do not create a separate Design Context artifact by default.
 
 Create a substantive starting point before asking the Designer to work from a blank canvas.
 
+When interaction, flow, or material UI states are central to the design problem, prefer a lightweight executable prototype as the default exploration representation.
+
+The Harness does not prescribe how the prototype is built or which tool or runtime is used. The prototype is a Design representation, not production implementation, and must not make technical implementation choices authoritative.
+
+At this stage, prioritize behavior fidelity over visual fidelity. The prototype should make material flows, states, actions, transitions, validation, and recovery behavior experienceable to the extent needed for design judgment and review.
+
+This preference is not universal. When the primary design problem is visual composition, Design System design, branding, or visual refinement, use Figma or another representation better suited to that work.
+
 Before proposing a design direction, AI should account for relevant retrieved Design System constraints, reusable patterns, and content guidance.
 
 Design System guidance constrains design choices within the Design domain; it does not establish product intent or product behavior.
@@ -89,6 +97,10 @@ Design may originate product-change proposals, but it may not silently make them
 A clear statement or action by the Product Designer is sufficient to establish the current selected direction. No separate approval ceremony is required.
 
 `Selected` does not mean final or immutable. The design may change after review, product reconciliation, or later technical constraints.
+
+Detailed visual refinement may be deferred, including until after Product & Design Alignment, when the remaining refinement does not contain material Product or Design decisions required for Technical Planning.
+
+If later refinement materially changes the selected design, re-review the affected Product and Design decisions before relying on the revised design downstream.
 
 The durable Design Artifact follows `../artifacts/design.md`.
 
