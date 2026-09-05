@@ -40,12 +40,14 @@ Metadata rules:
 
 - `id` provides stable identity for the PRD. The Harness does not prescribe an ID-generation scheme.
 - `artifact: prd` identifies the artifact type.
-- `owner` identifies the responsible Product owner or team at the appropriate level.
-- `references` contains canonical references to relevant Product Knowledge or other authoritative context when useful.
+- `owner` identifies the responsible Product owner or team at the appropriate level. AI should retrieve ownership when reasonably possible and must not infer or fabricate an owner merely to populate metadata. If ownership cannot be established, use `owner: unresolved`.
+- `references` contains material sources used to ground the PRD, such as canonical Product Knowledge references, evidence, or other authoritative context.
 - `related_artifacts` references related durable artifacts when they exist and the relationship is useful downstream.
 - `references` and `related_artifacts` may be omitted when they have no useful entries.
 - Metadata is machine-facing navigation data. It should not duplicate semantic PRD content.
 - Git is the source of version history.
+
+`references` and `Dependencies` serve different semantic roles. `references` records material grounding sources; `Dependencies` records canonical Product Knowledge entities that the intended change materially depends on or affects. Do not mechanically mirror Dependencies into `references`. The same item may appear in both only when it genuinely serves both roles.
 
 Do not add generic status, version, timestamps, confidence scores, approval metadata, requirement numbering, Jira links, Figma links, or similar metadata without a demonstrated workflow need.
 
@@ -125,13 +127,17 @@ Describe what improves or becomes possible for the affected user or actor if the
 
 User Outcome is a required semantic responsibility. Include only outcomes established by Product intent; do not invent benefits that have not been decided or supported.
 
+Do not manufacture a User Outcome by rephrasing requested behavior, feature mechanics, requirements, or acceptance conditions as an outcome.
+
 #### Business Outcome
 
 Describe why the change matters to Job Vision, the business, or the product at the business level.
 
 Business Outcome is a required semantic responsibility and must not silently substitute for User Outcome or be inferred from it without support.
 
-Do not invent business value. If a Business Outcome has not been established by Product, make that absence explicit and treat it as Product uncertainty when it is material to downstream interpretation or decision-making.
+Do not invent business value. If a Business Outcome has not been established by Product, make that absence explicit in `Business Outcome` rather than fabricating one.
+
+Do not duplicate an unestablished Business Outcome in `Assumptions & Open Decisions` merely because it is unknown. Create a separate open Product decision only when Product judgment about the missing business rationale is itself materially required for a downstream decision.
 
 #### Success Metrics
 
@@ -161,11 +167,17 @@ Do not list implementation choices as feature Out of Scope merely because the PR
 
 Use Key Product Scenarios when the change has a material user journey, actor handoff, lifecycle sequence, or connected sequence of product behaviors whose context would otherwise be difficult to reconstruct from individual rules.
 
-Describe what materially happens in the product, in sequence. Keep scenarios solution-independent and connect multiple product behaviors into coherent context rather than restating individual acceptance criteria.
+A Key Product Scenario should be the shortest sequence needed to give a downstream reader a coherent product-level mental model. Use it to assemble material behaviors into a journey, actor handoff, or lifecycle sequence, not as a second specification of Required Product Behavior.
+
+Describe what materially happens in the product, in sequence. Keep scenarios solution-independent.
+
+Detailed validation rules, eligibility conditions, exceptions, negative isolation rules, preservation rules, field-level semantics, lifecycle edge cases, and similar detail should remain primarily in `Required Product Behavior` unless a detail is necessary to understand the sequence itself.
+
+Practical heuristic: if removing a sentence from a Scenario would preserve the reader's understanding of the material sequence, and that sentence is already owned by Required Product Behavior, omit it from the Scenario.
 
 Do not specify screens, modals, components, selected interaction patterns, or other Design decisions unless they are themselves Product constraints.
 
-Do not require Product Scenarios for trivial or local changes where sequence adds no material value.
+Do not require Product Scenarios for trivial, local, or rule-only changes where sequence adds no material value.
 
 Maintain this distinction:
 
@@ -193,9 +205,9 @@ Describe product behavior rather than interface mechanics or technical implement
 
 ### Dependencies
 
-Use Dependencies as a concise retrieval and impact-analysis aid when the change materially depends on existing product concepts or areas.
+Use Dependencies as a concise retrieval and impact-navigation aid and canonical navigation list, not as an exhaustive dependency inventory.
 
-Prefer canonical Product Knowledge identifiers or concepts from the Product Knowledge taxonomy that actually exists when those references are available. Do not invent a Harness dependency taxonomy.
+List only materially relevant Product Knowledge entities that already have canonical references in the Product Knowledge structure that actually exists. Do not invent Product Knowledge IDs or a Harness dependency taxonomy.
 
 Preferred form:
 
@@ -206,7 +218,13 @@ Preferred form:
 - `another-canonical-id`
 ```
 
-Do not turn Dependencies into mini-specs or behavior explanations. Do not list every merely related concept. Include only materially relevant dependencies.
+Do not substitute free-text dependency descriptions when no canonical reference exists. Do not turn Dependencies into mini-specs or behavior explanations, list every merely related concept, or use Dependencies as an implementation dependency inventory.
+
+If a material relationship has no canonical Product Knowledge reference, do not invent one and do not add a free-text substitute to Dependencies. Retrieve deeper context when useful, preserve a material Product uncertainty when appropriate, or leave implementation or system-of-record discovery to Technical Planning according to the actual type of gap.
+
+Absence from Dependencies must not imply that no implementation dependency exists.
+
+Do not mechanically mirror Dependencies into `references`. The same item may appear in both only when it genuinely serves both semantic roles.
 
 Behavioral implications of a dependency belong in Scope or Required Product Behavior.
 
@@ -236,13 +254,27 @@ No mandatory Given/When/Then syntax is required.
 
 Expose only uncertainty that could materially affect downstream interpretation.
 
+Apply the Shared Harness uncertainty model before making an unknown durable in `Assumptions & Open Decisions`.
+
 Use this section for:
 
 - material reversible assumptions used to keep work moving,
 - unresolved product decisions requiring PM judgment,
 - and materially uncertain current-product claims that affect the PRD.
 
-Do not use it for low-impact working notes, implementation choices, or unknowns that can still reasonably be retrieved.
+Do not use this section merely for:
+
+- implementation source or system-of-record discovery,
+- possible code-level limits or implementation constraints,
+- technical feasibility questions,
+- missing canonical Product Knowledge ownership or taxonomy,
+- other retrievable current-product or implementation facts,
+- low-impact working notes,
+- or implementation choices.
+
+An unresolved current-product fact belongs here only when, after reasonable retrieval, it materially changes Product interpretation or requires Product judgment.
+
+Unknowns that affect how decided Product behavior will be implemented, but not what Product behavior is intended, should remain retrieval or Technical Planning concerns rather than durable PRD Open Decisions.
 
 Known material uncertainty must remain visible until resolved even when it does not block Design Exploration.
 
@@ -268,6 +300,8 @@ These may appear only when they represent a genuine product constraint rather th
 
 A PRD is `Problem Aligned` when it is sufficiently grounded and bounded for meaningful Design Exploration and remaining uncertainty does not force Design to invent materially different product intent or behavior.
 
-The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and material dependencies should be clear enough for the next use. A missing Product judgment may remain unresolved when it is explicit and does not invalidate useful Design Exploration.
+The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and available canonical material dependencies should be clear enough for the next use. A missing Product judgment may remain unresolved when it is explicit and does not invalidate useful Design Exploration.
+
+The absence of a canonical dependency reference alone does not block Problem Alignment when the material Product behavior and implications are otherwise clear.
 
 Acceptance criteria need to be sufficient for that next use, not exhaustive.

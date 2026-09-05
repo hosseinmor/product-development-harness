@@ -27,6 +27,7 @@ If the intent is too ambiguous to produce any useful draft, ask only the minimum
 
 Retrieve only the current-product context needed to understand the change, including where relevant:
 
+- the responsible Product owner or team when reasonably retrievable,
 - the materially affected actors,
 - the concise local current behavior needed to understand the change,
 - relevant permissions and eligibility,
@@ -38,7 +39,7 @@ Retrieve only the current-product context needed to understand the change, inclu
 - materially relevant canonical Product Knowledge dependencies when available,
 - and available evidence related to the stated problem.
 
-Use Product Knowledge as the preferred context provider. Use canonical Product Knowledge concepts or identifiers from the taxonomy that actually exists when dependency references are useful. Do not invent a Harness dependency taxonomy.
+Use Product Knowledge as the preferred context provider. Use only canonical Product Knowledge dependency references that already exist in the Product Knowledge structure that actually exists. Do not invent a Harness dependency taxonomy, Product Knowledge IDs, or free-text substitutes for missing canonical dependency references.
 
 Inspect the relevant GitHub codebase when retrieved context is insufficient, inconsistent, or requires authoritative verification.
 
@@ -59,9 +60,13 @@ Use:
 
 Populate the PRD metadata and semantic responsibilities defined by `../artifacts/prd.md` without rendering empty conditional sections merely for completeness.
 
-When a required Product responsibility such as Business Outcome is not established, make the absence or uncertainty explicit rather than inventing content.
+Retrieve the responsible Product owner or team when reasonably possible. Do not infer or fabricate ownership; when ownership cannot be established, use `owner: unresolved`.
 
-Draft Key Product Scenarios when a material journey, actor handoff, lifecycle sequence, or connected behavior sequence benefits from a coherent product-level view. Keep them solution-independent and separate from selected Design User Flows.
+When Business Outcome is not established, make the absence explicit in `Business Outcome`. Do not automatically duplicate that absence into `Assumptions & Open Decisions`; surface a separate Product decision only when judgment about the missing business rationale is materially required downstream.
+
+Draft Key Product Scenarios when a material journey, actor handoff, lifecycle sequence, or connected behavior sequence benefits from a coherent product-level view. Keep them solution-independent, as short as needed to preserve the material sequence, and separate from selected Design User Flows and detailed Required Product Behavior.
+
+Populate `Dependencies` only with materially relevant canonical Product Knowledge references that already exist. If a material relationship has no canonical Product Knowledge reference, do not invent or substitute one in `Dependencies`; handle the gap according to whether it needs deeper retrieval, Product judgment, or later Technical Planning.
 
 Do not return a skeleton dominated by `TBD` fields when a meaningful draft can be produced.
 
@@ -81,14 +86,16 @@ Check for material ambiguity in:
 - Business Outcome, including missing or unsupported business value,
 - Key Product Scenarios where they are material,
 - required product behavior,
-- materially relevant dependencies,
+- materially relevant canonical dependencies available from Product Knowledge but omitted from the PRD,
 - acceptance criteria,
 - assumptions and open decisions,
 - and internal consistency.
 
 A useful test is whether two materially different products could both satisfy the current wording.
 
-Also check whether a materially affected actor is missing, a Product Scenario requires unstated Product judgment, or a material dependency needed for downstream interpretation has not been identified.
+Also check whether a materially affected actor is missing or a Product Scenario requires unstated Product judgment.
+
+A missing Business Outcome is not by itself an Open Decision. Treat it as a separate Product decision need only when the missing business rationale materially affects a downstream Product decision.
 
 The ambiguity scan produces uncertainty, not questions.
 
@@ -100,7 +107,7 @@ For each material uncertainty, attempt in order:
 retrieve → derive → safe reversible assumption → human clarification
 ```
 
-Do not ask the PM to restate facts that can reasonably be retrieved, including affected actors, current behavior, or canonical dependency references.
+Do not ask the PM to restate facts that can reasonably be retrieved, including affected actors, current behavior, ownership, or canonical dependency references.
 
 Do not escalate a choice that belongs to Design rather than Product.
 
@@ -147,7 +154,9 @@ Assess whether the PRD is `Problem Aligned` for Design Exploration.
 
 The PRD is aligned when Design can proceed without needing to invent materially different product intent or behavior.
 
-Check that the affected actors, local current-product baseline, established Outcomes, material scope boundaries, applicable Product Scenarios, required behavior, material dependencies, acceptance criteria, and remaining uncertainty are sufficiently clear for the next use.
+Check that the affected actors, local current-product baseline, established Outcomes, material scope boundaries, applicable Product Scenarios, required behavior, available canonical material dependencies, acceptance criteria, and remaining uncertainty are sufficiently clear for the next use.
+
+The absence of a canonical dependency reference alone does not block alignment when the material Product behavior and implications are otherwise clear.
 
 Remaining uncertainty is acceptable when it is explicit and does not invalidate useful Design Exploration.
 
