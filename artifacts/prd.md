@@ -64,7 +64,15 @@ Include a success metric when it is known, meaningful, and part of product inten
 
 Define the material boundaries of the intended change.
 
+Use Scope to answer what capabilities, actors, scenarios, or product areas are included or excluded from this change, not how the included behavior works in detail.
+
 Include actors, scenarios, exclusions, unchanged behavior, non-goals, or out-of-scope items only when they materially prevent scope expansion or incompatible interpretation.
+
+Do not use Scope to restate detailed product rules, lifecycle behavior, states, validation rules, or acceptance criteria that belong in Required Product Behavior or Acceptance Criteria.
+
+Include a constraint such as a limit, supported type, or version boundary in Scope when it materially defines the shape of the release or prevents scope expansion. Put the detailed behavior of that constraint in Required Product Behavior.
+
+Do not list implementation choices as feature Out of Scope merely because the PRD does not own them. Implementation boundaries are governed by the PRD's artifact boundary unless excluding a technical capability is itself part of Product intent.
 
 `Out of Scope` and `Non-goals` are semantic concepts, not mandatory headings.
 
