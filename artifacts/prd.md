@@ -82,6 +82,12 @@ Describe what the product must permit, require, prevent, preserve, or cause.
 
 This section may include material eligibility, permissions, state transitions, business rules, consequences, and lifecycle behavior.
 
+Organize related behavior into coherent groups so a reader can understand a product rule and its material consequences without reconstructing it across multiple sections.
+
+Each material product rule should have one primary home. Avoid repeating the same rule across multiple subsections merely for completeness; reference or state its consequence only when that adds materially new information.
+
+Prefer grouping behavior by product concept, actor, or lifecycle when that keeps closely related rules together. Do not create a separate subsection for every individual rule or edge case when it is part of a larger coherent behavior.
+
 Describe product behavior rather than interface mechanics or technical implementation unless a specific solution is itself a product constraint.
 
 ### Acceptance Criteria
