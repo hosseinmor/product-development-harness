@@ -45,6 +45,10 @@ Do not create a separate Design Context artifact by default.
 
 Create a substantive starting point before asking the Designer to work from a blank canvas.
 
+Use relevant general model knowledge, domain knowledge, common UX and interaction patterns, and design precedents to generate informed design hypotheses, flows, states, alternatives, risks, and recommendations when they improve the exploration. These are legitimate non-authoritative design inputs and should be used proactively rather than limiting exploration to patterns explicitly retrieved from Job Vision context.
+
+Do not present model- or domain-informed proposals as existing Job Vision behavior, Design System guidance, Product intent, or selected Design decisions unless they are established by the appropriate source or human decision owner. If a proposal would change what the Product permits, requires, prevents, preserves, or causes, route it back as a Product-change proposal rather than silently treating it as a Design decision.
+
 When interaction, flow, or material UI states are central to the design problem, prefer a lightweight executable prototype as the default exploration representation.
 
 The Harness does not prescribe how the prototype is built or which tool or runtime is used. The prototype is a Design representation, not production implementation, and must not make technical implementation choices authoritative.
