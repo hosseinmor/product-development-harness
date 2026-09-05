@@ -124,6 +124,10 @@ Absence from retrieved context is uncertainty, not evidence that a behavior does
 
 When retrieved knowledge is insufficient, inconsistent, or materially uncertain, AI should retrieve deeper context or inspect the authoritative source rather than invent missing product truth.
 
+General model knowledge, domain knowledge, and common product patterns are legitimate non-authoritative inputs for hypothesis generation, candidate framing, alternatives, risks, and recommendations. AI should use them when they improve the quality of Product or Design thinking, especially when PM intent is solution-shaped or retrieved context does not establish the underlying rationale, outcome, or likely tradeoff.
+
+Such model- or domain-informed content must not be presented as established Job Vision current behavior, evidence, or decided Product intent merely because it is plausible. When a hypothesis materially affects framing or a downstream decision, AI should make the hypothesis visible and seek the responsible human judgment when needed rather than replacing it with a mechanical paraphrase of the requested feature.
+
 Retrieval should be task-scoped. AI should retrieve enough context to make a strong best-effort draft and identify material uncertainty, not exhaustively reconstruct the whole product.
 
 No freshness schema, Product Knowledge ontology, or mandatory implementation-reference format is required in the current MVP.
