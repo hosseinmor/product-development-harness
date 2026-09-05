@@ -172,7 +172,25 @@ If a PM decision creates new material ambiguity, repeat only the affected retrie
 
 Known material uncertainty must remain visible until resolved even when it does not block useful Design Exploration.
 
-### 10. Assess Problem Alignment
+### 10. Run final whole-artifact semantic normalization
+
+After material Product decisions have been reconciled and remaining uncertainty has been reassessed, normalize the entire PRD again as one artifact before assessing readiness. Do not limit this pass to sections directly edited during reconciliation.
+
+Re-run the semantic checks from Step 4 across the complete PRD, with particular attention to changes introduced during clarification and reconciliation. Check that:
+
+- newly established decisions have not created duplication across Scope, Product Scenarios, Required Product Behavior, and Acceptance Criteria,
+- section boundaries remain intact after the artifact accumulated new detail,
+- Acceptance Criteria have not expanded into a line-by-line restatement of Required Product Behavior,
+- stale assumptions, superseded alternatives, and obsolete uncertainty have been removed,
+- current-product knowledge-status or retrieval notes have not leaked into semantic sections such as `Current Behavior`,
+- references and Dependencies still serve their distinct roles,
+- and the final artifact remains semantically complete with low redundancy.
+
+This pass is cleanup, not a new Product decision step. It must preserve established Product decisions and must not introduce new product behavior merely to make the document look complete.
+
+If whole-artifact normalization exposes a material unresolved Product decision or contradiction, return to the relevant uncertainty-resolution or clarification step before readiness assessment.
+
+### 11. Assess Problem Alignment
 
 Assess whether the PRD is `Problem Aligned` for Design Exploration.
 
@@ -188,6 +206,6 @@ If alignment is not reached, identify the specific blocking gap rather than repo
 
 ## Output
 
-The durable output is the reconciled PRD.
+The durable output is the reconciled and final-normalized PRD.
 
 Semantic-normalization notes, ambiguity scans, retrieval notes, clarification transcripts, and reasoning do not require separate durable artifacts unless a later demonstrated need justifies one.
