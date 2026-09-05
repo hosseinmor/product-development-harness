@@ -149,6 +149,8 @@ Conflicting evidence that materially affects the work remains unresolved until t
 
 When an assumption is resolved, AI should update the owning artifact and remove or replace stale uncertainty.
 
+Once a responsible human role has established a decision, AI must continue to treat that decision as Known and must not reclassify the same issue as Unresolved unless new authoritative information materially conflicts with, supersedes, or invalidates the decision.
+
 No confidence percentages or mandatory certainty metadata are required.
 
 ## 6. Clarification Rules
