@@ -40,7 +40,9 @@ A PRD should cover the following responsibilities. The headings below are the de
 
 ### Problem
 
-Describe the problem or opportunity being addressed and the affected user or actor.
+Describe the underlying problem or opportunity so a product-team reader can understand it without already knowing the proposed feature. When relevant, make clear the affected actor, context or stage, what the actor is trying to accomplish, the current unmet need, limitation, or friction, and why it matters.
+
+Do not define the Problem only as the absence of a proposed feature, capability, data structure, or solution. When PM Intent is solution-shaped, use the intent and current-product context to construct the strongest supported problem framing; if a material part of that framing requires Product judgment, keep it unresolved and use targeted clarification rather than stating it as fact.
 
 Include enough current-product context to make the intended change understandable. Do not duplicate Product Knowledge or fully document the existing flow by default.
 
