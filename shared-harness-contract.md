@@ -233,3 +233,9 @@ Acceptance criteria need to be sufficient, not complete. Remaining gaps are acce
 `Product & Design Aligned` is a readiness condition for Technical Planning.
 
 It means the PRD and selected Design Artifact are sufficiently consistent and bounded that technical planning does not need to invent material product or design decisions.
+
+## 9. Persian Markdown Readability
+
+For Persian prose, begin headings, paragraphs, and list items with Persian text whenever natural, so RTL direction is preserved. Rephrase sentences that would otherwise begin with English terms. Do not apply this to code, file paths, identifiers, URLs, or verbatim text.
+
+Use natural rephrasing rather than HTML direction attributes, Unicode direction marks, or awkward filler. English terms may remain inside Persian prose; this rule concerns the start of the prose block.
