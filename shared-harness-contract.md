@@ -236,6 +236,12 @@ It means the PRD and selected Design Artifact are sufficiently consistent and bo
 
 ## 9. Persian Markdown Readability
 
-For Persian prose, begin headings, paragraphs, and list items with Persian text whenever natural, so RTL direction is preserved. Rephrase sentences that would otherwise begin with English terms. Do not apply this to code, file paths, identifiers, URLs, or verbatim text.
+For Persian prose, preserve established English technical, product, design, and engineering terms. Do not translate or transliterate English terminology merely to make a block begin with Persian text.
 
-Use natural rephrasing rather than HTML direction attributes, Unicode direction marks, or awkward filler. English terms may remain inside Persian prose; this rule concerns the start of the prose block.
+When a Persian paragraph or list item would naturally begin with an English term, prefer a natural rephrasing that starts with Persian only when this does not make the sentence awkward or change its terminology.
+
+English-only headings, section titles, labels, and named concepts should remain unchanged. Do not force headings to begin with Persian text.
+
+Do not apply this preference to code, file paths, identifiers, URLs, product or component names, or verbatim text.
+
+Prefer natural rephrasing over HTML direction attributes or Unicode direction marks. RTL readability is a presentation preference and must not drive terminology choices.
