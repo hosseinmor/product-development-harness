@@ -9,7 +9,7 @@ Authority is scoped to the kind of claim being made. There is no single global s
 - The Harness is authoritative for product-development rules and artifact contracts.
 - The relevant Job Vision codebase in GitHub is authoritative for current implemented product behavior.
 - Product Knowledge is a derived context provider for current product truth. It is not independently authoritative over the codebase.
-- The PRD owns decided intended product change, required product behavior, and acceptance criteria within its scope.
+- The PRD owns decided intended product change, including materially affected users, intended outcomes, material Product Scenarios, required product behavior, and acceptance criteria within its scope.
 - The Design Artifact owns the selected experience and interaction solution within the constraints of the PRD.
 
 An artifact is authoritative only for claims inside its decision domain that are established by the responsible human role or validly derived from established decisions.
@@ -30,7 +30,7 @@ Human roles retain decision authority for the domains they own.
 
 For the current MVP:
 
-- Product Management owns problem definition, product intent, goals, scope, required product behavior, product-level constraints, and acceptance criteria.
+- Product Management owns problem definition, materially affected users, product intent, User and Business Outcomes, scope, Key Product Scenarios, required product behavior, product-level constraints, and acceptance criteria.
 - Product Design owns the selected experience and interaction solution used to satisfy decided product intent.
 - AI has no independent product or design decision authority.
 
@@ -69,11 +69,15 @@ Provides retrievable context about the currently implemented product. It is deri
 Owns the intended product change, including:
 
 - the problem being addressed,
-- intended outcomes,
+- materially affected users or actors,
+- intended User and Business Outcomes,
 - material scope boundaries,
-- decided required product behavior,
+- material Product Scenarios,
+- decided required product behavior, including business rules,
 - acceptance criteria,
 - and material unresolved product decisions or assumptions.
+
+The PRD may include concise current-product context and canonical dependency references for downstream understanding, retrieval, and impact analysis. Those contextual references do not override Product Knowledge or the relevant authoritative implementation source and should not become duplicate owners of current-product truth.
 
 The PRD should describe observable or verifiable product expectations without prescribing the experience or implementation unless that prescription is itself a product constraint.
 
@@ -111,6 +115,8 @@ For a given task, relevant context may include:
 - and implementation references when deeper verification is required and available.
 
 Product Knowledge is the preferred provider of current-product context when available, but it is not a mandatory runtime dependency. Equivalent context may be retrieved directly from authoritative sources when necessary.
+
+When Product Knowledge exposes canonical concepts or identifiers useful for references or dependency navigation, the Harness may use those existing references. The Harness does not define or require a separate Product Knowledge taxonomy.
 
 AI should not ask a human for product facts that are reasonably retrievable from available product context or the authoritative implementation source.
 
@@ -224,9 +230,9 @@ Quality is fitness for the artifact's intended use within its authority and boun
 
 `Problem Aligned` is a readiness condition for meaningful Design Exploration.
 
-It means the problem, intended outcome, material scope boundaries, and product behavior required to constrain useful design work are sufficiently established, and no known material mismatch with product intent remains that would prevent useful exploration.
+It means the problem, materially affected users, relevant local current behavior, established User and Business Outcomes, material scope boundaries, applicable Key Product Scenarios, and product behavior required to constrain useful design work are sufficiently established or bounded by visible material uncertainty, and no known material mismatch with product intent remains that would prevent useful exploration.
 
-Acceptance criteria need to be sufficient, not complete. Remaining gaps are acceptable when they do not allow materially incompatible interpretations of the intended product change.
+Material dependencies needed for downstream interpretation should be identifiable, and Acceptance Criteria need to be sufficient, not complete. Remaining gaps are acceptable when they are explicit and do not allow materially incompatible interpretations of the intended product change or invalidate useful Design Exploration.
 
 ### Product & Design Aligned
 

@@ -34,6 +34,10 @@ Make the selected experience approach understandable.
 
 Represent how the user moves through the material parts of the changed experience.
 
+A PRD Key Product Scenario describes what materially happens in the product. The Design Artifact User Flow owns how the selected experience enables that product scenario.
+
+If Design exposes a missing or incorrect Product Scenario, the material Product change must return to the PRD rather than silently becoming Design authority.
+
 The artifact does not need to reproduce the full end-to-end product journey when only a subset is relevant.
 
 ### Material States
