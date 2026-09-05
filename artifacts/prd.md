@@ -104,6 +104,10 @@ Acceptance criteria should:
 - derive from decided product intent or logically necessary consequences of it,
 - and not silently encode unresolved AI assumptions as product decisions.
 
+Acceptance criteria should capture material correctness boundaries rather than restate Required Product Behavior line by line. Do not require a one-to-one mapping between behavior statements and acceptance criteria.
+
+Consolidate related conditions only when they represent the same material correctness boundary. Keep conditions separate when they can fail independently in a way that materially affects product correctness.
+
 Acceptance criteria are not test cases. The future Validation Plan owns how correctness is verified.
 
 No mandatory Given/When/Then syntax is required.
