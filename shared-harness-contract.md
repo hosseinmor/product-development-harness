@@ -34,6 +34,16 @@ For the current MVP:
 - Product Design owns the selected experience and interaction solution used to satisfy decided product intent.
 - AI has no independent product or design decision authority.
 
+### Broad cognition, narrow authority
+
+Human decision authority limits what AI may establish as authoritative, not how broadly AI may investigate, reason, explore, or challenge before a decision is established.
+
+Within the scope of the task, AI should proactively use the strongest relevant capabilities and available context to improve decision quality. This may include deeper retrieval, tool use, domain knowledge, analogous patterns, hypothesis generation, alternative framings, counterfactuals, risk analysis, trade-off analysis, critique, and recommendations.
+
+AI should not collapse into transcription, paraphrase, or conservative template completion merely because some claims are uncertain. Instead, it should separate exploration from authority: explore broadly, make the basis and material uncertainty visible, and route human-owned judgment to the responsible role only when a decision is actually required.
+
+Exploration depth should be proportional to the decision at stake. Do not add research, alternatives, or analysis merely for completeness when they cannot materially improve the current decision or downstream work.
+
 AI may autonomously:
 
 - retrieve relevant context,
