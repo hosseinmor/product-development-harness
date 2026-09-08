@@ -1,0 +1,24 @@
+{
+  "name": "@jobvision/harness-eval-orchestrator-poc",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "eval:run-a": "tsx run-a-control.ts",
+    "snapshot:product-knowledge": "tsx build-product-knowledge-snapshot.ts",
+    "diagnostic:danger-full-access": "tsx diagnostic-danger-full-access.ts",
+    "smoke:snapshot": "tsx smoke-snapshot.ts",
+    "smoke": "tsx smoke.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@openai/codex-sdk": "0.153.4",
+    "cheerio": "1.2.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.0",
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
