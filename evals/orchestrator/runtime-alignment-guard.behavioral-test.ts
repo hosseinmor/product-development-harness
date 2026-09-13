@@ -4,12 +4,12 @@ import {
   alignmentRepairPrompt,
   routeAndRevealAfterValidation,
   validateProductOutputWithRepairs,
-  type AlignmentSemanticAuditor,
   type AtomicityAudit,
   type AuthorityAudit,
   type GuardrailProductQuestion,
   type MaterialDecisionCoverageAudit,
   type MaterialDecisionCoverageInput,
+  type PrdSemanticAuditor,
 } from "./runtime-guardrails.js";
 
 const isolated = {
@@ -22,15 +22,23 @@ const isolated = {
 function auditorUsing(
   decide: (input: MaterialDecisionCoverageInput) => MaterialDecisionCoverageAudit,
   calls: MaterialDecisionCoverageInput[],
-): AlignmentSemanticAuditor {
-  return async (input) => {
-    calls.push(input);
-    return {
-      threadId: `mock-alignment-${calls.length}`,
-      audit: decide(input),
-      usage: null,
-      isolation: isolated,
-    };
+): PrdSemanticAuditor {
+  const unexpected = async (): Promise<never> => {
+    throw new Error("Unexpected semantic auditor method.");
+  };
+  return {
+    auditAuthority: unexpected,
+    auditClarificationMateriality: unexpected,
+    auditAtomicity: unexpected,
+    auditAlignment: async (input) => {
+      calls.push(input);
+      return {
+        threadId: `mock-alignment-${calls.length}`,
+        audit: decide(input),
+        usage: null,
+        isolation: isolated,
+      };
+    },
   };
 }
 

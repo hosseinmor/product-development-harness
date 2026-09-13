@@ -5,7 +5,7 @@ import {
   extendAuthorityLedger,
   type AuthorityClaimSidecar,
   type AuthoritySemanticAuditCase,
-  type AuthoritySemanticAuditor,
+  type PrdSemanticAuditor,
 } from "./runtime-guardrails.js";
 
 const isolated = {
@@ -22,25 +22,33 @@ function auditorUsing(
     reason: string;
   },
   calls: AuthoritySemanticAuditCase[][],
-): AuthoritySemanticAuditor {
-  return async (claims) => {
-    calls.push(claims);
-    return {
-      threadId: `mock-audit-${calls.length}`,
-      audit: {
-        verdicts: claims.map((claim) => {
-          const verdict = decide(claim);
-          return {
-            claimIndex: claim.claimIndex,
-            necessaryImplication: verdict.necessaryImplication ?? false,
-            validPromotion: verdict.validPromotion,
-            reason: verdict.reason,
-          };
-        }),
-      },
-      usage: null,
-      isolation: isolated,
-    };
+): PrdSemanticAuditor {
+  const unexpected = async (): Promise<never> => {
+    throw new Error("Unexpected semantic auditor method.");
+  };
+  return {
+    auditAuthority: async (claims) => {
+      calls.push(claims);
+      return {
+        threadId: `mock-audit-${calls.length}`,
+        audit: {
+          verdicts: claims.map((claim) => {
+            const verdict = decide(claim);
+            return {
+              claimIndex: claim.claimIndex,
+              necessaryImplication: verdict.necessaryImplication ?? false,
+              validPromotion: verdict.validPromotion,
+              reason: verdict.reason,
+            };
+          }),
+        },
+        usage: null,
+        isolation: isolated,
+      };
+    },
+    auditClarificationMateriality: unexpected,
+    auditAtomicity: unexpected,
+    auditAlignment: unexpected,
   };
 }
 

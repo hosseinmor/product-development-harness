@@ -38,7 +38,6 @@ import {
   productChildAuthorityClaimsSchema,
   routeAndRevealAfterValidation,
   runtimeGuardrailConfig,
-  runtimeGuardrailSchemas,
   validateProductOutputWithRepairs,
   type AlignmentGuardResult,
   type AtomicityAudit,
@@ -48,8 +47,9 @@ import {
   type ClarificationMaterialityGuardResult,
   type SemanticGuardResult,
 } from "./runtime-guardrails.js";
+import { runtimeGuardrailSchemas } from "./model-backed-prd-semantic-auditor.js";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
-import { codexRuntimeGuardInvoker } from "./codex-runtime-guard-invoker.js";
+import { codexPrdSemanticAuditor } from "./codex-prd-semantic-auditor.js";
 import {
   createIsolatedPrdWorkspace,
   filesUnder,
@@ -336,12 +336,12 @@ enabled = false
   });
   let authorityLedger = createAuthorityLedger(proposedFrozenPmIntent);
   const authorityLedgerHistory: AuthorityLedger[] = [authorityLedger];
-  const authorityGuard = new AuthorityLedgerGuard(codexRuntimeGuardInvoker);
+  const authorityGuard = new AuthorityLedgerGuard(codexPrdSemanticAuditor);
   const clarificationMaterialityGuard = new ClarificationMaterialityGuard(
-    codexRuntimeGuardInvoker,
+    codexPrdSemanticAuditor,
   );
   const alignmentGuard = new MaterialDecisionCoverageGuard(
-    codexRuntimeGuardInvoker,
+    codexPrdSemanticAuditor,
   );
   const turns: RecordedTurn[] = [];
   const fixtureRoutes: Array<{
@@ -465,7 +465,7 @@ enabled = false
         auditAtomicity: async (questions) => {
           const result = await auditClarificationAtomicity(
             questions,
-            codexRuntimeGuardInvoker,
+            codexPrdSemanticAuditor,
           );
           runtimeGuardAudits.push({
             productTurn: turnNumber,

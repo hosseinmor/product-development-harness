@@ -9,10 +9,41 @@ import {
   type AuthorityAudit,
   type ClarificationMaterialityAudit,
   type ClarificationMaterialityInput,
-  type ClarificationMaterialitySemanticAuditor,
   type GuardrailProductQuestion,
+  type PrdSemanticAuditor,
   type SemanticGuardResult,
 } from "./runtime-guardrails.js";
+
+type ClarificationMaterialitySemanticAuditor =
+  PrdSemanticAuditor["auditClarificationMateriality"];
+
+function semanticAuditorUsing(
+  auditClarificationMateriality: ClarificationMaterialitySemanticAuditor,
+): PrdSemanticAuditor {
+  const unexpected = async (): Promise<never> => {
+    throw new Error("Unexpected semantic auditor method.");
+  };
+  return {
+    auditAuthority: unexpected,
+    auditClarificationMateriality,
+    auditAtomicity: unexpected,
+    auditAlignment: unexpected,
+  };
+}
+
+function alignmentAuditorUsing(
+  auditAlignment: PrdSemanticAuditor["auditAlignment"],
+): PrdSemanticAuditor {
+  const unexpected = async (): Promise<never> => {
+    throw new Error("Unexpected semantic auditor method.");
+  };
+  return {
+    auditAuthority: unexpected,
+    auditClarificationMateriality: unexpected,
+    auditAtomicity: unexpected,
+    auditAlignment,
+  };
+}
 
 type MockResponse = {
   questions: GuardrailProductQuestion[];
@@ -124,7 +155,9 @@ const designQuestion: GuardrailProductQuestion = {
 };
 
 async function testIndependentClassificationsAndCache(): Promise<void> {
-  const guard = new ClarificationMaterialityGuard(semanticAuditor);
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(semanticAuditor),
+  );
   const input = materialityInput([
     blockingQuestion,
     taxonomyQuestion,
@@ -149,7 +182,9 @@ async function testIndependentClassificationsAndCache(): Promise<void> {
 
 async function testMixedBatchOnlyBlockingReachesRouter(): Promise<void> {
   const events: string[] = [];
-  const guard = new ClarificationMaterialityGuard(semanticAuditor);
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(semanticAuditor),
+  );
   const initial: MockResponse = {
     questions: [blockingQuestion, taxonomyQuestion],
     prdMarkdown: materialityInput([]).prdMarkdown,
@@ -228,7 +263,9 @@ async function testMixedBatchOnlyBlockingReachesRouter(): Promise<void> {
 
 async function testAllNonBlockingSkipsRouterAndReturnsFeedback(): Promise<void> {
   let routerCalls = 0;
-  const guard = new ClarificationMaterialityGuard(semanticAuditor);
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(semanticAuditor),
+  );
   const initial: MockResponse = {
     questions: [taxonomyQuestion, designQuestion],
     prdMarkdown: materialityInput([]).prdMarkdown,
@@ -281,7 +318,9 @@ async function testAlignmentBackstopStillRejectsMaterialOmission(): Promise<void
       })),
     },
   });
-  const guard = new ClarificationMaterialityGuard(falseNegativeAuditor);
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(falseNegativeAuditor),
+  );
   const validation = await validateProductOutputWithRepairs({
     initialResponse: {
       questions: [blockingQuestion],
@@ -308,7 +347,7 @@ async function testAlignmentBackstopStillRejectsMaterialOmission(): Promise<void
   });
   assert.equal(validation.response.problemAligned, true);
 
-  const alignment = new MaterialDecisionCoverageGuard(async () => ({
+  const alignment = new MaterialDecisionCoverageGuard(alignmentAuditorUsing(async () => ({
     threadId: "alignment-backstop-test",
     audit: {
       aligned: false,
@@ -330,7 +369,7 @@ async function testAlignmentBackstopStillRejectsMaterialOmission(): Promise<void
       networkAccessEnabled: false,
       passed: true,
     },
-  }));
+  })));
   const audit = await alignment.audit({
     pmIntent: materialityInput([]).pmIntent,
     currentProductContext: [],
@@ -347,7 +386,9 @@ async function testNoHiddenFixtureDependency(): Promise<void> {
     observedKeys = Object.keys(input).sort();
     return semanticResult(input);
   };
-  const guard = new ClarificationMaterialityGuard(observingAuditor);
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(observingAuditor),
+  );
   const input = materialityInput([taxonomyQuestion]);
   const hiddenFixtureAnswers = ["secret answer A"];
   const first = await guard.audit(input);
@@ -413,7 +454,9 @@ async function testObservableProductConsequenceBoundary(): Promise<void> {
       },
     };
   };
-  const guard = new ClarificationMaterialityGuard(auditor);
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(auditor),
+  );
   const result = await guard.audit({
     pmIntent:
       "Capture a structured value with a completed operation while preserving its established user-visible meaning and effects.",
@@ -507,7 +550,9 @@ async function testDependentClarificationOrdering(): Promise<void> {
       },
     };
   };
-  const guard = new ClarificationMaterialityGuard(dependencyAuditor);
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(dependencyAuditor),
+  );
   const initial: MockResponse = {
     questions: [upstreamQuestion, downstreamQuestion],
     prdMarkdown: `# State change
