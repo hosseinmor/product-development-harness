@@ -8,15 +8,10 @@ import {
   AuthorityLedgerGuard,
   ClarificationMaterialityGuard,
   MaterialDecisionCoverageGuard,
-  alignmentRepairPrompt,
-  atomicityRepairPrompt,
   auditClarificationAtomicity,
-  authorityRepairPrompt,
-  clarificationMaterialityRepairPrompt,
   createAuthorityLedger,
   extendAuthorityLedger,
   productChildAuthorityClaimsSchema,
-  routeAndRevealAfterValidation,
   runtimeGuardrailConfig,
   validateProductOutputWithRepairs,
   type AtomicityAudit,
@@ -27,6 +22,13 @@ import {
   type ClarificationMaterialityGuardResult,
   type SemanticGuardResult,
 } from "./runtime-guardrails.js";
+import {
+  alignmentRepairPrompt,
+  atomicityRepairPrompt,
+  authorityRepairPrompt,
+  clarificationMaterialityRepairPrompt,
+  routeAndRevealAfterValidation,
+} from "./eval-runtime-guardrail-composition.js";
 import { runtimeGuardrailSchemas } from "./model-backed-prd-semantic-auditor.js";
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";

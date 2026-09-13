@@ -1,8 +1,6 @@
 import assert from "node:assert/strict";
 import {
   MaterialDecisionCoverageGuard,
-  alignmentRepairPrompt,
-  routeAndRevealAfterValidation,
   validateProductOutputWithRepairs,
   type AtomicityAudit,
   type AuthorityAudit,
@@ -11,6 +9,10 @@ import {
   type MaterialDecisionCoverageInput,
   type PrdSemanticAuditor,
 } from "./runtime-guardrails.js";
+import {
+  alignmentRepairPrompt,
+  routeAndRevealAfterValidation,
+} from "./eval-runtime-guardrail-composition.js";
 
 const isolated = {
   workingDirectoryWasEmpty: true,

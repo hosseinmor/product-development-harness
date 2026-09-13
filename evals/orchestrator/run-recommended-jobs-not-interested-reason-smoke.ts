@@ -28,15 +28,10 @@ import {
   AuthorityLedgerGuard,
   ClarificationMaterialityGuard,
   MaterialDecisionCoverageGuard,
-  alignmentRepairPrompt,
-  atomicityRepairPrompt,
   auditClarificationAtomicity,
-  authorityRepairPrompt,
-  clarificationMaterialityRepairPrompt,
   createAuthorityLedger,
   extendAuthorityLedger,
   productChildAuthorityClaimsSchema,
-  routeAndRevealAfterValidation,
   runtimeGuardrailConfig,
   validateProductOutputWithRepairs,
   type AlignmentGuardResult,
@@ -47,6 +42,13 @@ import {
   type ClarificationMaterialityGuardResult,
   type SemanticGuardResult,
 } from "./runtime-guardrails.js";
+import {
+  alignmentRepairPrompt,
+  atomicityRepairPrompt,
+  authorityRepairPrompt,
+  clarificationMaterialityRepairPrompt,
+  routeAndRevealAfterValidation,
+} from "./eval-runtime-guardrail-composition.js";
 import { runtimeGuardrailSchemas } from "./model-backed-prd-semantic-auditor.js";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
 import { codexPrdSemanticAuditor } from "./codex-prd-semantic-auditor.js";

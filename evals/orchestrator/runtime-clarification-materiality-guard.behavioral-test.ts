@@ -2,8 +2,6 @@ import assert from "node:assert/strict";
 import {
   ClarificationMaterialityGuard,
   MaterialDecisionCoverageGuard,
-  clarificationMaterialityRepairPrompt,
-  routeAndRevealAfterValidation,
   validateProductOutputWithRepairs,
   type AtomicityAudit,
   type AuthorityAudit,
@@ -13,6 +11,10 @@ import {
   type PrdSemanticAuditor,
   type SemanticGuardResult,
 } from "./runtime-guardrails.js";
+import {
+  clarificationMaterialityRepairPrompt,
+  routeAndRevealAfterValidation,
+} from "./eval-runtime-guardrail-composition.js";
 
 type ClarificationMaterialitySemanticAuditor =
   PrdSemanticAuditor["auditClarificationMateriality"];

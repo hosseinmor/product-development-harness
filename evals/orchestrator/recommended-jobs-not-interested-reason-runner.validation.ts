@@ -10,6 +10,11 @@ const runnerPath = resolve(
   orchestratorDirectory,
   "run-recommended-jobs-not-interested-reason-smoke.ts",
 );
+const runtimeGuardrailsPath = resolve(orchestratorDirectory, "runtime-guardrails.ts");
+const evalCompositionPath = resolve(
+  orchestratorDirectory,
+  "eval-runtime-guardrail-composition.ts",
+);
 const packagePath = resolve(orchestratorDirectory, "package.json");
 const runPrefix = "smoke-recommended-jobs-not-interested-reason-";
 
@@ -18,6 +23,8 @@ const runDirectoriesBeforeImport = (await readdir(runsDirectory)).filter((name) 
 );
 await access(runnerPath);
 const runnerSource = await readFile(runnerPath, "utf8");
+const runtimeGuardrailsSource = await readFile(runtimeGuardrailsPath, "utf8");
+const evalCompositionSource = await readFile(evalCompositionPath, "utf8");
 const packageJson = JSON.parse(await readFile(packagePath, "utf8")) as {
   scripts?: Record<string, string>;
 };
@@ -116,6 +123,21 @@ assert.ok(
   "Authority Ledger may only extend after a validated route is revealed",
 );
 assert.match(runnerSource, /routeAndRevealAfterValidation\(/);
+assert.match(
+  runnerSource,
+  /from "\.\/eval-runtime-guardrail-composition\.js"/,
+  "eval clarification routing/revelation must be imported from the composition layer",
+);
+assert.doesNotMatch(
+  runtimeGuardrailsSource,
+  /fixture|hidden answers?|semantic fixture|router|routeAndRevealAfterValidation/i,
+  "reusable runtime guardrails must not contain eval fixture/router concepts",
+);
+assert.match(
+  evalCompositionSource,
+  /export async function routeAndRevealAfterValidation/,
+  "eval composition must own route-before-reveal orchestration",
+);
 assert.match(
   runnerSource,
   /result\.routes\.every\(\(route\) => route\.status === "matched"\)/,

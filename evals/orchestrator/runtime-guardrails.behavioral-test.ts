@@ -1,11 +1,11 @@
 import assert from "node:assert/strict";
 import {
-  routeAndRevealAfterValidation,
   validateProductOutputWithRepairs,
   type AtomicityAudit,
   type AuthorityAudit,
   type GuardrailProductQuestion,
 } from "./runtime-guardrails.js";
+import { routeAndRevealAfterValidation } from "./eval-runtime-guardrail-composition.js";
 
 type MockResponse = {
   questions: GuardrailProductQuestion[];
