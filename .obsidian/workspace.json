@@ -1,0 +1,230 @@
+{
+  "main": {
+    "id": "a5bc0ecc97955102",
+    "type": "split",
+    "children": [
+      {
+        "id": "9c11ab01de3e3cbc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "df6d428b604cb736",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "evals/runs/blind-evaluation-a-c-with-reference-2026-09-09T08-37-01.829Z/audit/original-candidate-X.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "original-candidate-X"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "b63ae5b3646ea29b",
+    "type": "split",
+    "children": [
+      {
+        "id": "6115840595e970b4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d81497b93f2cbeb6",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "68e49532fe2bca30",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "d125c537852f4ab3",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "5f5583537b1a3034",
+    "type": "split",
+    "children": [
+      {
+        "id": "37e25df1a44fb353",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b91b7c1ede46b9ec",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "evals/runs/blind-evaluation-a-c-with-reference-2026-09-09T08-37-01.829Z/audit/original-candidate-X.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "0803398ba9813aef",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "evals/runs/blind-evaluation-a-c-with-reference-2026-09-09T08-37-01.829Z/audit/original-candidate-X.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "baa2592a66005310",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "40e58c72104b0664",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "2a0b3d1c91ae85b2",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "evals/runs/blind-evaluation-a-c-with-reference-2026-09-09T08-37-01.829Z/audit/original-candidate-X.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "df6d428b604cb736",
+  "lastOpenFiles": [
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/turns.json",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/run-metadata.json",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/products/jobvision/candidate/areas/recommended-jobs.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/products/jobvision/candidate/areas",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/shared/product-concepts/job-post.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/products/jobvision/candidate",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/shared/product-concepts",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/products/jobvision",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/shared",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/products",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge/manifest.json",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/workflows/prd-draft-clarification.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/context/product-knowledge",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/artifacts/prd.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/workflows",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/shared-harness-contract.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T05-42-07.487Z/workspace/AGENTS.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-34-49.558Z/workspace/context/product-knowledge/products/jobvision/candidate/areas/recommended-jobs.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-34-49.558Z/workspace/context/product-knowledge/shared/product-concepts/job-post.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-34-49.558Z/workspace/workflows/prd-draft-clarification.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-34-49.558Z/workspace/artifacts/prd.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-34-49.558Z/workspace/shared-harness-contract.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-34-49.558Z/workspace/AGENTS.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-31-16.699Z/workspace/context/product-knowledge/products/jobvision/candidate/areas/recommended-jobs.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-31-16.699Z/workspace/context/product-knowledge/shared/product-concepts/job-post.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-31-16.699Z/workspace/workflows/prd-draft-clarification.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-31-16.699Z/workspace/artifacts/prd.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-31-16.699Z/workspace/shared-harness-contract.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-13T04-31-16.699Z/workspace/AGENTS.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-12T19-06-10.555Z/workspace/context/product-knowledge/products/jobvision/candidate/areas/recommended-jobs.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-12T19-06-10.555Z/workspace/context/product-knowledge/shared/product-concepts/job-post.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-12T19-06-10.555Z/workspace/workflows/prd-draft-clarification.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-12T19-06-10.555Z/workspace/artifacts/prd.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-12T19-06-10.555Z/workspace/shared-harness-contract.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-12T19-06-10.555Z/workspace/AGENTS.md",
+    "evals/runs/smoke-recommended-jobs-not-interested-reason-2026-09-12T18-51-50.928Z/workspace/context/product-knowledge/products/jobvision/candidate/areas/recommended-jobs.md"
+  ]
+}
