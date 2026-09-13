@@ -13,9 +13,9 @@ import {
   type GuardrailProductQuestion,
   type MaterialDecisionCoverageAudit,
   type MaterialDecisionCoverageInput,
-  type PrdSemanticAuditor,
   type SemanticGuardResult,
 } from "./runtime-guardrails.js";
+import type { PrdSemanticAuditor } from "./prd-semantic-auditor.js";
 
 const atomicityOutputSchema = {
   type: "object",

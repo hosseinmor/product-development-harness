@@ -6,8 +6,8 @@ import {
   extendAuthorityLedger,
   runtimeGuardrailConfig,
   type AuthorityClaimSidecar,
-} from "./runtime-guardrails.js";
-import { codexPrdSemanticAuditor } from "./codex-prd-semantic-auditor.js";
+} from "../../runtime/prd/runtime-guardrails.js";
+import { codexPrdSemanticAuditor } from "../../runtime/adapters/codex/codex-prd-semantic-auditor.js";
 
 const atomicity = await auditClarificationAtomicity([
   {

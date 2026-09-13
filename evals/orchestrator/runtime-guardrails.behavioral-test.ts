@@ -4,7 +4,7 @@ import {
   type AtomicityAudit,
   type AuthorityAudit,
   type GuardrailProductQuestion,
-} from "./runtime-guardrails.js";
+} from "../../runtime/prd/runtime-guardrails.js";
 import { routeAndRevealAfterValidation } from "./eval-runtime-guardrail-composition.js";
 
 type MockResponse = {

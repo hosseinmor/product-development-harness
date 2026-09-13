@@ -5,7 +5,7 @@ import type {
   GuardrailProductQuestion,
   GuardValidationResult,
   MaterialDecisionCoverageAudit,
-} from "./runtime-guardrails.js";
+} from "../../runtime/prd/runtime-guardrails.js";
 
 export function alignmentRepairPrompt(
   audit: MaterialDecisionCoverageAudit,

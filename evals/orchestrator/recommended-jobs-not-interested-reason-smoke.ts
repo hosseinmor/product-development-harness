@@ -2,8 +2,8 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { runtimeGuardrailConfig } from "./runtime-guardrails.js";
-import { codexRuntimeGuardExecutionConfig } from "./codex-runtime-guard-invoker.js";
+import { runtimeGuardrailConfig } from "../../runtime/prd/runtime-guardrails.js";
+import { codexRuntimeGuardExecutionConfig } from "../../runtime/adapters/codex/codex-runtime-guard-invoker.js";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
 
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));

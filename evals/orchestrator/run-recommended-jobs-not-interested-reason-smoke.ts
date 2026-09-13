@@ -41,7 +41,7 @@ import {
   type AuthorityLedger,
   type ClarificationMaterialityGuardResult,
   type SemanticGuardResult,
-} from "./runtime-guardrails.js";
+} from "../../runtime/prd/runtime-guardrails.js";
 import {
   alignmentRepairPrompt,
   atomicityRepairPrompt,
@@ -49,9 +49,9 @@ import {
   clarificationMaterialityRepairPrompt,
   routeAndRevealAfterValidation,
 } from "./eval-runtime-guardrail-composition.js";
-import { runtimeGuardrailSchemas } from "./model-backed-prd-semantic-auditor.js";
+import { runtimeGuardrailSchemas } from "../../runtime/prd/model-backed-prd-semantic-auditor.js";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
-import { codexPrdSemanticAuditor } from "./codex-prd-semantic-auditor.js";
+import { codexPrdSemanticAuditor } from "../../runtime/adapters/codex/codex-prd-semantic-auditor.js";
 import {
   createIsolatedPrdWorkspace,
   filesUnder,

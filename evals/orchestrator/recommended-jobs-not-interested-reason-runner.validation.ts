@@ -5,18 +5,38 @@ import { fileURLToPath } from "node:url";
 
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
+const runtimeDirectory = resolve(repositoryRoot, "runtime");
+const runtimePrdDirectory = resolve(runtimeDirectory, "prd");
 const runsDirectory = resolve(repositoryRoot, "evals/runs");
 const runnerPath = resolve(
   orchestratorDirectory,
   "run-recommended-jobs-not-interested-reason-smoke.ts",
 );
-const runtimeGuardrailsPath = resolve(orchestratorDirectory, "runtime-guardrails.ts");
+const runtimeGuardrailsPath = resolve(
+  repositoryRoot,
+  "runtime/prd/runtime-guardrails.ts",
+);
 const evalCompositionPath = resolve(
   orchestratorDirectory,
   "eval-runtime-guardrail-composition.ts",
 );
 const packagePath = resolve(orchestratorDirectory, "package.json");
 const runPrefix = "smoke-recommended-jobs-not-interested-reason-";
+
+async function typescriptSourcesUnder(
+  directory: string,
+): Promise<Array<{ path: string; source: string }>> {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const results: Array<{ path: string; source: string }> = [];
+  for (const entry of entries) {
+    const path = resolve(directory, entry.name);
+    if (entry.isDirectory()) results.push(...(await typescriptSourcesUnder(path)));
+    else if (entry.isFile() && entry.name.endsWith(".ts")) {
+      results.push({ path, source: await readFile(path, "utf8") });
+    }
+  }
+  return results;
+}
 
 const runDirectoriesBeforeImport = (await readdir(runsDirectory)).filter((name) =>
   name.startsWith(runPrefix),
@@ -25,6 +45,8 @@ await access(runnerPath);
 const runnerSource = await readFile(runnerPath, "utf8");
 const runtimeGuardrailsSource = await readFile(runtimeGuardrailsPath, "utf8");
 const evalCompositionSource = await readFile(evalCompositionPath, "utf8");
+const runtimeSources = await typescriptSourcesUnder(runtimeDirectory);
+const runtimePrdSources = await typescriptSourcesUnder(runtimePrdDirectory);
 const packageJson = JSON.parse(await readFile(packagePath, "utf8")) as {
   scripts?: Record<string, string>;
 };
@@ -127,6 +149,28 @@ assert.match(
   runnerSource,
   /from "\.\/eval-runtime-guardrail-composition\.js"/,
   "eval clarification routing/revelation must be imported from the composition layer",
+);
+assert.ok(
+  runtimeSources.every(({ source }) => !/from\s+["'][^"']*evals\//.test(source)),
+  "runtime modules must not import from evals",
+);
+assert.ok(
+  runtimePrdSources.every(
+    ({ source }) =>
+      !source.includes("@openai/codex-sdk") &&
+      !/from\s+["'][^"']*adapters\/codex/.test(source),
+  ),
+  "runtime/prd must not depend on Codex SDK or the Codex adapter",
+);
+assert.match(
+  runnerSource,
+  /from "\.\.\/\.\.\/runtime\/adapters\/codex\/codex-prd-semantic-auditor\.js"/,
+  "eval runner must compose the Codex semantic auditor externally",
+);
+assert.match(
+  runnerSource,
+  /from "\.\.\/\.\.\/runtime\/prd\/runtime-guardrails\.js"/,
+  "eval runner must consume reusable PRD runtime guards externally",
 );
 assert.doesNotMatch(
   runtimeGuardrailsSource,

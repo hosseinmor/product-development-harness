@@ -2,8 +2,8 @@ import { Codex, type ThreadItem, type Usage } from "@openai/codex-sdk";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
 import {
   codexRuntimeGuardExecutionConfig,
-} from "./codex-runtime-guard-invoker.js";
-import { codexPrdSemanticAuditor } from "./codex-prd-semantic-auditor.js";
+} from "../../runtime/adapters/codex/codex-runtime-guard-invoker.js";
+import { codexPrdSemanticAuditor } from "../../runtime/adapters/codex/codex-prd-semantic-auditor.js";
 import {
   AuthorityLedgerGuard,
   ClarificationMaterialityGuard,
@@ -21,7 +21,7 @@ import {
   type AuthorityLedger,
   type ClarificationMaterialityGuardResult,
   type SemanticGuardResult,
-} from "./runtime-guardrails.js";
+} from "../../runtime/prd/runtime-guardrails.js";
 import {
   alignmentRepairPrompt,
   atomicityRepairPrompt,
@@ -29,7 +29,7 @@ import {
   clarificationMaterialityRepairPrompt,
   routeAndRevealAfterValidation,
 } from "./eval-runtime-guardrail-composition.js";
-import { runtimeGuardrailSchemas } from "./model-backed-prd-semantic-auditor.js";
+import { runtimeGuardrailSchemas } from "../../runtime/prd/model-backed-prd-semantic-auditor.js";
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
@@ -1471,9 +1471,9 @@ const metadata = {
     alignmentMetrics: alignmentGuard.metrics,
     alignmentFeedbacks,
     claimSidecarDurability: "generated eval metadata only; not part of the PRD artifact",
-    implementationReference: "evals/orchestrator/runtime-guardrails.ts",
+    implementationReference: "runtime/prd/runtime-guardrails.ts",
     implementationHash: createHash("sha256")
-      .update(await readFile(resolve(orchestratorDirectory, "runtime-guardrails.ts")))
+      .update(await readFile(resolve(repositoryRoot, "runtime/prd/runtime-guardrails.ts")))
       .digest("hex"),
     validations: runtimeGuardValidations,
     audits: runtimeGuardAudits,

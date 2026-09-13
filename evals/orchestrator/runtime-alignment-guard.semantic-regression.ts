@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
-import { MaterialDecisionCoverageGuard } from "./runtime-guardrails.js";
-import { codexPrdSemanticAuditor } from "./codex-prd-semantic-auditor.js";
+import { MaterialDecisionCoverageGuard } from "../../runtime/prd/runtime-guardrails.js";
+import { codexPrdSemanticAuditor } from "../../runtime/adapters/codex/codex-prd-semantic-auditor.js";
 
 const missingCoreGuard = new MaterialDecisionCoverageGuard(codexPrdSemanticAuditor);
 const missingCore = await missingCoreGuard.audit({

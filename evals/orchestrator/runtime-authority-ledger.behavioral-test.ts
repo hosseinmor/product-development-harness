@@ -6,7 +6,7 @@ import {
   type AuthorityClaimSidecar,
   type AuthoritySemanticAuditCase,
   type PrdSemanticAuditor,
-} from "./runtime-guardrails.js";
+} from "../../runtime/prd/runtime-guardrails.js";
 
 const isolated = {
   workingDirectoryWasEmpty: true,

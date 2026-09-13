@@ -10,7 +10,7 @@ import {
   type GuardrailProductQuestion,
   type PrdSemanticAuditor,
   type SemanticGuardResult,
-} from "./runtime-guardrails.js";
+} from "../../runtime/prd/runtime-guardrails.js";
 import {
   clarificationMaterialityRepairPrompt,
   routeAndRevealAfterValidation,

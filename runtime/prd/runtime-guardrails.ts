@@ -3,6 +3,9 @@ import type {
   StructuredAgentIsolation,
   StructuredAgentUsage,
 } from "./structured-agent-invoker.js";
+import type { PrdSemanticAuditor } from "./prd-semantic-auditor.js";
+
+export type { PrdSemanticAuditor } from "./prd-semantic-auditor.js";
 
 export const runtimeGuardrailConfig = {
   maximumRepairAttemptsPerGuard: 2,
@@ -215,22 +218,6 @@ export type AlignmentGuardResult =
       semanticAuditCallCount: number;
     };
   };
-
-export interface PrdSemanticAuditor {
-  auditAuthority(
-    claims: AuthoritySemanticAuditCase[],
-    currentProductContext: Array<{ url: string; title: string; context: string }>,
-  ): Promise<SemanticGuardResult<AuthoritySemanticAudit>>;
-  auditClarificationMateriality(
-    input: ClarificationMaterialityInput,
-  ): Promise<SemanticGuardResult<ClarificationMaterialityAudit>>;
-  auditAtomicity(
-    questions: GuardrailProductQuestion[],
-  ): Promise<SemanticGuardResult<AtomicityAudit>>;
-  auditAlignment(
-    input: MaterialDecisionCoverageInput,
-  ): Promise<SemanticGuardResult<MaterialDecisionCoverageAudit>>;
-}
 
 function normalizedText(value: string): string {
   return value

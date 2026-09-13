@@ -6,7 +6,7 @@ import type {
   StructuredAgentInvocation,
   StructuredAgentInvocationResult,
   StructuredAgentInvoker,
-} from "./structured-agent-invoker.js";
+} from "../../prd/structured-agent-invoker.js";
 
 export const codexRuntimeGuardExecutionConfig = {
   model: "gpt-5.6-sol",

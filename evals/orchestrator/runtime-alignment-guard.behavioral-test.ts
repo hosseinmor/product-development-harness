@@ -8,7 +8,7 @@ import {
   type MaterialDecisionCoverageAudit,
   type MaterialDecisionCoverageInput,
   type PrdSemanticAuditor,
-} from "./runtime-guardrails.js";
+} from "../../runtime/prd/runtime-guardrails.js";
 import {
   alignmentRepairPrompt,
   routeAndRevealAfterValidation,

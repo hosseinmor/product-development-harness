@@ -16,7 +16,7 @@ import {
   networkIsolationWasVerifiedDisabled,
   observedSessionConfiguration,
 } from "./prd-eval-runner-support.js";
-import { codexRuntimeGuardExecutionConfig } from "./codex-runtime-guard-invoker.js";
+import { codexRuntimeGuardExecutionConfig } from "../../runtime/adapters/codex/codex-runtime-guard-invoker.js";
 
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
