@@ -7,6 +7,7 @@ import {
   runtimeGuardrailConfig,
   type AuthorityClaimSidecar,
 } from "./runtime-guardrails.js";
+import { codexRuntimeGuardInvoker } from "./codex-runtime-guard-invoker.js";
 
 const atomicity = await auditClarificationAtomicity([
   {
@@ -22,7 +23,7 @@ const atomicity = await auditClarificationAtomicity([
     question: "Should all fields be required, all optional, or configurable per field?",
     whyMaterial: "Requiredness changes completion semantics.",
   },
-]);
+], codexRuntimeGuardInvoker);
 assert.equal(atomicity.audit.results[0]?.atomic, false);
 assert.ok((atomicity.audit.results[0]?.independentAxes.length ?? 0) >= 2);
 assert.equal(atomicity.audit.results[1]?.atomic, false);
@@ -115,7 +116,7 @@ const initialSidecar: AuthorityClaimSidecar[] = [
   ),
 ];
 
-const guard = new AuthorityLedgerGuard();
+const guard = new AuthorityLedgerGuard(codexRuntimeGuardInvoker);
 const unsupported = await guard.audit({
   ledger,
   claims: initialSidecar,

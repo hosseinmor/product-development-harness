@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import { MaterialDecisionCoverageGuard } from "./runtime-guardrails.js";
+import { codexRuntimeGuardInvoker } from "./codex-runtime-guard-invoker.js";
 
-const missingCoreGuard = new MaterialDecisionCoverageGuard();
+const missingCoreGuard = new MaterialDecisionCoverageGuard(codexRuntimeGuardInvoker);
 const missingCore = await missingCoreGuard.audit({
   pmIntent:
     "Introduce a capability that stores a person's answer with each submitted record and lets that person reuse a saved answer in later submissions.",
@@ -32,7 +33,7 @@ assert.ok(
   ),
 );
 
-const nonBlockingGuard = new MaterialDecisionCoverageGuard();
+const nonBlockingGuard = new MaterialDecisionCoverageGuard(codexRuntimeGuardInvoker);
 const nonBlocking = await nonBlockingGuard.audit({
   pmIntent:
     "When the operation completes, hand the resulting record and its outcome to the existing downstream service for processing.",
@@ -69,7 +70,7 @@ assert.equal(nonBlocking.audit.aligned, true);
 assert.equal(nonBlocking.audit.blockers.length, 0);
 assert.ok(nonBlocking.audit.nonBlockingOpenDecisions.length >= 2);
 
-const openDetailGuard = new MaterialDecisionCoverageGuard();
+const openDetailGuard = new MaterialDecisionCoverageGuard(codexRuntimeGuardInvoker);
 const openDetail = await openDetailGuard.audit({
   pmIntent:
     "Allow a person to attach one structured category to a completed operation. The category uses a Product-maintained, bounded, single-select option set and has no additional Product effect.",
@@ -106,7 +107,7 @@ assert.match(
   /members|labels|ordering|option/i,
 );
 
-const resolvedGuard = new MaterialDecisionCoverageGuard();
+const resolvedGuard = new MaterialDecisionCoverageGuard(codexRuntimeGuardInvoker);
 const resolved = await resolvedGuard.audit({
   pmIntent:
     "Introduce a capability that stores a person's answer with each submitted record and lets that person reuse a saved answer in later submissions.",

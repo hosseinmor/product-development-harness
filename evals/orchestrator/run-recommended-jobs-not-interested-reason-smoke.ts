@@ -49,6 +49,7 @@ import {
   type SemanticGuardResult,
 } from "./runtime-guardrails.js";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
+import { codexRuntimeGuardInvoker } from "./codex-runtime-guard-invoker.js";
 import {
   createIsolatedPrdWorkspace,
   filesUnder,
@@ -335,9 +336,13 @@ enabled = false
   });
   let authorityLedger = createAuthorityLedger(proposedFrozenPmIntent);
   const authorityLedgerHistory: AuthorityLedger[] = [authorityLedger];
-  const authorityGuard = new AuthorityLedgerGuard();
-  const clarificationMaterialityGuard = new ClarificationMaterialityGuard();
-  const alignmentGuard = new MaterialDecisionCoverageGuard();
+  const authorityGuard = new AuthorityLedgerGuard(codexRuntimeGuardInvoker);
+  const clarificationMaterialityGuard = new ClarificationMaterialityGuard(
+    codexRuntimeGuardInvoker,
+  );
+  const alignmentGuard = new MaterialDecisionCoverageGuard(
+    codexRuntimeGuardInvoker,
+  );
   const turns: RecordedTurn[] = [];
   const fixtureRoutes: Array<{
     afterTurn: number;
@@ -458,7 +463,10 @@ enabled = false
           return result.audit;
         },
         auditAtomicity: async (questions) => {
-          const result = await auditClarificationAtomicity(questions);
+          const result = await auditClarificationAtomicity(
+            questions,
+            codexRuntimeGuardInvoker,
+          );
           runtimeGuardAudits.push({
             productTurn: turnNumber,
             sequence: runtimeGuardAudits.length + 1,
@@ -803,7 +811,7 @@ enabled = false
       inputHashes: hashesBeforeChild,
     },
     runtimeGuardrails: {
-      config: runtimeGuardrailConfig,
+      config: futureSmokeConfig.runtimeGuardrails,
       schemas: runtimeGuardrailSchemas,
       authorityLedger,
       authorityLedgerHistory,

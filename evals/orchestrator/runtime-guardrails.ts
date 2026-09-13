@@ -1,16 +1,11 @@
-import { Codex, type Usage } from "@openai/codex-sdk";
 import { createHash } from "node:crypto";
-import { mkdtemp, readdir, rm, symlink, writeFile } from "node:fs/promises";
-import { homedir, tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import type {
+  StructuredAgentIsolation,
+  StructuredAgentInvoker,
+  StructuredAgentUsage,
+} from "./structured-agent-invoker.js";
 
 export const runtimeGuardrailConfig = {
-  model: "gpt-5.6-sol",
-  reasoningEffort: "high",
-  networkAccessEnabled: false,
-  approvalPolicy: "never",
-  webSearchMode: "disabled",
-  structuredOutput: true,
   maximumRepairAttemptsPerGuard: 2,
   maximumAlignmentAttempts: 2,
 } as const;
@@ -140,17 +135,12 @@ export type AuthorityAudit = {
   claims: AuthorityFinding[];
 };
 
-export type GuardIsolation = {
-  workingDirectoryWasEmpty: boolean;
-  workingDirectoryUnchanged: boolean;
-  networkAccessEnabled: false;
-  passed: boolean;
-};
+export type GuardIsolation = StructuredAgentIsolation;
 
 export type SemanticGuardResult<TAudit> = {
   threadId: string | null;
   audit: TAudit;
-  usage: Usage | null;
+  usage: StructuredAgentUsage | null;
   isolation: GuardIsolation;
 };
 
@@ -460,80 +450,23 @@ type GuardExecution<TAudit> = {
   parse: (raw: unknown) => TAudit;
 };
 
-async function immediateFiles(directory: string): Promise<string[]> {
-  return (await readdir(directory, { withFileTypes: true }))
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .sort();
-}
-
-async function runSemanticGuard<TAudit>({
-  prompt,
-  schema,
-  parse,
-}: GuardExecution<TAudit>): Promise<SemanticGuardResult<TAudit>> {
-  const workingDirectory = await mkdtemp(join(tmpdir(), "harness-runtime-guard-workspace-"));
-  const guardCodexHome = await mkdtemp(join(tmpdir(), "harness-runtime-guard-codex-"));
-  const sourceCodexHome = process.env.CODEX_HOME ?? resolve(homedir(), ".codex");
-  const filesBefore = await immediateFiles(workingDirectory);
-  try {
-    const config = `
-default_permissions = "runtime_guard"
-
-[permissions.runtime_guard]
-description = "Independent semantic runtime validation with no project or network access."
-
-[permissions.runtime_guard.filesystem]
-":minimal" = "read"
-${JSON.stringify(workingDirectory)} = "read"
-
-[permissions.runtime_guard.network]
-enabled = false
-`;
-    await writeFile(resolve(guardCodexHome, "config.toml"), config, "utf8");
-    await symlink(resolve(sourceCodexHome, "auth.json"), resolve(guardCodexHome, "auth.json"));
-    const environment = Object.fromEntries(
-      Object.entries(process.env).filter(
-        (entry): entry is [string, string] => entry[1] !== undefined,
-      ),
-    );
-    environment.CODEX_HOME = guardCodexHome;
-    const codex = new Codex({ env: environment });
-    const thread = codex.startThread({
-      model: runtimeGuardrailConfig.model,
-      modelReasoningEffort: runtimeGuardrailConfig.reasoningEffort,
-      workingDirectory,
-      skipGitRepoCheck: true,
-      networkAccessEnabled: runtimeGuardrailConfig.networkAccessEnabled,
-      approvalPolicy: runtimeGuardrailConfig.approvalPolicy,
-      webSearchMode: runtimeGuardrailConfig.webSearchMode,
-    });
-    const turn = await thread.run(prompt, { outputSchema: schema });
-    if (!thread.id || !turn.finalResponse) {
-      throw new Error("Runtime semantic guard completed without a result.");
-    }
-    const audit = parse(JSON.parse(turn.finalResponse) as unknown);
-    const filesAfter = await immediateFiles(workingDirectory);
-    const workingDirectoryWasEmpty = filesBefore.length === 0;
-    const workingDirectoryUnchanged =
-      JSON.stringify(filesBefore) === JSON.stringify(filesAfter);
-    return {
-      threadId: thread.id,
-      audit,
-      usage: turn.usage,
-      isolation: {
-        workingDirectoryWasEmpty,
-        workingDirectoryUnchanged,
-        networkAccessEnabled: false,
-        passed: workingDirectoryWasEmpty && workingDirectoryUnchanged,
-      },
-    };
-  } finally {
-    await Promise.all([
-      rm(guardCodexHome, { recursive: true, force: true }),
-      rm(workingDirectory, { recursive: true, force: true }),
-    ]);
+async function runSemanticGuard<TAudit>(
+  { prompt, schema, parse }: GuardExecution<TAudit>,
+  invoker: StructuredAgentInvoker,
+): Promise<SemanticGuardResult<TAudit>> {
+  const result = await invoker.invokeStructured({
+    prompt,
+    outputSchema: schema,
+  });
+  if (!result.sessionId || !result.finalResponse) {
+    throw new Error("Runtime semantic guard completed without a result.");
   }
+  return {
+    threadId: result.sessionId,
+    audit: parse(JSON.parse(result.finalResponse) as unknown),
+    usage: result.usage,
+    isolation: result.isolation,
+  };
 }
 
 function parseAtomicityAudit(raw: unknown, questions: GuardrailProductQuestion[]): AtomicityAudit {
@@ -642,6 +575,7 @@ export function extractPrdAuthorityClaims(
 
 export async function auditClarificationAtomicity(
   questions: GuardrailProductQuestion[],
+  invoker: StructuredAgentInvoker,
 ): Promise<SemanticGuardResult<AtomicityAudit>> {
   const prompt = `You are an independent Clarification Atomicity runtime guard. You are not the Product agent and have no Product decision authority.
 
@@ -657,7 +591,7 @@ ${JSON.stringify(questions, null, 2)}`;
     prompt,
     schema: atomicityOutputSchema,
     parse: (raw) => parseAtomicityAudit(raw, questions),
-  });
+  }, invoker);
 }
 
 export type ClarificationMaterialitySemanticAuditor = (
@@ -666,6 +600,7 @@ export type ClarificationMaterialitySemanticAuditor = (
 
 async function runClarificationMaterialitySemanticAudit(
   input: ClarificationMaterialityInput,
+  invoker: StructuredAgentInvoker,
 ): Promise<SemanticGuardResult<ClarificationMaterialityAudit>> {
   const explicitAssumptionsAndOpenDecisions =
     extractExplicitAssumptionsAndOpenDecisions(input.prdMarkdown);
@@ -712,7 +647,7 @@ ${JSON.stringify(explicitAssumptionsAndOpenDecisions, null, 2)}`;
     prompt,
     schema: clarificationMaterialityOutputSchema,
     parse: (raw) => parseClarificationMaterialityAudit(raw, input.questions),
-  });
+  }, invoker);
 }
 
 function clarificationMaterialityInputKey(
@@ -747,10 +682,22 @@ export class ClarificationMaterialityGuard {
     cacheHits: 0,
   };
 
+  private readonly semanticAuditor: ClarificationMaterialitySemanticAuditor;
+
   constructor(
-    private readonly semanticAuditor: ClarificationMaterialitySemanticAuditor =
-      runClarificationMaterialitySemanticAudit,
-  ) {}
+    semanticAuditorOrInvoker:
+      | ClarificationMaterialitySemanticAuditor
+      | StructuredAgentInvoker,
+  ) {
+    this.semanticAuditor =
+      typeof semanticAuditorOrInvoker === "function"
+        ? semanticAuditorOrInvoker
+        : (input) =>
+            runClarificationMaterialitySemanticAudit(
+              input,
+              semanticAuditorOrInvoker,
+            );
+  }
 
   get metrics(): ClarificationMaterialityMetrics {
     return { ...this.totals };
@@ -842,6 +789,7 @@ function parseAuthorityDelta(
 async function runAuthoritySemanticAudit(
   claims: AuthoritySemanticAuditCase[],
   currentProductContext: Array<{ url: string; title: string; context: string }>,
+  invoker: StructuredAgentInvoker,
 ): Promise<SemanticGuardResult<AuthoritySemanticAudit>> {
   const prompt = `You are an independent claim-level Draft and Reconciliation Authority guard. You have no Product decision authority.
 
@@ -860,7 +808,7 @@ ${JSON.stringify(currentProductContext, null, 2)}`;
     prompt,
     schema: authorityDeltaOutputSchema,
     parse: (raw) => parseAuthorityDelta(raw, claims),
-  });
+  }, invoker);
 }
 
 function authoritySource(items: AuthorityLedgerItem[]): string {
@@ -960,7 +908,21 @@ export class AuthorityLedgerGuard {
     claimsRecheckedAfterRepair: 0,
   };
 
-  constructor(private readonly semanticAuditor: AuthoritySemanticAuditor = runAuthoritySemanticAudit) {}
+  private readonly semanticAuditor: AuthoritySemanticAuditor;
+
+  constructor(
+    semanticAuditorOrInvoker: AuthoritySemanticAuditor | StructuredAgentInvoker,
+  ) {
+    this.semanticAuditor =
+      typeof semanticAuditorOrInvoker === "function"
+        ? semanticAuditorOrInvoker
+        : (claims, currentProductContext) =>
+            runAuthoritySemanticAudit(
+              claims,
+              currentProductContext,
+              semanticAuditorOrInvoker,
+            );
+  }
 
   get metrics(): AuthorityGuardMetrics {
     return { ...this.totals };
@@ -1212,6 +1174,7 @@ export type AlignmentSemanticAuditor = (
 
 async function runMaterialDecisionCoverageSemanticAudit(
   input: MaterialDecisionCoverageInput,
+  invoker: StructuredAgentInvoker,
 ): Promise<SemanticGuardResult<MaterialDecisionCoverageAudit>> {
   const explicitAssumptionsAndOpenDecisions =
     extractExplicitAssumptionsAndOpenDecisions(input.prdMarkdown);
@@ -1245,7 +1208,7 @@ ${JSON.stringify(explicitAssumptionsAndOpenDecisions, null, 2)}`;
     prompt,
     schema: materialDecisionCoverageOutputSchema,
     parse: parseMaterialDecisionCoverageAudit,
-  });
+  }, invoker);
 }
 
 function alignmentInputKey(input: MaterialDecisionCoverageInput): string {
@@ -1276,10 +1239,20 @@ export class MaterialDecisionCoverageGuard {
     cacheHits: 0,
   };
 
+  private readonly semanticAuditor: AlignmentSemanticAuditor;
+
   constructor(
-    private readonly semanticAuditor: AlignmentSemanticAuditor =
-      runMaterialDecisionCoverageSemanticAudit,
-  ) {}
+    semanticAuditorOrInvoker: AlignmentSemanticAuditor | StructuredAgentInvoker,
+  ) {
+    this.semanticAuditor =
+      typeof semanticAuditorOrInvoker === "function"
+        ? semanticAuditorOrInvoker
+        : (input) =>
+            runMaterialDecisionCoverageSemanticAudit(
+              input,
+              semanticAuditorOrInvoker,
+            );
+  }
 
   get metrics(): AlignmentGuardMetrics {
     return { ...this.totals };

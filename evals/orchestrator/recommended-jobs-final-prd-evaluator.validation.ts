@@ -16,7 +16,7 @@ import {
   networkIsolationWasVerifiedDisabled,
   observedSessionConfiguration,
 } from "./prd-eval-runner-support.js";
-import { runtimeGuardrailConfig } from "./runtime-guardrails.js";
+import { codexRuntimeGuardExecutionConfig } from "./codex-runtime-guard-invoker.js";
 
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
@@ -85,7 +85,7 @@ assert.equal(
 );
 assert.equal(
   evaluatorModule.recommendedJobsFinalPrdEvaluatorConfig.networkAccessEnabled,
-  runtimeGuardrailConfig.networkAccessEnabled,
+  codexRuntimeGuardExecutionConfig.networkAccessEnabled,
   "the evaluator and isolated semantic guards must request the same disabled-network setting",
 );
 assert.match(

@@ -1,6 +1,10 @@
 import { Codex, type ThreadItem, type Usage } from "@openai/codex-sdk";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
 import {
+  codexRuntimeGuardExecutionConfig,
+  codexRuntimeGuardInvoker,
+} from "./codex-runtime-guard-invoker.js";
+import {
   AuthorityLedgerGuard,
   ClarificationMaterialityGuard,
   MaterialDecisionCoverageGuard,
@@ -50,6 +54,10 @@ const frozenSnapshotId = "product-knowledge-snapshot-2026-09-07T14-47-41.304Z";
 const model = "gpt-5.6-sol";
 const reasoningEffort = "high";
 const maximumTurns = 8;
+const runtimeGuardrailExecutionMetadata = {
+  ...codexRuntimeGuardExecutionConfig,
+  ...runtimeGuardrailConfig,
+} as const;
 
 const pmIntent = `در بعضی آگهی‌های شغلی، کارفرما برای بررسی اولیهٔ کارجو به اطلاعاتی نیاز دارد که لزوماً از رزومه قابل تشخیص نیست.
 
@@ -903,9 +911,13 @@ const thread = codex.startThread({
 
 let authorityLedger = createAuthorityLedger(pmIntent);
 const authorityLedgerHistory: AuthorityLedger[] = [authorityLedger];
-const authorityGuard = new AuthorityLedgerGuard();
-const clarificationMaterialityGuard = new ClarificationMaterialityGuard();
-const alignmentGuard = new MaterialDecisionCoverageGuard();
+const authorityGuard = new AuthorityLedgerGuard(codexRuntimeGuardInvoker);
+const clarificationMaterialityGuard = new ClarificationMaterialityGuard(
+  codexRuntimeGuardInvoker,
+);
+const alignmentGuard = new MaterialDecisionCoverageGuard(
+  codexRuntimeGuardInvoker,
+);
 
 const turns: RecordedTurn[] = [];
 const productQuestions: Array<ProductQuestion & { turn: number }> = [];
@@ -1044,7 +1056,10 @@ try {
         return result.audit;
       },
       auditAtomicity: async (questions) => {
-        const result = await auditClarificationAtomicity(questions);
+        const result = await auditClarificationAtomicity(
+          questions,
+          codexRuntimeGuardInvoker,
+        );
         runtimeGuardAudits.push({
           productTurn: turnNumber,
           sequence: runtimeGuardAudits.length + 1,
@@ -1445,7 +1460,7 @@ const metadata = {
     invocations: routerInvocations,
   },
   runtimeGuardrails: {
-    config: runtimeGuardrailConfig,
+    config: runtimeGuardrailExecutionMetadata,
     schemas: runtimeGuardrailSchemas,
     authorityLedger,
     authorityLedgerHistory,

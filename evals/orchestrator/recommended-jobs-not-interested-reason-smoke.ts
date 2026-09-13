@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runtimeGuardrailConfig } from "./runtime-guardrails.js";
+import { codexRuntimeGuardExecutionConfig } from "./codex-runtime-guard-invoker.js";
 import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
 
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
@@ -315,7 +316,10 @@ export const futureSmokeConfig = {
     freshThread: true,
   },
   semanticRouter: semanticFixtureRouterConfig,
-  runtimeGuardrails: runtimeGuardrailConfig,
+  runtimeGuardrails: {
+    ...codexRuntimeGuardExecutionConfig,
+    ...runtimeGuardrailConfig,
+  },
   artifactContract: "artifacts/prd.md",
   workflow: "workflows/prd-draft-clarification.md",
   productKnowledge: productKnowledgeReferenceSetup,

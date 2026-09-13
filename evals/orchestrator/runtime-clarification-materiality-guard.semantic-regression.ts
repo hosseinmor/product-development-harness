@@ -4,6 +4,7 @@ import {
   runtimeGuardrailConfig,
   type GuardrailProductQuestion,
 } from "./runtime-guardrails.js";
+import { codexRuntimeGuardInvoker } from "./codex-runtime-guard-invoker.js";
 
 const questions: GuardrailProductQuestion[] = [
   {
@@ -27,7 +28,7 @@ const questions: GuardrailProductQuestion[] = [
   },
 ];
 
-const guard = new ClarificationMaterialityGuard();
+const guard = new ClarificationMaterialityGuard(codexRuntimeGuardInvoker);
 const result = await guard.audit({
   pmIntent:
     "Add supplemental structured feedback to an existing core action while keeping the flow usable.",
