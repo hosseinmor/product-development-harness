@@ -1,14 +1,21 @@
 import { Codex, type ThreadItem, type Usage } from "@openai/codex-sdk";
+import {
+  routeProductQuestions,
+  semanticFixtureRouterConfig,
+  type FixtureId,
+  type SemanticFixtureRoute,
+  type SemanticFixtureRouterResult,
+} from "./semantic-fixture-router.js";
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
+  access,
   copyFile,
   mkdir,
   mkdtemp,
   readFile,
   readdir,
   rm,
-  stat,
   symlink,
   writeFile,
 } from "node:fs/promises";
@@ -21,12 +28,48 @@ const execFileAsync = promisify(execFile);
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
 const runsDirectory = resolve(repositoryRoot, "evals/runs");
-const snapshotPrefix = "product-knowledge-snapshot-";
 const model = "gpt-5.6-sol";
 const reasoningEffort = "high";
 const maximumTurns = 8;
+const defaultRunAReferenceId = "run-a-control-2026-09-08T17-57-49.339Z";
+const frozenSnapshotId = "product-knowledge-snapshot-2026-09-07T14-47-41.304Z";
+const supersededRunCId = "run-c-solution-shaped-2026-09-09T07-08-22.803Z";
+const priorValidRunCId = "run-c-solution-shaped-2026-09-09T07-55-30.935Z";
 
-const pmIntent = `کارجو ممکن است یک Job Search مشخص را چند بار در طول زمان بررسی کند تا فرصت‌های شغلی جدید مرتبط با آن را پیدا کند.
+type RunVariant =
+  | "run-a-control"
+  | "run-b-no-product-knowledge"
+  | "run-c-solution-shaped";
+
+const variantArgument = process.argv.find((argument) =>
+  argument.startsWith("--variant="),
+);
+const referenceRunArgument = process.argv.find((argument) =>
+  argument.startsWith("--reference-run-id="),
+);
+const runAReferenceId =
+  referenceRunArgument?.slice("--reference-run-id=".length) ??
+  defaultRunAReferenceId;
+const runVariant = (variantArgument?.slice("--variant=".length) ??
+  "run-a-control") as RunVariant;
+if (
+  runVariant !== "run-a-control" &&
+  runVariant !== "run-b-no-product-knowledge" &&
+  runVariant !== "run-c-solution-shaped"
+) {
+  throw new Error(`Unsupported eval variant: ${runVariant}`);
+}
+const productKnowledgeAvailable = runVariant !== "run-b-no-product-knowledge";
+const runType =
+  runVariant === "run-a-control"
+    ? "Run A — Control"
+    : runVariant === "run-b-no-product-knowledge"
+      ? "Run B — No Product Knowledge"
+      : "Run C — Solution-shaped Intent";
+const childPromptRunType =
+  runVariant === "run-c-solution-shaped" ? "this eval run" : runType;
+
+const runAIntent = `کارجو ممکن است یک Job Search مشخص را چند بار در طول زمان بررسی کند تا فرصت‌های شغلی جدید مرتبط با آن را پیدا کند.
 
 وقتی دوباره به همان Search برمی‌گردد، در حال حاضر برایش روشن نیست کدام آگهی‌ها از آخرین باری که این Search را دیده به نتایج اضافه شده‌اند. این موضوع باعث می‌شود برای پیدا کردن فرصت‌های جدید بخشی از نتایجی را که قبلاً دیده دوباره بررسی کند.
 
@@ -35,6 +78,19 @@ const pmIntent = `کارجو ممکن است یک Job Search مشخص را چن�
 این نیاز ممکن است در چند touchpoint مختلف از تجربه کارجو مطرح شود و نمی‌خواهیم راه‌حل از ابتدا به یک صفحه یا مسیر خاص محدود شود.
 
 هنوز درباره نحوه نمایش این اطلاعات، تعریف دقیق یک Search یکسان، touchpointهای نهایی، یا رفتار این قابلیت در حالت‌ها و sessionهای مختلف تصمیم نگرفته‌ایم.`;
+
+const runCIntent = `می‌خواهیم در تجربه جستجوی شغل، آگهی‌هایی که از مراجعه قبلی کارجو جدید هستند مشخص شوند.
+
+در صفحه نتایج جستجو یک حالت یا فیلتر «آگهی‌های جدید» اضافه شود تا کارجو بتواند فقط آگهی‌هایی را ببیند که از آخرین مراجعه‌اش اضافه شده‌اند. در لیست عادی نتایج هم بهتر است آگهی‌های جدید به‌صورت مشخص از بقیه قابل تشخیص باشند.
+
+در Recent Search و Saved Search هم می‌توان تعداد آگهی‌های جدید هر جستجو را نشان داد تا کارجو قبل از ورود به نتایج متوجه شود فرصت جدیدی وجود دارد.
+
+هدف این است که کارجو مجبور نباشد هر بار نتایجی را که قبلاً دیده دوباره مرور کند.
+
+جزئیات رفتار این قابلیت و edge caseهای آن هنوز نهایی نشده‌اند.`;
+
+const pmIntent =
+  runVariant === "run-c-solution-shaped" ? runCIntent : runAIntent;
 
 const childOutputSchema = {
   type: "object",
@@ -105,7 +161,8 @@ type ChildResponse = {
 
 type RunStatus =
   | "problem_aligned"
-  | "blocked_on_unfixture_product_judgment"
+  | "blocked_on_ambiguous_fixture_route"
+  | "blocked_on_no_match_fixture_route"
   | "max_turns_reached"
   | "technical_failure";
 
@@ -119,10 +176,9 @@ type RecordedTurn = {
 };
 
 type Fixture = {
-  id: "A" | "B" | "C" | "D" | "E" | "F" | "G";
+  id: "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H";
   topic: string;
   answer: string;
-  patterns: RegExp[];
 };
 
 const fixtures: Fixture[] = [
@@ -131,77 +187,57 @@ const fixtures: Fixture[] = [
     topic: "Search identity",
     answer:
       "Search یکسان بر اساس Keyword/Query نرمال‌شده و Filterهای نرمال‌شده تعیین می‌شود. Sort، Pagination، Saved/Unsaved بودن و touchpoint ورود بخشی از Search identity نیستند.",
-    patterns: [
-      /search identity|same search|search equivalen|identity of (?:a )?search/i,
-      /(?:تعریف|معیار|هویت|همان).*جست|جست.*(?:یکسان|همان|معادل|هویت)/i,
-      /(?:keyword|query).*(?:filter|normal)|(?:کلیدواژه|کوئری).*(?:فیلتر|نرمال)/i,
-    ],
   },
   {
     id: "B",
     topic: "New semantics",
     answer:
       "New یعنی نتیجه‌ای که بعد از baseline قبلی برای نخستین‌بار وارد مجموعهٔ نتایج واجدشرایط همان Search شده باشد. Refresh و تغییر Rank به‌تنهایی New نیستند. Reactivation با New یکی نیست و در شمارش New ادغام نمی‌شود.",
-    patterns: [
-      /new semantics|what (?:counts|qualifies) as new|definition of new/i,
-      /تعریف.*(?:new|جدید)|(?:new|جدید).*(?:تعریف|معنا|محسوب|چیست)/i,
-      /(?:refresh|rank|رتبه|رفرش).*(?:new|جدید)/i,
-    ],
   },
   {
     id: "C",
     topic: "Baseline",
     answer:
       "Summary، Alert، Preview یا Shortcut به‌تنهایی baseline را جلو نمی‌برند. baseline زمانی به‌روزرسانی می‌شود که Search Results به‌صورت موفق و قابل‌استفاده در اختیار کارجو قرار گرفته باشد. baseline مورد استفاده در visit جاری باید ثابت بماند.",
-    patterns: [
-      /baseline|last (?:visit|view|seen)|previous (?:visit|view|seen)/i,
-      /خط مبنا|مبنای.*(?:قبلی|مراجعه|بازدید)|آخرین.*(?:مراجعه|بازدید|مشاهده)/i,
-      /چه زمانی.*(?:به.?روزرسانی|جلو).*(?:مبنا|baseline)/i,
-    ],
   },
   {
     id: "D",
     topic: "User scope",
     answer:
       "v0 فقط برای کارجوی logged-in است. state در سطح account و cross-device است. Guest persistence خارج از Scope است.",
-    patterns: [
-      /logged.?in|guest|anonymous|account.?level|cross.?device|user scope/i,
-      /مهمان|لاگین|واردشده|سطح حساب|بین دستگاه|دامنه.*کاربر/i,
-    ],
   },
   {
     id: "E",
     topic: "Touchpoints",
     answer:
       "v0 شامل Search Results به‌عنوان سطح اصلی، Recent Search و Saved Search است. Home Page، Job Alert، Followed Companies، Similar Jobs و سایر discovery surfaces خارج از Scope v0 هستند.",
-    patterns: [
-      /touchpoint|surface|where (?:is|should).*(?:shown|appear)|search results|recent search|saved search/i,
-      /نقطه.*تماس|تاچ.?پوینت|کدام.*(?:صفحه|سطح|مسیر)|نتایج جستجو|جستجوی اخیر|جستجوی ذخیره/i,
-    ],
   },
   {
     id: "F",
     topic: "Reactivation",
     answer:
       "Reactivation باید از New جدا بماند. نمایش ویژهٔ Reactivation جزو v0 نیست و نباید blocker این قابلیت باشد.",
-    patterns: [/reactivation|reactivated/i, /فعال.?سازی مجدد|فعال.*دوباره/i],
   },
   {
     id: "G",
     topic: "Business Outcome",
     answer:
       "Business Outcome تثبیت‌شده‌ای توسط Product ارائه نشده است. می‌توانی hypothesis پیشنهاد کنی اما نباید آن را Product truth معرفی کنی.",
-    patterns: [
-      /business outcome|business value|business metric|kpi/i,
-      /نتیجه.*کسب.?وکار|ارزش.*کسب.?وکار|شاخص.*کسب.?وکار|معیار.*موفقیت/i,
-    ],
+  },
+  {
+    id: "H",
+    topic: "First-visit / No-baseline semantics",
+    answer:
+      "اگر برای یک Search هیچ baseline قبلی وجود ندارد، هیچ‌یک از نتایج واجدشرایط فعلی صرفاً به دلیل نبود baseline، New محسوب نمی‌شوند. اولین نمایش موفق و قابل‌استفادهٔ Search Results baseline مراجعهٔ بعدی را ایجاد می‌کند.",
   },
 ];
 
-function fixtureMatches(question: string): Fixture[] {
-  return fixtures.filter((fixture) =>
-    fixture.patterns.some((pattern) => pattern.test(question)),
-  );
+function fixturesForRoute(route: SemanticFixtureRoute): Fixture[] {
+  return route.fixtureIds.map((id) => {
+    const fixture = fixtures.find((candidate) => candidate.id === id);
+    if (!fixture) throw new Error(`Missing fixture ${id}.`);
+    return fixture;
+  });
 }
 
 async function gitStatus(): Promise<string> {
@@ -213,18 +249,41 @@ async function gitStatus(): Promise<string> {
   return stdout;
 }
 
-async function latestSnapshotDirectory(): Promise<string> {
-  const candidates = (await readdir(runsDirectory, { withFileTypes: true }))
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith(snapshotPrefix))
-    .map((entry) => entry.name)
-    .sort();
-  const latest = candidates.at(-1);
-  if (!latest) {
-    throw new Error(
-      "No Product Knowledge snapshot found. Run npm run snapshot:product-knowledge first.",
-    );
+async function pathExists(path: string): Promise<boolean> {
+  try {
+    await access(path);
+    return true;
+  } catch {
+    return false;
   }
-  return resolve(runsDirectory, latest);
+}
+
+async function assertHarnessMatchesRunAReference(): Promise<void> {
+  const harnessFiles = [
+    "AGENTS.md",
+    "shared-harness-contract.md",
+    "workflows/prd-draft-clarification.md",
+    "artifacts/prd.md",
+  ];
+  const referenceWorkspace = resolve(
+    runsDirectory,
+    runAReferenceId,
+    "workspace",
+  );
+
+  for (const relativePath of harnessFiles) {
+    const [current, reference] = await Promise.all([
+      readFile(resolve(repositoryRoot, relativePath)),
+      readFile(resolve(referenceWorkspace, relativePath)),
+    ]);
+    const currentHash = createHash("sha256").update(current).digest("hex");
+    const referenceHash = createHash("sha256").update(reference).digest("hex");
+    if (currentHash !== referenceHash) {
+      throw new Error(
+        `Harness revision differs from ${runAReferenceId}: ${relativePath}.`,
+      );
+    }
+  }
 }
 
 async function createWorkspace(
@@ -380,21 +439,33 @@ function followUpPrompt(
 
 ${answers}
 
-این پاسخ‌ها را authoritative Product decisions بدان، اما چیزی فراتر از متن آن‌ها استنباط نکن. همان PRD Draft + Clarification workflow را در همین thread ادامه بده: draft را reconcile و ambiguity scan را دوباره اجرا کن. اگر judgment مادی دیگری لازم است فقط سؤال هدفمند آن را برگردان. اگر ambiguity مادیِ باز باقی نمانده، PRD کامل را مطابق artifact contract در prdMarkdown برگردان و فقط در آن حالت status را problem_aligned و problemAligned را true کن. از network یا مسیرهای خارج workspace استفاده نکن و فایل‌های input را تغییر نده.`;
+این پاسخ‌ها را authoritative Product decisions بدان، اما چیزی فراتر از متن آن‌ها استنباط نکن. همان PRD Draft + Clarification workflow را در همین thread ادامه بده: draft را reconcile و ambiguity scan را دوباره اجرا کن. اگر judgment مادی دیگری لازم است فقط سؤال هدفمند آن را برگردان و هر productQuestions item را به دقیقاً یک Product decision تجزیه‌ناپذیر محدود کن. اگر ambiguity مادیِ باز باقی نمانده، PRD کامل را مطابق artifact contract در prdMarkdown برگردان و فقط در آن حالت status را problem_aligned و problemAligned را true کن. از network یا مسیرهای خارج workspace استفاده نکن و فایل‌های input را تغییر نده.`;
 }
 
 const startedAt = new Date();
 await mkdir(runsDirectory, { recursive: true });
-const runId = `run-a-control-${startedAt.toISOString().replaceAll(":", "-")}`;
+if (runVariant !== "run-a-control") await assertHarnessMatchesRunAReference();
+const runId = `${runVariant}-${startedAt.toISOString().replaceAll(":", "-")}`;
 const runDirectory = resolve(runsDirectory, runId);
 const workspaceDirectory = resolve(runDirectory, "workspace");
-const snapshotDirectory = await latestSnapshotDirectory();
-const snapshotId = snapshotDirectory.split("/").at(-1) ?? snapshotDirectory;
-await createWorkspace(workspaceDirectory, snapshotDirectory);
+const snapshotDirectory = productKnowledgeAvailable
+  ? resolve(runsDirectory, frozenSnapshotId)
+  : null;
+const snapshotId = snapshotDirectory
+  ? (snapshotDirectory.split("/").at(-1) ?? snapshotDirectory)
+  : null;
+await createWorkspace(workspaceDirectory, snapshotDirectory ?? undefined);
 
-const initialPrompt = `You are the child Product agent for Run A — Control. Work only inside the isolated generated workspace that is your current working directory.
+const contextAssessmentInstruction = productKnowledgeAvailable
+  ? "Use the local Product Knowledge snapshot under context/product-knowledge as Current Product context. Search the snapshot yourself and choose the relevant pages; no page subset has been preselected for you."
+  : "Relevant external Product Knowledge is intentionally unavailable in this Run. Follow the Harness with the context that is available, general/domain knowledge, and the uncertainty rules. Do not treat the absence of Product Knowledge as evidence about current product behavior.";
+const retrievedContextInstruction = productKnowledgeAvailable
+  ? "Include in retrievedProductKnowledge only original URLs, titles, and short context from snapshot records you actually used."
+  : "Keep retrievedProductKnowledge empty because no external Product Knowledge is available. Do not invent, summarize, or substitute current-product facts from another source.";
 
-Start with AGENTS.md. Discover and follow the relevant workflow and artifact contract for a PRD Draft + Clarification task; do not assume their paths before reading AGENTS.md. Use the local Product Knowledge snapshot under context/product-knowledge as Current Product context. Search the snapshot yourself and choose the relevant pages; no page subset has been preselected for you.
+const initialPrompt = `You are the child Product agent for ${childPromptRunType}. Work only inside the isolated generated workspace that is your current working directory.
+
+Start with AGENTS.md. Discover and follow the relevant workflow and artifact contract for a PRD Draft + Clarification task; do not assume their paths before reading AGENTS.md. ${contextAssessmentInstruction}
 
 Do not use network access, web search, Browser Use, or paths outside this workspace. Do not read previous chats, any previous New Jobs PRD, design artifact, prototype, or pilot result. They are intentionally absent. Do not alter Harness, workflow, contract, or Product Knowledge input files. Return the draft and final PRD in the structured response; the parent will persist it.
 
@@ -402,13 +473,25 @@ PM Intent:
 
 ${pmIntent}
 
-Execute the real Harness workflow: retrieve relevant current context, produce a best-effort PRD v0, run the required semantic normalization and ambiguity scan, and ask only targeted material Product clarification questions that cannot be resolved from authoritative context. Do not invent unresolved Product decisions. Keep productQuestions empty unless you genuinely need Product judgment. Include in retrievedProductKnowledge only original URLs, titles, and short context from snapshot records you actually used.
+Execute the real Harness workflow: retrieve relevant current context, produce a best-effort PRD v0, run the required semantic normalization and ambiguity scan, and ask only targeted material Product clarification questions that cannot be resolved from authoritative context. Do not invent unresolved Product decisions. Keep productQuestions empty unless you genuinely need Product judgment. ${retrievedContextInstruction}
+
+Each productQuestions array item must request exactly one indivisible Product decision. If different answers could independently change scope, semantics, lifecycle, eligibility, or the success definition, split them into separate array items rather than combining them in one question.
 
 If material clarification is required, return status=clarification_required, problemAligned=false, the smallest useful question batch, and the current PRD draft in prdMarkdown. If no material ambiguity remains, return status=problem_aligned, problemAligned=true, and the complete contract-compliant PRD. Use status=blocked only for a non-Product blocker and explain it in alignmentRationale.`;
 
 await writeFile(resolve(runDirectory, "initial-prompt.txt"), `${initialPrompt}\n`, "utf8");
 
 const hashesBeforeChild = await inputHashes(workspaceDirectory);
+const runAReferenceInputHashes =
+  runVariant === "run-c-solution-shaped"
+    ? await inputHashes(resolve(runsDirectory, runAReferenceId, "workspace"))
+    : null;
+const inputHashesMatchRunA =
+  runAReferenceInputHashes === null ||
+  JSON.stringify(hashesBeforeChild) === JSON.stringify(runAReferenceInputHashes);
+if (!inputHashesMatchRunA) {
+  throw new Error(`Run C workspace inputs differ from ${runAReferenceId}.`);
+}
 const filesBeforeChild = await filesUnder(workspaceDirectory);
 const rootStatusBeforeChild = await gitStatus();
 const temporaryCodexHome = await mkdtemp(join(tmpdir(), "harness-run-a-codex-"));
@@ -462,6 +545,20 @@ const fixtureAnswers: Array<{
   question: string;
   fixtures: Array<{ id: Fixture["id"]; topic: string; answer: string }>;
 }> = [];
+const fixtureRoutes: Array<{
+  afterTurn: number;
+  question: string;
+  status: SemanticFixtureRoute["status"];
+  fixtureIds: FixtureId[];
+  multipleDecisions: boolean;
+  rationale: string;
+}> = [];
+const routerInvocations: Array<
+  SemanticFixtureRouterResult & {
+    afterTurn: number;
+    questions: string[];
+  }
+> = [];
 let runStatus: RunStatus = "technical_failure";
 let failure: string | null = null;
 let finalPrd = "";
@@ -525,20 +622,55 @@ try {
       );
     }
 
-    const mappedQuestions = response.productQuestions.map((question) => ({
-      question,
-      fixtures: fixtureMatches(question.question),
-    }));
-    const unfixtureQuestions = mappedQuestions.filter(
-      ({ fixtures: matched }) => matched.length === 0,
+    const routerResult = await routeProductQuestions(
+      response.productQuestions.map((question) => question.question),
     );
-    if (unfixtureQuestions.length > 0) {
-      runStatus = "blocked_on_unfixture_product_judgment";
-      failure = `No fixture answer for: ${unfixtureQuestions
+    routerInvocations.push({
+      afterTurn: turnNumber,
+      questions: response.productQuestions.map((question) => question.question),
+      ...routerResult,
+    });
+    const routedQuestions = response.productQuestions.map((question, index) => ({
+      question,
+      route: routerResult.routes[index],
+    }));
+    fixtureRoutes.push(
+      ...routedQuestions.map(({ question, route }) => ({
+        afterTurn: turnNumber,
+        question: question.question,
+        ...route,
+      })),
+    );
+
+    const ambiguousQuestions = routedQuestions.filter(
+      ({ route }) => route.status === "ambiguous",
+    );
+    if (ambiguousQuestions.length > 0) {
+      runStatus = "blocked_on_ambiguous_fixture_route";
+      failure = ambiguousQuestions
+        .map(
+          ({ question, route }) =>
+            `Ambiguous fixture route for ${JSON.stringify(question.question)}: ${route.rationale}`,
+        )
+        .join(" | ");
+      break;
+    }
+
+    const noMatchQuestions = routedQuestions.filter(
+      ({ route }) => route.status === "no_match",
+    );
+    if (noMatchQuestions.length > 0) {
+      runStatus = "blocked_on_no_match_fixture_route";
+      failure = `No fixture answer for: ${noMatchQuestions
         .map(({ question }) => question.question)
         .join(" | ")}`;
       break;
     }
+
+    const mappedQuestions = routedQuestions.map(({ question, route }) => ({
+      question,
+      fixtures: fixturesForRoute(route),
+    }));
 
     for (const mapped of mappedQuestions) {
       fixtureAnswers.push({
@@ -587,8 +719,11 @@ const childWebSearchItems = turns.flatMap((turn) =>
 const privateNetworkCommandAttempted = childCommands.some((command) =>
   /\b(?:curl|wget|httpie|fetch)\b/i.test(command),
 );
-const originalSnapshotReferencedInCommands = childCommands.some((command) =>
-  command.includes(snapshotDirectory),
+const originalSnapshotReferencedInCommands = snapshotDirectory
+  ? childCommands.some((command) => command.includes(snapshotDirectory))
+  : false;
+const productKnowledgeDirectoryPresent = await pathExists(
+  resolve(workspaceDirectory, "context/product-knowledge"),
 );
 const actualNetworkDisabled = observedConfiguration.networkAccessEnabled === false;
 const actualWorkingDirectoryIsWorkspace =
@@ -601,7 +736,8 @@ const isolationPassed =
   actualWorkingDirectoryIsWorkspace &&
   childWebSearchItems.length === 0 &&
   !privateNetworkCommandAttempted &&
-  !originalSnapshotReferencedInCommands;
+  !originalSnapshotReferencedInCommands &&
+  productKnowledgeDirectoryPresent === productKnowledgeAvailable;
 
 if (runStatus === "problem_aligned") {
   await writeFile(
@@ -611,10 +747,132 @@ if (runStatus === "problem_aligned") {
   );
 }
 
+const prdHeadingLevels = {
+  Problem: "##",
+  "Affected Users": "##",
+  "Current Behavior": "##",
+  Outcomes: "##",
+  "User Outcome": "###",
+  "Business Outcome": "###",
+  "Success Metrics": "###",
+  Scope: "##",
+  "Key Product Scenarios": "##",
+  "Required Product Behavior": "##",
+  Dependencies: "##",
+  "Acceptance Criteria": "##",
+  "Assumptions & Open Decisions": "##",
+} as const;
+
+function prdFacts(markdown: string): {
+  present: boolean;
+  sectionPresence: Record<keyof typeof prdHeadingLevels, boolean>;
+  referencesCount: number;
+  dependenciesCount: number;
+} {
+  const lines = markdown.split("\n");
+  const sectionPresence = Object.fromEntries(
+    Object.entries(prdHeadingLevels).map(([heading, level]) => [
+      heading,
+      lines.some((line) => line.trim() === `${level} ${heading}`),
+    ]),
+  ) as Record<keyof typeof prdHeadingLevels, boolean>;
+
+  const frontmatterEnd = lines[0] === "---" ? lines.indexOf("---", 1) : -1;
+  const frontmatter = frontmatterEnd > 0 ? lines.slice(1, frontmatterEnd) : [];
+  const referencesStart = frontmatter.findIndex(
+    (line) => line.trim() === "references:",
+  );
+  let referencesCount = 0;
+  if (referencesStart >= 0) {
+    for (const line of frontmatter.slice(referencesStart + 1)) {
+      if (line.startsWith("  - ")) referencesCount += 1;
+      else if (line.length > 0 && !line.startsWith(" ")) break;
+    }
+  }
+
+  const dependenciesStart = lines.findIndex(
+    (line) => line.trim() === "## Dependencies",
+  );
+  let dependenciesCount = 0;
+  if (dependenciesStart >= 0) {
+    for (const line of lines.slice(dependenciesStart + 1)) {
+      if (line.startsWith("## ")) break;
+      if (line.trimStart().startsWith("- ")) dependenciesCount += 1;
+    }
+  }
+
+  return {
+    present: markdown.trim().length > 0,
+    sectionPresence,
+    referencesCount,
+    dependenciesCount,
+  };
+}
+
+const comparisonPrepSummary = {
+  runId,
+  runType,
+  referenceRunId: runVariant === "run-a-control" ? null : runAReferenceId,
+  turns: turns.length,
+  productQuestions: productQuestions.length,
+  fixtureIdsConsumed: [
+    ...new Set(
+      fixtureAnswers.flatMap((entry) =>
+        entry.fixtures.map((fixture) => fixture.id),
+      ),
+    ),
+  ],
+  finalStatus: runStatus,
+  problemAligned: runStatus === "problem_aligned",
+  prd: prdFacts(finalPrd),
+};
+const comparisonPrepSummaryPath = productKnowledgeAvailable
+  ? runVariant === "run-a-control"
+    ? null
+    : resolve(runDirectory, "comparison-prep.json")
+  : resolve(runDirectory, "comparison-prep.json");
+const methodologySupersession =
+  runVariant === "run-c-solution-shaped"
+    ? {
+        supersededRuns: [
+          {
+            runId: supersededRunCId,
+            reason:
+              "Diagnostic Run C superseded after a missing first-visit/no-baseline PM simulator fixture caused repeated clarification.",
+          },
+          {
+            runId: priorValidRunCId,
+            reason:
+              "Prior valid Run C used the pre-improvement Harness revision and is not comparable with this rerun.",
+          },
+        ],
+        supersededByRunId: runId,
+        referenceRunId: runAReferenceId,
+        classification: "harness_revision_rerun",
+        interpretationRule:
+          "Compare this Run C only with the new Run A reference recorded here; do not compare it with a Run A from the prior Harness revision.",
+      }
+    : null;
+const methodologySupersessionPath = methodologySupersession
+  ? resolve(runDirectory, "methodology-supersession.json")
+  : null;
+
 const finishedAt = new Date();
 const metadata = {
   runId,
-  runType: "Run A — Control",
+  runType,
+  referenceRunId: runVariant === "run-a-control" ? null : runAReferenceId,
+  experimentalCondition: {
+    productKnowledgeAvailable,
+    intendedDifferenceFromReference:
+      runVariant === "run-c-solution-shaped"
+        ? "PM Intent only: solution-shaped Intent replaces the problem-oriented Run A Intent."
+        : "Availability of external Product Knowledge in the child workspace and the prompt text necessary to state that availability.",
+    apparatusCorrectionFromReference:
+      runVariant === "run-c-solution-shaped"
+        ? "None. The new Run A reference and this Run C use the same Harness revision and fixture bank A-H."
+        : null,
+  },
   startedAt: startedAt.toISOString(),
   finishedAt: finishedAt.toISOString(),
   status: runStatus,
@@ -622,21 +880,69 @@ const metadata = {
   threadId: thread.id,
   configuredModel: model,
   configuredReasoningEffort: reasoningEffort,
+  router: {
+    config: semanticFixtureRouterConfig,
+    invocations: routerInvocations,
+  },
   observedConfiguration,
   maximumTurns,
   completedTurns: turns.length,
-  snapshot: {
-    id: snapshotId,
-    sourcePath: snapshotDirectory,
-    workspacePath: resolve(workspaceDirectory, "context/product-knowledge"),
+  configurationParity:
+    runVariant === "run-c-solution-shaped"
+      ? {
+          referenceRunId: runAReferenceId,
+          harnessAndSnapshotInputHashesMatch: inputHashesMatchRunA,
+          referenceInputHashes: runAReferenceInputHashes,
+          runInputHashes: hashesBeforeChild,
+          productChild: {
+            model,
+            reasoningEffort,
+            maximumTurns,
+            networkAccessEnabled: false,
+            approvalPolicy: "never",
+            webSearchMode: "disabled",
+            structuredOutputSchema: childOutputSchema,
+          },
+          semanticFixtureRouter: semanticFixtureRouterConfig,
+          fixtures,
+          intendedMaterialDifference: "PM Intent only",
+          apparatusParityException: null,
+          promptWrapperDeviation:
+            "The variant label in the first prompt sentence is neutralized to avoid mentioning Run A to the child; workflow instructions are otherwise unchanged.",
+        }
+      : null,
+  availableContext: {
+    harnessFiles: [
+      "AGENTS.md",
+      "shared-harness-contract.md",
+      "workflows/prd-draft-clarification.md",
+      "artifacts/prd.md",
+    ],
+    productKnowledgeAvailable,
+    productKnowledgeWorkspacePath: productKnowledgeDirectoryPresent
+      ? resolve(workspaceDirectory, "context/product-knowledge")
+      : null,
   },
+  snapshot: snapshotDirectory
+    ? {
+        id: snapshotId,
+        sourcePath: snapshotDirectory,
+        workspacePath: resolve(
+          workspaceDirectory,
+          "context/product-knowledge",
+        ),
+      }
+    : null,
   initialPromptPath: resolve(runDirectory, "initial-prompt.txt"),
   transcriptPath: resolve(runDirectory, "turns.json"),
   finalPrdPath:
     runStatus === "problem_aligned"
       ? resolve(workspaceDirectory, "outputs/prd.md")
       : null,
+  comparisonPrepSummaryPath,
+  methodologySupersessionPath,
   productQuestions,
+  fixtureRoutes,
   fixtureAnswers,
   fixtureWasAbsentFromInitialPrompt: fixtures.every(
     (fixture) => !initialPrompt.includes(fixture.answer),
@@ -652,6 +958,9 @@ const metadata = {
     childWebSearchItemCount: childWebSearchItems.length,
     privateNetworkCommandAttempted,
     originalSnapshotReferencedInCommands,
+    productKnowledgeDirectoryPresent,
+    productKnowledgeAvailabilityMatchedCondition:
+      productKnowledgeDirectoryPresent === productKnowledgeAvailable,
     passed: isolationPassed,
   },
   retrievedProductKnowledge: turns.at(-1)?.response?.retrievedProductKnowledge ?? [],
@@ -668,6 +977,24 @@ await Promise.all([
     `${JSON.stringify(metadata, null, 2)}\n`,
     "utf8",
   ),
+  ...(comparisonPrepSummaryPath
+    ? [
+        writeFile(
+          comparisonPrepSummaryPath,
+          `${JSON.stringify(comparisonPrepSummary, null, 2)}\n`,
+          "utf8",
+        ),
+      ]
+    : []),
+  ...(methodologySupersessionPath && methodologySupersession
+    ? [
+        writeFile(
+          methodologySupersessionPath,
+          `${JSON.stringify(methodologySupersession, null, 2)}\n`,
+          "utf8",
+        ),
+      ]
+    : []),
 ]);
 
 console.log(
@@ -679,10 +1006,12 @@ console.log(
       childThreadId: thread.id,
       turns: turns.length,
       productQuestions,
+      fixtureRoutes,
       fixtureAnswers,
       retrievedProductKnowledge: metadata.retrievedProductKnowledge,
       observedConfiguration,
       isolation: metadata.isolation,
+      comparisonPrepSummaryPath,
       failure,
     },
     null,
