@@ -20,6 +20,8 @@
     "test:recommended-jobs-not-interested-reason-setup": "tsx recommended-jobs-not-interested-reason-setup.validation.ts",
     "test:recommended-jobs-not-interested-reason-runner-static": "tsx recommended-jobs-not-interested-reason-runner.validation.ts",
     "eval:recommended-jobs-not-interested-reason-smoke": "tsx run-recommended-jobs-not-interested-reason-smoke.ts",
+    "eval:recommended-jobs-not-interested-reason-final-prd": "tsx evaluate-recommended-jobs-final-prd.ts",
+    "test:recommended-jobs-not-interested-reason-evaluator-static": "tsx recommended-jobs-final-prd-evaluator.validation.ts",
     "snapshot:product-knowledge": "tsx build-product-knowledge-snapshot.ts",
     "diagnostic:danger-full-access": "tsx diagnostic-danger-full-access.ts",
     "smoke:snapshot": "tsx smoke-snapshot.ts",

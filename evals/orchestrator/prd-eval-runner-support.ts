@@ -372,6 +372,8 @@ export async function observedSessionConfiguration(codexHome: string): Promise<{
   workingDirectory: string | null;
   approvalPolicy: string | null;
   networkAccessEnabled: boolean | null;
+  networkIsolationEvidence: "sandbox_policy" | "permission_profile" | "unobserved";
+  permissionProfile: unknown;
 }> {
   const observed = {
     model: null as string | null,
@@ -379,6 +381,11 @@ export async function observedSessionConfiguration(codexHome: string): Promise<{
     workingDirectory: null as string | null,
     approvalPolicy: null as string | null,
     networkAccessEnabled: null as boolean | null,
+    networkIsolationEvidence: "unobserved" as
+      | "sandbox_policy"
+      | "permission_profile"
+      | "unobserved",
+    permissionProfile: null as unknown,
   };
   for (const path of await jsonlFilesUnder(codexHome)) {
     for (const line of (await readFile(path, "utf8")).split("\n")) {
@@ -388,9 +395,20 @@ export async function observedSessionConfiguration(codexHome: string): Promise<{
         if (event.type !== "turn_context") continue;
         const payload = event.payload as Record<string, unknown> | undefined;
         const sandbox = payload?.sandbox_policy as Record<string, unknown> | undefined;
+        const collaborationMode = payload?.collaboration_mode as
+          | Record<string, unknown>
+          | undefined;
+        const collaborationSettings = collaborationMode?.settings as
+          | Record<string, unknown>
+          | undefined;
+        const permissionProfile = payload?.permission_profile as
+          | Record<string, unknown>
+          | undefined;
         if (typeof payload?.model === "string") observed.model = payload.model;
         if (typeof payload?.reasoning_effort === "string") {
           observed.reasoningEffort = payload.reasoning_effort;
+        } else if (typeof collaborationSettings?.reasoning_effort === "string") {
+          observed.reasoningEffort = collaborationSettings.reasoning_effort;
         }
         if (typeof payload?.cwd === "string") observed.workingDirectory = payload.cwd;
         if (typeof payload?.approval_policy === "string") {
@@ -398,6 +416,13 @@ export async function observedSessionConfiguration(codexHome: string): Promise<{
         }
         if (typeof sandbox?.network_access === "boolean") {
           observed.networkAccessEnabled = sandbox.network_access;
+          observed.networkIsolationEvidence = "sandbox_policy";
+        } else if (permissionProfile?.network === "restricted") {
+          observed.networkAccessEnabled = false;
+          observed.networkIsolationEvidence = "permission_profile";
+        }
+        if (payload?.permission_profile !== undefined) {
+          observed.permissionProfile = payload.permission_profile;
         }
       } catch {
         continue;
@@ -405,4 +430,14 @@ export async function observedSessionConfiguration(codexHome: string): Promise<{
     }
   }
   return observed;
+}
+
+export function networkIsolationWasVerifiedDisabled(observed: {
+  networkAccessEnabled: boolean | null;
+  networkIsolationEvidence: "sandbox_policy" | "permission_profile" | "unobserved";
+}): boolean {
+  return (
+    observed.networkAccessEnabled === false &&
+    observed.networkIsolationEvidence !== "unobserved"
+  );
 }
