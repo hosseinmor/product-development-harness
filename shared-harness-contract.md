@@ -34,6 +34,10 @@ For the current MVP:
 - Product Design owns the selected experience and interaction solution used to satisfy decided product intent.
 - AI has no independent product or design decision authority.
 
+Interpret human input by its semantic role before treating it as a decision. A human message may establish, change, supersede, or reject a decision in that human's domain, but it may instead correct current-product understanding, provide rationale or context, offer an example or hypothesis, instruct retrieval, or challenge existing content. Only input that actually establishes, changes, supersedes, or rejects a human-owned decision carries decision authority for that decision. Other human input may change AI understanding, retrieval, or reasoning without creating a new Product or Design requirement.
+
+Human authority determines what AI may treat as decided; it does not determine what must be written into a durable artifact. Durable artifacts are curated representations of material decisions and necessary context, not transcripts of human input. Persist human-derived information only when omitting it would cause a downstream reader to misunderstand the intended change, miss a material decision or constraint, lack necessary current-product context, or invent materially different behavior. An authoritative correction may require removing an incorrect artifact claim without adding the corrected fact when that fact is not materially relevant.
+
 ### Broad cognition, narrow authority
 
 Human decision authority limits what AI may establish as authoritative, not how broadly AI may investigate, reason, explore, or challenge before a decision is established.

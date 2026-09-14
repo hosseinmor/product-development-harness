@@ -43,6 +43,8 @@ Use Product Knowledge as the preferred context provider. Use only canonical Prod
 
 Inspect the relevant GitHub codebase when retrieved context is insufficient, inconsistent, or requires authoritative verification.
 
+Treat direct product observation as establishing only what is directly observable in the state or session inspected. Static copy, layout, visual grouping, or one rendered state does not by itself establish navigation destination, result-set membership, eligibility, persistence, state or data ownership, lifecycle behavior, universal visibility, cross-session behavior, or business-rule semantics. When such an interpretation is materially relevant, verify it through stronger available evidence such as interaction with the product, deeper Product Knowledge retrieval, or authoritative implementation context. Until verified, state only the narrow observable fact or preserve the semantic uncertainty rather than promoting the interpretation into `Current Behavior`.
+
 Do not create a separate context artifact by default.
 
 Do not infer unsupported Business Outcomes or Success Metrics from retrieved context merely to complete the PRD structure.
@@ -72,7 +74,7 @@ Populate the PRD metadata and semantic responsibilities defined by `../artifacts
 
 Retrieve the responsible Product owner or team when reasonably possible. Do not infer or fabricate ownership; when ownership cannot be established, use `owner: unresolved`.
 
-When Business Outcome is not established, make the absence explicit in `Business Outcome`. Do not automatically duplicate that absence into `Assumptions & Open Decisions`; surface a separate Product decision only when judgment about the missing business rationale is materially required downstream.
+When Business Outcome is not established, do not invent or silently establish business value. When PM Intent, the Problem, relevant evidence, current-product context, known Product or business goals, or defensible domain reasoning provide enough basis, proactively offer the PM a small number of plausible non-authoritative Business Outcome candidates. Prefer one candidate and explain the recommendation briefly when there is a defensible basis. Ask the PM to confirm, refine, or reject the proposal rather than defaulting to an open-ended request for the Business Outcome. Only a candidate established by the responsible Product human may become a Known Business Outcome in the PRD. If there is genuinely insufficient basis for a meaningful proposal, make the absence explicit rather than fabricating one. Do not automatically duplicate that absence into `Assumptions & Open Decisions`; surface a separate Product decision only when judgment about the missing business rationale is materially required downstream.
 
 Draft Key Product Scenarios when a material journey, actor handoff, lifecycle sequence, or connected behavior sequence benefits from a coherent product-level view. Keep them solution-independent, as short as needed to preserve the material sequence, and separate from selected Design User Flows and detailed Required Product Behavior.
 
@@ -175,7 +177,9 @@ Each clarification should, when useful, make clear:
 
 ### 8. Reconcile PM decisions into the PRD
 
-A clear PM statement is sufficient to establish a product decision.
+Before reconciliation, interpret the semantic role of the human input. A clear PM statement that actually establishes, changes, supersedes, or rejects a Product decision is sufficient authority for that decision. A correction of current-product understanding, rationale, example, hypothesis, retrieval instruction, challenge, or request to investigate may change the working context without establishing new Product behavior.
+
+Then apply an Artifact Durability Check to human-derived information: would omitting it cause a downstream reader to misunderstand the intended change, miss a material Product decision or constraint, lack necessary current-product context, or invent materially different Product behavior? If not, retain it only as conversational or reasoning context. In particular, an authoritative correction of an immaterial current-product claim may be reconciled by removing the incorrect claim and adding nothing in its place.
 
 Before promoting any claim during reconciliation into an unconditional Scope commitment, Required Product Behavior, Acceptance Criterion, or equivalent established Product behavior, apply a Reconciliation Authority Check: ask `What exact authority establishes this claim?` A valid trace must lead to an explicit PM or responsible-human decision, the clarification answer being reconciled, an authoritative current-product fact or constraint only for the current-behavior or constraint claim it actually establishes, or a consequence necessarily implied by established authority. A clarification answer makes authoritative only the semantic decision or decisions it actually resolves. An adjacent consequence, plausible inference, recommendation, convenient completion, or common pattern does not inherit authority merely because it is related.
 
