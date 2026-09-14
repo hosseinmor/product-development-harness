@@ -647,6 +647,91 @@ async function testDependentClarificationOrdering(): Promise<void> {
   ]);
 }
 
+async function testResumeSearchEditabilityRegression(): Promise<void> {
+  const question: GuardrailProductQuestion = {
+    question:
+      "پس از ورود به صفحه نتایج، آیا کارجو باید بتواند مقادیر جست‌وجوی تولیدشده توسط سیستم را تغییر دهد؟ پیشنهاد من «بله» است تا کارجو بتواند استنباط نامناسب را اصلاح یا دامنه نتایج را تغییر دهد؛ نحوه نمایش و تعامل همچنان در اختیار Design می‌ماند.",
+    whyMaterial:
+      "این تصمیم فقط Product property «قابلیت ویرایش مقادیر تولیدشده پس از ورود» را حل می‌کند. پاسخ مثبت و منفی رفتارهای materially متفاوتی برای ادامه جست‌وجو و جهت طراحی صفحه نتایج ایجاد می‌کنند.",
+  };
+  const input: ClarificationMaterialityInput = {
+    pmIntent: `می‌خواهیم کارجو بتواند بر اساس اطلاعات رزومه‌اش، بدون وارد کردن دستی عبارت جست‌وجو یا تنظیم فیلترها، جست‌وجوی شغل انجام دهد و مستقیماً وارد صفحه نتایج متناسب شود.
+
+سیستم باید بر اساس رزومه، مقادیر مناسب برای جست‌وجو مثل keyword، گروه شغلی و فیلترهای مرتبط را تعیین کند.`,
+    currentProductContext: [],
+    prdMarkdown: `# جست‌وجوی شغل مبتنی بر رزومه
+
+## Outcomes
+
+### User Outcome
+
+کارجو بتواند با تکیه بر اطلاعات رزومه‌اش و بدون ساخت دستی عبارت جست‌وجو یا تنظیم فیلترها، جست‌وجوی شغل را آغاز کند و مستقیماً به نتایج متناسب برسد.
+
+## Scope
+
+- این تغییر، جست‌وجوی شغل مبتنی بر رزومه برای کارجو، تعیین خودکار مقادیر جست‌وجو و هدایت مستقیم به نتایج متناسب را پوشش می‌دهد.
+
+## Required Product Behavior
+
+- محصول باید به کارجو امکان دهد جست‌وجوی شغل را بر اساس اطلاعات رزومه و بدون وارد کردن دستی عبارت جست‌وجو یا تنظیم دستی فیلترها انجام دهد.
+- سیستم باید بر اساس رزومه، مقادیر مناسب لازم برای اجرای جست‌وجو را تعیین کند.
+- مقادیر تعیین‌شده توسط سیستم باید ورودی همان جست‌وجویی باشند که کارجو را مستقیماً به صفحه نتایج متناسب می‌رساند.
+
+## Assumptions & Open Decisions
+
+- ویرایش‌پذیری مقادیر تولیدشده پس از ورود هنوز تعیین نشده است.
+`,
+    humanDecisions: [
+      {
+        question:
+          "مرز منبع داده برای تعیین مقادیر جست‌وجو چیست: فقط داده‌های موجود در رکورد Resume، یا Resume به‌همراه فیلدهای مرتبط Candidate/Profile مانند گروه‌های شغلی ترجیحی و شهر؟ پیشنهاد من گزینه دوم است، مشروط به اینکه صریحاً به‌عنوان دامنه این قابلیت تأیید شود، زیرا Product Knowledge این داده‌های مرتبط را در رکوردهای جدا نگه می‌دارد.",
+        answer:
+          "منبع تعیین جست‌وجو فقط خود entity رزومه نیست. اطلاعات مرتبط Candidate/Profile که برای نیت شغلی و جست‌وجو استفاده می‌شوند، مثل گروه‌های شغلی مورد علاقه و شهر، هم می‌توانند استفاده شوند.",
+      },
+    ],
+    questions: [question],
+  };
+  const auditor: ClarificationMaterialitySemanticAuditor = async (candidate) => {
+    assert.deepEqual(candidate, input);
+    return {
+      threadId: "resume-search-editability-regression",
+      audit: {
+        passed: false,
+        results: [
+          {
+            question: candidate.questions[0]!.question,
+            classification: "NON_BLOCKING_PRODUCT_UNCERTAINTY",
+            reason:
+              "The authorized PRD already defines the problem, outcome, scope, generated search values, execution, and results destination. Editability after arrival is an additional downstream solution capability, so Design can proceed while it remains explicit and bounded.",
+            dependsOnQuestions: [],
+          },
+        ],
+      },
+      usage: null,
+      isolation: {
+        workingDirectoryWasEmpty: true,
+        workingDirectoryUnchanged: true,
+        networkAccessEnabled: false,
+        passed: true,
+      },
+    };
+  };
+  const guard = new ClarificationMaterialityGuard(
+    semanticAuditorUsing(auditor),
+  );
+  const result = await guard.audit(input);
+
+  assert.equal(
+    result.audit.results[0]?.classification,
+    "NON_BLOCKING_PRODUCT_UNCERTAINTY",
+  );
+  assert.equal(result.audit.passed, false);
+  assert.equal(result.instrumentation.cached, false);
+  assert.equal(result.instrumentation.semanticAuditCallCount, 1);
+  assert.equal(guard.metrics.nonBlockingProductQuestions, 1);
+  assert.equal(guard.metrics.blockingQuestions, 0);
+}
+
 await testIndependentClassificationsAndCache();
 await testMixedBatchOnlyBlockingReachesRouter();
 await testAllNonBlockingSkipsRouterAndReturnsFeedback();
@@ -654,7 +739,8 @@ await testDependentClarificationOrdering();
 await testAlignmentBackstopStillRejectsMaterialOmission();
 await testNoHiddenFixtureDependency();
 await testObservableProductConsequenceBoundary();
+await testResumeSearchEditabilityRegression();
 
 console.log(
-  "Pre-Router Clarification Materiality behavioral tests passed (A-H, observable-consequence boundary, dependency ordering, mixed/all suppression, cache, and Alignment backstop).",
+  "Pre-Router Clarification Materiality behavioral tests passed (A-H, observable-consequence boundary, dependency ordering, mixed/all suppression, cache, Alignment backstop, and Resume-search editability regression).",
 );

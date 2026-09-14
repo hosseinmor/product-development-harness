@@ -291,18 +291,83 @@ async function testLaterAuthorityInvalidatesByRefs(): Promise<void> {
   assert.equal(second.instrumentation.cacheHits, 0);
 }
 
+async function testResumeDerivedSearchLinkageRegression(): Promise<void> {
+  const ledger = createAuthorityLedger(`می‌خواهیم کارجو بتواند بر اساس اطلاعات رزومه‌اش، بدون وارد کردن دستی عبارت جست‌وجو یا تنظیم فیلترها، جست‌وجوی شغل انجام دهد و مستقیماً وارد صفحه نتایج متناسب شود.
+
+سیستم باید بر اساس رزومه، مقادیر مناسب برای جست‌وجو مثل keyword، گروه شغلی و فیلترهای مرتبط را تعیین کند.`);
+  const claim =
+    "مقادیر جست‌وجویی که برای تولید آن نتایج استفاده می‌شوند توسط سیستم و بر اساس اطلاعات رزومه تعیین شده‌اند.";
+  const calls: AuthoritySemanticAuditCase[][] = [];
+  const guard = new AuthorityLedgerGuard(
+    auditorUsing(
+      (candidate) => {
+        assert.equal(candidate.claim, claim);
+        assert.equal(candidate.section, "Acceptance Criteria");
+        assert.deepEqual(candidate.authorityRefs, ["PM-001", "PM-002"]);
+        assert.equal(candidate.authorityType, "necessary_implication");
+        assert.equal(candidate.derived, true);
+        assert.deepEqual(
+          candidate.citedAuthorities.map(({ id }) => id),
+          ["PM-001", "PM-002"],
+        );
+        return {
+          validPromotion: true,
+          necessaryImplication: true,
+          reason:
+            "PM-001 defines one Resume-based search that reaches matching results, while PM-002 requires the system to determine that search's values from the Resume; the cited values must therefore be the inputs used to produce those results.",
+        };
+      },
+      calls,
+    ),
+  );
+  const result = await guard.audit({
+    ledger,
+    claims: [
+      {
+        claim,
+        section: "Acceptance Criteria",
+        authorityRefs: ["PM-001", "PM-002"],
+        authorityType: "necessary_implication",
+        derived: true,
+      },
+    ],
+    currentProductContext: [],
+    prdMarkdown: `# جست‌وجوی شغل مبتنی بر رزومه
+
+## Scope
+
+## Required Product Behavior
+
+## Acceptance Criteria
+
+- ${claim}
+`,
+    phase: "initial",
+  });
+
+  assert.equal(result.audit.passed, true);
+  assert.equal(result.audit.claims[0]?.validPromotion, true);
+  assert.equal(result.audit.claims[0]?.necessaryImplication, true);
+  assert.equal(result.audit.claims[0]?.authorityStatus, "necessary_implication");
+  assert.equal(result.audit.claims[0]?.verdictSource, "semantic_audit");
+  assert.equal(result.instrumentation.semanticAuditCallCount, 1);
+  assert.equal(result.instrumentation.cacheHits, 0);
+  assert.equal(calls.length, 1);
+}
+
 await testIdempotence();
 await testDeltaRepair();
 await testExplicitPmIntent();
 await testUnsupportedConsequence();
 await testUnsupportedInheritance();
 await testLaterAuthorityInvalidatesByRefs();
+await testResumeDerivedSearchLinkageRegression();
 
 console.log(
   JSON.stringify(
     {
       passed: true,
-      tests: 6,
+      tests: 7,
       coverage: [
         "idempotent cached verdict without a second semantic call",
         "delta repair audits only changed claims and caches unchanged accepted claims",
@@ -310,6 +375,7 @@ console.log(
         "requiredness does not authorize submission blocking",
         "current internal-only flow does not authorize intended internal-only scope",
         "new human authority plus changed authorityRefs invalidates the old verdict",
+        "the exact Resume-derived search linkage rejected in the real-world run is a valid necessary implication",
       ],
     },
     null,
