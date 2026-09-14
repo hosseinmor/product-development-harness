@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import {
   ClarificationMaterialityGuard,
   runtimeGuardrailConfig,
+  type ClarificationMaterialityInput,
   type GuardrailProductQuestion,
 } from "../../runtime/prd/runtime-guardrails.js";
 import { codexPrdSemanticAuditor } from "../../runtime/adapters/codex/codex-prd-semantic-auditor.js";
@@ -329,6 +330,160 @@ assert.equal(
   "NON_BLOCKING_PRODUCT_UNCERTAINTY",
 );
 
+const resumeSearchBusinessOutcomeInput = {
+  pmIntent: `می‌خواهیم کارجو بتواند بر اساس اطلاعات رزومه‌اش، بدون وارد کردن دستی عبارت جست‌وجو یا تنظیم فیلترها، جست‌وجوی شغل انجام دهد و مستقیماً وارد صفحه نتایج متناسب شود.
+
+سیستم باید بر اساس رزومه، مقادیر مناسب برای جست‌وجو مثل keyword، گروه شغلی و فیلترهای مرتبط را تعیین کند.`,
+  currentProductContext: [
+    {
+      url: "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/job-search/0_overview/",
+      title: "نمای حوزه: جستجوی شغل",
+      context:
+        "Retrieved live from the internal Product Knowledge site on 2026-09-14. The page is explicitly marked Draft. It identifies search, filters, job alerts, and smart recommendations as the job-search domain, but its detailed search/filter/recommendation documents are not yet written. This absence does not establish that a behavior is absent from the product.",
+    },
+    {
+      url: "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/0_overview/",
+      title: "نمای حوزه: رزومه",
+      context:
+        "Retrieved live from the internal Product Knowledge site on 2026-09-14; status Confirmed. A Candidate has a one-to-one Resume record. The Resume is a structured input to matching, Candidate search, recommended resumes, job recommendations, and AI models. Candidate identity/base fields and Resume data are separate records. The Candidate owns resume creation and editing.",
+    },
+    {
+      url: "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/entity-cv/",
+      title: "موجودیت رزومه",
+      context:
+        "Retrieved live from the internal Product Knowledge site on 2026-09-14; status Confirmed. Relevant structured inputs include preferred job categories on the Candidate record; Candidate city; desired salary range; work-history entries with standardized job category, industry, seniority, and standardized job title; skills; and a calculated Resume-by-job-category record with years of experience and whether the category is preferred. Each Candidate has exactly one Resume record, with separate Persian and English completeness values.",
+    },
+    {
+      url: "https://jobvision.ir/jobs",
+      title: "Current JobVision job-results surface — direct UI observation",
+      context:
+        "Directly observed in the current logged-in session on 2026-09-14. The results surface visibly exposes manual title/company keyword, job category, city, publication time, remote work, cooperation type, internship, salary, work experience, seniority, benefits, industry, disability-employment, and military-service filters, plus result sorting. The unfiltered state showed a result list and an AI-recommended insertion based on user activity. This observation establishes only the visible controls and rendered state; it does not establish hidden matching rules, persistence, eligibility, URL/query semantics, or the proposed Resume-derived search behavior.",
+    },
+  ],
+  prdMarkdown: `---
+id: resume-derived-job-search
+artifact: prd
+owner: unresolved
+references:
+  - http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/job-search/0_overview/
+  - http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/0_overview/
+  - http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/entity-cv/
+  - https://jobvision.ir/jobs
+---
+
+# جست‌وجوی شغل بر اساس رزومه
+
+## Problem
+
+کارجویی که می‌خواهد فرصت‌های متناسب با سابقه و ترجیحات ثبت‌شده در رزومه‌اش را پیدا کند، نباید برای شروع جست‌وجو مجبور باشد اطلاعات رزومه را شخصاً به عبارت جست‌وجو، گروه شغلی و مجموعه‌ای از فیلترها تبدیل کند. نیاز محصول، حذف این تنظیم دستی از مسیر آغاز جست‌وجوی رزومه‌محور و رساندن کارجو به نتایج متناسب است.
+
+معنای کسب‌وکاری «تناسب» و اثر نهایی مورد انتظار برای Job Vision هنوز تصمیم‌گیری نشده است.
+
+## Affected Users
+
+- کارجویی که می‌خواهد بر پایهٔ اطلاعات رزومهٔ خود شغل پیدا کند.
+
+## Current Behavior
+
+هر Candidate یک رکورد Resume دارد و ایجاد و ویرایش رزومه در اختیار خود Candidate است. اطلاعات هویتی پایه و داده‌های Resume در رکوردهای جدا نگهداری می‌شوند. داده‌های ساختاریافتهٔ مرتبط شامل گروه‌های شغلی ترجیحی، شهر، بازهٔ حقوق درخواستی، سوابق کاری استانداردشده، مهارت‌ها و تجربهٔ محاسبه‌شده به تفکیک گروه شغلی است؛ رزومه همچنین ورودی matching، پیشنهاد شغل و مدل‌های هوش مصنوعی است.
+
+در مشاهدهٔ مستقیم صفحهٔ فعلی نتایج، کنترل‌های دستی keyword عنوان/شرکت، گروه شغلی، شهر، زمان انتشار، دورکاری، نوع همکاری، کارآموزی، حقوق، سابقهٔ کار، ارشدیت، مزایا، صنعت، استخدام افراد دارای معلولیت و وضعیت خدمت سربازی، به‌همراه مرتب‌سازی نتایج، قابل مشاهده بودند. حالت بدون فیلتر نیز فهرست نتایج و یک مورد پیشنهادی هوش مصنوعی بر اساس فعالیت کاربر را نمایش می‌داد. این مشاهده دربارهٔ قواعد پنهان تطبیق، ماندگاری، eligibility یا معناشناسی query چیزی را اثبات نمی‌کند.
+
+## Outcomes
+
+### User Outcome
+
+کارجو بتواند بدون تبدیل دستی اطلاعات رزومه به عبارت جست‌وجو و فیلترها، مستقیماً به فرصت‌های متناسب برسد.
+
+### Business Outcome
+
+Business Outcome هنوز توسط Product تعیین نشده است. گزینه‌های غیرقطعی برای تصمیم PM عبارت‌اند از:
+
+1. افزایش اقدام کارجو روی فرصت‌های مرتبط و در نهایت افزایش درخواست‌های شغلی مرتبط از طریق کاهش اصطکاک شروع جست‌وجو — گزینهٔ پیشنهادی؛
+2. افزایش استفاده و بازگشت کارجو به جست‌وجوی شغل؛
+3. بهبود تناسب درخواست‌های دریافتی برای کارفرما.
+
+گزینهٔ اول پیشنهاد می‌شود، زیرا کاهش اصطکاک تصریح‌شده در نیت PM را به یک اثر پایین‌دستی معنادار متصل می‌کند؛ بااین‌حال هیچ‌یک تا زمان تصمیم PM الزام محصول نیست.
+
+## Scope
+
+- در محدودهٔ این تغییر، کارجو می‌تواند جست‌وجوی شغل را بر پایهٔ اطلاعات رزومهٔ خود آغاز کند، بدون آنکه پیش از جست‌وجو عبارت جست‌وجو یا فیلترها را دستی وارد کند.
+- این قابلیت کارجو را مستقیماً به صفحهٔ نتایج متناسب می‌رساند.
+- تعیین مقادیر جست‌وجو از روی رزومه، از جمله مقادیری مانند keyword، گروه شغلی و فیلترهای مرتبط، در محدوده است.
+
+## Key Product Scenario
+
+1. کارجو جست‌وجوی مبتنی بر رزومه را آغاز می‌کند.
+2. سیستم با استفاده از اطلاعات رزومهٔ او، مقادیر مناسب جست‌وجو را تعیین می‌کند.
+3. جست‌وجو با این مقادیر اجرا می‌شود و کارجو بدون مرحلهٔ الزامی تنظیم دستی معیارها، مستقیماً وارد صفحهٔ نتایج متناسب می‌شود.
+
+## Required Product Behavior
+
+- محصول باید امکان آغاز جست‌وجوی رزومه‌محور را برای کارجو فراهم کند، بی‌آنکه ورود دستی عبارت جست‌وجو یا تنظیم دستی فیلترها پیش‌نیاز آغاز جست‌وجو باشد.
+- سیستم باید با استفاده از اطلاعات رزومه، مقادیر مناسب جست‌وجو مانند keyword، گروه شغلی و فیلترهای مرتبط را تعیین کند.
+- محصول باید جست‌وجو را با مقادیر تعیین‌شده اجرا کند و کارجو را بدون مرحلهٔ الزامی ورود دستی معیارها مستقیماً به صفحهٔ نتایج متناسب ببرد.
+
+## Dependencies
+
+- \`http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/job-search/0_overview/\`
+- \`http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/0_overview/\`
+- \`http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/entity-cv/\`
+
+## Acceptance Criteria
+
+- کارجو می‌تواند جست‌وجوی رزومه‌محور را بدون واردکردن دستی keyword یا تنظیم دستی فیلترها آغاز کند.
+- در هر اجرای این قابلیت، مقادیر جست‌وجو بر اساس اطلاعات رزومهٔ کارجو تعیین می‌شوند.
+- پس از آغاز قابلیت، جست‌وجو اجرا می‌شود و مقصد کارجو مستقیماً صفحهٔ نتایج متناسب است.
+
+## Assumptions & Open Decisions
+
+- **مسدودکننده — Business Outcome:** اثر کسب‌وکاری اصلی هنوز انتخاب نشده است. این تصمیم بر معنای «تناسب» و اولویت‌های ارزیابی قابلیت اثر می‌گذارد.
+- **مسدودکننده — eligibility:** هنوز مشخص نیست وجود چه مقدار یا نوعی از اطلاعات رزومه برای استفاده از قابلیت کافی است. وجود رکورد Resume به‌تنهایی وجود سیگنال قابل‌استفاده را تضمین نمی‌کند.
+- **وابسته به تصمیم Business Outcome:** سیاست تشخیص «مقادیر مناسب»، از جمله نحوهٔ برخورد با چند گروه شغلی، سیگنال‌های متعارض یا داده‌های ناقص، هنوز Product-authoritative نیست و پس از تعیین هدف اصلی باید دوباره ارزیابی شود.`,
+  humanDecisions: [],
+  questions: [
+    {
+      question:
+        "Business Outcome اصلی این قابلیت کدام باشد؟ ۱) افزایش اقدام کارجو روی فرصت‌های مرتبط و در نهایت افزایش درخواست‌های شغلی مرتبط از طریق کاهش اصطکاک شروع جست‌وجو — پیشنهاد من؛ ۲) افزایش استفاده و بازگشت کارجو به جست‌وجوی شغل؛ ۳) بهبود تناسب درخواست‌های دریافتی برای کارفرما. لطفاً یکی را به‌عنوان هدف اصلی تأیید، اصلاح یا رد کنید.",
+      whyMaterial:
+        "این تصمیم یک متغیر واحد، یعنی اثر کسب‌وکاریِ اصلی، را مشخص می‌کند. انتخاب آن جهت تعریف «تناسب»، اولویت‌های انتخاب معیارهای جست‌وجو و Acceptance Criteria بعدی را تغییر می‌دهد. گزینهٔ اول توصیه می‌شود چون مستقیماً کاهش اصطکاک موردنظر PM را به یک اثر پایین‌دستی معنادار متصل می‌کند، بدون اینکه صرف اجرای جست‌وجو را موفقیت نهایی فرض کند.",
+    },
+  ],
+} satisfies ClarificationMaterialityInput;
+
+const resumeSearchBusinessOutcome = await guard.audit(
+  resumeSearchBusinessOutcomeInput,
+);
+assert.equal(
+  resumeSearchBusinessOutcome.audit.results[0]?.classification,
+  "NON_BLOCKING_PRODUCT_UNCERTAINTY",
+);
+
+const outcomeThatDeterminesCurrentScope = await guard.audit({
+  pmIntent:
+    "Create one v0 flow for one primary audience. If the primary Business Outcome is first-time activation, v0 serves new users through onboarding; if it is retention, v0 serves returning users through re-engagement. Only one of those scopes belongs in this version.",
+  currentProductContext: [],
+  prdMarkdown: `# Single-audience v0
+
+## Assumptions & Open Decisions
+
+- The primary Business Outcome remains unresolved.
+- The selected outcome determines whether the current scope is onboarding for new users or re-engagement for returning users.`,
+  humanDecisions: [],
+  questions: [
+    {
+      question:
+        "Which primary Business Outcome defines this version: first-time activation or returning-user retention?",
+      whyMaterial:
+        "The authorized alternatives select different audiences, scope, and core flows for the current version.",
+    },
+  ],
+});
+assert.equal(
+  outcomeThatDeterminesCurrentScope.audit.results[0]?.classification,
+  "BLOCKING_PRODUCT_DECISION",
+);
+
 console.log(
   JSON.stringify(
     {
@@ -359,6 +514,12 @@ console.log(
           observableIdentityBoundary.audit.results[0]?.classification,
         authorityRejectedUnnecessaryDetail:
           authorityRejectedUnnecessaryDetail.audit.results[0]?.classification,
+      },
+      outcomeBoundaryClassifications: {
+        resumeSearchBusinessOutcome:
+          resumeSearchBusinessOutcome.audit.results[0]?.classification,
+        outcomeThatDeterminesCurrentScope:
+          outcomeThatDeterminesCurrentScope.audit.results[0]?.classification,
       },
       hiddenFixtureDataAvailable: false,
       isolation: {

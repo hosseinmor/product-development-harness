@@ -11,6 +11,8 @@ import {
   type PrdSemanticAuditor,
   type SemanticGuardResult,
 } from "../../runtime/prd/runtime-guardrails.js";
+import { ModelBackedPrdSemanticAuditor } from "../../runtime/prd/model-backed-prd-semantic-auditor.js";
+import type { StructuredAgentInvoker } from "../../runtime/prd/structured-agent-invoker.js";
 import {
   clarificationMaterialityRepairPrompt,
   routeAndRevealAfterValidation,
@@ -732,6 +734,63 @@ async function testResumeSearchEditabilityRegression(): Promise<void> {
   assert.equal(guard.metrics.blockingQuestions, 0);
 }
 
+async function testMaterialityPromptDefinesOutcomeBoundary(): Promise<void> {
+  const question: GuardrailProductQuestion = {
+    question: "Which Business Outcome should this capability optimize for?",
+    whyMaterial:
+      "The selected outcome changes relevance, priorities, and acceptance criteria.",
+  };
+  let capturedPrompt = "";
+  const invoker: StructuredAgentInvoker = {
+    invokeStructured: async (invocation) => {
+      capturedPrompt = invocation.prompt;
+      return {
+        sessionId: "materiality-prompt-contract-test",
+        finalResponse: JSON.stringify({
+          results: [
+            {
+              question: question.question,
+              classification: "NON_BLOCKING_PRODUCT_UNCERTAINTY",
+              reason:
+                "The core behavior remains defined and the asserted consequences lack authority.",
+              dependsOnQuestions: [],
+            },
+          ],
+        }),
+        usage: null,
+        isolation: {
+          workingDirectoryWasEmpty: true,
+          workingDirectoryUnchanged: true,
+          networkAccessEnabled: false,
+          passed: true,
+        },
+      };
+    },
+  };
+  const auditor = new ModelBackedPrdSemanticAuditor(invoker);
+  await auditor.auditClarificationMateriality({
+    pmIntent: "Add a capability whose core behavior and scope are already defined.",
+    currentProductContext: [],
+    prdMarkdown: "# Capability\n\nThe Business Outcome remains an open decision.",
+    humanDecisions: [],
+    questions: [question],
+  });
+
+  assert.match(
+    capturedPrompt,
+    /whyMaterial as proposed Product Child rationale, not as Product authority, evidence, or fact/,
+  );
+  assert.match(
+    capturedPrompt,
+    /Choosing a Business Outcome, Product Goal, or success metric is not by itself a BLOCKING_PRODUCT_DECISION/,
+  );
+  assert.match(capturedPrompt, /apply this counterfactual test/);
+  assert.match(
+    capturedPrompt,
+    /current core flow, scope, eligibility, lifecycle, and acceptance behavior/,
+  );
+}
+
 await testIndependentClassificationsAndCache();
 await testMixedBatchOnlyBlockingReachesRouter();
 await testAllNonBlockingSkipsRouterAndReturnsFeedback();
@@ -740,7 +799,8 @@ await testAlignmentBackstopStillRejectsMaterialOmission();
 await testNoHiddenFixtureDependency();
 await testObservableProductConsequenceBoundary();
 await testResumeSearchEditabilityRegression();
+await testMaterialityPromptDefinesOutcomeBoundary();
 
 console.log(
-  "Pre-Router Clarification Materiality behavioral tests passed (A-H, observable-consequence boundary, dependency ordering, mixed/all suppression, cache, Alignment backstop, and Resume-search editability regression).",
+  "Pre-Router Clarification Materiality behavioral tests passed (A-H, observable-consequence boundary, dependency ordering, mixed/all suppression, cache, Alignment backstop, Resume-search editability regression, and outcome prompt contract).",
 );
