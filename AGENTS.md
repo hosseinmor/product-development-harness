@@ -32,6 +32,8 @@ Retrieve only external context relevant to the task, such as:
 
 Use context that is already available instead of asking humans to restate it.
 
+When continuing existing product work, retrieve the current durable artifacts before relying on conversation history or tool-local state. Conversation history may provide useful context, but it must not substitute for the current artifact state.
+
 If required external context is unavailable, keep the limitation explicit and do not invent missing facts, rules, components, or guidance.
 
 ## Operating constraints
