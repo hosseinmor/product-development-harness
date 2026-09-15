@@ -2,7 +2,9 @@
 
 A minimal, tool-agnostic harness for AI-native, human-governed product development at Job Vision.
 
-The Harness defines shared rules, workflow contracts, and artifact boundaries that can be used across tools such as ChatGPT, Claude, Cursor/Codex, Figma, and future environments without depending on any one of them.
+The Harness defines shared rules, workflow contracts, artifact boundaries, and optional validation/runtime infrastructure that can be used across tools such as ChatGPT, Claude, Cursor/Codex, Figma, and future environments.
+
+The core Harness is tool-agnostic. Some validation/runtime implementations in this repository are currently provider-specific and are not required to use the core Harness.
 
 ## Core principles
 
@@ -15,17 +17,15 @@ The Harness defines shared rules, workflow contracts, and artifact boundaries th
 - Product Knowledge is an external provider of retrievable current-product context. It does not define the Harness and the Harness does not prescribe Product Knowledge's internal structure.
 - The architecture remains minimal. New files, layers, schemas, agents, routers, or runtime abstractions require a demonstrated need.
 
-## Initial MVP
+## Implemented Harness scope
 
-The first Harness MVP covers three capabilities:
+The current Harness MVP covers three product-development capabilities:
 
 1. PRD Draft + Clarification
 2. Design Exploration
 3. Design Review + PRD Stress Test
 
-Engineering and QA workflows will be designed after these capabilities have been exercised and validated.
-
-## Current lifecycle
+The implemented product/design path is:
 
 ```text
 PM Intent
@@ -36,6 +36,16 @@ PM Intent
 → Selected Design Direction
 → Design Review + PRD Stress Test
 → Product & Design Aligned
+```
+
+Engineering and QA workflows are intentionally not yet defined as full Harness workflows.
+
+## Provisional future lifecycle
+
+The broader product-development lifecycle remains provisional beyond the implemented MVP:
+
+```text
+Product & Design Aligned
 → Technical Planning
 → Product / Design / Technical Reconciliation
 → Delivery Readiness
@@ -46,7 +56,64 @@ PM Intent
 → Product Knowledge Update
 ```
 
-The lifecycle is intentionally provisional beyond the current MVP.
+These later stages describe the intended lifecycle direction, not currently implemented Harness workflow contracts.
+
+## Using the Harness
+
+### Repo-aware agents
+
+Give the agent access to this repository and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
+
+Do not restate Harness rules in the task prompt unless the execution environment cannot access the repository. This keeps task prompts small and makes repository behavior the source of truth.
+
+### Environments without repository access
+
+Provide `AGENTS.md` and the specific files it routes to for the task. Avoid loading every workflow by default.
+
+### External product context
+
+Provide access to or the location of relevant external sources such as Product Knowledge, current working artifacts, evidence, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+
+A minimal task handoff can look like:
+
+```text
+Harness:
+<repository or provided Harness files>
+
+Product Knowledge:
+<context source, when relevant>
+
+PM Intent:
+<requested product change>
+
+Execute the task according to the Harness.
+```
+
+When continuing existing work, provide or make retrievable the current durable artifact rather than relying on prior chat history.
+
+## Runtime and validation infrastructure
+
+The repository also contains optional infrastructure created while hardening the PRD workflow.
+
+### PRD runtime guards
+
+`runtime/prd/` contains high-assurance guard logic used to validate important semantic boundaries such as authority, clarification materiality, clarification atomicity, and Problem Alignment coverage.
+
+These guards strengthen execution of the PRD workflow; they do not replace or redefine the Harness contracts.
+
+### Provider adapters
+
+`runtime/adapters/` contains provider-specific integration code. The current implemented adapter is for Codex.
+
+The existence of a Codex adapter does not make the core Harness Codex-specific. Equivalent adapters may be added for other execution environments if a demonstrated need justifies them.
+
+### Evals and proofs
+
+`evals/` contains regression cases and execution tooling used to protect observed Harness invariants.
+
+`proofs/` contains focused proof/validation harnesses used to verify runtime behavior and lifecycle properties during hardening.
+
+These directories are validation infrastructure, not additional sources of Product or Design authority.
 
 ## Repository structure
 
@@ -63,17 +130,32 @@ The lifecycle is intentionally provisional beyond the current MVP.
 ├── artifacts/
 │   ├── prd.md
 │   └── design.md
-└── evals/
-    ├── README.md
-    └── cases/
+├── runtime/
+│   ├── prd/
+│   └── adapters/
+│       └── codex/
+├── evals/
+│   ├── README.md
+│   ├── cases/
+│   └── orchestrator/
+└── proofs/
+    └── guarded-prd-real-world/
 ```
 
 The structure follows one rule:
 
-> README navigates. Shared contract governs. Workflow files describe execution. Artifact files define durable outputs. Eval files test Harness behavior without redefining it.
+> README navigates. Shared contract governs. Workflow files describe execution. Artifact files define durable outputs. Runtime guards validate execution. Evals and proofs protect behavior without redefining it.
 
 ## Scope boundaries
 
-This repository does not define a central orchestration runtime, Product Knowledge taxonomy, Figma structure, issue-tracker workflow, agent architecture, or tool-specific integration model.
+This repository does not define:
 
-Those may be added later only when a concrete workflow failure demonstrates the need.
+- a single central orchestration runtime for the entire product-development lifecycle,
+- a generic multi-agent architecture,
+- a Product Knowledge taxonomy,
+- a Figma document structure,
+- or an issue-tracker workflow.
+
+The current runtime is intentionally narrower: it supports high-assurance execution and validation of the PRD path and currently includes a Codex-specific adapter.
+
+Broader runtime, provider, Engineering, QA, or workflow infrastructure should be added only when real usage demonstrates the need.
