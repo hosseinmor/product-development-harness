@@ -1,0 +1,45 @@
+name: Harness deterministic consolidation check
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deterministic-validation:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: evals/orchestrator
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: evals/orchestrator/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Runtime guardrails behavioral tests
+        run: npm run test:runtime-guardrails
+
+      - name: Authority ledger behavioral tests
+        run: npm run test:runtime-authority-ledger
+
+      - name: Clarification materiality behavioral tests
+        run: npm run test:runtime-clarification-materiality
+
+      - name: Alignment guard behavioral tests
+        run: npm run test:runtime-alignment-guard
+
+      - name: Proof host lifecycle validation
+        run: npx tsx ../../proofs/guarded-prd-real-world/proof-host-lifecycle.validation.ts
