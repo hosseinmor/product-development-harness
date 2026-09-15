@@ -51,6 +51,18 @@ Metadata rules:
 
 Do not add generic status, version, timestamps, confidence scores, approval metadata, requirement numbering, Jira links, Figma links, or similar metadata without a demonstrated workflow need.
 
+## Writing conventions
+
+The PRD is a durable Product artifact, so its wording should make Product intent easy to understand without depending on the conversation that produced it.
+
+- For Job Vision PRDs, write in Persian by default unless the responsible human requests another language.
+- Use canonical product terminology from Product Knowledge and other authoritative context. Do not create alternate names for the same concept merely for stylistic variety.
+- Prefer natural Persian prose. Keep English terms when they are canonical Product, technical, artifact, or Harness terms, or when translation would reduce precision; otherwise avoid unnecessary Persian-English mixing.
+- Use a direct, neutral, product-oriented tone. Do not write marketing copy, conversational dialogue with the PM, approval narration, or AI process/reasoning into the PRD.
+- Let wording reflect authority correctly: state established Product behavior directly; label assumptions, hypotheses, and open decisions as such. Do not hedge established decisions or present uncertainty as decided fact.
+- Prefer concise, scannable sentences, bullets, and tables when they improve comprehension. Do not optimize for brevity when it would remove a material distinction or decision boundary.
+- Preserve exact named Harness states or established product labels when referring to them, such as `Problem Aligned`, rather than translating or paraphrasing them inconsistently.
+
 ## Semantic structure
 
 A PRD should cover the following semantic responsibilities. The headings below are the default representation, not a requirement to render empty conditional sections.
