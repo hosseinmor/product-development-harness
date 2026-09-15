@@ -135,7 +135,7 @@ Describe why the change matters to Job Vision, the business, or the product at t
 
 Business Outcome is a required semantic responsibility and must not silently substitute for User Outcome or be inferred from it without support.
 
-Do not invent business value. If a Business Outcome has not been established by Product, make that absence explicit in `Business Outcome` rather than fabricating one.
+Do not invent business value. If a Business Outcome has not been established and there is enough basis in the intent, Problem, evidence, current-product context, known goals, or defensible Product reasoning, AI should proactively offer a small number of plausible non-authoritative candidates and briefly recommend one when justified. These proposals help Product decide; they must not be presented as the PRD's established Business Outcome until the responsible Product human confirms or refines one. If there is genuinely insufficient basis for a meaningful proposal, make the absence explicit in `Business Outcome` rather than fabricating one.
 
 Do not duplicate an unestablished Business Outcome in `Assumptions & Open Decisions` merely because it is unknown. Create a separate open Product decision only when Product judgment about the missing business rationale is itself materially required for a downstream decision.
 

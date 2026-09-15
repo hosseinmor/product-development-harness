@@ -1,0 +1,41 @@
+{
+  "name": "@jobvision/harness-eval-orchestrator-poc",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "eval:run-a": "tsx run-a-control.ts",
+    "eval:run-b": "tsx run-a-control.ts --variant=run-b-no-product-knowledge",
+    "eval:run-c": "tsx run-a-control.ts --variant=run-c-solution-shaped",
+    "eval:compare-a-b": "tsx evaluate-run-a-b-blind.ts",
+    "eval:compare-a-c": "tsx evaluate-run-a-b-blind.ts --comparison=a-c",
+    "test:runtime-guardrails": "tsx runtime-guardrails.behavioral-test.ts",
+    "test:runtime-authority-ledger": "tsx runtime-authority-ledger.behavioral-test.ts",
+    "test:runtime-clarification-materiality": "tsx runtime-clarification-materiality-guard.behavioral-test.ts",
+    "test:runtime-clarification-materiality:semantic": "tsx runtime-clarification-materiality-guard.semantic-regression.ts",
+    "test:runtime-alignment-guard": "tsx runtime-alignment-guard.behavioral-test.ts",
+    "test:runtime-alignment-guard:semantic": "tsx runtime-alignment-guard.semantic-regression.ts",
+    "test:runtime-guardrails:semantic": "tsx runtime-guardrails.semantic-regression.ts",
+    "test:fixture-router": "tsx semantic-fixture-router-regression.ts",
+    "test:recommended-jobs-not-interested-reason-setup": "tsx recommended-jobs-not-interested-reason-setup.validation.ts",
+    "test:recommended-jobs-not-interested-reason-runner-static": "tsx recommended-jobs-not-interested-reason-runner.validation.ts",
+    "eval:recommended-jobs-not-interested-reason-smoke": "tsx run-recommended-jobs-not-interested-reason-smoke.ts",
+    "eval:recommended-jobs-not-interested-reason-final-prd": "tsx evaluate-recommended-jobs-final-prd.ts",
+    "test:recommended-jobs-not-interested-reason-evaluator-static": "tsx recommended-jobs-final-prd-evaluator.validation.ts",
+    "snapshot:product-knowledge": "tsx build-product-knowledge-snapshot.ts",
+    "diagnostic:danger-full-access": "tsx diagnostic-danger-full-access.ts",
+    "smoke:snapshot": "tsx smoke-snapshot.ts",
+    "smoke": "tsx smoke.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@openai/codex-sdk": "0.153.4",
+    "cheerio": "1.2.0"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.0",
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}
