@@ -9,11 +9,15 @@ The workflow is draft-first, retrieval-first, normalization-before-clarification
 ## Inputs
 
 - PM Intent, in whatever natural form the PM provides it.
+- Relevant discovery context when available, including research, evidence, prior analysis, hypotheses, or working notes.
 - Relevant current-product context from Product Knowledge when available.
-- Evidence when available and relevant.
 - The authoritative implementation source when deeper verification is required.
 
 PM Intent does not require a mandatory intake schema. Missing structure is work for AI to resolve where possible, not an automatic request for more documentation from PM.
+
+Discovery and problem exploration may happen before this workflow in any suitable tool or process. The Harness does not prescribe or own that upstream work. When relevant discovery context is available, AI should consume it rather than requiring the PM to restate or reformat it.
+
+Discovery context is input to Product Definition, not Product authority by default. Evidence may inform Product decisions, while prior analysis, hypotheses, recommendations, working notes, and AI-generated conclusions remain non-authoritative unless the responsible PM establishes the Product intent or decision they imply.
 
 ## Workflow
 
