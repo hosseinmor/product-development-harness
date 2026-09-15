@@ -1,2 +1,6 @@
 evals/orchestrator/node_modules/
 evals/runs/
+.DS_Store
+.obsidian/
+proofs/guarded-prd-real-world/active-run.json
+proofs/guarded-prd-real-world/runs/
