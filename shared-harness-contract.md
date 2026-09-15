@@ -113,6 +113,18 @@ Owns how correctness and agreed expectations are verified. This boundary is inte
 
 When work in one artifact requires changing a decision owned by another artifact, the change must return to the owning artifact rather than remaining only in the downstream artifact.
 
+### Durable artifact persistence
+
+Conversations, AI sessions, and tool-local working state may host exploration, clarification, and human decisions, but they are not the durable state of product development.
+
+When a human establishes a decision that belongs to a durable artifact, AI should reconcile that decision into the current owning artifact so downstream work does not depend on recovering the original conversation.
+
+When continuing existing work, AI should retrieve the current durable artifacts before relying on conversation history. Returning to the same conversation may be convenient, but it is not a workflow requirement.
+
+When an established decision changes, update the current owning artifact and then apply the change-propagation rules to materially affected downstream artifacts. Do not preserve superseded decisions merely as parallel artifact versions unless a demonstrated workflow need requires it.
+
+Durable artifacts must remain retrievable and versioned enough for downstream work and change recovery. The Harness does not prescribe a storage repository, folder structure, or tool-specific persistence mechanism unless a demonstrated need justifies one.
+
 ## 4. Knowledge Contract
 
 The Harness defines what product context is required to perform a task. It does not define how Product Knowledge stores, structures, indexes, or retrieves that context.
