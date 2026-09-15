@@ -2,24 +2,65 @@
 
 ## Purpose
 
-This directory stores Regression evals for real, important failures in Product Development Harness usage that are worth protecting from recurrence.
+This directory protects important Product Development Harness behavior from recurrence of observed failures.
 
-Each eval should originate from an observed failure or a demonstrated recurrence risk grounded in real product-development work. Speculative Capability evals are not maintained in the current eval bank.
+Regression evals should originate from real Harness failures or demonstrated recurrence risks grounded in product-development work. Speculative capability coverage is not added merely for completeness.
 
 ## Relationship to the Harness
 
-Evals do not define new Harness rules. `shared-harness-contract.md`, the relevant workflow, and the relevant artifact contract remain authoritative.
+Evals do not define new Harness rules.
 
-Regression evals protect existing Harness behavior from recurrence of known failures; they do not extend or override that behavior.
+The authoritative behavior remains in:
+
+- `shared-harness-contract.md`,
+- the relevant workflow,
+- and the relevant artifact contract.
+
+Regression cases and validation code test those rules; they do not extend or override them.
+
+## Directory structure
+
+### `cases/`
+
+Stores durable semantic regression cases for observed failures and important protected invariants.
+
+Cases should describe the behavior being protected rather than prescribe exact model wording or hidden reasoning.
+
+### `orchestrator/`
+
+Contains executable evaluation and validation tooling used during Harness hardening, including:
+
+- regression and behavioral test runners,
+- semantic/model-backed regression runners,
+- smoke and snapshot utilities,
+- runtime-guard composition validation,
+- and supporting package/tooling configuration.
+
+This infrastructure exists to exercise and validate the Harness and its optional runtime guards. It is not itself an authoritative product-development workflow.
 
 ## Review and grading
 
 Evaluation should focus on the semantic outcome and protected invariant rather than exact wording, hidden reasoning, or a prescribed tool sequence.
 
-Routine human review is not required. Human review may be used occasionally for calibration when useful.
+Use the cheapest meaningful validation layer first:
 
-## Current non-goals
+1. deterministic/static or behavioral validation,
+2. direct semantic-guard validation when needed,
+3. targeted model-backed regression,
+4. end-to-end proof only when interaction between layers is the thing being tested.
 
-The current eval bank does not define a runner, CLI, CI integration, grading infrastructure, scores, dashboards, automation, or a broader Capability eval suite.
+Routine human review is not required. Human review may be used for calibration or incident investigation when useful.
 
-If real usage later demonstrates a need for broader Capability evals or automation, they can be added then.
+## Current scope and non-goals
+
+The repository currently does include executable runners and validation infrastructure under `evals/orchestrator/`.
+
+It does not currently provide:
+
+- a general-purpose end-user CLI for the Harness,
+- a default CI pipeline that must run on every repository change,
+- a scoring/dashboard platform,
+- a generalized evaluation service,
+- or a broad speculative capability-eval suite.
+
+Additional automation should be added only when real usage demonstrates that it improves reliability or reduces recurring manual work enough to justify its maintenance and token/runtime cost.
