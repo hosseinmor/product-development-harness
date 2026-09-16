@@ -1,23 +1,23 @@
-# Product Designer Quick Start
+# راهنمای شروع برای Product Designer
 
-Use this guide to start Design Exploration with the Job Vision Product Development Harness.
+از این راهنما برای شروع Design Exploration با Job Vision Product Development Harness استفاده کنید.
 
-## Before you start
+## قبل از شروع
 
-1. Connect your device to the Job Vision VPN.
-2. Use an AI environment that can access a browser running on that VPN-connected device (for example, a desktop app with local browser/browser-extension access).
-3. Provide the current PRD. Prefer the durable PRD artifact over chat history.
+1. دستگاه‌تان را به VPN شرکت متصل کنید.
+2. از محیط AIای استفاده کنید که به browser محلی روی همان دستگاه دسترسی داشته باشد.
+3. PRD فعلی را در اختیار Agent بگذارید. PRD durable را به chat history ترجیح دهید.
 
-The current Product Knowledge source is internal documentation:
+منبع فعلی Product Knowledge مستندات داخلی زیر است:
 
 http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 
-This is temporary. Once agents have direct access to the Product Knowledge repository, use that repository as the Product Knowledge source instead and remove the browser + VPN dependency.
+این وضعیت موقتی است. وقتی Agentها به repository مربوط به Product Knowledge دسترسی مستقیم داشته باشند، همین repository را به‌عنوان منبع Product Knowledge می‌دهیم و وابستگی به browser + VPN حذف می‌شود.
 
-## Start prompt
+## Prompt شروع
 
 ```text
-For this Design task, use the Job Vision Product Development Harness.
+برای این Design Task از Job Vision Product Development Harness استفاده کن.
 
 Harness:
 https://github.com/hosseinmor/product-development-harness
@@ -25,22 +25,22 @@ https://github.com/hosseinmor/product-development-harness
 Product Knowledge:
 http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 
-Product Knowledge is currently available only on the internal network.
-Use a browser that has access through the Job Vision VPN.
+Product Knowledge فعلاً فقط از شبکه داخلی قابل دسترسی است.
+برای خواندن آن از browser محلی‌ای استفاده کن که از طریق VPN شرکت به این شبکه دسترسی دارد.
 
-Start from AGENTS.md.
+از AGENTS.md شروع کن.
 
 PRD:
-[Attach the PRD or provide its durable link]
+[فایل PRD را attach کن یا لینک durable آن را بده]
 ```
 
-If you attach Figma links, screenshots, prototypes, research, or other relevant context, the agent should use them when useful. You do not need to restate the Design workflow in the prompt; `AGENTS.md` routes the agent to the right workflow and artifact contract.
+اگر همراه task لینک Figma، screenshot، prototype، research یا context دیگری می‌دهید، Agent باید در صورت ارتباط از آن استفاده کند. لازم نیست workflow طراحی را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
 
-## What you may see
+## در حین کار ممکن است چه چیزهایی ببینید؟
 
-- **`Problem Aligned`** — the PRD is sufficiently clear to begin meaningful Design Exploration without inventing a material Product decision.
-- **Product Knowledge unavailable** — if the internal documentation cannot be opened, the agent should say so and may ask for the specific current-flow screenshot, file, or context it needs. It should not invent the current experience.
-- **`Product Decision needed`** — Design has exposed behavior that the PRD does not establish. You may recommend a solution, but the Product decision should return to the PM and PRD.
-- **`Selected` Design** — the Designer has established the current Design direction as the durable Design Artifact. It does not mean pixel-perfect, immutable, or implementation-ready.
-- **`Product & Design Aligned`** — PRD and selected Design are consistent enough for Technical Planning to proceed without Engineering inventing a material Product or Design decision.
-- **PRD ↔ Design finding** — the stress test may expose a Product issue or a Design issue. Update the artifact that owns that decision rather than leaving the resolution only in chat.
+- **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش اختراع کند.
+- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند مستندات داخلی را باز کند، باید این محدودیت را اعلام کند و ممکن است screenshot، flow فعلی، فایل یا context مشخصی از شما بخواهد. نباید Current Experience را حدس بزند.
+- **`Product Decision needed`** — یعنی Design رفتاری را آشکار کرده که PRD هنوز مشخص نکرده است. Designer می‌تواند پیشنهاد بدهد، اما تصمیم باید به PM و PRD برگردد.
+- **`Selected` Design** — یعنی Designer جهت فعلی Design را انتخاب کرده و می‌توان آن را به‌عنوان Design Artifact durable نگه داشت. این به معنی pixel-perfect، immutable یا implementation-ready بودن نیست.
+- **`Product & Design Aligned`** — یعنی PRD و Design انتخاب‌شده به‌اندازه کافی با هم سازگار و روشن‌اند که Engineering بتواند Technical Planning را شروع کند بدون اینکه مجبور شود Product یا Design Decision مهمی را خودش اختراع کند.
+- **یافته PRD ↔ Design** — Stress Test ممکن است یک Product issue یا Design issue پیدا کند. اصلاح باید به artifact مالک همان تصمیم برگردد، نه اینکه فقط در chat باقی بماند.
