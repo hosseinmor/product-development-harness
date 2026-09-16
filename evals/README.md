@@ -1,5 +1,7 @@
 # Harness Evals
 
+For a non-technical overview of Runtime Guards, Evals, Regression, Proofs, and when to use each, see [`resources/runtime-evals-guide.md`](../resources/runtime-evals-guide.md).
+
 ## Purpose
 
 This directory protects important Product Development Harness behavior from recurrence of observed failures.

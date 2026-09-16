@@ -66,6 +66,7 @@ Optional human-facing guides and fallback resources live under `resources/`:
 
 - PM quick start: [`resources/pm-quick-start.md`](resources/pm-quick-start.md)
 - Product Designer quick start: [`resources/product-designer-quick-start.md`](resources/product-designer-quick-start.md)
+- Runtime Guards, Evals, and Proofs guide: [`resources/runtime-evals-guide.md`](resources/runtime-evals-guide.md)
 - Standalone PRD Kit: [`resources/standalone-prd/`](resources/standalone-prd/README.md)
 
 These files are **not part of Harness execution**. Agents do not need to load them when running the Harness unless explicitly relevant.
