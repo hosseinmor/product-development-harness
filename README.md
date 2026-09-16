@@ -66,6 +66,7 @@ For day-to-day use, start with the role-specific guide:
 
 - PM: [`docs/pm-quick-start.md`](docs/pm-quick-start.md)
 - Product Designer: [`docs/product-designer-quick-start.md`](docs/product-designer-quick-start.md)
+- Standalone PRD template: [`templates/prd-template.md`](templates/prd-template.md)
 
 These guides intentionally stay lightweight. They explain how to start a task, how to provide the current Product Knowledge location, and how to interpret common Harness states. The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflows, and artifact contracts.
 
@@ -143,6 +144,8 @@ These directories are validation infrastructure, not additional sources of Produ
 ├── docs/
 │   ├── pm-quick-start.md
 │   └── product-designer-quick-start.md
+├── templates/
+│   └── prd-template.md
 ├── runtime/
 │   ├── prd/
 │   └── adapters/
