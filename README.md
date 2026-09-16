@@ -60,6 +60,16 @@ These later stages describe the intended lifecycle direction, not currently impl
 
 ## Using the Harness
 
+### Human quick starts
+
+For day-to-day use, start with the role-specific guide:
+
+- PM: [`docs/pm-quick-start.md`](docs/pm-quick-start.md)
+- Product Designer: [`docs/product-designer-quick-start.md`](docs/product-designer-quick-start.md)
+
+These guides intentionally stay lightweight. They explain how to start a task, how to provide the current Product Knowledge location, and how to interpret common Harness states. The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflows, and artifact contracts.
+
+
 ### Repo-aware agents
 
 Give the agent access to this repository and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
@@ -130,6 +140,9 @@ These directories are validation infrastructure, not additional sources of Produ
 ├── artifacts/
 │   ├── prd.md
 │   └── design.md
+├── docs/
+│   ├── pm-quick-start.md
+│   └── product-designer-quick-start.md
 ├── runtime/
 │   ├── prd/
 │   └── adapters/
