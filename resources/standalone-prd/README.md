@@ -30,6 +30,30 @@ Intent:
 
 اگر محیط AI شما از Skill-based instructions پشتیبانی می‌کند، پوشه `standalone-prd` را در اختیار Agent قرار دهید. `SKILL.md` فقط Agent را به template و authoring guide هدایت می‌کند و source of truth جداگانه‌ای ایجاد نمی‌کند.
 
+## نصب Skill
+
+پوشه `standalone-prd` را به‌صورت ZIP بسته‌بندی کنید؛ `SKILL.md` و فایل‌های همراه آن باید داخل همان پوشه باقی بمانند.
+
+### ChatGPT
+
+در ChatGPT:
+
+`Plugins → Skills → Create → Upload from your computer`
+
+فایل ZIP را upload و Skill را install کنید. بعد از نصب، ChatGPT می‌تواند در taskهای مرتبط آن را خودکار استفاده کند یا می‌توانید Skill را صریحاً انتخاب کنید.
+
+> دسترسی به Skills به plan و تنظیمات workspace بستگی دارد.
+
+### Claude
+
+در Claude ابتدا مطمئن شوید **Code execution and file creation** فعال است، سپس:
+
+`Customize → Skills → + → Create skill → Upload a skill`
+
+فایل ZIP را upload و Skill را فعال کنید. Claude پس از آن می‌تواند در taskهای مرتبط Skill را خودکار استفاده کند.
+
+> در Team و Enterprise ممکن است دسترسی یا انتشار Skill توسط تنظیمات organization کنترل شود.
+
 ## محدودیت این مسیر
 
 Standalone PRD Kit:
