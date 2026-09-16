@@ -41,6 +41,8 @@ Treat a clear user statement that establishes a Product choice as decided Produc
 
 ## Output
 
+For Job Vision PRDs, write in Persian by default unless the user asks for another language. Preserve canonical Product or technical terms when translation would reduce precision.
+
 Return the strongest supported PRD draft in Markdown.
 
 Do not force semantic completeness when authority or context is missing. A shorter grounded PRD is better than a complete-looking PRD containing invented Product truth.
