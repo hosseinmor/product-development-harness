@@ -1,23 +1,23 @@
-# PM Quick Start
+# راهنمای شروع برای PM
 
-Use this guide to start a Product task with the Job Vision Product Development Harness.
+از این راهنما برای شروع یک Product Task با Job Vision Product Development Harness استفاده کنید.
 
-## Before you start
+## قبل از شروع
 
-1. Connect your device to the Job Vision VPN.
-2. Use an AI environment that can access a browser running on that VPN-connected device (for example, a desktop app with local browser/browser-extension access).
-3. Give the agent the Harness repository, Product Knowledge location, and your Product intent.
+1. دستگاه‌تان را به VPN شرکت متصل کنید.
+2. از محیط AIای استفاده کنید که به browser محلی روی همان دستگاه دسترسی داشته باشد.
+3. آدرس Harness، محل Product Knowledge و Product Intent خودتان را در اختیار Agent بگذارید.
 
-The current Product Knowledge source is internal documentation:
+منبع فعلی Product Knowledge مستندات داخلی زیر است:
 
 http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 
-This is temporary. Once agents have direct access to the Product Knowledge repository, use that repository as the Product Knowledge source instead and remove the browser + VPN dependency.
+این وضعیت موقتی است. وقتی Agentها به repository مربوط به Product Knowledge دسترسی مستقیم داشته باشند، همین repository را به‌عنوان منبع Product Knowledge می‌دهیم و وابستگی به browser + VPN حذف می‌شود.
 
-## Start prompt
+## Prompt شروع
 
 ```text
-For this Product task, use the Job Vision Product Development Harness.
+برای این Product Task از Job Vision Product Development Harness استفاده کن.
 
 Harness:
 https://github.com/hosseinmor/product-development-harness
@@ -25,21 +25,21 @@ https://github.com/hosseinmor/product-development-harness
 Product Knowledge:
 http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 
-Product Knowledge is currently available only on the internal network.
-Use a browser that has access through the Job Vision VPN.
+Product Knowledge فعلاً فقط از شبکه داخلی قابل دسترسی است.
+برای خواندن آن از browser محلی‌ای استفاده کن که از طریق VPN شرکت به این شبکه دسترسی دارد.
 
-Start from AGENTS.md.
+از AGENTS.md شروع کن.
 
-My intent:
-[Describe the problem, idea, or product change in your own words]
+Intent من:
+[مسئله، ایده یا تغییر محصول را با زبان خودت توضیح بده]
 ```
 
-If you attach files, research, notes, screenshots, or other context with the task, the agent should use them when relevant. You do not need to restate the Harness workflow in the prompt; `AGENTS.md` routes the agent to the right workflow and artifact contract.
+اگر همراه task فایل، research، note، screenshot یا context دیگری می‌دهید، Agent باید در صورت ارتباط از آن استفاده کند. لازم نیست workflow یا قواعد Harness را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
 
-## What you may see
+## در حین کار ممکن است چه چیزهایی ببینید؟
 
-- **`Problem Aligned`** — the PRD is clear enough for meaningful Design Exploration without forcing the Designer to invent a material Product decision. It does not mean every open question is resolved.
-- **A clarification question** — the agent may ask you for a material Product decision that cannot be retrieved or safely derived. Answer naturally; the agent should reconcile the decision into the PRD.
-- **Product Knowledge unavailable** — if the internal documentation cannot be opened, the agent should say so and may ask you for the specific file, screenshot, or context needed. It should not invent current-product facts.
-- **An Open Decision remains** — this is acceptable when it does not block useful Design Exploration.
-- **A Product gap returns from Design** — Design may expose a missing Product decision. Decide it as PM; the PRD should then be updated before downstream work relies on it.
+- **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش حدس بزند. این به معنی حل شدن همه سؤال‌های باز نیست.
+- **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند.
+- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند مستندات داخلی را باز کند، باید این محدودیت را اعلام کند و ممکن است فایل، screenshot یا context مشخصی از شما بخواهد. نباید Current Product Context را حدس بزند.
+- **باقی ماندن Open Decision** — اگر یک تصمیم باز مانده ولی مانع Design Exploration معنادار نیست، PRD همچنان می‌تواند `Problem Aligned` باشد.
+- **برگشت Product gap از Design** — ممکن است Design یک Product Decision جاافتاده را آشکار کند. در این حالت تصمیم به PM برمی‌گردد و PRD باید قبل از ادامه کار downstream به‌روزرسانی شود.
