@@ -40,3 +40,10 @@ Standalone PRD Kit:
 - جای Product Knowledge یا Product Judgment انسانی را نمی‌گیرد.
 
 برای اجرای کامل Harness از `AGENTS.md` در root repository شروع کنید.
+
+
+## نگهداری
+
+این Kit در زمان اجرا به Harness وابسته نیست، اما semantics آن باید با PRD Artifact Contract هم‌راستا بماند. اگر `artifacts/prd.md` materially تغییر کرد، maintainers باید `authoring-guide.md`، `prd-template.md` و در صورت نیاز `SKILL.md` را بازبینی کنند.
+
+`artifacts/prd.md` source of truth اصلی semantics PRD در repository است؛ Standalone Kit یک نسخه سبک برای استفاده خارج از Harness است.
