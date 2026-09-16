@@ -60,15 +60,19 @@ These later stages describe the intended lifecycle direction, not currently impl
 
 ## Using the Harness
 
-### Human quick starts
+### Human resources
 
-For day-to-day use, start with the role-specific guide:
+Optional human-facing guides and fallback resources live under `resources/`:
 
-- PM: [`docs/pm-quick-start.md`](docs/pm-quick-start.md)
-- Product Designer: [`docs/product-designer-quick-start.md`](docs/product-designer-quick-start.md)
-- Standalone PRD template: [`templates/prd-template.md`](templates/prd-template.md)
+- PM quick start: [`resources/pm-quick-start.md`](resources/pm-quick-start.md)
+- Product Designer quick start: [`resources/product-designer-quick-start.md`](resources/product-designer-quick-start.md)
+- Standalone PRD Kit: [`resources/standalone-prd/`](resources/standalone-prd/README.md)
 
-These guides intentionally stay lightweight. They explain how to start a task, how to provide the current Product Knowledge location, and how to interpret common Harness states. The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflows, and artifact contracts.
+These files are **not part of Harness execution**. Agents do not need to load them when running the Harness unless explicitly relevant.
+
+The Standalone PRD Kit is a fallback for structured PRD drafting when the full Harness is not being used or sufficient Product Knowledge/current-product context is unavailable. It is not an equivalent replacement for the Harness.
+
+The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflows, and artifact contracts.
 
 
 ### Repo-aware agents
@@ -141,11 +145,14 @@ These directories are validation infrastructure, not additional sources of Produ
 ├── artifacts/
 │   ├── prd.md
 │   └── design.md
-├── docs/
+├── resources/
 │   ├── pm-quick-start.md
-│   └── product-designer-quick-start.md
-├── templates/
-│   └── prd-template.md
+│   ├── product-designer-quick-start.md
+│   └── standalone-prd/
+│       ├── README.md
+│       ├── SKILL.md
+│       ├── authoring-guide.md
+│       └── prd-template.md
 ├── runtime/
 │   ├── prd/
 │   └── adapters/
@@ -160,7 +167,7 @@ These directories are validation infrastructure, not additional sources of Produ
 
 The structure follows one rule:
 
-> README navigates. Shared contract governs. Workflow files describe execution. Artifact files define durable outputs. Runtime guards validate execution. Evals and proofs protect behavior without redefining it.
+> README navigates. Shared contract governs. Workflow files describe execution. Artifact files define durable outputs. Resources support humans and standalone fallback use without defining Harness behavior. Runtime guards validate execution. Evals and proofs protect behavior without redefining it.
 
 ## Scope boundaries
 
