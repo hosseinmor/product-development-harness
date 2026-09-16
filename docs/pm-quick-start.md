@@ -14,6 +14,10 @@ http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 
 این وضعیت موقتی است. وقتی Agentها به repository مربوط به Product Knowledge دسترسی مستقیم داشته باشند، همین repository را به‌عنوان منبع Product Knowledge می‌دهیم و وابستگی به browser + VPN حذف می‌شود.
 
+## اگر می‌خواهید بدون Harness جلو بروید
+
+می‌توانید از [تمپلیت خالی PRD](../templates/prd-template.md) استفاده کنید. این تمپلیت همان ساختار semantic فعلی PRD را نگه می‌دارد، اما برای استفاده از آن نیازی به اجرای workflowهای Harness ندارید.
+
 ## Prompt شروع
 
 ```text
