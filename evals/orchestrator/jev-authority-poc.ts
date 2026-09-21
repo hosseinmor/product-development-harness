@@ -296,6 +296,20 @@ for (const testCase of cases) {
 
 const repetitions = 3;
 const client = new TypeSafeClient();
+
+async function runSystemOneWithRetry(state: unknown, questions: Record<string, ReturnType<typeof choice>>) {
+  let lastError: unknown;
+  for (let attempt = 1; attempt <= 4; attempt += 1) {
+    try {
+      return await runSystemOneWithRetry(state, questions);
+    } catch (error) {
+      lastError = error;
+      if (attempt === 4) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 500 * 2 ** (attempt - 1)));
+    }
+  }
+  throw lastError;
+}
 const runs = [];
 let totalInputTokens = 0;
 let totalOutputTokens = 0;
@@ -303,7 +317,7 @@ let totalLatencyMs = 0;
 
 for (let runIndex = 1; runIndex <= repetitions; runIndex += 1) {
   const started = performance.now();
-  const response = await client.systemOne({ state, questions });
+  const response = await runSystemOneWithRetry(state, questions);
   const latencyMs = Math.round(performance.now() - started);
   totalLatencyMs += latencyMs;
   totalInputTokens += response.usage.input_tokens;
