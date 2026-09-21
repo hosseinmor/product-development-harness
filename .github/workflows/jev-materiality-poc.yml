@@ -46,11 +46,11 @@ jobs:
 
       - name: Run expanded Jev materiality POC
         working-directory: evals/orchestrator
-        run: npx tsx jev-materiality-poc.ts | tee jev-materiality-result.json
+        run: set -o pipefail; npx tsx jev-materiality-poc.ts | tee jev-materiality-result.json
 
       - name: Run Jev authority POC
         working-directory: evals/orchestrator
-        run: npx tsx jev-authority-poc.ts | tee jev-authority-result.json
+        run: set -o pipefail; npx tsx jev-authority-poc.ts | tee jev-authority-result.json
 
       - name: Upload results
         uses: actions/upload-artifact@v4
