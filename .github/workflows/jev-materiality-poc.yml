@@ -1,0 +1,55 @@
+name: Jev materiality POC
+
+on:
+  push:
+    branches:
+      - jev-materiality-poc
+    paths:
+      - "evals/orchestrator/jev-materiality-poc.ts"
+      - ".github/workflows/jev-materiality-poc.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install existing eval dependencies
+        working-directory: evals/orchestrator
+        run: npm ci
+
+      - name: Install TypeSafe SDK for isolated POC
+        working-directory: evals/orchestrator
+        run: npm install --no-save --package-lock=false @typesafe-ai/sdk@0.6.0
+
+      - name: Verify secret is available
+        shell: bash
+        run: |
+          if [ -z "$TYPESAFE_API_KEY" ]; then
+            echo "TYPESAFE_API_KEY is not available to this workflow."
+            exit 1
+          fi
+
+      - name: Run Jev materiality POC
+        working-directory: evals/orchestrator
+        run: npx tsx jev-materiality-poc.ts | tee jev-materiality-result.json
+
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: jev-materiality-result
+          path: evals/orchestrator/jev-materiality-result.json
+          if-no-files-found: error
