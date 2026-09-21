@@ -1,4 +1,4 @@
-name: Jev materiality POC
+name: Jev semantic guard POC
 
 on:
   push:
@@ -6,6 +6,7 @@ on:
       - jev-materiality-poc
     paths:
       - "evals/orchestrator/jev-materiality-poc.ts"
+      - "evals/orchestrator/jev-authority-poc.ts"
       - ".github/workflows/jev-materiality-poc.yml"
   workflow_dispatch:
 
@@ -43,13 +44,19 @@ jobs:
             exit 1
           fi
 
-      - name: Run Jev materiality POC
+      - name: Run expanded Jev materiality POC
         working-directory: evals/orchestrator
         run: npx tsx jev-materiality-poc.ts | tee jev-materiality-result.json
 
-      - name: Upload result
+      - name: Run Jev authority POC
+        working-directory: evals/orchestrator
+        run: npx tsx jev-authority-poc.ts | tee jev-authority-result.json
+
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
-          name: jev-materiality-result
-          path: evals/orchestrator/jev-materiality-result.json
+          name: jev-semantic-guard-results
+          path: |
+            evals/orchestrator/jev-materiality-result.json
+            evals/orchestrator/jev-authority-result.json
           if-no-files-found: error
