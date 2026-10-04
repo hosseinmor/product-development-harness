@@ -16,13 +16,17 @@ The goal is Product & Design Alignment, not a generic design-quality score.
 - Current PRD.
 - Acceptance criteria.
 - Selected Design Artifact.
-- Relevant current-product context when needed to verify a finding.
+- Relevant Product Knowledge context when needed to verify a finding.
+- Relevant Product Walkthrough context when a current journey, flow, or handoff is material to the finding.
+- Other authoritative or direct current-product evidence when deeper verification is required.
 
 ## Workflow
 
 ### 1. Retrieve review context as needed
 
 Retrieve only the current-product context required to make review findings defensible.
+
+Use Product Knowledge for relevant concepts, business rules, terminology, and product context. Use Product Walkthrough when the finding depends on an end-to-end journey, current flow, or handoff. Retrieve deeper authoritative or direct evidence only when the documented context is insufficient or inconsistent.
 
 Do not create a separate Review Context artifact by default.
 
