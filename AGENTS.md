@@ -4,6 +4,12 @@ This repository is the tool-agnostic Product Development Harness for AI-native, 
 
 For product-development tasks, start here.
 
+## Canonical Harness source
+
+The canonical Harness source is the private/internal GitLab repository maintained by Job Vision. The public GitHub repository is a reference/mirror and is not authoritative for day-to-day execution.
+
+If the execution environment cannot access the canonical repository directly, a human may provide the current Harness files manually. Start from this `AGENTS.md` and follow its routing; do not load the whole repository by default.
+
 ## How to use the Harness
 
 1. Read `shared-harness-contract.md` for the rules shared across all workflows and artifacts.
@@ -43,5 +49,7 @@ Follow `shared-harness-contract.md` for authority, uncertainty, clarification, p
 Do not invent unresolved product or design decisions.
 
 Do not treat AI proposals or assumptions as authoritative facts.
+
+Do not create parallel PRD versions such as `v1`, `v2`, or `final` pages unless a demonstrated workflow need explicitly requires them. The current PRD is the canonical Wiki page; GitLab history preserves prior revisions.
 
 During normal product work, do not add files, schemas, routers, agent layers, or other Harness abstractions unless the task is explicitly to evolve the Harness and a demonstrated need justifies the change.
