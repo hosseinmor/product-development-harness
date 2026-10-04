@@ -16,7 +16,7 @@ AI may draft and maintain the PRD, but AI-generated, assumed, or unresolved cont
 
 A clear PM decision establishes product intent. The PRD makes that decision durable downstream.
 
-Current-product descriptions and dependency references in the PRD are contextual views of external product truth. They do not become independently authoritative over Product Knowledge or the relevant implementation source.
+Current-product descriptions and dependency references in the PRD are contextual views of external product truth. They do not become independently authoritative over Product Knowledge, Product Walkthrough, or verified implementation evidence.
 
 ## Metadata
 
@@ -45,7 +45,7 @@ Metadata rules:
 - `related_artifacts` references related durable artifacts when they exist and the relationship is useful downstream.
 - `references` and `related_artifacts` may be omitted when they have no useful entries.
 - Metadata is machine-facing navigation data. It should not duplicate semantic PRD content.
-- Git is the source of version history.
+- In the current pilot, GitLab Wiki page history is the canonical PRD revision history and recovery path. Do not add a separate PRD version field merely to duplicate that history.
 
 `references` and `Dependencies` serve different semantic roles. `references` records material grounding sources; `Dependencies` records canonical Product Knowledge entities that the intended change materially depends on or affects. Do not mechanically mirror Dependencies into `references`. The same item may appear in both only when it genuinely serves both roles.
 
@@ -121,7 +121,7 @@ The purpose is to make affected actors easy to scan and make material actor omis
 
 Describe only the local current-product baseline needed to understand the intended change.
 
-Keep it concise and task-scoped. Product Knowledge and the relevant authoritative implementation remain the sources of current-product truth; the PRD should not duplicate the full existing flow or reconstruct Product Knowledge.
+Keep it concise and task-scoped. Product Knowledge, relevant Product Walkthrough context, and verified implementation evidence remain external sources of current-product truth; the PRD should not duplicate the full existing flow or reconstruct those sources.
 
 Describe relevant current user or product behavior rather than merely stating that the proposed feature does not exist.
 
