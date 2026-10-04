@@ -29,14 +29,19 @@ Do not load every workflow by default.
 
 ## Context
 
-Retrieve only external context relevant to the task, such as:
+Retrieve only external context materially relevant to the task.
 
-- Product Knowledge,
-- Design System guidance,
-- evidence,
-- and current working artifacts.
+Use these source roles when available:
 
-Use context that is already available instead of asking humans to restate it.
+- **Product Knowledge** — primary documented source for Job Vision product concepts, business rules, terminology, and product context.
+- **Product Walkthrough** — preferred source for end-to-end journeys, current flows, and feature walkthroughs when the task depends on sequence or experience context.
+- **Authoritative implementation source** — use when documented context is insufficient, inconsistent, or a current implemented behavior needs deeper verification. Do not assume a specific code host or repository provider unless the environment establishes one.
+- **Design System guidance** — use for applicable design-system constraints and patterns.
+- **Evidence and current working artifacts** — use when materially relevant to the task.
+
+Product Knowledge and Product Walkthrough are retrieval sources, not substitutes for human authority over intended Product decisions. If documented context and verified implementation evidence materially conflict, surface the conflict rather than silently choosing or inventing a resolution.
+
+Use context that is already available instead of asking humans to restate it. Retrieve selectively; do not load an entire knowledge source when a smaller relevant slice is sufficient.
 
 When continuing existing product work, retrieve the current durable artifacts before relying on conversation history or tool-local state. Conversation history may provide useful context, but it must not substitute for the current artifact state.
 
