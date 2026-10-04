@@ -4,7 +4,7 @@
 
 ## قبل از شروع
 
-1. در صورت نیاز برای دسترسی به منابع داخلی، دستگاه‌تان را به VPN شرکت متصل کنید.
+1. دستگاه‌تان را برای دسترسی به Product Knowledge به VPN شرکت متصل کنید و از یک browser محلی روی همان دستگاه استفاده کنید.
 2. Harness canonical در پروژه داخلی GitLab با مسیر `product/prd/agent-harness` قرار دارد.
 3. منبع canonical Product Knowledge جاب‌ویژن:
 
@@ -25,9 +25,11 @@ Harness:
 Canonical Product Knowledge:
 https://docs-jv.jvoffice.ir/
 
-این سایت مرجع canonical رفتار و مفاهیم فعلی JobVision است. اگر برای journey یا flow مرتبط Product Walkthrough در دسترس است، از reviewed evidence آن برای بازسازی flow استفاده کن، اما آن را جای Product Knowledge canonical قرار نده.
+این سایت مرجع canonical رفتار و مفاهیم فعلی JobVision است. برای خواندن آن از browser محلی روی دستگاه متصل به VPN شرکت استفاده کن؛ Web Search یا Cloud Browser را جای این مسیر قرار نده.
 
-اگر محیطت به یک منبع داخلی دسترسی مستقیم ندارد، این محدودیت را صریح بگو و فقط context مرتبطی را که در اختیارت می‌گذارم استفاده کن. Current Product Context را حدس نزن و از repositoryهای دیگر به‌عنوان fallback Product Knowledge استفاده نکن.
+اگر برای journey یا flow مرتبط Product Walkthrough در دسترس است، از reviewed evidence آن برای بازسازی flow استفاده کن، اما آن را جای Product Knowledge canonical قرار نده.
+
+اگر به browser محلی یا منبع داخلی دسترسی نداری، این محدودیت را صریح بگو و فقط context مرتبطی را که در اختیارت می‌گذارم استفاده کن. Current Product Context را حدس نزن و از repositoryهای دیگر به‌عنوان fallback Product Knowledge استفاده نکن.
 
 Intent من:
 [مسئله، ایده یا تغییر محصول را با زبان خودت توضیح بده]
@@ -66,6 +68,6 @@ PRD canonical در Wiki پروژه GitLab `product/prd/agent-harness` نگهدا
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش حدس بزند. این به معنی حل شدن همه سؤال‌های باز نیست.
 - **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند.
-- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند منبع canonical داخلی را بخواند، باید این محدودیت را اعلام کند و ممکن است فایل، screenshot یا context مشخصی از شما بخواهد. نباید Current Product Context را حدس بزند یا repository دیگری را خودکار جایگزین Product Knowledge کند.
+- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند منبع canonical داخلی را از مسیر browser محلی + VPN بخواند، باید این محدودیت را اعلام کند و ممکن است فایل، screenshot یا context مشخصی از شما بخواهد. نباید Current Product Context را حدس بزند یا repository دیگری را خودکار جایگزین Product Knowledge کند.
 - **باقی ماندن Open Decision** — اگر یک تصمیم باز مانده ولی مانع Design Exploration معنادار نیست، PRD همچنان می‌تواند `Problem Aligned` باشد.
 - **برگشت Product gap از Design** — ممکن است Design یک Product Decision جاافتاده را آشکار کند. در این حالت تصمیم به PM برمی‌گردد و PRD باید قبل از ادامه کار downstream به‌روزرسانی شود.
