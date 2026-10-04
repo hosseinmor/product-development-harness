@@ -4,9 +4,9 @@
 
 ## قبل از شروع
 
-1. دستگاه‌تان را به VPN شرکت متصل کنید.
-2. از محیط AIای استفاده کنید که به browser محلی روی همان دستگاه دسترسی داشته باشد.
-3. آدرس Harness، محل Product Knowledge و Product Intent خودتان را در اختیار Agent بگذارید.
+1. دستگاه‌تان را به VPN شرکت متصل کنید، اگر برای دسترسی به منابع داخلی لازم است.
+2. از محیط AIای استفاده کنید که بتوانید فایل‌های Harness و Product Knowledge را در اختیارش بگذارید.
+3. ریپازیتوری canonical داخلی GitLab برای Harness، محل Product Knowledge و Product Intent خودتان را در اختیار Agent بگذارید.
 
 منبع فعلی Product Knowledge:
 
@@ -20,7 +20,9 @@ http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 برای این Product Task از Job Vision Product Development Harness استفاده کن.
 
 Harness:
-https://github.com/hosseinmor/product-development-harness
+ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness`
+
+در Pilot فعلی اگر محیط AI دسترسی مستقیم به GitLab ندارد، فایل‌های لازم را دستی در اختیار Agent بگذارید. از `AGENTS.md` شروع کنید و فقط فایل‌هایی را بدهید که آن فایل route می‌کند. MCP برای استفاده از Harness لازم نیست.
 
 Product Knowledge:
 http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
@@ -35,6 +37,14 @@ Intent من:
 ```
 
 اگر همراه task فایل، research، note، screenshot یا context دیگری می‌دهید، Agent باید در صورت ارتباط از آن استفاده کند. لازم نیست workflow یا قواعد Harness را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+
+### PRD را کجا نگه می‌داریم؟
+
+PRD canonical در GitLab Wiki نگهداری می‌شود. برای هر Product Change یک Wiki page داریم و همان page نسخه current PRD است. تاریخچه تغییرات را Wiki/Git حفظ می‌کند؛ لازم نیست برای هر تغییر page جدیدی با نام version بسازید.
+
+در Pilot فعلی PM خروجی نهایی AI را در Wiki می‌نویسد. Designer، Engineering و سایر نقش‌ها PRD را از Wiki می‌گیرند و اگر Product change یا اصلاحی دارند، روی همان page comment می‌گذارند. Comment پیشنهاد است، نه Product decision. PM تصمیم را می‌گیرد و در صورت پذیرش، PRD canonical را به‌روزرسانی می‌کند.
+
+فایل دانلودشده یا کپی‌شده برای کار با AI فقط working copy است و جای PRD canonical را نمی‌گیرد.
 
 ## اگر Product Knowledge در دسترس نیست
 
