@@ -176,8 +176,8 @@ const manifest = {
   finishedAt: finishedAt.toISOString(),
   discovery: {
     strategy: "breadth-first crawl of same-origin HTML links under the Product Knowledge path",
-    sitemap: "present but empty",
-    robotsTxt: "not present (HTTP 404)",
+    sitemap: "not checked by this crawler",
+    robotsTxt: "not checked by this crawler",
     assetsDownloaded: false,
     maximumPages,
   },
