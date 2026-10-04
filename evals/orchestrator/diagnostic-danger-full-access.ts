@@ -9,8 +9,7 @@ const execFileAsync = promisify(execFile);
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
 const runsDirectory = resolve(repositoryRoot, "evals/runs");
-const productKnowledgeUrl =
-  "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/";
+const productKnowledgeUrl = "https://docs-jv.jvoffice.ir/";
 
 const childOutputSchema = {
   type: "object",
