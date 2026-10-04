@@ -4,7 +4,7 @@ A minimal, tool-agnostic harness for AI-native, human-governed product developme
 
 The Harness defines shared rules, workflow contracts, artifact boundaries, and optional validation/runtime infrastructure that can be used across tools such as ChatGPT, Claude, Cursor/Codex, Figma, and future environments.
 
-The canonical Harness source is the private/internal GitLab repository maintained by Job Vision. The public GitHub repository is a reference/mirror and is not the canonical source for day-to-day Harness execution.
+The canonical Harness source is the private/internal GitLab project `product/prd/agent-harness`. The public GitHub repository is a reference/mirror and is not the canonical source for day-to-day Harness execution.
 
 The core Harness is tool-agnostic. Some validation/runtime implementations in this repository are currently provider-specific and are not required to use the core Harness.
 
@@ -80,7 +80,7 @@ The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflo
 
 ### Repo-aware agents
 
-Give the agent access to the canonical internal GitLab Harness repository and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
+Give the agent access to the canonical internal GitLab project `product/prd/agent-harness` and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
 
 Do not restate Harness rules in the task prompt unless the execution environment cannot access the repository. This keeps task prompts small and makes repository behavior the source of truth.
 
@@ -106,11 +106,11 @@ If the environment cannot directly reach Product Knowledge, Product Walkthrough,
 
 Provide access to or the location of relevant external sources such as Product Knowledge, Product Walkthrough, current working artifacts, evidence, Design System guidance, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
 
-For the current pilot, canonical PRDs are stored as pages in the designated internal GitLab Wiki used for Product PRDs. One Wiki page represents the current PRD for a product change. GitLab Wiki page history provides PRD revision history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded, exported, or copied PRD is a working copy and is not a competing source of truth.
+For the current pilot, canonical PRDs are stored as pages in the Wiki of the internal GitLab project `product/prd/agent-harness`. One Wiki page represents the current PRD for a product change. GitLab Wiki page history provides PRD revision history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded, exported, or copied PRD is a working copy and is not a competing source of truth.
 
 The PM remains the authority for Product decisions and the canonical PRD write. Other roles may comment on the Wiki page with proposed changes; a comment is not itself a Product decision. When a PM accepts a proposed change, the current canonical PRD is updated.
 
-The exact Wiki location and role permissions are deployment configuration and must be verified and communicated by the internal repository owner before team rollout; the Harness must not infer them.
+Before team rollout, edit/comment permissions should be tested once with the actual PM and Product Designer roles; the Harness must not infer permissions that have not been verified.
 
 A minimal task handoff can look like:
 
@@ -177,6 +177,7 @@ These directories are validation infrastructure, not additional sources of Produ
 ├── resources/
 │   ├── pm-quick-start.md
 │   ├── product-designer-quick-start.md
+│   ├── runtime-evals-guide.md
 │   └── standalone-prd/
 │       ├── README.md
 │       ├── SKILL.md
