@@ -16,7 +16,7 @@ The core Harness is tool-agnostic. Some validation/runtime implementations in th
 - Humans should not create extra documentation for AI when the required context can be retrieved or derived from working artifacts.
 - Authority belongs to the claim and its owning domain, not to the tool containing it.
 - Each fact should have one primary owner where practical.
-- Product Knowledge is the primary documented source for product concepts, business rules, terminology, and product context; Product Walkthrough is the preferred documented source for end-to-end journeys and flows when relevant.
+- Canonical Product Knowledge is the primary source for established product meaning and behavior. Product Walkthrough provides reviewed evidence that can improve journey/flow reconstruction but does not replace canonical Product Knowledge.
 - Retrieval should be task-scoped. Do not load whole repositories or knowledge bases when a smaller relevant slice is sufficient.
 - The architecture remains minimal. New files, layers, schemas, agents, routers, or runtime abstractions require a demonstrated need.
 
@@ -100,11 +100,13 @@ MCP or another controlled GitLab integration may later automate retrieval and wr
 
 Provide `AGENTS.md` and the specific files it routes to for the task. Avoid loading every workflow by default.
 
-If the environment cannot directly reach Product Knowledge, Product Walkthrough, GitLab Wiki, or another internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Lack of access must not be filled with guessed current-product facts.
+If the environment cannot directly reach canonical Product Knowledge, GitLab Wiki, or another internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Do not substitute another repository, historical Product Knowledge, walkthrough evidence, or model knowledge as canonical current-product truth.
 
 ### External product context
 
-Provide access to or the location of relevant external sources such as Product Knowledge, Product Walkthrough, current working artifacts, evidence, Design System guidance, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+Provide access to or the location of relevant external sources such as canonical Product Knowledge, reviewed Product Walkthrough evidence, current working artifacts, other evidence, Design System guidance, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+
+For JobVision, the current canonical Product Knowledge entry point is the internal Product Knowledge site at `https://docs-jv.jvoffice.ir/`. The `product-knowledge` repository may contain Content, Design System, standards, and source-authority guidance, but it must not be used as a fallback store for JobVision product behavior.
 
 For the current pilot, canonical PRDs are stored as pages in the Wiki of the internal GitLab project `product/prd/agent-harness`. One Wiki page represents the current PRD for a product change. GitLab Wiki page history provides PRD revision history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded, exported, or copied PRD is a working copy and is not a competing source of truth.
 
@@ -118,11 +120,11 @@ A minimal task handoff can look like:
 Harness:
 <canonical repository or provided routed Harness files>
 
-Product Knowledge:
+Canonical Product Knowledge:
 <context source, when relevant>
 
-Product Walkthrough:
-<flow/journey source, when relevant>
+Reviewed Product Walkthrough evidence:
+<flow/journey evidence, when relevant>
 
 Current artifact:
 <current PRD or Design Artifact, when continuing existing work>
