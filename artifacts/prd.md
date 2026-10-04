@@ -16,7 +16,7 @@ AI may draft and maintain the PRD, but AI-generated, assumed, or unresolved cont
 
 A clear PM decision establishes product intent. The PRD makes that decision durable downstream.
 
-Current-product descriptions and dependency references in the PRD are contextual views of external product truth. They do not become independently authoritative over Product Knowledge, Product Walkthrough, or verified implementation evidence.
+Current-product descriptions and dependency references in the PRD are contextual views of external product truth. They do not become independently authoritative over canonical Product Knowledge. Reviewed walkthrough evidence, direct observation, and implementation evidence may ground or challenge those descriptions but do not silently become competing canonical Product Knowledge.
 
 ## Metadata
 
@@ -121,7 +121,7 @@ The purpose is to make affected actors easy to scan and make material actor omis
 
 Describe only the local current-product baseline needed to understand the intended change.
 
-Keep it concise and task-scoped. Product Knowledge, relevant Product Walkthrough context, and verified implementation evidence remain external sources of current-product truth; the PRD should not duplicate the full existing flow or reconstruct those sources.
+Keep it concise and task-scoped. Canonical Product Knowledge remains the primary documented source of current-product truth. Reviewed Product Walkthrough evidence, direct observation, and verified implementation evidence may support reconstruction or expose a discrepancy, but the PRD should not duplicate full flows, reconstruct those sources, or silently treat evidence as canonical Product Knowledge.
 
 Describe relevant current user or product behavior rather than merely stating that the proposed feature does not exist.
 
