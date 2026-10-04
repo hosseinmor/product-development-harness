@@ -33,7 +33,7 @@ Retrieve only external context materially relevant to the task.
 
 Use these source roles when available:
 
-- **Canonical Product Knowledge** — primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. For JobVision, the current canonical entry point is `https://docs-jv.jvoffice.ir/`.
+- **Canonical Product Knowledge** — primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. For JobVision, the current canonical entry point is `https://docs-jv.jvoffice.ir/`. The currently supported access path is a local browser on a machine connected to the company VPN; do not assume ordinary web search, a cloud browser, or repository fallback can access or replace it.
 - **Product Walkthrough** — preferred reviewed evidence source for reconstructing end-to-end journeys, current flows, and feature walkthroughs when sequence or experience context is material. Walkthrough evidence is not canonical Product Knowledge and must not override it.
 - **Product Content / Design Knowledge repository** — use the repository currently named `product-knowledge` for its owned Product Content System, Design System, product standards, and source-authority guidance. Do not use it as a fallback store for JobVision product behavior.
 - **Authoritative implementation source** — use when canonical documentation and reviewed evidence are insufficient, inconsistent, or a current implemented behavior needs deeper verification. Do not assume a specific code host or repository provider unless the environment establishes one.
