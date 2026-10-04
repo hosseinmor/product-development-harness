@@ -100,13 +100,13 @@ MCP or another controlled GitLab integration may later automate retrieval and wr
 
 Provide `AGENTS.md` and the specific files it routes to for the task. Avoid loading every workflow by default.
 
-If the environment cannot directly reach canonical Product Knowledge, GitLab Wiki, or another internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Do not substitute another repository, historical Product Knowledge, walkthrough evidence, or model knowledge as canonical current-product truth.
+If the environment cannot directly reach canonical Product Knowledge, GitLab Wiki, or another internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Do not substitute another repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
 
 ### External product context
 
-Provide access to or the location of relevant external sources such as canonical Product Knowledge, reviewed Product Walkthrough evidence, current working artifacts, other evidence, Design System guidance, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+Provide access to or the location of relevant external sources such as canonical Product Knowledge, reviewed Product Walkthrough evidence, current working artifacts, other evidence, Product Content/Design System guidance, or implementation evidence. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
 
-For JobVision, the current canonical Product Knowledge entry point is the internal Product Knowledge site at `https://docs-jv.jvoffice.ir/`. The `product-knowledge` repository may contain Content, Design System, standards, and source-authority guidance, but it must not be used as a fallback store for JobVision product behavior.
+For JobVision, the current canonical Product Knowledge entry point is `https://docs-jv.jvoffice.ir/`. The supported current access path is a local browser on a company-VPN-connected machine. Ordinary Web Search or a cloud browser must not be assumed to inherit that access. The repository currently named `product-knowledge` owns Product Content, Design System, standards, and source-authority guidance; it must not be used as a fallback store for JobVision product behavior.
 
 For the current pilot, canonical PRDs are stored as pages in the Wiki of the internal GitLab project `product/prd/agent-harness`. One Wiki page represents the current PRD for a product change. GitLab Wiki page history provides PRD revision history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded, exported, or copied PRD is a working copy and is not a competing source of truth.
 
@@ -159,7 +159,7 @@ The existence of a Codex adapter does not make the core Harness Codex-specific. 
 
 `proofs/` contains focused proof/validation harnesses used to verify runtime behavior and lifecycle properties during hardening.
 
-These directories are validation infrastructure, not additional sources of Product or Design authority.
+These directories are validation infrastructure, not additional sources of Product or Design authority. Some HTTP Product Knowledge utilities under `evals/orchestrator/` are diagnostics or experimental snapshot tooling; they are not the supported local-browser Product Knowledge access contract for normal Harness use.
 
 ## Repository structure
 
