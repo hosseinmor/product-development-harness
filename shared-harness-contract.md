@@ -9,11 +9,13 @@ Authority is scoped to the kind of claim being made. There is no single global s
 - The Harness is authoritative for product-development rules and artifact contracts.
 - Canonical Product Knowledge is the primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation.
 - Product Walkthrough provides reviewed evidence for end-to-end journeys, current flows, and feature walkthroughs. It is useful for flow reconstruction but is not canonical Product Knowledge and must not override it.
-- The relevant authoritative implementation source provides deeper evidence of current implemented behavior when canonical documentation and reviewed evidence are insufficient, inconsistent, or require verification. The Harness does not assume a specific code host or repository provider.
+- Relevant implementation may provide evidence when canonical documentation and reviewed evidence are insufficient, inconsistent, or require investigation. Implementation evidence may expose a Product Knowledge gap, but it does not silently replace canonical JobVision Product Knowledge. The Harness does not assume a specific code host or repository provider.
 - The PRD owns decided intended product change, including materially affected users, intended outcomes, material Product Scenarios, required product behavior, and acceptance criteria within its scope.
 - The Design Artifact owns the selected experience and interaction solution within the constraints of the PRD.
 
-Product Knowledge and evidence about the current product do not own intended changes. When canonical Product Knowledge, reviewed walkthrough evidence, direct observation, or verified implementation evidence materially conflict, AI must surface the inconsistency and investigate the discrepancy rather than silently choosing a source or inventing a resolution.
+For JobVision current-product claims, canonical Product Knowledge has precedence over reviewed evidence, observed UI/design, implementation evidence, hypotheses, and recommendations. Evidence may reveal a discrepancy that requires Product Knowledge reconciliation; until reconciled, AI must surface the conflict rather than silently promoting the evidence into canonical product truth.
+
+Product Knowledge and evidence about the current product do not own intended changes.
 
 An artifact is authoritative only for claims inside its decision domain that are established by the responsible human role or validly derived from established decisions.
 
@@ -98,7 +100,7 @@ Owns the intended product change, including:
 - acceptance criteria,
 - and material unresolved product decisions or assumptions.
 
-The PRD may include concise current-product context and canonical dependency references for downstream understanding, retrieval, and impact analysis. Those contextual references do not override canonical Product Knowledge and should not become duplicate owners of current-product truth. Walkthrough or implementation evidence may support or challenge current-product understanding, but discrepancies with canonical Product Knowledge must remain visible until reconciled.
+The PRD may include concise current-product context and canonical dependency references for downstream understanding, retrieval, and impact analysis. Those contextual references do not override canonical Product Knowledge and should not become duplicate owners of current-product truth. Walkthrough, observation, or implementation evidence may support or challenge current-product understanding, but discrepancies with canonical Product Knowledge must remain visible until reconciled.
 
 The PRD should describe observable or verifiable product expectations without prescribing the experience or implementation unless that prescription is itself a product constraint.
 
@@ -160,19 +162,19 @@ For a given task, relevant context may include:
 - known dependencies with adjacent product areas,
 - relevant terminology and concepts,
 - available evidence relevant to the stated problem,
-- and implementation references when deeper verification is required and available.
+- and implementation references when deeper investigation is required and available.
 
-Use canonical Product Knowledge as the primary source for established product meaning and behavior. For JobVision, the current canonical Product Knowledge source is the internal Product Knowledge site. Product Walkthrough may be used as reviewed evidence to reconstruct journeys, flows, handoffs, or feature behavior when relevant, but it does not become canonical Product Knowledge merely because the evidence was reviewed.
+Use canonical Product Knowledge as the primary source for established product meaning and behavior. For JobVision, the current canonical Product Knowledge source is `https://docs-jv.jvoffice.ir/`, accessed through a local browser on a company-VPN-connected machine. Product Walkthrough may be used as reviewed evidence to reconstruct journeys, flows, handoffs, or feature behavior when relevant, but it does not become canonical Product Knowledge merely because the evidence was reviewed.
 
-If an environment cannot access canonical Product Knowledge directly, preserve the access limitation and use only relevant context supplied through another trustworthy path. Do not silently substitute the Product Content/Design Knowledge repository, historical Product Knowledge, walkthrough evidence, or model knowledge as canonical current-product truth.
+If an environment cannot access canonical Product Knowledge directly, preserve the access limitation and use only relevant context supplied through another trustworthy path. Do not silently substitute the Product Content/Design Knowledge repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
 
 When Product Knowledge exposes canonical concepts or identifiers useful for references or dependency navigation, the Harness may use those existing references. The Harness does not define or require a separate Product Knowledge taxonomy.
 
-AI should not ask a human for product facts that are reasonably retrievable from available canonical Product Knowledge, reviewed evidence, or an authoritative implementation source.
+AI should not ask a human to restate product facts that are already available in canonical Product Knowledge. Evidence sources may be retrieved autonomously when useful, but they remain evidence under the source-precedence rules.
 
 Absence from retrieved context is uncertainty, not evidence that a behavior does not exist.
 
-When retrieved knowledge is insufficient, inconsistent, or materially uncertain, AI should retrieve deeper canonical Product Knowledge, relevant reviewed evidence, or inspect the authoritative implementation source when available rather than invent missing product truth. A conflict with canonical Product Knowledge must be surfaced for reconciliation; the Harness must not hard-code a specific implementation host as a semantic dependency.
+When canonical Product Knowledge is insufficient, inconsistent with evidence, or materially uncertain, AI may retrieve deeper canonical context and inspect reviewed walkthrough, observation, or implementation evidence to investigate the discrepancy. It must not resolve the discrepancy by silently promoting evidence into canonical Product Knowledge. The Harness must not hard-code a specific implementation host as a semantic dependency.
 
 General model knowledge, domain knowledge, and common product patterns are legitimate non-authoritative inputs for hypothesis generation, candidate framing, alternatives, risks, and recommendations. AI should use them when they improve the quality of Product or Design thinking, especially when PM intent is solution-shaped or retrieved context does not establish the underlying rationale, outcome, or likely tradeoff.
 
