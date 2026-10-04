@@ -7,8 +7,7 @@ import { fileURLToPath } from "node:url";
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
 const runsDirectory = resolve(repositoryRoot, "evals/runs");
-const productKnowledgeUrl =
-  "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/";
+const productKnowledgeUrl = "https://docs-jv.jvoffice.ir/";
 
 const childOutputSchema = {
   type: "object",
@@ -98,8 +97,7 @@ type SmokeResult = {
 
 const startedAt = new Date();
 const temporaryCodexHome = await mkdtemp(join(tmpdir(), "harness-eval-codex-"));
-const originalCodexHome =
-  process.env.CODEX_HOME ?? resolve(homedir(), ".codex");
+const originalCodexHome = process.env.CODEX_HOME ?? resolve(homedir(), ".codex");
 const childConfig = `
 default_permissions = "harness_eval_read_network"
 
@@ -116,7 +114,7 @@ enabled = true
 allow_local_binding = true
 
 [permissions.harness_eval_read_network.network.domains]
-"platform-eng.pages.git.jvoffice.ir" = "allow"
+"docs-jv.jvoffice.ir" = "allow"
 `;
 
 await writeFile(resolve(temporaryCodexHome, "config.toml"), childConfig, "utf8");
@@ -176,8 +174,7 @@ const smokeResult: SmokeResult = {
   childThreadCreated,
   childThreadId,
   harnessAccessible: childResult?.harnessAccessible ?? false,
-  productKnowledgeAccessible:
-    childResult?.productKnowledgeAccessible ?? false,
+  productKnowledgeAccessible: childResult?.productKnowledgeAccessible ?? false,
   jobSearchContext: childResult?.jobSearchContext ?? "",
   childResult,
   failures,
