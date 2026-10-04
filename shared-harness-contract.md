@@ -7,10 +7,13 @@ This contract defines the rules shared by all product-development workflows and 
 Authority is scoped to the kind of claim being made. There is no single global source of truth.
 
 - The Harness is authoritative for product-development rules and artifact contracts.
-- The relevant Job Vision codebase in GitHub is authoritative for current implemented product behavior.
-- Product Knowledge is a derived context provider for current product truth. It is not independently authoritative over the codebase.
+- Product Knowledge is the primary documented source for Job Vision product concepts, business rules, terminology, and current-product documentation.
+- Product Walkthrough is the preferred documented source for end-to-end journeys, current flows, and feature walkthroughs when sequence or experience context is material.
+- The relevant authoritative implementation source provides deeper evidence of current implemented behavior when documentation is insufficient, inconsistent, or requires verification. The Harness does not assume a specific code host or repository provider.
 - The PRD owns decided intended product change, including materially affected users, intended outcomes, material Product Scenarios, required product behavior, and acceptance criteria within its scope.
 - The Design Artifact owns the selected experience and interaction solution within the constraints of the PRD.
+
+Product Knowledge and Product Walkthrough describe current product context; they do not own intended changes. When documented context and verified implementation evidence materially conflict, AI must surface the inconsistency and investigate the discrepancy rather than silently choosing a source or inventing a resolution.
 
 An artifact is authoritative only for claims inside its decision domain that are established by the responsible human role or validly derived from established decisions.
 
@@ -76,7 +79,11 @@ Artifacts are separated by the kind of decision they own.
 
 ### Product Knowledge
 
-Provides retrievable context about the currently implemented product. It is derived from current product truth and does not own intended changes.
+Provides canonical documented product concepts, business rules, terminology, and retrievable current-product context. It does not own intended changes.
+
+### Product Walkthrough
+
+Provides retrievable end-to-end journeys, current flows, and feature walkthroughs. It does not own intended changes and should not duplicate Product Knowledge concepts or rules as a competing source of truth.
 
 ### PRD
 
@@ -91,7 +98,7 @@ Owns the intended product change, including:
 - acceptance criteria,
 - and material unresolved product decisions or assumptions.
 
-The PRD may include concise current-product context and canonical dependency references for downstream understanding, retrieval, and impact analysis. Those contextual references do not override Product Knowledge or the relevant authoritative implementation source and should not become duplicate owners of current-product truth.
+The PRD may include concise current-product context and canonical dependency references for downstream understanding, retrieval, and impact analysis. Those contextual references do not override Product Knowledge, Product Walkthrough, or verified implementation evidence and should not become duplicate owners of current-product truth.
 
 The PRD should describe observable or verifiable product expectations without prescribing the experience or implementation unless that prescription is itself a product constraint.
 
@@ -127,13 +134,14 @@ Durable artifacts must remain retrievable and versioned enough for downstream wo
 
 For the current Job Vision pilot, the PRD has a concrete persistence model:
 
-- The canonical PRD is stored as a GitLab Wiki page.
+- The canonical PRD is stored as one page in the designated internal GitLab Wiki used for Product PRDs.
 - One Wiki page represents the current PRD for a product change; do not create parallel version pages by default.
-- GitLab Wiki page history provides the revision history and recovery path.
+- GitLab Wiki page history provides the PRD revision history and recovery path.
 - The PRD's stable `id` is its machine-oriented identity; the Wiki title/path is primarily for human navigation.
-- A downloaded, copied, or AI-generated working copy is not a competing source of truth.
+- A downloaded, exported, copied, or AI-generated working copy is not a competing source of truth.
 - Product Management owns Product decisions and the canonical PRD write. Other roles may comment with proposed changes, but comments do not establish Product authority.
 - When a PM accepts a proposed change, the current canonical PRD is updated and downstream change propagation is applied.
+- The exact Wiki location and access permissions are deployment configuration, not something the Harness should infer. They must be verified and communicated by the internal repository owner before team rollout.
 
 This persistence choice is specific to the current PRD workflow. The Harness does not prescribe the storage mechanism for other artifact types unless a demonstrated need justifies one.
 
@@ -141,7 +149,7 @@ The Harness does not require MCP for this model. During the current pilot, retri
 
 ## 4. Knowledge Contract
 
-The Harness defines what product context is required to perform a task. It does not define how Product Knowledge stores, structures, indexes, or retrieves that context.
+The Harness defines what product context is required to perform a task. It does not define how Product Knowledge or Product Walkthrough stores, structures, indexes, or retrieves that context.
 
 For a given task, relevant context may include:
 
@@ -154,15 +162,17 @@ For a given task, relevant context may include:
 - available evidence relevant to the stated problem,
 - and implementation references when deeper verification is required and available.
 
-Product Knowledge is the preferred provider of current-product context when available, but it is not a mandatory runtime dependency. Equivalent context may be retrieved directly from authoritative sources when necessary.
+Use Product Knowledge as the primary documented source for concepts, business rules, terminology, and product context. Use Product Walkthrough as the preferred documented source when an end-to-end journey, flow, handoff, or feature walkthrough is materially relevant. Retrieve only the relevant slice of either source.
+
+Neither source is a mandatory runtime dependency. If an environment cannot access an internal source directly, preserve the access limitation and use only relevant context supplied through another trustworthy path; do not invent missing current-product facts.
 
 When Product Knowledge exposes canonical concepts or identifiers useful for references or dependency navigation, the Harness may use those existing references. The Harness does not define or require a separate Product Knowledge taxonomy.
 
-AI should not ask a human for product facts that are reasonably retrievable from available product context or the authoritative implementation source.
+AI should not ask a human for product facts that are reasonably retrievable from available product context or an authoritative implementation source.
 
 Absence from retrieved context is uncertainty, not evidence that a behavior does not exist.
 
-When retrieved knowledge is insufficient, inconsistent, or materially uncertain, AI should retrieve deeper context or inspect the authoritative source rather than invent missing product truth.
+When retrieved knowledge is insufficient, inconsistent, or materially uncertain, AI should retrieve deeper Product Knowledge or Product Walkthrough context, or inspect the relevant authoritative implementation source when available, rather than invent missing product truth. The Harness must not hard-code a specific implementation host as a semantic dependency.
 
 General model knowledge, domain knowledge, and common product patterns are legitimate non-authoritative inputs for hypothesis generation, candidate framing, alternatives, risks, and recommendations. AI should use them when they improve the quality of Product or Design thinking, especially when PM intent is solution-shaped or retrieved context does not establish the underlying rationale, outcome, or likely tradeoff.
 
