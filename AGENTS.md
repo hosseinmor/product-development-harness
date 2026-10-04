@@ -33,13 +33,13 @@ Retrieve only external context materially relevant to the task.
 
 Use these source roles when available:
 
-- **Product Knowledge** — primary documented source for Job Vision product concepts, business rules, terminology, and product context.
-- **Product Walkthrough** — preferred source for end-to-end journeys, current flows, and feature walkthroughs when the task depends on sequence or experience context.
-- **Authoritative implementation source** — use when documented context is insufficient, inconsistent, or a current implemented behavior needs deeper verification. Do not assume a specific code host or repository provider unless the environment establishes one.
+- **Canonical Product Knowledge** — primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. For JobVision, the current canonical source is the internal Product Knowledge site.
+- **Product Walkthrough** — preferred reviewed evidence source for reconstructing end-to-end journeys, current flows, and feature walkthroughs when sequence or experience context is material. Walkthrough evidence is not canonical Product Knowledge and must not override it.
+- **Authoritative implementation source** — use when canonical documentation and reviewed evidence are insufficient, inconsistent, or a current implemented behavior needs deeper verification. Do not assume a specific code host or repository provider unless the environment establishes one.
 - **Design System guidance** — use for applicable design-system constraints and patterns.
-- **Evidence and current working artifacts** — use when materially relevant to the task.
+- **Other evidence and current working artifacts** — use when materially relevant to the task.
 
-Product Knowledge and Product Walkthrough are retrieval sources, not substitutes for human authority over intended Product decisions. If documented context and verified implementation evidence materially conflict, surface the conflict rather than silently choosing or inventing a resolution.
+Product Knowledge and evidence sources do not substitute for human authority over intended Product decisions. If sources materially conflict, surface the conflict rather than silently choosing or inventing a resolution.
 
 Use context that is already available instead of asking humans to restate it. Retrieve selectively; do not load an entire knowledge source when a smaller relevant slice is sufficient.
 
