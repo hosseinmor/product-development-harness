@@ -4,9 +4,9 @@
 
 ## قبل از شروع
 
-1. دستگاه‌تان را به VPN شرکت متصل کنید.
-2. از محیط AIای استفاده کنید که به browser محلی روی همان دستگاه دسترسی داشته باشد.
-3. PRD فعلی را در اختیار Agent بگذارید. PRD durable را به chat history ترجیح دهید.
+1. دستگاه‌تان را به VPN شرکت متصل کنید، اگر برای دسترسی به منابع داخلی لازم است.
+2. از محیط AIای استفاده کنید که بتوانید Harness و PRD فعلی را در اختیارش بگذارید.
+3. PRD فعلی را از GitLab Wiki بگیرید یا در صورت نبود دسترسی مستقیم، نسخه current آن را به Agent attach کنید. PRD durable را به chat history ترجیح دهید.
 
 منبع فعلی Product Knowledge:
 
@@ -20,7 +20,9 @@ http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 برای این Design Task از Job Vision Product Development Harness استفاده کن.
 
 Harness:
-https://github.com/hosseinmor/product-development-harness
+ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness`
+
+در Pilot فعلی اگر محیط AI دسترسی مستقیم به GitLab ندارد، فایل‌های لازم را دستی در اختیار Agent بگذارید. از `AGENTS.md` شروع کنید و فقط فایل‌هایی را بدهید که آن فایل route می‌کند. MCP برای استفاده از Harness لازم نیست.
 
 Product Knowledge:
 http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
@@ -35,6 +37,8 @@ PRD:
 ```
 
 اگر همراه task لینک Figma، screenshot، prototype، research یا context دیگری می‌دهید، Agent باید در صورت ارتباط از آن استفاده کند. لازم نیست workflow طراحی را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+
+اگر در حین Design Exploration یک Product change یا اصلاح در PRD لازم شد، آن را به‌عنوان پیشنهاد روی Wiki PRD مطرح کنید؛ Designer نباید مستقیماً Product decision را در PRD canonical establish کند. PM تصمیم می‌گیرد و در صورت پذیرش، current PRD را به‌روزرسانی می‌کند.
 
 ## در حین کار ممکن است چه چیزهایی ببینید؟
 
