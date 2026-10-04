@@ -1,18 +1,16 @@
 # راهنمای شروع برای PM
 
-از این راهنما برای شروع یک Product Task با Job Vision Product Development Harness استفاده کنید.
+از این راهنما برای شروع یا ادامه یک Product Task با Job Vision Product Development Harness استفاده کنید.
 
 ## قبل از شروع
 
-1. دستگاه‌تان را به VPN شرکت متصل کنید، اگر برای دسترسی به منابع داخلی لازم است.
-2. از محیط AIای استفاده کنید که بتوانید فایل‌های Harness و Product Knowledge را در اختیارش بگذارید.
-3. ریپازیتوری canonical داخلی GitLab برای Harness، محل Product Knowledge و Product Intent خودتان را در اختیار Agent بگذارید.
+1. در صورت نیاز برای دسترسی به منابع داخلی، دستگاه‌تان را به VPN شرکت متصل کنید.
+2. Harness canonical در ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness` قرار دارد.
+3. منبع canonical Product Knowledge جاب‌ویژن:
 
-منبع فعلی Product Knowledge:
+https://docs-jv.jvoffice.ir/
 
-http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
-
-این وضعیت موقتی است. وقتی Agentها به repository مربوط به Product Knowledge دسترسی مستقیم داشته باشند، repository را به‌عنوان منبع Product Knowledge می‌دهیم و وابستگی به browser + VPN حذف می‌شود.
+4. PRD canonical هر Product Change در GitLab Wiki نگهداری می‌شود. اگر task ادامه‌ی کار قبلی است، current PRD را از Wiki بگیرید و chat history یا فایل قدیمی را جای آن قرار ندهید.
 
 ## Prompt شروع
 
@@ -22,29 +20,41 @@ http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 Harness:
 ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness`
 
-در Pilot فعلی اگر محیط AI دسترسی مستقیم به GitLab ندارد، فایل‌های لازم را دستی در اختیار Agent بگذارید. از `AGENTS.md` شروع کنید و فقط فایل‌هایی را بدهید که آن فایل route می‌کند. MCP برای استفاده از Harness لازم نیست.
+از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
 Product Knowledge:
-http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
+https://docs-jv.jvoffice.ir/
 
-Product Knowledge فعلاً فقط از شبکه داخلی قابل دسترسی است.
-برای خواندن آن از browser محلی‌ای استفاده کن که از طریق VPN شرکت به این شبکه دسترسی دارد.
+Product Knowledge منبع اصلی context مستند محصول است. اگر برای journey یا flow مرتبط Product Walkthrough در دسترس است، از آن هم استفاده کن.
 
-از AGENTS.md شروع کن.
+اگر محیطت به یک منبع داخلی دسترسی مستقیم ندارد، این محدودیت را صریح بگو و فقط context مرتبطی را که در اختیارت می‌گذارم استفاده کن. Current Product Context را حدس نزن.
 
 Intent من:
 [مسئله، ایده یا تغییر محصول را با زبان خودت توضیح بده]
 ```
 
-اگر همراه task فایل، research، note، screenshot یا context دیگری می‌دهید، Agent باید در صورت ارتباط از آن استفاده کند. لازم نیست workflow یا قواعد Harness را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+اگر task ادامه‌ی یک PRD موجود است، این بخش را هم اضافه کنید:
 
-### PRD را کجا نگه می‌داریم؟
+```text
+Current PRD:
+[لینک Wiki page یا نسخه current PRD را attach کن]
 
-PRD canonical در GitLab Wiki نگهداری می‌شود. برای هر Product Change یک Wiki page داریم و همان page نسخه current PRD است. تاریخچه تغییرات را Wiki/Git حفظ می‌کند؛ لازم نیست برای هر تغییر page جدیدی با نام version بسازید.
+این PRD را به‌عنوان durable artifact فعلی ادامه بده؛ از صفر PRD موازی نساز.
+```
 
-در Pilot فعلی PM خروجی نهایی AI را در Wiki می‌نویسد. Designer، Engineering و سایر نقش‌ها PRD را از Wiki می‌گیرند و اگر Product change یا اصلاحی دارند، روی همان page comment می‌گذارند. Comment پیشنهاد است، نه Product decision. PM تصمیم را می‌گیرد و در صورت پذیرش، PRD canonical را به‌روزرسانی می‌کند.
+اگر همراه task فایل، research، note، screenshot یا context دیگری می‌دهید، Agent باید فقط در صورت ارتباط از آن استفاده کند. لازم نیست workflow یا قواعد Harness را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
 
-فایل دانلودشده یا کپی‌شده برای کار با AI فقط working copy است و جای PRD canonical را نمی‌گیرد.
+در Pilot فعلی MCP شرط استفاده از Harness نیست. اگر محیط AI دسترسی مستقیم به GitLab ندارد، فایل‌های route‌شده را دستی در اختیار Agent بگذارید؛ از `AGENTS.md` شروع کنید و کل repository را بدون نیاز وارد context نکنید.
+
+## PRD را کجا نگه می‌داریم؟
+
+PRD canonical در GitLab Wiki تعیین‌شده برای Product PRDها نگهداری می‌شود. برای هر Product Change یک Wiki page داریم و همان page نسخه current PRD است. تاریخچه و diff تغییرات را GitLab Wiki حفظ می‌کند؛ لازم نیست برای هر تغییر page جدیدی با نام `v1`، `v2` یا `final` بسازید.
+
+در Pilot فعلی PM خروجی مورد تأیید را در همان Wiki page ثبت یا به‌روزرسانی می‌کند. Designer، Engineering و سایر نقش‌ها PRD را از Wiki می‌گیرند و اگر Product change یا اصلاحی دارند، روی همان page comment می‌گذارند. Comment پیشنهاد است، نه Product decision. PM تصمیم را می‌گیرد و در صورت پذیرش، PRD canonical را به‌روزرسانی می‌کند.
+
+فایل دانلودشده، exportشده یا کپی‌شده برای کار با AI فقط working copy است و جای PRD canonical را نمی‌گیرد.
+
+قبل از rollout تیمی، محل دقیق Wiki و permissionهای edit/comment باید توسط owner داخلی GitLab تأیید و به تیم اعلام شود. Harness نباید URL یا permissionی را که verify نشده حدس بزند.
 
 ## اگر Product Knowledge در دسترس نیست
 
@@ -56,6 +66,6 @@ PRD canonical در GitLab Wiki نگهداری می‌شود. برای هر Produ
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش حدس بزند. این به معنی حل شدن همه سؤال‌های باز نیست.
 - **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند.
-- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند مستندات داخلی را باز کند، باید این محدودیت را اعلام کند و ممکن است فایل، screenshot یا context مشخصی از شما بخواهد. نباید Current Product Context را حدس بزند.
+- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند منبع داخلی را بخواند، باید این محدودیت را اعلام کند و ممکن است فایل، screenshot یا context مشخصی از شما بخواهد. نباید Current Product Context را حدس بزند.
 - **باقی ماندن Open Decision** — اگر یک تصمیم باز مانده ولی مانع Design Exploration معنادار نیست، PRD همچنان می‌تواند `Problem Aligned` باشد.
 - **برگشت Product gap از Design** — ممکن است Design یک Product Decision جاافتاده را آشکار کند. در این حالت تصمیم به PM برمی‌گردد و PRD باید قبل از ادامه کار downstream به‌روزرسانی شود.
