@@ -12,7 +12,8 @@ Design Exploration is not a one-shot prototype generation step. The workflow sho
 
 - A PRD that is sufficiently Problem Aligned for useful exploration.
 - Relevant acceptance criteria.
-- Relevant current-product context.
+- Relevant Product Knowledge context.
+- Relevant Product Walkthrough context when the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough.
 - Existing product patterns or flows when they materially constrain the experience.
 - Relevant Design System guidance when available and applicable.
 - Relevant reusable components and interaction patterns.
@@ -36,7 +37,9 @@ Retrieve and reconstruct only the parts of the current experience needed for the
 - relevant Design System guidance and reusable components,
 - and known constraints from the current implementation or product structure.
 
-Use Product Knowledge as a preferred context provider when available, but retrieve deeper context from authoritative or direct experience sources when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting implementation, existing design files, screenshots, prototypes, or other directly relevant product evidence.
+Use Product Knowledge as the primary documented source for concepts, business rules, terminology, and product context. For end-to-end journeys, current flows, handoffs, and feature walkthroughs, prefer relevant Product Walkthrough context when available. Retrieve only the relevant slice of either source.
+
+Retrieve deeper context from authoritative or direct experience sources when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting the authoritative implementation source, existing design files, screenshots, prototypes, or other directly relevant product evidence. Do not assume a specific code host or repository provider unless the environment establishes one.
 
 Do not claim that the current experience has been reconstructed more precisely than the available context supports.
 
