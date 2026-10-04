@@ -16,7 +16,8 @@ The core Harness is tool-agnostic. Some validation/runtime implementations in th
 - Humans should not create extra documentation for AI when the required context can be retrieved or derived from working artifacts.
 - Authority belongs to the claim and its owning domain, not to the tool containing it.
 - Each fact should have one primary owner where practical.
-- Product Knowledge is an external provider of retrievable current-product context. It does not define the Harness and the Harness does not prescribe Product Knowledge's internal structure.
+- Product Knowledge is the primary documented source for product concepts, business rules, terminology, and product context; Product Walkthrough is the preferred documented source for end-to-end journeys and flows when relevant.
+- Retrieval should be task-scoped. Do not load whole repositories or knowledge bases when a smaller relevant slice is sufficient.
 - The architecture remains minimal. New files, layers, schemas, agents, routers, or runtime abstractions require a demonstrated need.
 
 ## Implemented Harness scope
@@ -77,7 +78,6 @@ The Standalone PRD Kit is a fallback for structured PRD drafting when the full H
 
 The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflows, and artifact contracts.
 
-
 ### Repo-aware agents
 
 Give the agent access to the canonical internal GitLab Harness repository and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
@@ -96,29 +96,39 @@ The current manual model is intentionally simple: human retrieval of Harness con
 
 MCP or another controlled GitLab integration may later automate retrieval and writes. That future automation must preserve the same Harness workflow and authority rules rather than introduce a different process.
 
-### Environments without repository access
+### Environments without repository or internal-source access
 
 Provide `AGENTS.md` and the specific files it routes to for the task. Avoid loading every workflow by default.
 
+If the environment cannot directly reach Product Knowledge, Product Walkthrough, GitLab Wiki, or another internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Lack of access must not be filled with guessed current-product facts.
+
 ### External product context
 
-Provide access to or the location of relevant external sources such as Product Knowledge, current working artifacts, evidence, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+Provide access to or the location of relevant external sources such as Product Knowledge, Product Walkthrough, current working artifacts, evidence, Design System guidance, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
 
-For the current pilot, canonical PRDs are stored as GitLab Wiki pages. One Wiki page represents the current PRD for a product change. GitLab Wiki history provides version history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded or copied PRD is a working copy and is not a competing source of truth.
+For the current pilot, canonical PRDs are stored as pages in the designated internal GitLab Wiki used for Product PRDs. One Wiki page represents the current PRD for a product change. GitLab Wiki page history provides PRD revision history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded, exported, or copied PRD is a working copy and is not a competing source of truth.
 
 The PM remains the authority for Product decisions and the canonical PRD write. Other roles may comment on the Wiki page with proposed changes; a comment is not itself a Product decision. When a PM accepts a proposed change, the current canonical PRD is updated.
+
+The exact Wiki location and role permissions are deployment configuration and must be verified and communicated by the internal repository owner before team rollout; the Harness must not infer them.
 
 A minimal task handoff can look like:
 
 ```text
 Harness:
-<repository or provided Harness files>
+<canonical repository or provided routed Harness files>
 
 Product Knowledge:
 <context source, when relevant>
 
-PM Intent:
-<requested product change>
+Product Walkthrough:
+<flow/journey source, when relevant>
+
+Current artifact:
+<current PRD or Design Artifact, when continuing existing work>
+
+Intent:
+<requested product or design change>
 
 Execute the task according to the Harness.
 ```
