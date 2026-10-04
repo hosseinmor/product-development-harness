@@ -22,12 +22,12 @@ Harness:
 
 از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
-Product Knowledge:
+Canonical Product Knowledge:
 https://docs-jv.jvoffice.ir/
 
-Product Knowledge منبع اصلی context مستند محصول است. اگر برای journey یا flow مرتبط Product Walkthrough در دسترس است، از آن هم استفاده کن.
+این سایت مرجع canonical رفتار و مفاهیم فعلی JobVision است. اگر برای journey یا flow مرتبط Product Walkthrough در دسترس است، از reviewed evidence آن برای بازسازی flow استفاده کن، اما آن را جای Product Knowledge canonical قرار نده.
 
-اگر محیطت به یک منبع داخلی دسترسی مستقیم ندارد، این محدودیت را صریح بگو و فقط context مرتبطی را که در اختیارت می‌گذارم استفاده کن. Current Product Context را حدس نزن.
+اگر محیطت به یک منبع داخلی دسترسی مستقیم ندارد، این محدودیت را صریح بگو و فقط context مرتبطی را که در اختیارت می‌گذارم استفاده کن. Current Product Context را حدس نزن و از repositoryهای دیگر به‌عنوان fallback Product Knowledge استفاده نکن.
 
 Intent من:
 [مسئله، ایده یا تغییر محصول را با زبان خودت توضیح بده]
@@ -58,7 +58,7 @@ PRD canonical در Wiki پروژه GitLab `product/prd/agent-harness` نگهدا
 
 ## اگر Product Knowledge در دسترس نیست
 
-اگر Current Product Context معتبر دیگری در اختیار دارید، مثل PRD قبلی، مستندات، screenshot، Figma یا implementation context، همچنان می‌توانید از Harness استفاده کنید و Agent باید محدودیت context را صریح نگه دارد.
+اگر Current Product Context معتبر دیگری در اختیار دارید، مثل PRD قبلی، reviewed evidence، screenshot، Figma یا implementation context، همچنان می‌توانید برای drafting یا investigation از Harness استفاده کنید و Agent باید محدودیت context را صریح نگه دارد. این context جای canonical Product Knowledge را نمی‌گیرد.
 
 اگر Product Knowledge و Current Product Context قابل‌اعتمادی در دسترس نیست، برای ساخت یک PRD اولیه می‌توانید از [Standalone PRD Kit](standalone-prd/README.md) استفاده کنید. این مسیر جایگزین هم‌ارز Harness نیست؛ فقط برای drafting ساختاریافته با context محدود است.
 
@@ -66,6 +66,6 @@ PRD canonical در Wiki پروژه GitLab `product/prd/agent-harness` نگهدا
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش حدس بزند. این به معنی حل شدن همه سؤال‌های باز نیست.
 - **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند.
-- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند منبع داخلی را بخواند، باید این محدودیت را اعلام کند و ممکن است فایل، screenshot یا context مشخصی از شما بخواهد. نباید Current Product Context را حدس بزند.
+- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند منبع canonical داخلی را بخواند، باید این محدودیت را اعلام کند و ممکن است فایل، screenshot یا context مشخصی از شما بخواهد. نباید Current Product Context را حدس بزند یا repository دیگری را خودکار جایگزین Product Knowledge کند.
 - **باقی ماندن Open Decision** — اگر یک تصمیم باز مانده ولی مانع Design Exploration معنادار نیست، PRD همچنان می‌تواند `Problem Aligned` باشد.
 - **برگشت Product gap از Design** — ممکن است Design یک Product Decision جاافتاده را آشکار کند. در این حالت تصمیم به PM برمی‌گردد و PRD باید قبل از ادامه کار downstream به‌روزرسانی شود.
