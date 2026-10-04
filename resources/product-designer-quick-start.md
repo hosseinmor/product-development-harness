@@ -4,15 +4,12 @@
 
 ## قبل از شروع
 
-1. دستگاه‌تان را به VPN شرکت متصل کنید، اگر برای دسترسی به منابع داخلی لازم است.
-2. از محیط AIای استفاده کنید که بتوانید Harness و PRD فعلی را در اختیارش بگذارید.
-3. PRD فعلی را از GitLab Wiki بگیرید یا در صورت نبود دسترسی مستقیم، نسخه current آن را به Agent attach کنید. PRD durable را به chat history ترجیح دهید.
+1. در صورت نیاز برای دسترسی به منابع داخلی، دستگاه‌تان را به VPN شرکت متصل کنید.
+2. Harness canonical در ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness` قرار دارد.
+3. PRD فعلی را از GitLab Wiki بگیرید یا در صورت نبود دسترسی مستقیم، نسخه current آن را به Agent بدهید. PRD durable را به chat history یا working copy قدیمی ترجیح دهید.
+4. منبع canonical Product Knowledge جاب‌ویژن:
 
-منبع فعلی Product Knowledge:
-
-http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
-
-این وضعیت موقتی است. وقتی Agentها به repository مربوط به Product Knowledge دسترسی مستقیم داشته باشند، repository را به‌عنوان منبع Product Knowledge می‌دهیم و وابستگی به browser + VPN حذف می‌شود.
+https://docs-jv.jvoffice.ir/
 
 ## Prompt شروع
 
@@ -22,28 +19,31 @@ http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 Harness:
 ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness`
 
-در Pilot فعلی اگر محیط AI دسترسی مستقیم به GitLab ندارد، فایل‌های لازم را دستی در اختیار Agent بگذارید. از `AGENTS.md` شروع کنید و فقط فایل‌هایی را بدهید که آن فایل route می‌کند. MCP برای استفاده از Harness لازم نیست.
+از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
 Product Knowledge:
-http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
+https://docs-jv.jvoffice.ir/
 
-Product Knowledge فعلاً فقط از شبکه داخلی قابل دسترسی است.
-برای خواندن آن از browser محلی‌ای استفاده کن که از طریق VPN شرکت به این شبکه دسترسی دارد.
+برای current journey، flow یا feature walkthrough مرتبط، اگر Product Walkthrough در دسترس است آن را به‌عنوان منبع ترجیحی flow استفاده کن؛ برای concepts، rules و terminology، Product Knowledge را مبنا بگیر.
 
-از AGENTS.md شروع کن.
+اگر محیطت به یک منبع داخلی دسترسی مستقیم ندارد، این محدودیت را صریح بگو و فقط context مرتبطی را که در اختیارت می‌گذارم استفاده کن. Current Experience را حدس نزن.
 
 PRD:
-[فایل PRD را attach کن یا لینک durable آن را بده]
+[لینک Wiki page یا نسخه current PRD را attach کن]
 ```
 
-اگر همراه task لینک Figma، screenshot، prototype، research یا context دیگری می‌دهید، Agent باید در صورت ارتباط از آن استفاده کند. لازم نیست workflow طراحی را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+اگر همراه task لینک Figma، screenshot، prototype، research یا context دیگری می‌دهید، Agent باید فقط در صورت ارتباط از آن استفاده کند. لازم نیست workflow طراحی را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+
+در Pilot فعلی MCP شرط استفاده از Harness نیست. اگر محیط AI دسترسی مستقیم به GitLab ندارد، فایل‌های route‌شده را دستی در اختیار Agent بگذارید؛ از `AGENTS.md` شروع کنید و کل repository را بدون نیاز وارد context نکنید.
 
 اگر در حین Design Exploration یک Product change یا اصلاح در PRD لازم شد، آن را به‌عنوان پیشنهاد روی Wiki PRD مطرح کنید؛ Designer نباید مستقیماً Product decision را در PRD canonical establish کند. PM تصمیم می‌گیرد و در صورت پذیرش، current PRD را به‌روزرسانی می‌کند.
+
+قبل از rollout تیمی، محل دقیق Wiki و permissionهای edit/comment باید توسط owner داخلی GitLab تأیید و به تیم اعلام شود. Harness نباید URL یا permissionی را که verify نشده حدس بزند.
 
 ## در حین کار ممکن است چه چیزهایی ببینید؟
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش اختراع کند.
-- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند مستندات داخلی را باز کند، باید این محدودیت را اعلام کند و ممکن است screenshot، flow فعلی، فایل یا context مشخصی از شما بخواهد. نباید Current Experience را حدس بزند.
+- **عدم دسترسی به Product Knowledge یا Product Walkthrough** — Agent باید محدودیت را اعلام کند و ممکن است screenshot، flow فعلی، فایل یا context مشخصی بخواهد. نباید Current Experience را حدس بزند.
 - **`Product Decision needed`** — یعنی Design رفتاری را آشکار کرده که PRD هنوز مشخص نکرده است. Designer می‌تواند پیشنهاد بدهد، اما تصمیم باید به PM و PRD برگردد.
 - **`Selected` Design** — یعنی Designer جهت فعلی Design را انتخاب کرده و می‌توان آن را به‌عنوان Design Artifact durable نگه داشت. این به معنی pixel-perfect، immutable یا implementation-ready بودن نیست.
 - **`Product & Design Aligned`** — یعنی PRD و Design انتخاب‌شده به‌اندازه کافی با هم سازگار و روشن‌اند که Engineering بتواند Technical Planning را شروع کند بدون اینکه مجبور شود Product یا Design Decision مهمی را خودش اختراع کند.
