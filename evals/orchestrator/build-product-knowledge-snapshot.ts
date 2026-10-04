@@ -4,9 +4,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const rootUrl = new URL(
-  "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/",
-);
+const rootUrl = new URL("https://docs-jv.jvoffice.ir/");
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
 const runsDirectory = resolve(repositoryRoot, "evals/runs");
