@@ -4,6 +4,8 @@ A minimal, tool-agnostic harness for AI-native, human-governed product developme
 
 The Harness defines shared rules, workflow contracts, artifact boundaries, and optional validation/runtime infrastructure that can be used across tools such as ChatGPT, Claude, Cursor/Codex, Figma, and future environments.
 
+The canonical Harness source is the private/internal GitLab repository maintained by Job Vision. The public GitHub repository is a reference/mirror and is not the canonical source for day-to-day Harness execution.
+
 The core Harness is tool-agnostic. Some validation/runtime implementations in this repository are currently provider-specific and are not required to use the core Harness.
 
 ## Core principles
@@ -78,9 +80,21 @@ The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflo
 
 ### Repo-aware agents
 
-Give the agent access to this repository and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
+Give the agent access to the canonical internal GitLab Harness repository and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
 
 Do not restate Harness rules in the task prompt unless the execution environment cannot access the repository. This keeps task prompts small and makes repository behavior the source of truth.
+
+### Current pilot: manual Harness access
+
+MCP is **not required** to use the Harness.
+
+During the current pilot, if the AI environment cannot directly access the internal GitLab repository, a human may provide the current Harness files manually. Start from `AGENTS.md` and provide only the files it routes to for the task; do not upload the entire repository by default.
+
+A manually provided copy is working context, not a new source of truth. When the canonical repository is accessible, prefer its current contents.
+
+The current manual model is intentionally simple: human retrieval of Harness context → AI executes the Harness → human persists the resulting durable artifact in its canonical store.
+
+MCP or another controlled GitLab integration may later automate retrieval and writes. That future automation must preserve the same Harness workflow and authority rules rather than introduce a different process.
 
 ### Environments without repository access
 
@@ -89,6 +103,10 @@ Provide `AGENTS.md` and the specific files it routes to for the task. Avoid load
 ### External product context
 
 Provide access to or the location of relevant external sources such as Product Knowledge, current working artifacts, evidence, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+
+For the current pilot, canonical PRDs are stored as GitLab Wiki pages. One Wiki page represents the current PRD for a product change. GitLab Wiki history provides version history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded or copied PRD is a working copy and is not a competing source of truth.
+
+The PM remains the authority for Product decisions and the canonical PRD write. Other roles may comment on the Wiki page with proposed changes; a comment is not itself a Product decision. When a PM accepts a proposed change, the current canonical PRD is updated.
 
 A minimal task handoff can look like:
 
