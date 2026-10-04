@@ -123,7 +123,21 @@ When continuing existing work, AI should retrieve the current durable artifacts 
 
 When an established decision changes, update the current owning artifact and then apply the change-propagation rules to materially affected downstream artifacts. Do not preserve superseded decisions merely as parallel artifact versions unless a demonstrated workflow need requires it.
 
-Durable artifacts must remain retrievable and versioned enough for downstream work and change recovery. The Harness does not prescribe a storage repository, folder structure, or tool-specific persistence mechanism unless a demonstrated need justifies one.
+Durable artifacts must remain retrievable and versioned enough for downstream work and change recovery.
+
+For the current Job Vision pilot, the PRD has a concrete persistence model:
+
+- The canonical PRD is stored as a GitLab Wiki page.
+- One Wiki page represents the current PRD for a product change; do not create parallel version pages by default.
+- GitLab Wiki page history provides the revision history and recovery path.
+- The PRD's stable `id` is its machine-oriented identity; the Wiki title/path is primarily for human navigation.
+- A downloaded, copied, or AI-generated working copy is not a competing source of truth.
+- Product Management owns Product decisions and the canonical PRD write. Other roles may comment with proposed changes, but comments do not establish Product authority.
+- When a PM accepts a proposed change, the current canonical PRD is updated and downstream change propagation is applied.
+
+This persistence choice is specific to the current PRD workflow. The Harness does not prescribe the storage mechanism for other artifact types unless a demonstrated need justifies one.
+
+The Harness does not require MCP for this model. During the current pilot, retrieval and persistence may remain manual. A future MCP or other controlled integration may automate the same read/write operations without changing artifact authority or workflow semantics.
 
 ## 4. Knowledge Contract
 
