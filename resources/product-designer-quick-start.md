@@ -5,8 +5,8 @@
 ## قبل از شروع
 
 1. در صورت نیاز برای دسترسی به منابع داخلی، دستگاه‌تان را به VPN شرکت متصل کنید.
-2. Harness canonical در ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness` قرار دارد.
-3. PRD فعلی را از GitLab Wiki بگیرید یا در صورت نبود دسترسی مستقیم، نسخه current آن را به Agent بدهید. PRD durable را به chat history یا working copy قدیمی ترجیح دهید.
+2. Harness canonical در پروژه داخلی GitLab با مسیر `product/prd/agent-harness` قرار دارد.
+3. PRD فعلی را از Wiki همان پروژه بگیرید یا در صورت نبود دسترسی مستقیم، نسخه current آن را به Agent بدهید. PRD durable را به chat history یا working copy قدیمی ترجیح دهید.
 4. منبع canonical Product Knowledge جاب‌ویژن:
 
 https://docs-jv.jvoffice.ir/
@@ -17,7 +17,7 @@ https://docs-jv.jvoffice.ir/
 برای این Design Task از Job Vision Product Development Harness استفاده کن.
 
 Harness:
-ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness`
+پروژه داخلی GitLab با مسیر `product/prd/agent-harness`
 
 از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
@@ -38,7 +38,7 @@ PRD:
 
 اگر در حین Design Exploration یک Product change یا اصلاح در PRD لازم شد، آن را به‌عنوان پیشنهاد روی Wiki PRD مطرح کنید؛ Designer نباید مستقیماً Product decision را در PRD canonical establish کند. PM تصمیم می‌گیرد و در صورت پذیرش، current PRD را به‌روزرسانی می‌کند.
 
-قبل از rollout تیمی، محل دقیق Wiki و permissionهای edit/comment باید توسط owner داخلی GitLab تأیید و به تیم اعلام شود. Harness نباید URL یا permissionی را که verify نشده حدس بزند.
+قبل از rollout تیمی، permissionهای edit/comment در پروژه GitLab باید یک بار با نقش‌های واقعی PM و Designer تست شوند. Harness نباید permissionی را که verify نشده فرض کند.
 
 ## در حین کار ممکن است چه چیزهایی ببینید؟
 
