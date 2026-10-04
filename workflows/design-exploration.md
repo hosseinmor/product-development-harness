@@ -12,8 +12,8 @@ Design Exploration is not a one-shot prototype generation step. The workflow sho
 
 - A PRD that is sufficiently Problem Aligned for useful exploration.
 - Relevant acceptance criteria.
-- Relevant Product Knowledge context.
-- Relevant Product Walkthrough context when the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough.
+- Relevant canonical Product Knowledge context.
+- Relevant reviewed Product Walkthrough evidence when the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough.
 - Existing product patterns or flows when they materially constrain the experience.
 - Relevant Design System guidance when available and applicable.
 - Relevant reusable components and interaction patterns.
@@ -37,9 +37,11 @@ Retrieve and reconstruct only the parts of the current experience needed for the
 - relevant Design System guidance and reusable components,
 - and known constraints from the current implementation or product structure.
 
-Use Product Knowledge as the primary documented source for concepts, business rules, terminology, and product context. For end-to-end journeys, current flows, handoffs, and feature walkthroughs, prefer relevant Product Walkthrough context when available. Retrieve only the relevant slice of either source.
+Use canonical Product Knowledge as the primary documented source for established product meaning and behavior. For end-to-end journeys, current flows, handoffs, and feature walkthroughs, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
 
 Retrieve deeper context from authoritative or direct experience sources when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting the authoritative implementation source, existing design files, screenshots, prototypes, or other directly relevant product evidence. Do not assume a specific code host or repository provider unless the environment establishes one.
+
+If canonical Product Knowledge, reviewed walkthrough evidence, direct observation, or implementation evidence materially conflict, keep the discrepancy visible and investigate it rather than choosing the most convenient source.
 
 Do not claim that the current experience has been reconstructed more precisely than the available context supports.
 
