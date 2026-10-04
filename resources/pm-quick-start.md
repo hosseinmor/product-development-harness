@@ -5,12 +5,12 @@
 ## قبل از شروع
 
 1. در صورت نیاز برای دسترسی به منابع داخلی، دستگاه‌تان را به VPN شرکت متصل کنید.
-2. Harness canonical در ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness` قرار دارد.
+2. Harness canonical در پروژه داخلی GitLab با مسیر `product/prd/agent-harness` قرار دارد.
 3. منبع canonical Product Knowledge جاب‌ویژن:
 
 https://docs-jv.jvoffice.ir/
 
-4. PRD canonical هر Product Change در GitLab Wiki نگهداری می‌شود. اگر task ادامه‌ی کار قبلی است، current PRD را از Wiki بگیرید و chat history یا فایل قدیمی را جای آن قرار ندهید.
+4. PRD canonical هر Product Change در Wiki همان پروژه `product/prd/agent-harness` نگهداری می‌شود. اگر task ادامه‌ی کار قبلی است، current PRD را از Wiki بگیرید و chat history یا فایل قدیمی را جای آن قرار ندهید.
 
 ## Prompt شروع
 
@@ -18,7 +18,7 @@ https://docs-jv.jvoffice.ir/
 برای این Product Task از Job Vision Product Development Harness استفاده کن.
 
 Harness:
-ریپازیتوری داخلی GitLab شرکت با نام `product-development-harness`
+پروژه داخلی GitLab با مسیر `product/prd/agent-harness`
 
 از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
@@ -48,13 +48,13 @@ Current PRD:
 
 ## PRD را کجا نگه می‌داریم؟
 
-PRD canonical در GitLab Wiki تعیین‌شده برای Product PRDها نگهداری می‌شود. برای هر Product Change یک Wiki page داریم و همان page نسخه current PRD است. تاریخچه و diff تغییرات را GitLab Wiki حفظ می‌کند؛ لازم نیست برای هر تغییر page جدیدی با نام `v1`، `v2` یا `final` بسازید.
+PRD canonical در Wiki پروژه GitLab `product/prd/agent-harness` نگهداری می‌شود. برای هر Product Change یک Wiki page داریم و همان page نسخه current PRD است. تاریخچه و diff تغییرات را GitLab Wiki حفظ می‌کند؛ لازم نیست برای هر تغییر page جدیدی با نام `v1`، `v2` یا `final` بسازید.
 
 در Pilot فعلی PM خروجی مورد تأیید را در همان Wiki page ثبت یا به‌روزرسانی می‌کند. Designer، Engineering و سایر نقش‌ها PRD را از Wiki می‌گیرند و اگر Product change یا اصلاحی دارند، روی همان page comment می‌گذارند. Comment پیشنهاد است، نه Product decision. PM تصمیم را می‌گیرد و در صورت پذیرش، PRD canonical را به‌روزرسانی می‌کند.
 
 فایل دانلودشده، exportشده یا کپی‌شده برای کار با AI فقط working copy است و جای PRD canonical را نمی‌گیرد.
 
-قبل از rollout تیمی، محل دقیق Wiki و permissionهای edit/comment باید توسط owner داخلی GitLab تأیید و به تیم اعلام شود. Harness نباید URL یا permissionی را که verify نشده حدس بزند.
+قبل از rollout تیمی، permissionهای edit/comment در پروژه GitLab باید یک بار با نقش‌های واقعی PM و Designer تست شوند. Harness نباید permissionی را که verify نشده فرض کند.
 
 ## اگر Product Knowledge در دسترس نیست
 
