@@ -33,7 +33,7 @@ Retrieve only external context materially relevant to the task.
 
 Use these source roles when available:
 
-- **Canonical Product Knowledge** — primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. For JobVision, the current canonical source is the internal Product Knowledge site.
+- **Canonical Product Knowledge** — primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. For JobVision, the current canonical entry point is `https://docs-jv.jvoffice.ir/`.
 - **Product Walkthrough** — preferred reviewed evidence source for reconstructing end-to-end journeys, current flows, and feature walkthroughs when sequence or experience context is material. Walkthrough evidence is not canonical Product Knowledge and must not override it.
 - **Authoritative implementation source** — use when canonical documentation and reviewed evidence are insufficient, inconsistent, or a current implemented behavior needs deeper verification. Do not assume a specific code host or repository provider unless the environment establishes one.
 - **Design System guidance** — use for applicable design-system constraints and patterns.
@@ -45,7 +45,7 @@ Use context that is already available instead of asking humans to restate it. Re
 
 When continuing existing product work, retrieve the current durable artifacts before relying on conversation history or tool-local state. Conversation history may provide useful context, but it must not substitute for the current artifact state.
 
-If required external context is unavailable, keep the limitation explicit and do not invent missing facts, rules, components, or guidance.
+If required external context is unavailable, keep the limitation explicit and do not invent missing facts, rules, components, or guidance. For JobVision, do not silently substitute another repository or historical documentation as canonical Product Knowledge when the internal source is inaccessible.
 
 ## Operating constraints
 
