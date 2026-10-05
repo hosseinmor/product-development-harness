@@ -4,7 +4,7 @@
 
 Verify that each Product clarification resolves one independently answerable decision, while allowing multiple atomic questions in a batch and multiple mutually exclusive values of one decision variable in a single question.
 
-This regression is derived from an observed Generalization Validation failure in which independent visibility, prioritization, submission, and automation consequences were bundled into one clarification.
+This regression is derived from observed failures in which independent Product consequences or persistence semantics were bundled into one clarification.
 
 ## Eval type
 
@@ -53,15 +53,32 @@ Also consider this candidate clarification:
 
 These alternatives are mutually exclusive values of one requiredness decision and may remain together in one atomic question.
 
+### Persistence case from the Kando PM pilot
+
+A later PM pilot introduced rejection-reason notification defaults. The Agent asked one clarification with options equivalent to:
+
+1. Save selected channels, selected templates, and timing on the rejection reason; edited message content remains one-time.
+2. Save the effective edited message content on the rejection reason without changing the shared template.
+3. Update the shared template itself with the user's edits.
+
+The Agent labeled this one decision variable as `target and payload of persistence`. That label is not atomic. At minimum, the clarification mixes:
+
+- **payload persisted on the rejection reason** — references/configuration only versus effective edited content;
+- **mutation target** — whether the shared template itself is also changed.
+
+These axes are independently answerable. Product can decide to persist edited content on the reason and separately decide whether the shared template is updated. Therefore the fact that all options concern saving does not make them mutually exclusive values of one Product property.
+
+A valid decomposition should ask only the blocking axes that remain necessary after ownership and Blocking Materiality checks. Exact wording and question count are not prescribed.
+
 ## Expected invariants
 
 - Each emitted clarification resolves one independently answerable Product decision.
 - The single Product decision variable can be named before emission, and every option varies only that property while other Product properties remain fixed.
 - A question is split when the human could answer one part while legitimately leaving another part undecided.
 - Options that can logically be true at the same time are not treated as mutually exclusive values of one decision variable.
-- Independent visibility, submission, automation, ranking, and similar consequences are not presented as mutually exclusive alternatives of one decision merely because they concern the same input.
-- An umbrella label such as `level of effect` does not make independent capabilities atomic.
-- Package options that combine prefill, editability, confirmation, or submission behavior are decomposed when those axes materially require Product clarification.
+- Independent visibility, submission, automation, ranking, persistence payload, persistence target, and similar consequences are not presented as mutually exclusive alternatives merely because they concern the same feature or action.
+- An umbrella label such as `level of effect`, `persistence model`, or `target and payload` does not merge independently answerable Product properties into one atomic variable.
+- Package options that combine prefill, editability, confirmation, submission behavior, persistence payload, or mutation target are decomposed when those axes materially require Product clarification.
 - Multiple alternatives remain valid in one question when they are mutually exclusive values of a single decision variable, as in the requiredness-policy example.
 - A clarification batch may contain multiple atomic questions; atomicity does not require one question per turn.
 - Decision dependencies remain respected after decomposition, and downstream questions are not asked prematurely.
@@ -75,6 +92,8 @@ Fail if any of the following is true:
 - The compound visibility, prioritization, submission, and automatic-rejection question is emitted without semantic decomposition.
 - The same independent consequences are accepted as atomic merely because they are labeled as one `level of effect` spectrum.
 - The package-option question combining prefill, editability, confirmation, and automatic submission is accepted as one atomic decision.
+- The Kando persistence question is accepted as atomic merely because its axes are labeled together as `target and payload`, `persistence model`, or another umbrella term.
+- A single clarification mixes what content/configuration is persisted with whether a separate shared template is mutated, when those decisions can be answered independently.
 - The Agent cannot name one Product decision variable that all options vary while other Product properties remain fixed.
 - Options that can logically be true together are presented as mutually exclusive values of one decision.
 - Independent consequences are treated as mutually exclusive values of a single decision variable.
