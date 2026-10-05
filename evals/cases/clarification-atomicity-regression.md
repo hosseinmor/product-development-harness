@@ -53,7 +53,7 @@ Also consider this candidate clarification:
 
 These alternatives are mutually exclusive values of one requiredness decision and may remain together in one atomic question.
 
-### Persistence case from the Kando PM pilot
+### Persistence case from the Cando PM pilot
 
 A later PM pilot introduced rejection-reason notification defaults. The Agent asked one clarification with options equivalent to:
 
@@ -92,7 +92,7 @@ Fail if any of the following is true:
 - The compound visibility, prioritization, submission, and automatic-rejection question is emitted without semantic decomposition.
 - The same independent consequences are accepted as atomic merely because they are labeled as one `level of effect` spectrum.
 - The package-option question combining prefill, editability, confirmation, and automatic submission is accepted as one atomic decision.
-- The Kando persistence question is accepted as atomic merely because its axes are labeled together as `target and payload`, `persistence model`, or another umbrella term.
+- The Cando persistence question is accepted as atomic merely because its axes are labeled together as `target and payload`, `persistence model`, or another umbrella term.
 - A single clarification mixes what content/configuration is persisted with whether a separate shared template is mutated, when those decisions can be answered independently.
 - The Agent cannot name one Product decision variable that all options vary while other Product properties remain fixed.
 - Options that can logically be true together are presented as mutually exclusive values of one decision.
