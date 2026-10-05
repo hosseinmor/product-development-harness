@@ -5,6 +5,7 @@ import {
   type AuthorityAudit,
   type GuardrailProductQuestion,
 } from "../../runtime/prd/runtime-guardrails.js";
+import { auditStablePrdArtifactId } from "../../runtime/prd/prd-metadata-guard.js";
 import { routeAndRevealAfterValidation } from "./eval-runtime-guardrail-composition.js";
 
 type MockResponse = {
@@ -426,6 +427,31 @@ async function testReconciledOutputIsReaudited(): Promise<void> {
   assert.equal(authorityAudits, 3);
 }
 
+function testStablePrdIdentityGuard(): void {
+  const stableId = "prd-kando-rejection-reason-notification-defaults";
+
+  assert.equal(
+    auditStablePrdArtifactId({ previousId: stableId, nextId: stableId }).passed,
+    true,
+  );
+  assert.equal(
+    auditStablePrdArtifactId({ previousId: stableId, nextId: "unresolved" }).passed,
+    false,
+  );
+  assert.equal(
+    auditStablePrdArtifactId({ previousId: stableId, nextId: "prd-renamed-from-title" }).passed,
+    false,
+  );
+  assert.equal(
+    auditStablePrdArtifactId({
+      previousId: stableId,
+      nextId: "prd-kando-rejection-notification-v2-identity",
+      identityMigrationEstablished: true,
+    }).passed,
+    true,
+  );
+}
+
 await testCompoundQuestionRepairsBeforeRouting();
 await testPersistentCompoundQuestionStopsBeforeRouter();
 await testAtomicRequirednessCanReachRouter();
@@ -433,12 +459,13 @@ await testAuthorityLeakRepairBeforeRouting();
 await testIndependentAuthorityAllowsPromotion();
 await testPersistentAuthorityFailureStopsBeforeRouter();
 await testReconciledOutputIsReaudited();
+testStablePrdIdentityGuard();
 
 console.log(
   JSON.stringify(
     {
       passed: true,
-      tests: 11,
+      tests: 12,
       coverage: [
         "compound clarification repaired before Router/reveal",
         "persistent non-atomic clarification stops after two repairs",
@@ -447,6 +474,7 @@ console.log(
         "independently authorized promotion passes",
         "persistent authority violation stops before Router/reveal",
         "reconciled Product Child output is independently re-audited",
+        "stable PRD artifact ID is preserved unless an identity migration is established",
       ],
     },
     null,
