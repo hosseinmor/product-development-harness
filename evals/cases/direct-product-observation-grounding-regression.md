@@ -26,13 +26,14 @@ While preparing a PRD, AI observes a static product page containing a visually g
 
 - AI may preserve the directly observable copy, placement, and rendered state.
 - AI does not claim result-set membership, navigation behavior, eligibility, persistence, ownership, lifecycle, universal visibility, or another unobserved semantic as current-product truth.
-- Because the distinction is material, AI attempts stronger verification through available interaction, deeper Product Knowledge, or authoritative implementation context.
-- If verification remains unavailable, AI states only the narrow observation or preserves the semantic uncertainty.
+- Because the distinction is material, AI attempts stronger verification through deeper canonical Product Knowledge and may use available interaction, reviewed Product Walkthrough, or implementation evidence to investigate the discrepancy.
+- Evidence does not silently replace canonical Product Knowledge. If evidence and canonical Product Knowledge conflict, AI keeps the discrepancy visible for reconciliation.
+- If canonical verification remains unavailable, AI states only the narrow observation or preserves the semantic uncertainty.
 - The PRD's `Current Behavior` does not present the unverified interpretation as established fact.
 
 ## Explicit failure conditions
 
-Fail if one static state or visual association is treated as sufficient proof of a broader Product semantic, or if the Agent chooses the most plausible interpretation without verification or visible uncertainty.
+Fail if one static state or visual association is treated as sufficient proof of a broader Product semantic, if the Agent chooses the most plausible interpretation without verification or visible uncertainty, or if walkthrough/observation/implementation evidence is silently promoted into canonical current-product truth.
 
 ## Recommended grading approach
 
