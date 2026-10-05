@@ -75,4 +75,6 @@ Do not treat AI proposals or assumptions as authoritative facts.
 
 Do not create parallel PRD versions such as `v1`, `v2`, or `final` pages unless a demonstrated workflow need explicitly requires them. The current PRD is the canonical Wiki page in `product/prd/agent-harness`; GitLab Wiki history preserves prior revisions.
 
+During the current pilot, the same Wiki page may append a collapsed `Harness Pilot Evaluation` record after the PRD. This record is non-authoritative evaluation metadata and is not part of the PRD's Product decision domain even though it is stored on the same page. Normal Product, Design, Engineering, and Validation work must not treat original PM intent, clarification history, evaluation assumptions, derivations, or Harness Owner findings in that block as Product truth. Product decisions established through clarification must be reconciled into the PRD itself. Use the evaluation block only when the task explicitly involves Harness evaluation or pilot review.
+
 During normal product work, do not add files, schemas, routers, agent layers, or other Harness abstractions unless the task is explicitly to evolve the Harness and a demonstrated need justifies the change.
