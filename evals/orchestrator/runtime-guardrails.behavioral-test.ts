@@ -237,6 +237,11 @@ const authorityLeakCases = [
     authority: "current_permission_x",
     unsupportedClaim: "new_capability_uses_permission_x",
   },
+  {
+    name: "parent entity scope does not authorize attached configuration scope",
+    authority: "current_parent_organization_scope",
+    unsupportedClaim: "new_attached_configuration_inherits_organization_scope",
+  },
 ] as const;
 
 async function testAuthorityLeakRepairBeforeRouting(): Promise<void> {
@@ -433,7 +438,7 @@ console.log(
   JSON.stringify(
     {
       passed: true,
-      tests: 10,
+      tests: 11,
       coverage: [
         "compound clarification repaired before Router/reveal",
         "persistent non-atomic clarification stops after two repairs",
