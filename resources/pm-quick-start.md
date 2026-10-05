@@ -60,6 +60,12 @@ PRD canonical در Wiki پروژه GitLab `product/prd/agent-harness` نگهدا
 
 در Pilot فعلی PM خروجی مورد تأیید را در همان Wiki page ثبت یا به‌روزرسانی می‌کند. Designer، Engineering و سایر نقش‌ها PRD را از Wiki می‌گیرند و اگر Product change یا اصلاحی دارند، روی همان page comment می‌گذارند. Comment پیشنهاد است، نه Product decision. PM تصمیم را می‌گیرد و در صورت پذیرش، PRD canonical را به‌روزرسانی می‌کند.
 
+وقتی PRD برای ثبت در Wiki آماده می‌شود، Agent باید یک خروجی Wiki-ready واحد تولید کند: ابتدا خود PRD و سپس یک بخش collapsed با عنوان `Harness Pilot Evaluation`. PM کل همین خروجی را یک‌جا در همان Wiki page کپی می‌کند؛ page یا فایل جدا برای Eval لازم نیست.
+
+بخش `Harness Pilot Evaluation` بخشی از Product PRD نیست و Product authority ندارد. این بخش فقط برای ارزیابی Pilot نگهداری می‌شود و شامل provenance لازم مثل intent اصلی PM، sourceهای materially استفاده‌شده، clarificationهای Product تا رسیدن به `Problem Aligned`، پاسخ PM و تصمیم reconcile‌شده، material assumptions/derivations و readiness است. Agent نباید chain-of-thought، browsing log کامل یا transcript غیرضروری را وارد آن کند.
+
+PM لازم نیست سؤال‌وجواب‌ها یا Evaluation Record را دستی بنویسد. Agent باید هنگام آماده‌سازی خروجی Wiki-ready آن را consolidate کند. اگر Harness Owner بعداً run را review کند، می‌تواند `Harness Owner Review` را در همان بخش اضافه کند؛ Agent نباید این review را از طرف Owner پر کند.
+
 فایل دانلودشده، exportشده یا کپی‌شده برای کار با AI فقط working copy است و جای PRD canonical را نمی‌گیرد.
 
 قبل از rollout تیمی، permissionهای edit/comment در پروژه GitLab باید یک بار با نقش‌های واقعی PM و Designer تست شوند. Harness نباید permissionی را که verify نشده فرض کند.
@@ -75,7 +81,7 @@ PRD canonical در Wiki پروژه GitLab `product/prd/agent-harness` نگهدا
 ## در حین کار ممکن است چه چیزهایی ببینید؟
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش حدس بزند. این به معنی حل شدن همه سؤال‌های باز نیست.
-- **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند.
+- **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند. در Pilot، clarificationهای material و پاسخ شما برای Eval در بخش collapsed همان Wiki page حفظ می‌شوند.
 - **عدم دسترسی یا نبود Product Knowledge canonical** — Agent باید محدودیت source را در product scope درست اعلام کند؛ برای JobVision مشکل access و برای Cando نبود source canonical دو وضعیت متفاوت‌اند.
 - **باقی ماندن Open Decision** — اگر یک تصمیم باز مانده ولی مانع Design Exploration معنادار نیست، PRD همچنان می‌تواند `Problem Aligned` باشد.
 - **برگشت Product gap از Design** — ممکن است Design یک Product Decision جاافتاده را آشکار کند. در این حالت تصمیم به PM برمی‌گردد و PRD باید قبل از ادامه کار downstream به‌روزرسانی شود.
