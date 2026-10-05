@@ -176,6 +176,24 @@ Absence from retrieved context is uncertainty, not evidence that a behavior does
 
 When canonical Product Knowledge is insufficient, inconsistent with evidence, or materially uncertain, AI may retrieve deeper canonical context and inspect reviewed walkthrough, observation, or implementation evidence to investigate the discrepancy. It must not resolve the discrepancy by silently promoting evidence into canonical Product Knowledge. The Harness must not hard-code a specific implementation host as a semantic dependency.
 
+### Direct product observation
+
+Direct inspection of a running product is an evidence-gathering method, not a replacement Product Knowledge source. It is especially useful when canonical Product Knowledge is unavailable or insufficient, including current Cando work, but its claims must remain scoped to what was actually observed.
+
+When using a browser, app, prototype, or other interactive product surface for investigation:
+
+- keep exploration task-scoped; inspect only the surfaces, states, and transitions materially relevant to the current decision;
+- prefer read-only or reversible interaction and start from existing state before creating new state;
+- do not perform an action that sends an email/SMS/notification, affects a real user or candidate, submits or rejects real data, changes permissions/configuration, deletes data, purchases something, publishes content, or otherwise creates an external or durable side effect unless a responsible human has explicitly authorized that action for the investigation;
+- record observable facts narrowly enough to preserve the inspected actor/account, surface, state, and interaction context when those details affect interpretation;
+- do not generalize one account, tenant, role, record, rendered state, or session into universal Product semantics without stronger evidence;
+- do not infer persistence, ownership, permission scope, lifecycle semantics, backend storage, cross-session behavior, or business rules merely from static layout, copy, visibility, or one successful interaction;
+- when a material semantic claim requires stronger support, prefer the smallest useful next step: deeper interaction when safe, reviewed walkthrough evidence, implementation evidence, or human clarification as appropriate;
+- if the stronger evidence still does not establish the behavior, keep the claim Unknown or Unresolved rather than upgrading the observation into Product truth;
+- stop investigating once there is enough evidence to produce a useful draft, constrain Design, or identify the material uncertainty. Do not exhaustively browse the product merely because more states are available.
+
+Observation may establish narrow current-behavior evidence for drafting and decision-making. It does not become canonical Product Knowledge unless an approved knowledge process later records and owns that truth.
+
 General model knowledge, domain knowledge, and common product patterns are legitimate non-authoritative inputs for hypothesis generation, candidate framing, alternatives, risks, and recommendations. AI should use them when they improve the quality of Product or Design thinking, especially when PM intent is solution-shaped or retrieved context does not establish the underlying rationale, outcome, or likely tradeoff.
 
 Such model- or domain-informed content must not be presented as established Job Vision current behavior, evidence, or decided Product intent merely because it is plausible. When a hypothesis materially affects framing or a downstream decision, AI should make the hypothesis visible and seek the responsible human judgment when needed rather than replacing it with a mechanical paraphrase of the requested feature.
