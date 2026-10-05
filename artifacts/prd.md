@@ -317,3 +317,87 @@ The materially affected actors, local current-product baseline, established User
 The absence of a canonical dependency reference alone does not block Problem Alignment when the material Product behavior and implications are otherwise clear.
 
 Acceptance criteria need to be sufficient for that next use, not exhaustive.
+
+## Harness Pilot Evaluation record
+
+During the current pilot, when a PRD is prepared for persistence in the canonical GitLab Wiki, append one visually separated, collapsed `Harness Pilot Evaluation` record after the PRD on the same Wiki page. This record exists only to support Harness evaluation and must not be treated as part of the PRD's Product decision domain.
+
+Use a `<details>` block so normal downstream readers see the PRD first and the evaluation material remains collapsed by default.
+
+The record should contain only evaluation-relevant provenance, not chain-of-thought, full browsing logs, or a transcript of the session. Keep it concise enough that a Harness Owner can compare intent, source use, clarification, derivation, and readiness without reconstructing the chat.
+
+Include:
+
+- **Run Context** — workflow, Harness ref/commit when reliably known, and AI client/model when reliably exposed by the environment. Do not fabricate unavailable metadata.
+- **Original PM Intent** — preserve the PM's original natural-language intent verbatim. For attached material, reference the attached file or durable source rather than copying its entire contents into the record.
+- **Sources Used** — list only materially used sources and identify their role, such as canonical Product Knowledge, current PRD, reviewed evidence, direct observation, implementation evidence, or explicit Product-owner input.
+- **Material Source Limitations** — record only source/access limitations that materially affected the draft, clarification, or readiness decision.
+- **Clarification Record** — preserve each material Product clarification actually asked before `Problem Aligned`, including the AI question, the PM answer, and the resolved Product decision that was reconciled into the PRD. Do not include tool-access, VPN, file-location, or other operational questions.
+- **Material Assumptions / Derivations** — record only assumptions or derivations that materially influenced the PRD or the readiness decision. This is concise provenance, not hidden reasoning.
+- **Readiness** — record whether the PRD is `Problem Aligned` and list any remaining material open Product decisions relevant to that readiness judgment.
+
+Resolved clarification history belongs only in this evaluation record; the PRD itself should contain the current resolved Product decision in its normal semantic home and should not retain stale resolved questions in `Assumptions & Open Decisions`.
+
+A Harness Owner may later append a short `Harness Owner Review` inside the same evaluation block, for example verdict, material findings, and whether a finding is a regression candidate. AI must not fabricate or pre-approve this owner review.
+
+Recommended representation:
+
+```markdown
+---
+
+<details>
+<summary><strong>Harness Pilot Evaluation</strong> — non-authoritative</summary>
+
+> این بخش بخشی از PRD و Product Decision نیست و فقط برای ارزیابی Pilot نگهداری می‌شود.
+
+### Run Context
+
+- Workflow: `prd-draft-clarification`
+- Harness ref/commit: ...
+- AI client/model: ...
+
+### Original PM Intent
+
+> متن اصلی PM
+
+### Sources Used
+
+- `<source>` — `<authority/evidence role>`
+
+### Material Source Limitations
+
+- ...
+
+### Clarification Record
+
+#### C1 — <decision>
+
+**AI Question**
+
+...
+
+**PM Answer**
+
+...
+
+**Resolved Decision**
+
+...
+
+### Material Assumptions / Derivations
+
+- ...
+
+### Readiness
+
+- Problem Aligned: Yes / No
+- Remaining material open decisions: ...
+
+### Harness Owner Review
+
+<!-- Optional. Added by the Harness Owner after review; do not prefill as AI. -->
+
+</details>
+```
+
+If a subsection has no material content, omit it or state `None` only when that absence is useful for evaluation. Do not move evaluation metadata into PRD YAML frontmatter.
