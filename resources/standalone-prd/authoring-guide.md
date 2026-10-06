@@ -56,7 +56,7 @@
 
 بگویید تغییر چرا برای Product یا Business اهمیت دارد.
 
-اگر Business Outcome مشخص نشده، صریحاً آن را «تعیین‌نشده» نگه دارید یا اگر برای تصمیم فعلی ضروری نیست، از ساختن rationale مصنوعی خودداری کنید. نبود Business Outcome به‌تنهایی نباید به یک Product Decision جدید تبدیل شود مگر اینکه downstream واقعاً به آن وابسته باشد.
+اگر Business Outcome مشخص نشده، business value را اختراع نکنید. اگر از Intent، مسئله، evidence یا context مبنای معقولی وجود دارد، چند candidate غیرقطعی پیشنهاد دهید، در صورت امکان یکی را کوتاه recommend کنید و از مسئول Product بخواهید آن را تأیید، اصلاح یا رد کند. یک PRD نهایی که برای downstream handoff استفاده می‌شود نباید Business Outcome تعیین‌نشده، assumed یا صرفاً AI-recommended داشته باشد. این قاعده در standalone به معنی ادعای readiness stateهای Harness مثل `Problem Aligned` نیست.
 
 ### Success Metrics
 
