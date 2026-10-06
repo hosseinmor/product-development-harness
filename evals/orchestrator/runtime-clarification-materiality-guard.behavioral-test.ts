@@ -750,9 +750,9 @@ async function testMaterialityPromptDefinesOutcomeBoundary(): Promise<void> {
           results: [
             {
               question: question.question,
-              classification: "NON_BLOCKING_PRODUCT_UNCERTAINTY",
+              classification: "BLOCKING_PRODUCT_DECISION",
               reason:
-                "The core behavior remains defined and the asserted consequences lack authority.",
+                "Business Outcome is an explicit readiness prerequisite for Problem Aligned.",
               dependsOnQuestions: [],
             },
           ],
@@ -782,13 +782,17 @@ async function testMaterialityPromptDefinesOutcomeBoundary(): Promise<void> {
   );
   assert.match(
     capturedPrompt,
-    /Choosing a Business Outcome, Product Goal, or success metric is not by itself a BLOCKING_PRODUCT_DECISION/,
+    /Business Outcome is a required Product readiness decision for Problem Aligned/,
   );
-  assert.match(capturedPrompt, /apply this counterfactual test/);
   assert.match(
     capturedPrompt,
-    /current core flow, scope, eligibility, lifecycle, and acceptance behavior/,
+    /AI-generated candidates, recommendations, inferred value, or plausible business rationale do not satisfy this requirement/,
   );
+  assert.match(
+    capturedPrompt,
+    /This special readiness rule applies to Business Outcome, not automatically to Product Goals or Success Metrics/,
+  );
+  assert.match(capturedPrompt, /apply this counterfactual test/);
 }
 
 await testIndependentClassificationsAndCache();
