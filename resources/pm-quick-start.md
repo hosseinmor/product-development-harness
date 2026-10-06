@@ -8,7 +8,7 @@
 2. قبل از retrieval مشخص کنید task مربوط به کدام product است؛ Product Knowledge authority به product scope وابسته است.
 3. وضعیت فعلی Product Knowledge:
 
-- **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است و برای دسترسی به آن باید از browser محلی روی دستگاه متصل به VPN شرکت استفاده شود.
+- **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است. در Pilot فعلی ChatGPT Desktop / Work، مسیر تأییدشده برای دسترسی **Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension** است. Built-in Browser، Cloud Browser و Web Search مسیر جایگزین این منبع داخلی نیستند.
 - **Cando:** فعلاً canonical Product Knowledge ندارد. برای رفتار فعلی Cando نباید `docs-jv` یا repository دیگری را به‌عنوان fallback canonical استفاده کرد.
 - **Taskهای integration:** ادعاها را بر اساس product تفکیک کنید؛ `docs-jv` می‌تواند رفتار سمت JobVision یا facts مستند integration boundary را establish کند، نه رفتار داخلی Cando را.
 
@@ -28,7 +28,7 @@ Harness:
 
 برای JobVision:
 https://docs-jv.jvoffice.ir/
-این سایت مرجع canonical رفتار و مفاهیم فعلی JobVision است. برای خواندن آن از browser محلی روی دستگاه متصل به VPN شرکت استفاده کن؛ Web Search یا Cloud Browser را جای این مسیر قرار نده.
+این سایت مرجع canonical رفتار و مفاهیم فعلی JobVision است. در ChatGPT Desktop / Work از Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension، استفاده کن. Built-in Browser، Cloud Browser یا Web Search را جای این مسیر قرار نده. اگر این مسیر در دسترس نیست، محدودیت دسترسی را صریح بگو و source دیگری را جایگزین canonical Product Knowledge نکن.
 
 برای Cando:
 فعلاً canonical Product Knowledge وجود ندارد. `docs-jv` را فقط برای facts سمت JobVision یا integration boundary که واقعاً در آن مستند شده استفاده کن؛ آن را به رفتار داخلی Cando تعمیم نده. برای current Cando behavior از explicit owner input، approved decisions و reviewed evidence مرتبط استفاده کن و evidence را canonical معرفی نکن. اگر behavior مادی بعد از retrieval کافی هنوز پشتیبانی نشده، آن را Unknown/Unresolved نگه دار و طبق Harness فقط در صورت blocking بودن clarification بگیر.
