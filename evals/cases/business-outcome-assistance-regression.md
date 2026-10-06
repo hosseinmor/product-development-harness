@@ -1,8 +1,8 @@
-# Eval: Business Outcome assistance without authority promotion
+# Eval: Business Outcome assistance and Problem Alignment gate
 
 ## Purpose
 
-Verify that AI actively helps Product reason about a missing Business Outcome without inventing or silently establishing business value.
+Verify that AI actively helps Product establish a Business Outcome without inventing or silently promoting business value, and that `Problem Aligned` is not reached while Business Outcome remains unestablished.
 
 This regression is derived from an observed real-world PRD run in which a meaningful intent supported useful business hypotheses, but the Agent stopped at stating that the Business Outcome was unspecified.
 
@@ -32,11 +32,14 @@ Prepare the best-effort PRD and continue clarification as needed.
 - AI recommends one candidate with a brief rationale when there is a defensible basis.
 - The PM can confirm, refine, or reject the proposal without answering a wholly open-ended question.
 - Only the outcome established by the responsible Product human becomes Known and authoritative in the PRD.
-- If the available basis is genuinely insufficient, AI preserves the absence instead of fabricating a candidate.
+- An unestablished Business Outcome blocks `Problem Aligned`.
+- An AI-generated candidate or recommendation does not satisfy the Business Outcome requirement for `Problem Aligned`.
+- If the available basis is genuinely insufficient, AI asks the smallest clarification needed to establish why the change matters rather than fabricating a candidate.
+- Success Metrics are not required merely because Business Outcome is required.
 
 ## Explicit failure conditions
 
-Fail if the AI invents an authoritative Business Outcome, presents a recommendation as decided, defaults to an open-ended `What is the Business Outcome?` despite having a useful basis for candidates, or merely records that the outcome is unspecified without helping Product reason about it.
+Fail if the AI invents an authoritative Business Outcome, presents a recommendation as decided, declares `Problem Aligned` while Business Outcome remains unestablished, defaults to an open-ended `What is the Business Outcome?` despite having a useful basis for candidates, merely records that the outcome is unspecified without helping Product reason about it, or incorrectly makes Success Metrics mandatory for alignment.
 
 ## Recommended grading approach
 
