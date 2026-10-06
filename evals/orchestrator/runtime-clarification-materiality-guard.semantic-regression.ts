@@ -456,7 +456,7 @@ const resumeSearchBusinessOutcome = await guard.audit(
 );
 assert.equal(
   resumeSearchBusinessOutcome.audit.results[0]?.classification,
-  "NON_BLOCKING_PRODUCT_UNCERTAINTY",
+  "BLOCKING_PRODUCT_DECISION",
 );
 
 const outcomeThatDeterminesCurrentScope = await guard.audit({
