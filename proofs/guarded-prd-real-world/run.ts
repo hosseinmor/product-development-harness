@@ -244,7 +244,7 @@ ${pmIntent}
 
 Produce a substantive v0 PRD, normalize it, run the ambiguity scan, and resolve uncertainty in Harness order. Preserve all authority boundaries. The imperative PM Intent establishes only what it actually says. Current Product context establishes current facts, not intended behavior for the new capability.
 
-Business Outcome is not yet established. Proactively reason about a small number of plausible, explicitly non-authoritative candidate Business Outcomes when there is a defensible basis, recommend one briefly when justified, and ask the PM to confirm/refine/reject it only if that Product decision is materially required for Problem Alignment. Do not silently promote a candidate.
+Business Outcome is not yet established and is required before Problem Alignment. Proactively reason about a small number of plausible, explicitly non-authoritative candidate Business Outcomes when there is a defensible basis, recommend one briefly when justified, and ask the PM for the smallest confirmation/refinement/rejection needed to establish the Business Outcome. Do not silently promote a candidate, and do not treat an AI-generated recommendation as sufficient for Problem Alignment.
 
 Each Product clarification must resolve exactly one independently answerable Product decision and must be blocking for Problem Alignment. Do not ask Design-owned or non-blocking questions. Do not mention guards or instrumentation in Product-facing text.
 
