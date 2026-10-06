@@ -304,7 +304,7 @@ Quality is fitness for the artifact's intended use within its authority and boun
 
 `Problem Aligned` is a readiness condition for meaningful Design Exploration.
 
-It means the problem, materially affected users, relevant local current behavior, established User and Business Outcomes, material scope boundaries, applicable Key Product Scenarios, and product behavior required to constrain useful design work are sufficiently established or bounded by visible material uncertainty, and no known material mismatch with product intent remains that would prevent useful exploration.
+It means the problem, materially affected users, relevant local current behavior, established User and Business Outcomes, material scope boundaries, applicable Key Product Scenarios, and product behavior required to constrain useful design work are sufficiently established for meaningful Design Exploration. Business Outcome is an explicit readiness prerequisite and may not remain unresolved, assumed, or merely AI-recommended at `Problem Aligned`. Other remaining Product uncertainty may stay visible only when it is sufficiently bounded and does not create a known material mismatch with product intent or force Design to invent materially different Product behavior.
 
 Material dependencies needed for downstream interpretation should be identifiable, and Acceptance Criteria need to be sufficient, not complete. Remaining gaps are acceptable when they are explicit and do not allow materially incompatible interpretations of the intended product change or invalidate useful Design Exploration.
 
