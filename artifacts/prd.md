@@ -147,9 +147,9 @@ Describe why the change matters to Job Vision, the business, or the product at t
 
 Business Outcome is a required semantic responsibility and must not silently substitute for User Outcome or be inferred from it without support.
 
-Do not invent business value. If a Business Outcome has not been established and there is enough basis in the intent, Problem, evidence, current-product context, known goals, or defensible Product reasoning, AI should proactively offer a small number of plausible non-authoritative candidates and briefly recommend one when justified. These proposals help Product decide; they must not be presented as the PRD's established Business Outcome until the responsible Product human confirms or refines one. If there is genuinely insufficient basis for a meaningful proposal, make the absence explicit in `Business Outcome` rather than fabricating one.
+Do not invent business value. An established Business Outcome is required before the PRD can become `Problem Aligned`. If a Business Outcome has not been established and there is enough basis in the intent, Problem, evidence, current-product context, known goals, or defensible Product reasoning, AI should proactively offer a small number of plausible non-authoritative candidates and briefly recommend one when justified. These proposals reduce Product's decision burden, but none becomes authoritative until the responsible Product human confirms or refines it. If there is genuinely insufficient basis for a meaningful proposal, make the limitation explicit and ask the smallest clarification needed to establish why the change matters rather than fabricating business value.
 
-Do not duplicate an unestablished Business Outcome in `Assumptions & Open Decisions` merely because it is unknown. Create a separate open Product decision only when Product judgment about the missing business rationale is itself materially required for a downstream decision.
+Keep an unresolved Business Outcome visible in the `Business Outcome` section; do not mechanically duplicate it into `Assumptions & Open Decisions`.
 
 #### Success Metrics
 
@@ -158,6 +158,8 @@ Include a success metric or KPI only when it is meaningful and has been establis
 Do not invent metrics merely to fill the section.
 
 Business Outcome and Success Metric are distinct: Business Outcome is the desired business effect; a Success Metric is an established way that effect or another intended outcome will be measured.
+
+`Success Metrics` remain optional unless Product has established a metric or the task specifically requires one; the requirement to establish Business Outcome does not imply that a metric must also be defined before `Problem Aligned`.
 
 ### Scope
 
@@ -312,7 +314,7 @@ These may appear only when they represent a genuine product constraint rather th
 
 A PRD is `Problem Aligned` when it is sufficiently grounded and bounded for meaningful Design Exploration and remaining uncertainty does not force Design to invent materially different product intent or behavior.
 
-The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and available canonical material dependencies should be clear enough for the next use. A missing Product judgment may remain unresolved when it is explicit and does not invalidate useful Design Exploration.
+The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and available canonical material dependencies should be clear enough for the next use. Business Outcome must be established before `Problem Aligned`; an AI-generated candidate, recommendation, assumption, or unresolved placeholder is not sufficient. Other missing Product judgments may remain unresolved when they are explicit and do not invalidate useful Design Exploration or force Design to invent materially different Product behavior.
 
 The absence of a canonical dependency reference alone does not block Problem Alignment when the material Product behavior and implications are otherwise clear.
 
