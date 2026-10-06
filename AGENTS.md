@@ -37,9 +37,11 @@ Before retrieving or attributing Product Knowledge, determine which product owns
 
 Current source routing:
 
-- **JobVision** — canonical Product Knowledge is `https://docs-jv.jvoffice.ir/`, accessed through a local browser on a machine connected to the company VPN.
+- **JobVision** — canonical Product Knowledge is `https://docs-jv.jvoffice.ir/`.
 - **Cando** — no canonical Product Knowledge source currently exists. Preserve unsupported Cando current behavior as unknown rather than using another source as a substitute.
 - **Cross-product / integration tasks** — partition claims by product. JobVision Product Knowledge may establish JobVision-side behavior and documented integration-boundary facts, but it does not establish Cando-internal behavior, permissions, lifecycle, configuration, UI semantics, or persistence unless a future approved Cando source does so.
+
+Current verified pilot access path for JobVision Product Knowledge in ChatGPT Desktop / Work is **local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension**. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. In another execution environment, use an equivalent local-browser path only after access to the internal source has been verified. If the verified local-browser path is unavailable, report the access limitation rather than silently switching to another source.
 
 For Cando current-product investigation, use explicit owner input, approved decisions, relevant reviewed evidence, direct observation, or implementation evidence when available. Keep each source in its actual authority class: these inputs may support reconstruction and decision-making but do not silently become canonical Cando Product Knowledge. If materially necessary behavior remains unsupported after reasonable retrieval, keep it Unknown or Unresolved and apply the Harness clarification rules.
 
