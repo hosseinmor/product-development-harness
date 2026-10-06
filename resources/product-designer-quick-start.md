@@ -9,7 +9,7 @@
 3. قبل از retrieval مشخص کنید Design Task مربوط به JobVision، Cando یا یک flow بین هر دو است.
 4. وضعیت فعلی Product Knowledge:
 
-- **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است و برای دسترسی به آن باید از browser محلی روی دستگاه متصل به VPN شرکت استفاده شود.
+- **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است. در Pilot فعلی ChatGPT Desktop / Work، مسیر تأییدشده برای دسترسی **Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension** است. Built-in Browser، Cloud Browser و Web Search مسیر جایگزین این منبع داخلی نیستند.
 - **Cando:** فعلاً canonical Product Knowledge ندارد. برای current Cando behavior از explicit owner input، approved decisions و reviewed evidence استفاده کنید و evidence را canonical معرفی نکنید.
 - **Cross-product / integration:** current behavior را بر اساس product partition کنید؛ JobVision Product Knowledge رفتار داخلی Cando را establish نمی‌کند.
 
@@ -26,7 +26,7 @@ Harness:
 ابتدا product scope را مشخص کن و authority هر current-product claim را فقط از source معتبر همان product بگیر.
 
 برای JobVision:
-Canonical Product Knowledge در https://docs-jv.jvoffice.ir/ است. برای خواندن آن از browser محلی روی دستگاه متصل به VPN شرکت استفاده کن؛ Web Search یا Cloud Browser را جای این مسیر قرار نده.
+Canonical Product Knowledge در https://docs-jv.jvoffice.ir/ است. در ChatGPT Desktop / Work از Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension، استفاده کن. Built-in Browser، Cloud Browser یا Web Search را جای این مسیر قرار نده. اگر این مسیر در دسترس نیست، محدودیت دسترسی را صریح بگو و source دیگری را جایگزین canonical Product Knowledge نکن.
 
 برای Cando:
 فعلاً canonical Product Knowledge وجود ندارد. `docs-jv` را به رفتار داخلی Cando تعمیم نده. برای بازسازی Current Experience از explicit owner input، approved decisions، reviewed Product Walkthrough یا evidenceهای مرتبط استفاده کن و authority آن‌ها را حفظ کن. اگر behavior مادی قابل پشتیبانی نیست، uncertainty را صریح نگه دار و طراحی را فقط تا جایی جلو ببر که نیازمند اختراع Product behavior نباشد.
