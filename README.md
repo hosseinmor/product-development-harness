@@ -4,7 +4,7 @@ A minimal, tool-agnostic harness for AI-native, human-governed product developme
 
 The Harness defines shared rules, workflow contracts, artifact boundaries, and optional validation/runtime infrastructure that can be used across tools such as ChatGPT, Claude, Cursor/Codex, Figma, and future environments.
 
-The canonical Harness source is the private/internal GitLab project `product/prd/agent-harness`. The public GitHub repository is a reference/mirror and is not the canonical source for day-to-day Harness execution.
+The canonical Harness source for the current pilot is `https://github.com/hosseinmor/product-development-harness`. The GitLab migration is paused until internal access issues are resolved.
 
 The core Harness is tool-agnostic. Some validation/runtime implementations in this repository are currently provider-specific and are not required to use the core Harness.
 
@@ -80,7 +80,7 @@ The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflo
 
 ### Repo-aware agents
 
-Give the agent access to the canonical internal GitLab project `product/prd/agent-harness` and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
+Give the agent access to `https://github.com/hosseinmor/product-development-harness` and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
 
 Do not restate Harness rules in the task prompt unless the execution environment cannot access the repository. This keeps task prompts small and makes repository behavior the source of truth.
 
@@ -88,19 +88,19 @@ Do not restate Harness rules in the task prompt unless the execution environment
 
 MCP is **not required** to use the Harness.
 
-During the current pilot, if the AI environment cannot directly access the internal GitLab repository, a human may provide the current Harness files manually. Start from `AGENTS.md` and provide only the files it routes to for the task; do not upload the entire repository by default.
+During the current pilot, use the GitHub repository directly when the AI environment can access it. If repository access is unavailable, a human may provide the current Harness files manually. Start from `AGENTS.md` and provide only the files it routes to for the task; do not upload the entire repository by default.
 
 A manually provided copy is working context, not a new source of truth. When the canonical repository is accessible, prefer its current contents.
 
-The current manual model is intentionally simple: human retrieval of Harness context → AI executes the Harness → human persists the resulting durable artifact in its canonical store.
+The current manual model is intentionally simple: Harness retrieval → AI executes the Harness → a human persists the resulting PRD in the explicitly designated current durable location for that Product Change.
 
-MCP or another controlled GitLab integration may later automate retrieval and writes. That future automation must preserve the same Harness workflow and authority rules rather than introduce a different process.
+A repository or artifact-store integration may later automate retrieval and persistence. That future automation must preserve the same Harness workflow and authority rules rather than introduce a different process.
 
 ### Environments without repository or internal-source access
 
 Provide `AGENTS.md` and the specific files it routes to for the task. Avoid loading every workflow by default.
 
-If the environment cannot directly reach canonical Product Knowledge, GitLab Wiki, or another internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Do not substitute another repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
+If the environment cannot directly reach canonical Product Knowledge or another required internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Do not substitute another repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
 
 ### External product context
 
@@ -108,17 +108,17 @@ Provide access to or the location of relevant external sources such as canonical
 
 For JobVision, the current canonical Product Knowledge entry point is `https://docs-jv.jvoffice.ir/`. In the current ChatGPT Desktop / Work pilot, the **verified access path is local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension**. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. Other environments may use an equivalent local-browser path only after access has been verified. If the verified path is unavailable, preserve the access limitation rather than silently substituting another source. The repository currently named `product-knowledge` owns Product Content, Design System, standards, and source-authority guidance; it must not be used as a fallback store for JobVision product behavior.
 
-For the current pilot, canonical PRDs are stored as pages in the Wiki of the internal GitLab project `product/prd/agent-harness`. One Wiki page represents the current PRD for a product change. GitLab Wiki page history provides PRD revision history, while the page's stable PRD `id` provides machine-oriented identity. A downloaded, exported, or copied PRD is a working copy and is not a competing source of truth.
+For the current pilot, GitLab-based PRD persistence is paused together with the GitLab Harness migration. The Harness does not currently prescribe a specific PRD hosting service. For each Product Change, the PM must explicitly identify one current durable PRD location before downstream handoff; that artifact is the current PRD until it is superseded by an accepted update. The PRD's stable `id` remains its machine-oriented identity.
 
-The PM remains the authority for Product decisions and the canonical PRD write. Other roles may comment on the Wiki page with proposed changes; a comment is not itself a Product decision. When a PM accepts a proposed change, the current canonical PRD is updated.
+The PM remains the authority for Product decisions and the canonical PRD write. Other roles may propose changes through the review/comment mechanism available around the chosen durable artifact, but a proposal is not itself a Product decision. When a PM accepts a proposed change, the current durable PRD is updated and downstream propagation rules apply.
 
-Before team rollout, edit/comment permissions should be tested once with the actual PM and Product Designer roles; the Harness must not infer permissions that have not been verified.
+The future PRD storage/integration model remains a deployment decision. The Harness must not infer a storage service, permission model, or automation path that has not been established.
 
 A minimal task handoff can look like:
 
 ```text
 Harness:
-<canonical repository or provided routed Harness files>
+https://github.com/hosseinmor/product-development-harness
 
 Canonical Product Knowledge:
 <context source, when relevant>

@@ -45,7 +45,7 @@ Metadata rules:
 - `related_artifacts` references related durable artifacts when they exist and the relationship is useful downstream.
 - `references` and `related_artifacts` may be omitted when they have no useful entries.
 - Metadata is machine-facing navigation data. It should not duplicate semantic PRD content.
-- In the current pilot, GitLab Wiki page history is the canonical PRD revision history and recovery path. Do not add a separate PRD version field merely to duplicate that history.
+- In the current pilot, PRD storage is manual and no specific hosting service is prescribed. Use the history/recovery capability of the explicitly designated durable store when available; do not add a separate PRD version field merely to duplicate storage history.
 
 `references` and `Dependencies` serve different semantic roles. `references` records material grounding sources; `Dependencies` records canonical Product Knowledge entities that the intended change materially depends on or affects. Do not mechanically mirror Dependencies into `references`. The same item may appear in both only when it genuinely serves both roles.
 
@@ -322,7 +322,7 @@ Acceptance criteria need to be sufficient for that next use, not exhaustive.
 
 ## Harness Pilot Evaluation record
 
-During the current pilot, when a PRD is prepared for persistence in the canonical GitLab Wiki, append one visually separated, collapsed `Harness Pilot Evaluation` record after the PRD on the same Wiki page. This record exists only to support Harness evaluation and must not be treated as part of the PRD's Product decision domain.
+During the current pilot, when a PRD is prepared for durable persistence, append one visually separated `Harness Pilot Evaluation` record immediately after the PRD in the same artifact when the chosen storage format supports it. Prefer a collapsed representation when possible. This record exists only to support Harness evaluation and must not be treated as part of the PRD's Product decision domain.
 
 Use a `<details>` block so normal downstream readers see the PRD first and the evaluation material remains collapsed by default.
 

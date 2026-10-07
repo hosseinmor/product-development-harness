@@ -6,7 +6,7 @@ For product-development tasks, start here.
 
 ## Canonical Harness source
 
-The canonical Harness source is the private/internal GitLab project `product/prd/agent-harness`. The public GitHub repository is a reference/mirror and is not authoritative for day-to-day execution.
+The canonical Harness source for the current pilot is the GitHub repository `https://github.com/hosseinmor/product-development-harness`. GitLab migration is paused until the internal access issues are resolved; do not use the GitLab copy as the current Harness source.
 
 If the execution environment cannot access the canonical repository directly, a human may provide the current Harness files manually. Start from this `AGENTS.md` and follow its routing; do not load the whole repository by default.
 
@@ -75,8 +75,8 @@ Do not invent unresolved product or design decisions.
 
 Do not treat AI proposals or assumptions as authoritative facts.
 
-Do not create parallel PRD versions such as `v1`, `v2`, or `final` pages unless a demonstrated workflow need explicitly requires them. The current PRD is the canonical Wiki page in `product/prd/agent-harness`; GitLab Wiki history preserves prior revisions.
+Do not create parallel PRD versions such as `v1`, `v2`, or `final` artifacts unless a demonstrated workflow need explicitly requires them. Maintain one explicitly designated current durable PRD artifact per Product Change. During the current pilot, PRD persistence is manual and the Harness does not assume a GitLab Wiki or any other specific hosting service.
 
-During the current pilot, the same Wiki page may append a collapsed `Harness Pilot Evaluation` record after the PRD. This record is non-authoritative evaluation metadata and is not part of the PRD's Product decision domain even though it is stored on the same page. Normal Product, Design, Engineering, and Validation work must not treat original PM intent, clarification history, evaluation assumptions, derivations, or Harness Owner findings in that block as Product truth. Product decisions established through clarification must be reconciled into the PRD itself. Use the evaluation block only when the task explicitly involves Harness evaluation or pilot review.
+During the current pilot, append a collapsed `Harness Pilot Evaluation` record after the PRD in the same durable artifact when the chosen storage format supports it; otherwise keep the record immediately adjacent to the persisted PRD under an explicit non-authoritative heading. This record is evaluation metadata and is not part of the PRD's Product decision domain. Normal Product, Design, Engineering, and Validation work must not treat original PM intent, clarification history, evaluation assumptions, derivations, or Harness Owner findings in that block as Product truth. Product decisions established through clarification must be reconciled into the PRD itself. Use the evaluation block only when the task explicitly involves Harness evaluation or pilot review.
 
 During normal product work, do not add files, schemas, routers, agent layers, or other Harness abstractions unless the task is explicitly to evolve the Harness and a demonstrated need justifies the change.

@@ -134,20 +134,17 @@ When an established decision changes, update the current owning artifact and the
 
 Durable artifacts must remain retrievable and versioned enough for downstream work and change recovery.
 
-For the current Job Vision pilot, the PRD has a concrete persistence model:
+For the current Job Vision pilot, GitLab-based PRD persistence is paused together with the GitLab Harness migration. The Harness does not currently prescribe a specific PRD hosting service.
 
-- The canonical PRD is stored as one page in the Wiki of the internal GitLab project `product/prd/agent-harness`.
-- One Wiki page represents the current PRD for a product change; do not create parallel version pages by default.
-- GitLab Wiki page history provides the PRD revision history and recovery path.
-- The PRD's stable `id` is its machine-oriented identity; the Wiki title/path is primarily for human navigation.
-- A downloaded, exported, copied, or AI-generated working copy is not a competing source of truth.
-- Product Management owns Product decisions and the canonical PRD write. Other roles may comment with proposed changes, but comments do not establish Product authority.
-- When a PM accepts a proposed change, the current canonical PRD is updated and downstream change propagation is applied.
-- Access permissions are deployment configuration, not something the Harness should infer. They must be verified with the actual team roles before rollout.
+- For each Product Change, Product Management must explicitly identify one current durable PRD location before downstream handoff.
+- Maintain one current PRD artifact per Product Change; do not create parallel `v1`, `v2`, or `final` copies by default.
+- The PRD's stable `id` remains its machine-oriented identity independent of storage location.
+- Exported, downloaded, copied, or AI-generated working copies do not become competing sources of truth merely by existing.
+- Product Management owns Product decisions and the current durable PRD write. Other roles may propose changes through the review/comment mechanism available around the chosen artifact, but proposals do not establish Product authority.
+- When a PM accepts a proposed change, update the current durable PRD and apply downstream change-propagation rules.
+- Storage choice, history/version recovery, access permissions, and automation are deployment concerns. The Harness must not infer capabilities that have not been established for the chosen store.
 
-This persistence choice is specific to the current PRD workflow. The Harness does not prescribe the storage mechanism for other artifact types unless a demonstrated need justifies one.
-
-The Harness does not require MCP for this model. During the current pilot, retrieval and persistence may remain manual. A future MCP or other controlled integration may automate the same read/write operations without changing artifact authority or workflow semantics.
+During the current pilot, persistence may remain manual. A future controlled artifact-store integration may automate retrieval and writes without changing artifact authority or workflow semantics.
 
 ## 4. Knowledge Contract
 

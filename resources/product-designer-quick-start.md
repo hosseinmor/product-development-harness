@@ -4,8 +4,8 @@
 
 ## قبل از شروع
 
-1. Harness canonical در پروژه داخلی GitLab با مسیر `product/prd/agent-harness` قرار دارد.
-2. PRD فعلی را از Wiki همان پروژه بگیرید یا در صورت نبود دسترسی مستقیم، نسخه current آن را به Agent بدهید. PRD durable را به chat history یا working copy قدیمی ترجیح دهید.
+1. Harness فعلی در GitHub است: `https://github.com/hosseinmor/product-development-harness`. مهاجرت GitLab فعلاً تا حل مشکلات دسترسی متوقف است.
+2. current durable PRD را از محل تعیین‌شده توسط PM بگیرید و به Agent بدهید. PRD durable را به chat history یا working copy قدیمی ترجیح دهید.
 3. قبل از retrieval مشخص کنید Design Task مربوط به JobVision، Cando یا یک flow بین هر دو است.
 4. وضعیت فعلی Product Knowledge:
 
@@ -19,7 +19,7 @@
 برای این Design Task از Job Vision Product Development Harness استفاده کن.
 
 Harness:
-پروژه داخلی GitLab با مسیر `product/prd/agent-harness`
+https://github.com/hosseinmor/product-development-harness
 
 از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
@@ -38,16 +38,16 @@ Canonical Product Knowledge در https://docs-jv.jvoffice.ir/ است. در ChatG
 اگر به source لازم دسترسی نداری، این محدودیت را صریح بگو. Current Experience را حدس نزن و از repositoryهای دیگر به‌عنوان fallback Product Knowledge استفاده نکن.
 
 PRD:
-[لینک Wiki page یا نسخه current PRD را attach کن]
+[لینک یا فایل current PRD را attach کن]
 ```
 
 اگر همراه task لینک Figma، screenshot، prototype، research یا context دیگری می‌دهید، Agent باید فقط در صورت ارتباط از آن استفاده کند. لازم نیست workflow طراحی را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
 
-در Pilot فعلی MCP شرط استفاده از Harness نیست. اگر محیط AI دسترسی مستقیم به GitLab ندارد، فایل‌های route‌شده را دستی در اختیار Agent بگذارید؛ از `AGENTS.md` شروع کنید و کل repository را بدون نیاز وارد context نکنید.
+در Pilot فعلی MCP شرط استفاده از Harness نیست. اگر محیط AI به GitHub دسترسی مستقیم ندارد، فایل‌های route‌شده را دستی در اختیار Agent بگذارید؛ از `AGENTS.md` شروع کنید و کل repository را بدون نیاز وارد context نکنید.
 
-اگر در حین Design Exploration یک Product change یا اصلاح در PRD لازم شد، آن را به‌عنوان پیشنهاد روی Wiki PRD مطرح کنید؛ Designer نباید مستقیماً Product decision را در PRD canonical establish کند. PM تصمیم می‌گیرد و در صورت پذیرش، current PRD را به‌روزرسانی می‌کند.
+اگر در حین Design Exploration یک Product change یا اصلاح در PRD لازم شد، آن را به‌عنوان پیشنهاد نسبت به current durable PRD مطرح کنید؛ Designer نباید مستقیماً Product decision را در PRD establish کند. PM تصمیم می‌گیرد و در صورت پذیرش، current PRD را به‌روزرسانی می‌کند.
 
-قبل از rollout تیمی، permissionهای edit/comment در پروژه GitLab باید یک بار با نقش‌های واقعی PM و Designer تست شوند. Harness نباید permissionی را که verify نشده فرض کند.
+محل نگهداری PRD و permissionهای آن فعلاً deployment concern هستند. Harness نباید storage، edit/comment capability یا permissionی را که verify نشده فرض کند.
 
 ## در حین کار ممکن است چه چیزهایی ببینید؟
 
