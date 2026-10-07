@@ -7,8 +7,7 @@ import { fileURLToPath } from "node:url";
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
 const runsDirectory = resolve(repositoryRoot, "evals/runs");
-const productKnowledgeUrl =
-  "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/";
+const productKnowledgeUrl = "https://docs-jv.jvoffice.ir/";
 
 const childOutputSchema = {
   type: "object",
@@ -19,7 +18,7 @@ const childOutputSchema = {
       type: "array",
       items: { type: "string" },
     },
-    productKnowledgeAccessible: { type: "boolean" },
+    productKnowledgeHttpAccessible: { type: "boolean" },
     productKnowledgeUrlsRetrieved: {
       type: "array",
       items: { type: "string" },
@@ -33,7 +32,7 @@ const childOutputSchema = {
         properties: {
           area: {
             type: "string",
-            enum: ["harness", "productKnowledge"],
+            enum: ["harness", "productKnowledgeHttp"],
           },
           reason: { type: "string" },
         },
@@ -44,7 +43,7 @@ const childOutputSchema = {
   required: [
     "harnessAccessible",
     "harnessFilesRead",
-    "productKnowledgeAccessible",
+    "productKnowledgeHttpAccessible",
     "productKnowledgeUrlsRetrieved",
     "jobSearchContext",
     "failures",
@@ -52,7 +51,9 @@ const childOutputSchema = {
 } as const;
 
 const prompt = `
-You are the read-only child agent for a small Harness connectivity smoke test.
+You are the read-only child agent for a small Harness HTTP connectivity diagnostic.
+
+This diagnostic tests only whether the Product Knowledge host can be retrieved through direct HTTP requests from this runtime. It does not establish that HTTP/curl is the supported Product Knowledge access path for normal Harness use; the current supported human/agent path may require a local browser on a VPN-connected machine.
 
 Do not create, edit, rename, or delete any file. Do not run commands that mutate the repository or external systems.
 
@@ -62,23 +63,24 @@ Perform these checks yourself and report only facts you actually retrieved:
    - AGENTS.md
    - shared-harness-contract.md
    - workflows/prd-draft-clarification.md
-2. Open ${productKnowledgeUrl} using curl with read-only GET requests. Do not use Browser Use or web search. Follow only links needed to locate Job Vision Job Search context.
-3. Return a short summary of the Job Search context you actually retrieved. Do not fill gaps from general knowledge.
-4. If a local file or internal page cannot be accessed, preserve that uncertainty and put the exact observed error in failures.
+2. Attempt to open ${productKnowledgeUrl} using curl with read-only GET requests. Do not use Browser Use or web search in this diagnostic. Follow only links needed to locate Job Vision Job Search context if direct HTTP retrieval succeeds.
+3. Return a short summary of the Job Search context only if you actually retrieved it. Do not fill gaps from general knowledge.
+4. If a local file or HTTP request cannot be accessed, preserve that uncertainty and put the exact observed error in failures.
 
 Set harnessAccessible=true only if all three requested local files were successfully read.
-Set productKnowledgeAccessible=true only if internal Product Knowledge content was successfully retrieved (not merely DNS-resolved or redirected to an unreadable login/error page).
+Set productKnowledgeHttpAccessible=true only if Product Knowledge content was successfully retrieved through this HTTP diagnostic (not merely DNS-resolved or redirected to an unreadable login/error page).
+A false HTTP result must not be interpreted as proof that the supported local-browser + VPN path is unavailable.
 List the concrete Product Knowledge URL(s) whose content supports the summary.
 `;
 
 type ChildResult = {
   harnessAccessible: boolean;
   harnessFilesRead: string[];
-  productKnowledgeAccessible: boolean;
+  productKnowledgeHttpAccessible: boolean;
   productKnowledgeUrlsRetrieved: string[];
   jobSearchContext: string;
   failures: Array<{
-    area: "harness" | "productKnowledge";
+    area: "harness" | "productKnowledgeHttp";
     reason: string;
   }>;
 };
@@ -90,7 +92,7 @@ type SmokeResult = {
   childThreadCreated: boolean;
   childThreadId: string | null;
   harnessAccessible: boolean;
-  productKnowledgeAccessible: boolean;
+  productKnowledgeHttpAccessible: boolean;
   jobSearchContext: string;
   childResult: ChildResult | null;
   failures: Array<{ area: string; reason: string }>;
@@ -98,8 +100,7 @@ type SmokeResult = {
 
 const startedAt = new Date();
 const temporaryCodexHome = await mkdtemp(join(tmpdir(), "harness-eval-codex-"));
-const originalCodexHome =
-  process.env.CODEX_HOME ?? resolve(homedir(), ".codex");
+const originalCodexHome = process.env.CODEX_HOME ?? resolve(homedir(), ".codex");
 const childConfig = `
 default_permissions = "harness_eval_read_network"
 
@@ -108,7 +109,7 @@ enabled = true
 allow_local_binding = true
 
 [permissions.harness_eval_read_network]
-description = "Read-only Harness smoke test with internal Product Knowledge access."
+description = "Read-only Harness HTTP diagnostic against the internal Product Knowledge host."
 extends = ":read-only"
 
 [permissions.harness_eval_read_network.network]
@@ -116,7 +117,7 @@ enabled = true
 allow_local_binding = true
 
 [permissions.harness_eval_read_network.network.domains]
-"platform-eng.pages.git.jvoffice.ir" = "allow"
+"docs-jv.jvoffice.ir" = "allow"
 `;
 
 await writeFile(resolve(temporaryCodexHome, "config.toml"), childConfig, "utf8");
@@ -176,8 +177,8 @@ const smokeResult: SmokeResult = {
   childThreadCreated,
   childThreadId,
   harnessAccessible: childResult?.harnessAccessible ?? false,
-  productKnowledgeAccessible:
-    childResult?.productKnowledgeAccessible ?? false,
+  productKnowledgeHttpAccessible:
+    childResult?.productKnowledgeHttpAccessible ?? false,
   jobSearchContext: childResult?.jobSearchContext ?? "",
   childResult,
   failures,
@@ -185,15 +186,11 @@ const smokeResult: SmokeResult = {
 
 await mkdir(runsDirectory, { recursive: true });
 const timestamp = startedAt.toISOString().replaceAll(":", "-");
-const outputPath = resolve(runsDirectory, `orchestrator-smoke-${timestamp}.json`);
+const outputPath = resolve(runsDirectory, `orchestrator-http-diagnostic-${timestamp}.json`);
 await writeFile(outputPath, `${JSON.stringify(smokeResult, null, 2)}\n`, "utf8");
 
 console.log(JSON.stringify({ outputPath, ...smokeResult }, null, 2));
 
-if (
-  !smokeResult.childThreadCreated ||
-  !smokeResult.harnessAccessible ||
-  !smokeResult.productKnowledgeAccessible
-) {
+if (!smokeResult.childThreadCreated || !smokeResult.harnessAccessible) {
   process.exitCode = 1;
 }

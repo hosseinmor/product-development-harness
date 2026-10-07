@@ -12,7 +12,8 @@ Design Exploration is not a one-shot prototype generation step. The workflow sho
 
 - A PRD that is sufficiently Problem Aligned for useful exploration.
 - Relevant acceptance criteria.
-- Relevant current-product context.
+- Relevant canonical Product Knowledge context.
+- Relevant reviewed Product Walkthrough evidence when the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough.
 - Existing product patterns or flows when they materially constrain the experience.
 - Relevant Design System guidance when available and applicable.
 - Relevant reusable components and interaction patterns.
@@ -36,7 +37,11 @@ Retrieve and reconstruct only the parts of the current experience needed for the
 - relevant Design System guidance and reusable components,
 - and known constraints from the current implementation or product structure.
 
-Use Product Knowledge as a preferred context provider when available, but retrieve deeper context from authoritative or direct experience sources when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting implementation, existing design files, screenshots, prototypes, or other directly relevant product evidence.
+Use canonical Product Knowledge as the primary documented source for established product meaning and behavior. For end-to-end journeys, current flows, handoffs, and feature walkthroughs, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
+
+Retrieve deeper evidence when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting implementation, existing design files, screenshots, prototypes, or other directly relevant product evidence. Treat those sources as evidence, not as a silent replacement for canonical JobVision Product Knowledge. Do not assume a specific code host or repository provider unless the environment establishes one.
+
+If canonical Product Knowledge, reviewed walkthrough evidence, direct observation, or implementation evidence materially conflict, keep the discrepancy visible for reconciliation rather than choosing the most convenient source.
 
 Do not claim that the current experience has been reconstructed more precisely than the available context supports.
 
@@ -166,7 +171,7 @@ Throughout exploration, and again after material iteration, classify consequenti
 - **Design decision** — multiple solutions can satisfy established Product behavior; Product Design decides.
 - **Product-change proposal** — the proposed solution changes what the Product permits, requires, prevents, preserves, or causes; PM decision is required.
 - **PRD ambiguity exposed by Design** — coherent design depends on Product judgment that the PRD has not established; return the issue to PRD clarification.
-- **Current-experience uncertainty** — the design depends on an existing behavior that remains insufficiently understood; retrieve deeper context rather than silently converting uncertainty into a Product decision.
+- **Current-experience uncertainty** — the design depends on an existing behavior that remains insufficiently understood; retrieve deeper canonical context or evidence rather than silently converting uncertainty into a Product decision.
 
 Design may originate Product-change proposals, but it may not silently make them authoritative.
 

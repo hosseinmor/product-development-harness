@@ -35,7 +35,8 @@ Treat a clear user statement that establishes a Product choice as decided Produc
 ## Missing context
 
 - If Current Behavior is unknown and materially needed, say it requires verification rather than inventing a plausible baseline.
-- If User Outcome or Business Outcome is not established, do not derive a benefit merely from the requested feature. Keep the missing outcome explicit or ask for it only when materially needed.
+- If User Outcome is not established, do not derive a benefit merely from the requested feature; keep the uncertainty explicit and clarify it when materially needed.
+- If Business Outcome is not established, do not invent business value. When there is a defensible basis, offer a small number of non-authoritative candidates, recommend one briefly when useful, and ask the responsible Product human to confirm, refine, or reject the proposal before treating the PRD as ready for downstream handoff. This standalone Skill must not translate that rule into a Harness readiness claim such as `Problem Aligned`.
 - Do not convert missing current-product facts into Product decisions.
 - Acceptance Criteria may be derived only from established Product intent or logically necessary consequences of it.
 

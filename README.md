@@ -4,6 +4,8 @@ A minimal, tool-agnostic harness for AI-native, human-governed product developme
 
 The Harness defines shared rules, workflow contracts, artifact boundaries, and optional validation/runtime infrastructure that can be used across tools such as ChatGPT, Claude, Cursor/Codex, Figma, and future environments.
 
+The canonical Harness source for the current pilot is `https://github.com/hosseinmor/product-development-harness`. The GitLab migration is paused until internal access issues are resolved.
+
 The core Harness is tool-agnostic. Some validation/runtime implementations in this repository are currently provider-specific and are not required to use the core Harness.
 
 ## Core principles
@@ -14,7 +16,8 @@ The core Harness is tool-agnostic. Some validation/runtime implementations in th
 - Humans should not create extra documentation for AI when the required context can be retrieved or derived from working artifacts.
 - Authority belongs to the claim and its owning domain, not to the tool containing it.
 - Each fact should have one primary owner where practical.
-- Product Knowledge is an external provider of retrievable current-product context. It does not define the Harness and the Harness does not prescribe Product Knowledge's internal structure.
+- Canonical Product Knowledge is the primary source for established product meaning and behavior. Product Walkthrough provides reviewed evidence that can improve journey/flow reconstruction but does not replace canonical Product Knowledge.
+- Retrieval should be task-scoped. Do not load whole repositories or knowledge bases when a smaller relevant slice is sufficient.
 - The architecture remains minimal. New files, layers, schemas, agents, routers, or runtime abstractions require a demonstrated need.
 
 ## Implemented Harness scope
@@ -75,32 +78,59 @@ The Standalone PRD Kit is a fallback for structured PRD drafting when the full H
 
 The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflows, and artifact contracts.
 
-
 ### Repo-aware agents
 
-Give the agent access to this repository and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
+Give the agent access to `https://github.com/hosseinmor/product-development-harness` and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
 
 Do not restate Harness rules in the task prompt unless the execution environment cannot access the repository. This keeps task prompts small and makes repository behavior the source of truth.
 
-### Environments without repository access
+### Current pilot: manual Harness access
+
+MCP is **not required** to use the Harness.
+
+During the current pilot, use the GitHub repository directly when the AI environment can access it. If repository access is unavailable, a human may provide the current Harness files manually. Start from `AGENTS.md` and provide only the files it routes to for the task; do not upload the entire repository by default.
+
+A manually provided copy is working context, not a new source of truth. When the canonical repository is accessible, prefer its current contents.
+
+The current manual model is intentionally simple: Harness retrieval → AI executes the Harness → a human persists the resulting PRD in the explicitly designated current durable location for that Product Change.
+
+A repository or artifact-store integration may later automate retrieval and persistence. That future automation must preserve the same Harness workflow and authority rules rather than introduce a different process.
+
+### Environments without repository or internal-source access
 
 Provide `AGENTS.md` and the specific files it routes to for the task. Avoid loading every workflow by default.
 
+If the environment cannot directly reach canonical Product Knowledge or another required internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Do not substitute another repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
+
 ### External product context
 
-Provide access to or the location of relevant external sources such as Product Knowledge, current working artifacts, evidence, or authoritative implementation context. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+Provide access to or the location of relevant external sources such as canonical Product Knowledge, reviewed Product Walkthrough evidence, current working artifacts, other evidence, Product Content/Design System guidance, or implementation evidence. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
+
+For JobVision, the current canonical Product Knowledge entry point is `https://docs-jv.jvoffice.ir/`. In the current ChatGPT Desktop / Work pilot, the **verified access path is local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension**. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. Other environments may use an equivalent local-browser path only after access has been verified. If the verified path is unavailable, preserve the access limitation rather than silently substituting another source. The repository currently named `product-knowledge` owns Product Content, Design System, standards, and source-authority guidance; it must not be used as a fallback store for JobVision product behavior.
+
+For the current pilot, GitLab-based PRD persistence is paused together with the GitLab Harness migration. The Harness does not currently prescribe a specific PRD hosting service. For each Product Change, the PM must explicitly identify one current durable PRD location before downstream handoff; that artifact is the current PRD until it is superseded by an accepted update. The PRD's stable `id` remains its machine-oriented identity.
+
+The PM remains the authority for Product decisions and the canonical PRD write. Other roles may propose changes through the review/comment mechanism available around the chosen durable artifact, but a proposal is not itself a Product decision. When a PM accepts a proposed change, the current durable PRD is updated and downstream propagation rules apply.
+
+The future PRD storage/integration model remains a deployment decision. The Harness must not infer a storage service, permission model, or automation path that has not been established.
 
 A minimal task handoff can look like:
 
 ```text
 Harness:
-<repository or provided Harness files>
+https://github.com/hosseinmor/product-development-harness
 
-Product Knowledge:
+Canonical Product Knowledge:
 <context source, when relevant>
 
-PM Intent:
-<requested product change>
+Reviewed Product Walkthrough evidence:
+<flow/journey evidence, when relevant>
+
+Current artifact:
+<current PRD or Design Artifact, when continuing existing work>
+
+Intent:
+<requested product or design change>
 
 Execute the task according to the Harness.
 ```
@@ -129,7 +159,7 @@ The existence of a Codex adapter does not make the core Harness Codex-specific. 
 
 `proofs/` contains focused proof/validation harnesses used to verify runtime behavior and lifecycle properties during hardening.
 
-These directories are validation infrastructure, not additional sources of Product or Design authority.
+These directories are validation infrastructure, not additional sources of Product or Design authority. Some HTTP Product Knowledge utilities under `evals/orchestrator/` are diagnostics or experimental snapshot tooling; they are not the supported local-browser Product Knowledge access contract for normal Harness use.
 
 ## Repository structure
 
@@ -149,6 +179,7 @@ These directories are validation infrastructure, not additional sources of Produ
 ├── resources/
 │   ├── pm-quick-start.md
 │   ├── product-designer-quick-start.md
+│   ├── runtime-evals-guide.md
 │   └── standalone-prd/
 │       ├── README.md
 │       ├── SKILL.md

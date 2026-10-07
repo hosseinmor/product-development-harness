@@ -4,15 +4,14 @@
 
 ## قبل از شروع
 
-1. دستگاه‌تان را به VPN شرکت متصل کنید.
-2. از محیط AIای استفاده کنید که به browser محلی روی همان دستگاه دسترسی داشته باشد.
-3. PRD فعلی را در اختیار Agent بگذارید. PRD durable را به chat history ترجیح دهید.
+1. Harness فعلی در GitHub است: `https://github.com/hosseinmor/product-development-harness`. مهاجرت GitLab فعلاً تا حل مشکلات دسترسی متوقف است.
+2. current durable PRD را از محل تعیین‌شده توسط PM بگیرید و به Agent بدهید. PRD durable را به chat history یا working copy قدیمی ترجیح دهید.
+3. قبل از retrieval مشخص کنید Design Task مربوط به JobVision، Cando یا یک flow بین هر دو است.
+4. وضعیت فعلی Product Knowledge:
 
-منبع فعلی Product Knowledge:
-
-http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
-
-این وضعیت موقتی است. وقتی Agentها به repository مربوط به Product Knowledge دسترسی مستقیم داشته باشند، repository را به‌عنوان منبع Product Knowledge می‌دهیم و وابستگی به browser + VPN حذف می‌شود.
+- **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است. در Pilot فعلی ChatGPT Desktop / Work، مسیر تأییدشده برای دسترسی **Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension** است. Built-in Browser، Cloud Browser و Web Search مسیر جایگزین این منبع داخلی نیستند.
+- **Cando:** فعلاً canonical Product Knowledge ندارد. برای current Cando behavior از explicit owner input، approved decisions و reviewed evidence استفاده کنید و evidence را canonical معرفی نکنید.
+- **Cross-product / integration:** current behavior را بر اساس product partition کنید؛ JobVision Product Knowledge رفتار داخلی Cando را establish نمی‌کند.
 
 ## Prompt شروع
 
@@ -22,24 +21,38 @@ http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
 Harness:
 https://github.com/hosseinmor/product-development-harness
 
-Product Knowledge:
-http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/
+از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
-Product Knowledge فعلاً فقط از شبکه داخلی قابل دسترسی است.
-برای خواندن آن از browser محلی‌ای استفاده کن که از طریق VPN شرکت به این شبکه دسترسی دارد.
+ابتدا product scope را مشخص کن و authority هر current-product claim را فقط از source معتبر همان product بگیر.
 
-از AGENTS.md شروع کن.
+برای JobVision:
+Canonical Product Knowledge در https://docs-jv.jvoffice.ir/ است. در ChatGPT Desktop / Work از Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension، استفاده کن. Built-in Browser، Cloud Browser یا Web Search را جای این مسیر قرار نده. اگر این مسیر در دسترس نیست، محدودیت دسترسی را صریح بگو و source دیگری را جایگزین canonical Product Knowledge نکن.
+
+برای Cando:
+فعلاً canonical Product Knowledge وجود ندارد. `docs-jv` را به رفتار داخلی Cando تعمیم نده. برای بازسازی Current Experience از explicit owner input، approved decisions، reviewed Product Walkthrough یا evidenceهای مرتبط استفاده کن و authority آن‌ها را حفظ کن. اگر behavior مادی قابل پشتیبانی نیست، uncertainty را صریح نگه دار و طراحی را فقط تا جایی جلو ببر که نیازمند اختراع Product behavior نباشد.
+
+برای current journey، flow یا feature walkthrough مرتبط، اگر Product Walkthrough در دسترس است از reviewed evidence آن برای بازسازی تجربه استفاده کن. Walkthrough evidence جای canonical Product Knowledge را نمی‌گیرد و در صورت تعارض باید اختلاف را صریح نگه داری.
+
+برای Design System، Product Content و reusable product standards فقط context مرتبط را از repository فعلی `product-knowledge` retrieve کن؛ این repository Product Knowledge رفتار JobVision یا Cando نیست.
+
+اگر به source لازم دسترسی نداری، این محدودیت را صریح بگو. Current Experience را حدس نزن و از repositoryهای دیگر به‌عنوان fallback Product Knowledge استفاده نکن.
 
 PRD:
-[فایل PRD را attach کن یا لینک durable آن را بده]
+[لینک یا فایل current PRD را attach کن]
 ```
 
-اگر همراه task لینک Figma، screenshot، prototype، research یا context دیگری می‌دهید، Agent باید در صورت ارتباط از آن استفاده کند. لازم نیست workflow طراحی را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+اگر همراه task لینک Figma، screenshot، prototype، research یا context دیگری می‌دهید، Agent باید فقط در صورت ارتباط از آن استفاده کند. لازم نیست workflow طراحی را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+
+در Pilot فعلی MCP شرط استفاده از Harness نیست. اگر محیط AI به GitHub دسترسی مستقیم ندارد، فایل‌های route‌شده را دستی در اختیار Agent بگذارید؛ از `AGENTS.md` شروع کنید و کل repository را بدون نیاز وارد context نکنید.
+
+اگر در حین Design Exploration یک Product change یا اصلاح در PRD لازم شد، آن را به‌عنوان پیشنهاد نسبت به current durable PRD مطرح کنید؛ Designer نباید مستقیماً Product decision را در PRD establish کند. PM تصمیم می‌گیرد و در صورت پذیرش، current PRD را به‌روزرسانی می‌کند.
+
+محل نگهداری PRD و permissionهای آن فعلاً deployment concern هستند. Harness نباید storage، edit/comment capability یا permissionی را که verify نشده فرض کند.
 
 ## در حین کار ممکن است چه چیزهایی ببینید؟
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش اختراع کند.
-- **عدم دسترسی به Product Knowledge** — اگر Agent نتواند مستندات داخلی را باز کند، باید این محدودیت را اعلام کند و ممکن است screenshot، flow فعلی، فایل یا context مشخصی از شما بخواهد. نباید Current Experience را حدس بزند.
+- **عدم دسترسی یا نبود Product Knowledge canonical** — برای JobVision ممکن است مشکل دسترسی browser/VPN وجود داشته باشد؛ برای Cando نبود source canonical وضعیت فعلی مورد انتظار است. Agent باید این دو را از هم تفکیک کند.
 - **`Product Decision needed`** — یعنی Design رفتاری را آشکار کرده که PRD هنوز مشخص نکرده است. Designer می‌تواند پیشنهاد بدهد، اما تصمیم باید به PM و PRD برگردد.
 - **`Selected` Design** — یعنی Designer جهت فعلی Design را انتخاب کرده و می‌توان آن را به‌عنوان Design Artifact durable نگه داشت. این به معنی pixel-perfect، immutable یا implementation-ready بودن نیست.
 - **`Product & Design Aligned`** — یعنی PRD و Design انتخاب‌شده به‌اندازه کافی با هم سازگار و روشن‌اند که Engineering بتواند Technical Planning را شروع کند بدون اینکه مجبور شود Product یا Design Decision مهمی را خودش اختراع کند.

@@ -23,12 +23,20 @@ const atomicity = await auditClarificationAtomicity([
     question: "Should all fields be required, all optional, or configurable per field?",
     whyMaterial: "Requiredness changes completion semantics.",
   },
+  {
+    question:
+      "When saving rejection defaults, should we save selected channels/templates/timing, save the effective edited message on the rejection reason, or also update the shared template?",
+    whyMaterial:
+      "The options mix what is persisted on the rejection reason with whether a separate shared template is mutated.",
+  },
 ], codexPrdSemanticAuditor);
 assert.equal(atomicity.audit.results[0]?.atomic, false);
 assert.ok((atomicity.audit.results[0]?.independentAxes.length ?? 0) >= 2);
 assert.equal(atomicity.audit.results[1]?.atomic, false);
 assert.ok((atomicity.audit.results[1]?.independentAxes.length ?? 0) >= 2);
 assert.equal(atomicity.audit.results[2]?.atomic, true);
+assert.equal(atomicity.audit.results[3]?.atomic, false);
+assert.ok((atomicity.audit.results[3]?.independentAxes.length ?? 0) >= 2);
 assert.equal(atomicity.isolation.passed, true);
 
 const pmIntent =
@@ -54,11 +62,19 @@ const currentProductContext = [
     title: "Current object permissions",
     context: "Permission X controls editing the current object.",
   },
+  {
+    url: "pk://current-parent-scope",
+    title: "Current parent resource scope",
+    context:
+      "The current parent resource is organization-scoped. A newly attached persistent configuration has no established intended scope yet.",
+  },
 ];
 const claims = {
   intent:
     "[C_INTENT] Supplemental answers accompany the submitted request and are available to the Employer for review.",
   internal: "[C_INTERNAL] The new capability is available only internally to signed-in users.",
+  scope:
+    "[C_SCOPE] A new persistent configuration attached to the organization-scoped parent resource is also organization-scoped.",
   required: "[C_REQUIRED] All supplemental questions are required.",
   blocking: "[C_BLOCK] A missing required answer blocks submission.",
   reuse: "[C_REUSE] A saved answer is reused in future requests.",
@@ -73,6 +89,7 @@ const prdMarkdown = `# Supplemental questions
 
 - ${claims.intent}
 - ${claims.internal}
+- ${claims.scope}
 
 ## Required Product Behavior
 
@@ -101,6 +118,7 @@ function sidecar(
 const initialSidecar: AuthorityClaimSidecar[] = [
   sidecar(claims.intent, "Scope", ["PM-001"], "explicit_intent"),
   sidecar(claims.internal, "Scope", ["PM-001"], "current_product_constraint", true),
+  sidecar(claims.scope, "Scope", ["PM-001"], "current_product_constraint", true),
   sidecar(claims.required, "Required Product Behavior", ["HD-001"], "human_decision"),
   sidecar(claims.blocking, "Required Product Behavior", ["HD-001"], "human_decision"),
   sidecar(claims.reuse, "Required Product Behavior", ["HD-002"], "human_decision"),
@@ -127,7 +145,14 @@ const unsupported = await guard.audit({
 const unsupportedByTag = new Map(
   unsupported.audit.claims.map((claim) => [claim.claim.match(/\[(C_[A-Z]+)\]/)?.[1], claim]),
 );
-for (const tag of ["C_BLOCK", "C_HISTORY", "C_TIMING", "C_INTERNAL", "C_PERMISSION"]) {
+for (const tag of [
+  "C_BLOCK",
+  "C_HISTORY",
+  "C_TIMING",
+  "C_INTERNAL",
+  "C_PERMISSION",
+  "C_SCOPE",
+]) {
   assert.equal(unsupportedByTag.get(tag)?.validPromotion, false, tag);
 }
 for (const tag of ["C_INTENT", "C_REQUIRED", "C_REUSE", "C_AUTOMATION"]) {
@@ -157,6 +182,10 @@ ledger = extendAuthorityLedger(ledger, [
     question: "New-capability permission?",
     answer: "Permission X governs use of the new capability.",
   },
+  {
+    question: "Attached-configuration scope?",
+    answer: "The attached configuration uses organization scope.",
+  },
 ]);
 const independentlyAuthorized = await guard.audit({
   ledger,
@@ -167,6 +196,7 @@ const independentlyAuthorized = await guard.audit({
       [claims.timing]: "HD-006",
       [claims.internal]: "HD-007",
       [claims.permission]: "HD-008",
+      [claims.scope]: "HD-009",
     };
     const authorityRef = newRefs[claim.claim];
     return authorityRef
@@ -180,14 +210,14 @@ const independentlyAuthorized = await guard.audit({
 assert.equal(independentlyAuthorized.audit.passed, true);
 assert.equal(independentlyAuthorized.isolation.passed, true);
 assert.equal(independentlyAuthorized.instrumentation.cacheHits, 4);
-assert.equal(independentlyAuthorized.instrumentation.semanticClaimsSubmitted, 5);
+assert.equal(independentlyAuthorized.instrumentation.semanticClaimsSubmitted, 6);
 
 console.log(
   JSON.stringify(
     {
       passed: true,
       config: runtimeGuardrailConfig,
-      atomicity: { compoundRejected: 2, atomicAccepted: 1 },
+      atomicity: { compoundRejected: 3, atomicAccepted: 1 },
       authority: {
         explicitIntentAccepted: true,
         unsupportedPromotionsRejected: [
@@ -196,6 +226,7 @@ console.log(
           "automation capability -> trigger timing",
           "current internal channel -> intended internal-only scope",
           "current permission X -> new-capability permission X",
+          "parent resource scope -> attached configuration scope",
         ],
         independentlyAuthorizedPromotionsAccepted: true,
         unchangedAcceptedClaimsReusedFromCache: independentlyAuthorized.instrumentation.cacheHits,

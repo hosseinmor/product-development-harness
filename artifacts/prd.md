@@ -16,7 +16,7 @@ AI may draft and maintain the PRD, but AI-generated, assumed, or unresolved cont
 
 A clear PM decision establishes product intent. The PRD makes that decision durable downstream.
 
-Current-product descriptions and dependency references in the PRD are contextual views of external product truth. They do not become independently authoritative over Product Knowledge or the relevant implementation source.
+Current-product descriptions and dependency references in the PRD are contextual views of external product truth. They do not become independently authoritative over canonical Product Knowledge. Reviewed walkthrough evidence, direct observation, and implementation evidence may ground or challenge those descriptions but do not silently become competing canonical Product Knowledge.
 
 ## Metadata
 
@@ -45,7 +45,7 @@ Metadata rules:
 - `related_artifacts` references related durable artifacts when they exist and the relationship is useful downstream.
 - `references` and `related_artifacts` may be omitted when they have no useful entries.
 - Metadata is machine-facing navigation data. It should not duplicate semantic PRD content.
-- Git is the source of version history.
+- In the current pilot, PRD storage is manual and no specific hosting service is prescribed. Use the history/recovery capability of the explicitly designated durable store when available; do not add a separate PRD version field merely to duplicate storage history.
 
 `references` and `Dependencies` serve different semantic roles. `references` records material grounding sources; `Dependencies` records canonical Product Knowledge entities that the intended change materially depends on or affects. Do not mechanically mirror Dependencies into `references`. The same item may appear in both only when it genuinely serves both roles.
 
@@ -121,7 +121,7 @@ The purpose is to make affected actors easy to scan and make material actor omis
 
 Describe only the local current-product baseline needed to understand the intended change.
 
-Keep it concise and task-scoped. Product Knowledge and the relevant authoritative implementation remain the sources of current-product truth; the PRD should not duplicate the full existing flow or reconstruct Product Knowledge.
+Keep it concise and task-scoped. Canonical Product Knowledge remains the primary documented source of current-product truth. Reviewed Product Walkthrough evidence, direct observation, and verified implementation evidence may support reconstruction or expose a discrepancy, but the PRD should not duplicate full flows, reconstruct those sources, or silently treat evidence as canonical Product Knowledge.
 
 Describe relevant current user or product behavior rather than merely stating that the proposed feature does not exist.
 
@@ -147,9 +147,9 @@ Describe why the change matters to Job Vision, the business, or the product at t
 
 Business Outcome is a required semantic responsibility and must not silently substitute for User Outcome or be inferred from it without support.
 
-Do not invent business value. If a Business Outcome has not been established and there is enough basis in the intent, Problem, evidence, current-product context, known goals, or defensible Product reasoning, AI should proactively offer a small number of plausible non-authoritative candidates and briefly recommend one when justified. These proposals help Product decide; they must not be presented as the PRD's established Business Outcome until the responsible Product human confirms or refines one. If there is genuinely insufficient basis for a meaningful proposal, make the absence explicit in `Business Outcome` rather than fabricating one.
+Do not invent business value. An established Business Outcome is required before the PRD can become `Problem Aligned`. If a Business Outcome has not been established and there is enough basis in the intent, Problem, evidence, current-product context, known goals, or defensible Product reasoning, AI should proactively offer a small number of plausible non-authoritative candidates and briefly recommend one when justified. These proposals reduce Product's decision burden, but none becomes authoritative until the responsible Product human confirms or refines it. If there is genuinely insufficient basis for a meaningful proposal, make the limitation explicit and ask the smallest clarification needed to establish why the change matters rather than fabricating business value.
 
-Do not duplicate an unestablished Business Outcome in `Assumptions & Open Decisions` merely because it is unknown. Create a separate open Product decision only when Product judgment about the missing business rationale is itself materially required for a downstream decision.
+Keep an unresolved Business Outcome visible in the `Business Outcome` section; do not mechanically duplicate it into `Assumptions & Open Decisions`.
 
 #### Success Metrics
 
@@ -158,6 +158,8 @@ Include a success metric or KPI only when it is meaningful and has been establis
 Do not invent metrics merely to fill the section.
 
 Business Outcome and Success Metric are distinct: Business Outcome is the desired business effect; a Success Metric is an established way that effect or another intended outcome will be measured.
+
+`Success Metrics` remain optional unless Product has established a metric or the task specifically requires one; the requirement to establish Business Outcome does not imply that a metric must also be defined before `Problem Aligned`.
 
 ### Scope
 
@@ -312,8 +314,92 @@ These may appear only when they represent a genuine product constraint rather th
 
 A PRD is `Problem Aligned` when it is sufficiently grounded and bounded for meaningful Design Exploration and remaining uncertainty does not force Design to invent materially different product intent or behavior.
 
-The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and available canonical material dependencies should be clear enough for the next use. A missing Product judgment may remain unresolved when it is explicit and does not invalidate useful Design Exploration.
+The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and available canonical material dependencies should be clear enough for the next use. Business Outcome must be established before `Problem Aligned`; an AI-generated candidate, recommendation, assumption, or unresolved placeholder is not sufficient. Other missing Product judgments may remain unresolved when they are explicit and do not invalidate useful Design Exploration or force Design to invent materially different Product behavior.
 
 The absence of a canonical dependency reference alone does not block Problem Alignment when the material Product behavior and implications are otherwise clear.
 
 Acceptance criteria need to be sufficient for that next use, not exhaustive.
+
+## Harness Pilot Evaluation record
+
+During the current pilot, when a PRD is prepared for durable persistence, append one visually separated `Harness Pilot Evaluation` record immediately after the PRD in the same artifact when the chosen storage format supports it. Prefer a collapsed representation when possible. This record exists only to support Harness evaluation and must not be treated as part of the PRD's Product decision domain.
+
+Use a `<details>` block so normal downstream readers see the PRD first and the evaluation material remains collapsed by default.
+
+The record should contain only evaluation-relevant provenance, not chain-of-thought, full browsing logs, or a transcript of the session. Keep it concise enough that a Harness Owner can compare intent, source use, clarification, derivation, and readiness without reconstructing the chat.
+
+Include:
+
+- **Run Context** — workflow, Harness ref/commit when reliably known, and AI client/model when reliably exposed by the environment. Do not fabricate unavailable metadata.
+- **Original PM Intent** — preserve the PM's original natural-language intent verbatim. For attached material, reference the attached file or durable source rather than copying its entire contents into the record.
+- **Sources Used** — list only materially used sources and identify their role, such as canonical Product Knowledge, current PRD, reviewed evidence, direct observation, implementation evidence, or explicit Product-owner input.
+- **Material Source Limitations** — record only source/access limitations that materially affected the draft, clarification, or readiness decision.
+- **Clarification Record** — preserve each material Product clarification actually asked before `Problem Aligned`, including the AI question, the PM answer, and the resolved Product decision that was reconciled into the PRD. Do not include tool-access, VPN, file-location, or other operational questions.
+- **Material Assumptions / Derivations** — record only assumptions or derivations that materially influenced the PRD or the readiness decision. This is concise provenance, not hidden reasoning.
+- **Readiness** — record whether the PRD is `Problem Aligned` and list any remaining material open Product decisions relevant to that readiness judgment.
+
+Resolved clarification history belongs only in this evaluation record; the PRD itself should contain the current resolved Product decision in its normal semantic home and should not retain stale resolved questions in `Assumptions & Open Decisions`.
+
+A Harness Owner may later append a short `Harness Owner Review` inside the same evaluation block, for example verdict, material findings, and whether a finding is a regression candidate. AI must not fabricate or pre-approve this owner review.
+
+Recommended representation:
+
+```markdown
+---
+
+<details>
+<summary><strong>Harness Pilot Evaluation</strong> — non-authoritative</summary>
+
+> این بخش بخشی از PRD و Product Decision نیست و فقط برای ارزیابی Pilot نگهداری می‌شود.
+
+### Run Context
+
+- Workflow: `prd-draft-clarification`
+- Harness ref/commit: ...
+- AI client/model: ...
+
+### Original PM Intent
+
+> متن اصلی PM
+
+### Sources Used
+
+- `<source>` — `<authority/evidence role>`
+
+### Material Source Limitations
+
+- ...
+
+### Clarification Record
+
+#### C1 — <decision>
+
+**AI Question**
+
+...
+
+**PM Answer**
+
+...
+
+**Resolved Decision**
+
+...
+
+### Material Assumptions / Derivations
+
+- ...
+
+### Readiness
+
+- Problem Aligned: Yes / No
+- Remaining material open decisions: ...
+
+### Harness Owner Review
+
+<!-- Optional. Added by the Harness Owner after review; do not prefill as AI. -->
+
+</details>
+```
+
+If a subsection has no material content, omit it or state `None` only when that absence is useful for evaluation. Do not move evaluation metadata into PRD YAML frontmatter.

@@ -4,9 +4,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const rootUrl = new URL(
-  "http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/",
-);
+const rootUrl = new URL("https://docs-jv.jvoffice.ir/");
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
 const runsDirectory = resolve(repositoryRoot, "evals/runs");
@@ -178,8 +176,8 @@ const manifest = {
   finishedAt: finishedAt.toISOString(),
   discovery: {
     strategy: "breadth-first crawl of same-origin HTML links under the Product Knowledge path",
-    sitemap: "present but empty",
-    robotsTxt: "not present (HTTP 404)",
+    sitemap: "not checked by this crawler",
+    robotsTxt: "not checked by this crawler",
     assetsDownloaded: false,
     maximumPages,
   },

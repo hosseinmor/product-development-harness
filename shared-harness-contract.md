@@ -7,10 +7,15 @@ This contract defines the rules shared by all product-development workflows and 
 Authority is scoped to the kind of claim being made. There is no single global source of truth.
 
 - The Harness is authoritative for product-development rules and artifact contracts.
-- The relevant Job Vision codebase in GitHub is authoritative for current implemented product behavior.
-- Product Knowledge is a derived context provider for current product truth. It is not independently authoritative over the codebase.
+- Canonical Product Knowledge is the primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation.
+- Product Walkthrough provides reviewed evidence for end-to-end journeys, current flows, and feature walkthroughs. It is useful for flow reconstruction but is not canonical Product Knowledge and must not override it.
+- Relevant implementation may provide evidence when canonical documentation and reviewed evidence are insufficient, inconsistent, or require investigation. Implementation evidence may expose a Product Knowledge gap, but it does not silently replace canonical JobVision Product Knowledge. The Harness does not assume a specific code host or repository provider.
 - The PRD owns decided intended product change, including materially affected users, intended outcomes, material Product Scenarios, required product behavior, and acceptance criteria within its scope.
 - The Design Artifact owns the selected experience and interaction solution within the constraints of the PRD.
+
+For JobVision current-product claims, canonical Product Knowledge has precedence over reviewed evidence, observed UI/design, implementation evidence, hypotheses, and recommendations. Evidence may reveal a discrepancy that requires Product Knowledge reconciliation; until reconciled, AI must surface the conflict rather than silently promoting the evidence into canonical product truth.
+
+Product Knowledge and evidence about the current product do not own intended changes.
 
 An artifact is authoritative only for claims inside its decision domain that are established by the responsible human role or validly derived from established decisions.
 
@@ -76,7 +81,11 @@ Artifacts are separated by the kind of decision they own.
 
 ### Product Knowledge
 
-Provides retrievable context about the currently implemented product. It is derived from current product truth and does not own intended changes.
+Provides canonical documented product meaning and behavior, including concepts, business rules, terminology, and retrievable current-product context. It does not own intended changes.
+
+### Product Walkthrough
+
+Provides reviewed evidence packages for end-to-end journeys, current flows, and feature walkthroughs. It is an evidence source for reconstruction and Product Knowledge reconciliation, not canonical Product Knowledge and not an owner of intended changes.
 
 ### PRD
 
@@ -91,7 +100,7 @@ Owns the intended product change, including:
 - acceptance criteria,
 - and material unresolved product decisions or assumptions.
 
-The PRD may include concise current-product context and canonical dependency references for downstream understanding, retrieval, and impact analysis. Those contextual references do not override Product Knowledge or the relevant authoritative implementation source and should not become duplicate owners of current-product truth.
+The PRD may include concise current-product context and canonical dependency references for downstream understanding, retrieval, and impact analysis. Those contextual references do not override canonical Product Knowledge and should not become duplicate owners of current-product truth. Walkthrough, observation, or implementation evidence may support or challenge current-product understanding, but discrepancies with canonical Product Knowledge must remain visible until reconciled.
 
 The PRD should describe observable or verifiable product expectations without prescribing the experience or implementation unless that prescription is itself a product constraint.
 
@@ -123,11 +132,23 @@ When continuing existing work, AI should retrieve the current durable artifacts 
 
 When an established decision changes, update the current owning artifact and then apply the change-propagation rules to materially affected downstream artifacts. Do not preserve superseded decisions merely as parallel artifact versions unless a demonstrated workflow need requires it.
 
-Durable artifacts must remain retrievable and versioned enough for downstream work and change recovery. The Harness does not prescribe a storage repository, folder structure, or tool-specific persistence mechanism unless a demonstrated need justifies one.
+Durable artifacts must remain retrievable and versioned enough for downstream work and change recovery.
+
+For the current Job Vision pilot, GitLab-based PRD persistence is paused together with the GitLab Harness migration. The Harness does not currently prescribe a specific PRD hosting service.
+
+- For each Product Change, Product Management must explicitly identify one current durable PRD location before downstream handoff.
+- Maintain one current PRD artifact per Product Change; do not create parallel `v1`, `v2`, or `final` copies by default.
+- The PRD's stable `id` remains its machine-oriented identity independent of storage location.
+- Exported, downloaded, copied, or AI-generated working copies do not become competing sources of truth merely by existing.
+- Product Management owns Product decisions and the current durable PRD write. Other roles may propose changes through the review/comment mechanism available around the chosen artifact, but proposals do not establish Product authority.
+- When a PM accepts a proposed change, update the current durable PRD and apply downstream change-propagation rules.
+- Storage choice, history/version recovery, access permissions, and automation are deployment concerns. The Harness must not infer capabilities that have not been established for the chosen store.
+
+During the current pilot, persistence may remain manual. A future controlled artifact-store integration may automate retrieval and writes without changing artifact authority or workflow semantics.
 
 ## 4. Knowledge Contract
 
-The Harness defines what product context is required to perform a task. It does not define how Product Knowledge stores, structures, indexes, or retrieves that context.
+The Harness defines what product context is required to perform a task. It does not define how canonical Product Knowledge or evidence sources store, structure, index, or retrieve that context.
 
 For a given task, relevant context may include:
 
@@ -138,17 +159,37 @@ For a given task, relevant context may include:
 - known dependencies with adjacent product areas,
 - relevant terminology and concepts,
 - available evidence relevant to the stated problem,
-- and implementation references when deeper verification is required and available.
+- and implementation references when deeper investigation is required and available.
 
-Product Knowledge is the preferred provider of current-product context when available, but it is not a mandatory runtime dependency. Equivalent context may be retrieved directly from authoritative sources when necessary.
+Use canonical Product Knowledge as the primary source for established product meaning and behavior. For JobVision, the current canonical Product Knowledge source is `https://docs-jv.jvoffice.ir/`, accessed through a local browser on a company-VPN-connected machine. Product Walkthrough may be used as reviewed evidence to reconstruct journeys, flows, handoffs, or feature behavior when relevant, but it does not become canonical Product Knowledge merely because the evidence was reviewed.
+
+If an environment cannot access canonical Product Knowledge directly, preserve the access limitation and use only relevant context supplied through another trustworthy path. Do not silently substitute the Product Content/Design Knowledge repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
 
 When Product Knowledge exposes canonical concepts or identifiers useful for references or dependency navigation, the Harness may use those existing references. The Harness does not define or require a separate Product Knowledge taxonomy.
 
-AI should not ask a human for product facts that are reasonably retrievable from available product context or the authoritative implementation source.
+AI should not ask a human to restate product facts that are already available in canonical Product Knowledge. Evidence sources may be retrieved autonomously when useful, but they remain evidence under the source-precedence rules.
 
 Absence from retrieved context is uncertainty, not evidence that a behavior does not exist.
 
-When retrieved knowledge is insufficient, inconsistent, or materially uncertain, AI should retrieve deeper context or inspect the authoritative source rather than invent missing product truth.
+When canonical Product Knowledge is insufficient, inconsistent with evidence, or materially uncertain, AI may retrieve deeper canonical context and inspect reviewed walkthrough, observation, or implementation evidence to investigate the discrepancy. It must not resolve the discrepancy by silently promoting evidence into canonical Product Knowledge. The Harness must not hard-code a specific implementation host as a semantic dependency.
+
+### Direct product observation
+
+Direct inspection of a running product is an evidence-gathering method, not a replacement Product Knowledge source. It is especially useful when canonical Product Knowledge is unavailable or insufficient, including current Cando work, but its claims must remain scoped to what was actually observed.
+
+When using a browser, app, prototype, or other interactive product surface for investigation:
+
+- keep exploration task-scoped; inspect only the surfaces, states, and transitions materially relevant to the current decision;
+- prefer read-only or reversible interaction and start from existing state before creating new state;
+- do not perform an action that sends an email/SMS/notification, affects a real user or candidate, submits or rejects real data, changes permissions/configuration, deletes data, purchases something, publishes content, or otherwise creates an external or durable side effect unless a responsible human has explicitly authorized that action for the investigation;
+- record observable facts narrowly enough to preserve the inspected actor/account, surface, state, and interaction context when those details affect interpretation;
+- do not generalize one account, tenant, role, record, rendered state, or session into universal Product semantics without stronger evidence;
+- do not infer persistence, ownership, permission scope, lifecycle semantics, backend storage, cross-session behavior, or business rules merely from static layout, copy, visibility, or one successful interaction;
+- when a material semantic claim requires stronger support, prefer the smallest useful next step: deeper interaction when safe, reviewed walkthrough evidence, implementation evidence, or human clarification as appropriate;
+- if the stronger evidence still does not establish the behavior, keep the claim Unknown or Unresolved rather than upgrading the observation into Product truth;
+- stop investigating once there is enough evidence to produce a useful draft, constrain Design, or identify the material uncertainty. Do not exhaustively browse the product merely because more states are available.
+
+Observation may establish narrow current-behavior evidence for drafting and decision-making. It does not become canonical Product Knowledge unless an approved knowledge process later records and owns that truth.
 
 General model knowledge, domain knowledge, and common product patterns are legitimate non-authoritative inputs for hypothesis generation, candidate framing, alternatives, risks, and recommendations. AI should use them when they improve the quality of Product or Design thinking, especially when PM intent is solution-shaped or retrieved context does not establish the underlying rationale, outcome, or likely tradeoff.
 
@@ -260,7 +301,7 @@ Quality is fitness for the artifact's intended use within its authority and boun
 
 `Problem Aligned` is a readiness condition for meaningful Design Exploration.
 
-It means the problem, materially affected users, relevant local current behavior, established User and Business Outcomes, material scope boundaries, applicable Key Product Scenarios, and product behavior required to constrain useful design work are sufficiently established or bounded by visible material uncertainty, and no known material mismatch with product intent remains that would prevent useful exploration.
+It means the problem, materially affected users, relevant local current behavior, established User and Business Outcomes, material scope boundaries, applicable Key Product Scenarios, and product behavior required to constrain useful design work are sufficiently established for meaningful Design Exploration. Business Outcome is an explicit readiness prerequisite and may not remain unresolved, assumed, or merely AI-recommended at `Problem Aligned`. Other remaining Product uncertainty may stay visible only when it is sufficiently bounded and does not create a known material mismatch with product intent or force Design to invent materially different Product behavior.
 
 Material dependencies needed for downstream interpretation should be identifiable, and Acceptance Criteria need to be sufficient, not complete. Remaining gaps are acceptable when they are explicit and do not allow materially incompatible interpretations of the intended product change or invalidate useful Design Exploration.
 

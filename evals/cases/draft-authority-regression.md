@@ -2,9 +2,9 @@
 
 ## Purpose
 
-Verify that unresolved intended behavior is not written as established Product behavior in an intermediate PRD draft, and that authoritative current-product context—including adjacent eligibility, channel, lifecycle, access, and permission rules—is not used to invent intended behavior for a new change.
+Verify that unresolved intended behavior is not written as established Product behavior in an intermediate PRD draft, and that authoritative current-product context—including adjacent eligibility, channel, lifecycle, access, permission, and parent-resource scope rules—is not used to invent intended behavior for a new change.
 
-This regression is derived from observed drafts that promoted unresolved reuse, submission, and automation lifecycle behavior before Product authority was available.
+This regression is derived from observed drafts that promoted unresolved reuse, submission, automation lifecycle, and attached-configuration scope behavior before Product authority was available.
 
 ## Eval type
 
@@ -20,7 +20,7 @@ Use the repository Harness, especially:
 
 ## Scenario / Inputs
 
-Evaluate three staged reconciliation sequences and three current-rule inheritance cases. In every staged sequence, produce the intermediate PRD state, reconcile only the first Product answer, inspect the resulting authority states, and only then reconcile the later independent answer.
+Evaluate three staged reconciliation sequences and four current-rule inheritance cases. In every staged sequence, produce the intermediate PRD state, reconcile only the first Product answer, inspect the resulting authority states, and only then reconcile the later independent answer.
 
 ### Sequence A — requiredness and submission consequence
 
@@ -60,6 +60,14 @@ Current Product Knowledge establishes that editing an existing object is governe
 
 Current Product Knowledge establishes the authorization boundary of an existing Product operation. Product explicitly establishes a new behavior as an inseparable part of that same already-authorized operation, with no independent action, entry point, actor, or lifecycle. The new behavior cannot occur unless the authorized operation occurs and cannot use a different authorization boundary without changing the established operation itself.
 
+### Case G — parent entity scope and attached configuration scope
+
+Current Product Knowledge establishes that an existing parent resource is organization-scoped. Product introduces a new persistent configuration attached to that resource, but does not establish the configuration's intended ownership or scope.
+
+For example, a rejection reason may be organization-scoped while a newly introduced notification-default configuration attached to that reason could legitimately be organization-scoped, user-scoped, job-scoped, or support an override layer. The parent resource can remain organization-scoped under all of those models.
+
+The fact that the configuration is attached to the parent resource does not by itself make scope inheritance a necessary implication.
+
 ## Expected invariants
 
 - After the first answer in Sequence A, requiredness becomes authoritative but submission blocking remains unresolved and does not appear as an unconditional Scope commitment, Required Product Behavior, Acceptance Criterion, or equivalent established claim.
@@ -78,6 +86,8 @@ Current Product Knowledge establishes the authorization boundary of an existing 
 - In Case E, permission X for current object editing does not establish permission X for the adjacent new capability; permission inheritance remains Unresolved or an explicit Open Decision until independently established.
 - The inheritance counterfactual is applied semantically: if the current rule can remain true while the new capability legitimately uses a different rule, inheritance is not necessary and is not authoritative.
 - In Case F, the existing authorization boundary may constrain the inseparable new behavior because a different boundary would contradict the already-authorized operation; valid necessary inheritance is not rejected merely because it originated in current-product context.
+- In Case G, the parent resource's existing scope does not establish the intended scope of a newly attached persistent configuration when that configuration can legitimately have a different ownership, scope, or override model while leaving the parent scope unchanged.
+- Attachment, containment, or shared identity does not by itself make scope inheritance `Derived`; the intended scope remains Unresolved or an explicit Open Decision until independent authority or true necessary implication exists.
 - Promotion removes or updates stale assumptions and keeps the artifact internally consistent.
 
 ## Explicit failure conditions
@@ -91,6 +101,8 @@ Fail if any of the following is true:
 - Current Product Knowledge about analogous existing behavior is used to establish any new intended behavior.
 - The current flow's signed-in or internal-only boundary is automatically promoted as the new adjacent capability's intended eligibility or channel scope without independent authority or necessary implication.
 - Permission X for current object editing is automatically promoted as the attached new capability's permission without independent authority or necessary implication.
+- An attached configuration is automatically given the parent entity's scope merely because it is stored on, linked to, or conceptually belongs to that entity.
+- The Agent labels attached-configuration scope as `Derived` when the parent scope can remain true under a different configuration scope or override model.
 - The Agent rejects the necessarily inseparable inheritance in Case F solely because the inherited rule comes from current-product context.
 - An unresolved or reversible assumption appears as an unconditional commitment in Scope, Required Product Behavior, Acceptance Criteria, or an equivalent authoritative section.
 - After Product authority is supplied, the draft refuses to promote the now-established behavior or leaves contradictory uncertainty in place.
@@ -99,4 +111,4 @@ Fail if any of the following is true:
 
 LLM judge
 
-Judge authority state and semantic promotion after each answer in each sequence and across the inheritance cases, not exact wording, section placement, or tool sequence. The regression passes only when reconciliation promotes the answered decision without leaking authority into independently answerable adjacent behavior, rejects optional inheritance from neighboring current-product rules, and still accepts inheritance that is logically inseparable from an already-authorized operation. Concise current-product context and visibly labeled assumptions are acceptable; unsupported intended commitments are not.
+Judge authority state and semantic promotion after each answer in each sequence and across the inheritance cases, not exact wording, section placement, or tool sequence. The regression passes only when reconciliation promotes the answered decision without leaking authority into independently answerable adjacent behavior, rejects optional inheritance from neighboring current-product rules—including parent-resource scope—and still accepts inheritance that is logically inseparable from an already-authorized operation. Concise current-product context and visibly labeled assumptions are acceptable; unsupported intended commitments are not.
