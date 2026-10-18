@@ -4,6 +4,7 @@
 
 ## قواعد اصلی
 
+- PRD جدید تا قبل از registration رسمی با `id: unresolved` شروع می‌شود. ID رسمی را حدس نزنید، از عنوان یا آخرین PRD نسازید و sequence را دستی increment نکنید. وقتی registry رسمی ID تخصیص داد، برای JobVision از `JV-PRD-NNNNN` و برای Cando از `CND-PRD-NNNNN` استفاده کنید. اولین تخصیص registration است؛ بعد از آن ID فقط با identity migration صریح تغییر می‌کند.
 - اول یک draft best-effort بسازید؛ PRD را به questionnaire تبدیل نکنید.
 - اطلاعاتی را که ندارید اختراع نکنید، مخصوصاً Current Product Behavior، Outcomes، Business Rules، eligibility، permissions و lifecycle.
 - جمله روشن PM که یک Product choice را تعیین می‌کند، تصمیم Product است. مثال، سؤال، پیشنهاد موقت، hypothesis یا UI preference را خودکار به requirement تبدیل نکنید.
