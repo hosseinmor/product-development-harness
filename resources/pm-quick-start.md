@@ -9,8 +9,8 @@
 3. وضعیت فعلی Product Knowledge:
 
 - **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است. در Pilot فعلی ChatGPT Desktop / Work، مسیر تأییدشده برای دسترسی **Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension** است. Built-in Browser، Cloud Browser و Web Search مسیر جایگزین این منبع داخلی نیستند.
-- **Cando:** فعلاً canonical Product Knowledge ندارد. برای رفتار فعلی Cando نباید `docs-jv` یا repository دیگری را به‌عنوان fallback canonical استفاده کرد.
-- **Taskهای integration:** ادعاها را بر اساس product تفکیک کنید؛ `docs-jv` می‌تواند رفتار سمت JobVision یا facts مستند integration boundary را establish کند، نه رفتار داخلی Cando را.
+- **Cando:** منبع canonical در `https://docs-cd.jvoffice.ir/` است. در هر execution environment فقط از مسیری استفاده کنید که دسترسی آن به این source داخلی verify شده باشد؛ در صورت عدم دسترسی، source دیگری را جای canonical Cando Product Knowledge قرار ندهید.
+- **Taskهای integration:** ادعاها را بر اساس product تفکیک کنید؛ `docs-jv` فقط authority سمت JobVision و `docs-cd` فقط authority سمت Cando را دارد، مگر اینکه یک integration-boundary fact صریحاً در source مربوط مستند شده باشد.
 
 4. محل نهایی hosting برای PRD فعلاً در Harness تثبیت نشده است. برای هر Product Change یک current durable PRD مشخص کنید و در ادامه‌ی کار همان را به Agent بدهید؛ chat history یا فایل قدیمی جای آن نیست.
 
@@ -31,7 +31,7 @@ https://docs-jv.jvoffice.ir/
 این سایت مرجع canonical رفتار و مفاهیم فعلی JobVision است. در ChatGPT Desktop / Work از Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension، استفاده کن. Built-in Browser، Cloud Browser یا Web Search را جای این مسیر قرار نده. اگر این مسیر در دسترس نیست، محدودیت دسترسی را صریح بگو و source دیگری را جایگزین canonical Product Knowledge نکن.
 
 برای Cando:
-فعلاً canonical Product Knowledge وجود ندارد. `docs-jv` را فقط برای facts سمت JobVision یا integration boundary که واقعاً در آن مستند شده استفاده کن؛ آن را به رفتار داخلی Cando تعمیم نده. برای current Cando behavior از explicit owner input، approved decisions و reviewed evidence مرتبط استفاده کن و evidence را canonical معرفی نکن. اگر behavior مادی بعد از retrieval کافی هنوز پشتیبانی نشده، آن را Unknown/Unresolved نگه دار و طبق Harness فقط در صورت blocking بودن clarification بگیر.
+Canonical Product Knowledge در https://docs-cd.jvoffice.ir/ است. فقط از execution pathی استفاده کن که دسترسی آن به این source داخلی verify شده باشد. `docs-jv` را به رفتار داخلی Cando تعمیم نده و اگر `docs-cd` در دسترس نیست، این محدودیت را صریح نگه دار. اگر canonical source برای یک claim کافی نیست یا با evidence تعارض دارد، evidence مرتبط را با authority واقعی خودش استفاده کن و uncertainty را طبق Harness حفظ کن.
 
 اگر برای journey یا flow مرتبط Product Walkthrough در دسترس است، از reviewed evidence آن برای بازسازی flow استفاده کن، اما آن را جای Product Knowledge canonical قرار نده.
 
@@ -60,6 +60,8 @@ Current PRD:
 
 برای هر Product Change، PM باید یک **current durable PRD** مشخص داشته باشد و همان artifact را در ادامه‌ی کار به AI، Designer و سایر نقش‌ها بدهد. نسخه‌های موازی مثل `v1`، `v2` یا `final` نسازید مگر اینکه واقعاً نیاز workflow وجود داشته باشد. محل نگهداری می‌تواند بعداً با تصمیم تیم عوض شود؛ AI نباید خودش storage یا permission model را فرض کند.
 
+PRD جدید تا قبل از registration رسمی با `id: unresolved` شروع می‌شود. AI یا PM نباید شمارهٔ بعدی را از روی PRDهای موجود حدس بزند. ID رسمی باید از registry configured تخصیص داده شود و با فرمت `JV-PRD-NNNNN` برای JobVision یا `CND-PRD-NNNNN` برای Cando ثبت شود. اولین تخصیص registration است و بعد از آن ID باید ثابت بماند. `Problem Aligned` شدن به registration وابسته نیست، اما قبل از downstream handoff به‌عنوان current durable PRD باید ID رسمی تخصیص داده شده باشد.
+
 وقتی PRD برای handoff آماده می‌شود، Agent باید یک خروجی واحد بدهد: ابتدا خود PRD و سپس بخش `Harness Pilot Evaluation` به‌صورت non-authoritative. اگر محل نگهداری از `<details>` پشتیبانی می‌کند، این بخش collapsed باشد؛ در غیر این صورت بلافاصله بعد از PRD با heading صریح non-authoritative نگهداری شود.
 
 PM لازم نیست سؤال‌وجواب‌ها یا Evaluation Record را دستی بازنویسی کند. Agent باید آن را consolidate کند. اگر Harness Owner بعداً run را review کند، می‌تواند `Harness Owner Review` را اضافه کند؛ Agent نباید این review را از طرف Owner پر کند.
@@ -68,7 +70,7 @@ PM لازم نیست سؤال‌وجواب‌ها یا Evaluation Record را د
 
 برای JobVision، اگر canonical Product Knowledge موقتاً در دسترس نیست اما Current Product Context معتبر دیگری مثل PRD قبلی، reviewed evidence، screenshot، Figma یا implementation context دارید، می‌توانید برای drafting یا investigation از Harness استفاده کنید ولی Agent باید محدودیت authority را صریح نگه دارد. این context جای canonical Product Knowledge را نمی‌گیرد.
 
-برای Cando، نبود canonical Product Knowledge وضعیت فعلی مورد انتظار است. Agent باید از explicit owner input، approved decisions و reviewed evidence مرتبط استفاده کند و رفتار پشتیبانی‌نشده را unknown نگه دارد؛ نباید برای پرکردن gap از `docs-jv`، Figma، implementation یا model knowledge به‌عنوان canonical truth استفاده کند.
+برای Cando، اگر `https://docs-cd.jvoffice.ir/` موقتاً در دسترس نیست، Agent باید محدودیت access را صریح نگه دارد. explicit owner input، approved decisions و reviewed evidence می‌توانند برای drafting یا investigation استفاده شوند، اما جای canonical Cando Product Knowledge را نمی‌گیرند و `docs-jv` نیز fallback canonical برای Cando نیست.
 
 اگر Product Knowledge و Current Product Context قابل‌اعتمادی در دسترس نیست، برای ساخت یک PRD اولیه می‌توانید از [Standalone PRD Kit](standalone-prd/README.md) استفاده کنید. این مسیر جایگزین هم‌ارز Harness نیست؛ فقط برای drafting ساختاریافته با context محدود است.
 
@@ -76,6 +78,6 @@ PM لازم نیست سؤال‌وجواب‌ها یا Evaluation Record را د
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش حدس بزند. این به معنی حل شدن همه سؤال‌های باز نیست.
 - **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند. در Pilot، clarificationهای material و پاسخ شما برای Eval در بخش non-authoritative کنار همان current durable PRD حفظ می‌شوند.
-- **عدم دسترسی یا نبود Product Knowledge canonical** — Agent باید محدودیت source را در product scope درست اعلام کند؛ برای JobVision مشکل access و برای Cando نبود source canonical دو وضعیت متفاوت‌اند.
+- **عدم دسترسی به Product Knowledge canonical** — Agent باید محدودیت source را در product scope درست اعلام کند؛ برای JobVision source canonical `docs-jv` و برای Cando source canonical `docs-cd` است و نبود دسترسی به یکی اجازهٔ جایگزینی source محصول دیگر را نمی‌دهد.
 - **باقی ماندن Open Decision** — اگر یک تصمیم باز مانده ولی مانع Design Exploration معنادار نیست، PRD همچنان می‌تواند `Problem Aligned` باشد.
 - **برگشت Product gap از Design** — ممکن است Design یک Product Decision جاافتاده را آشکار کند. در این حالت تصمیم به PM برمی‌گردد و PRD باید قبل از ادامه کار downstream به‌روزرسانی شود.
