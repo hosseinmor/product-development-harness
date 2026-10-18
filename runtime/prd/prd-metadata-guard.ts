@@ -33,9 +33,11 @@ function isStableId(value: string | null): boolean {
 /**
  * Protects durable PRD identity across redrafting and reconciliation.
  *
- * This guard intentionally does not prescribe how a new PRD ID is generated.
- * It only prevents an already-established non-placeholder ID from silently
- * changing or regressing to an unresolved/placeholder value.
+ * Official ID allocation is external to this guard. Per the PRD contract, a
+ * new draft may move from an unresolved placeholder to its first registry-
+ * allocated official ID without that being an identity migration. This guard
+ * protects an already-established non-placeholder ID from silently changing
+ * or regressing to an unresolved/placeholder value.
  */
 export function auditStablePrdArtifactId({
   previousId,
