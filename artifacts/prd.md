@@ -26,7 +26,7 @@ The default metadata responsibilities are:
 
 ```yaml
 ---
-id: <stable-artifact-id>
+id: unresolved
 artifact: prd
 owner: <responsible-product-owner-or-team>
 references:
@@ -38,7 +38,13 @@ related_artifacts:
 
 Metadata rules:
 
-- `id` provides stable identity for the PRD. The Harness does not prescribe an ID-generation scheme.
+- `id` provides stable identity for the PRD.
+- A new PRD that has not yet been registered uses `id: unresolved`. The Harness and AI must not invent, guess, or increment an official PRD ID.
+- Official PRD IDs are allocated by the configured external registry, not generated from the PRD title, Wiki path, latest visible PRD, or conversation state.
+- Current registered ID formats are `JV-PRD-NNNNN` for JobVision and `CND-PRD-NNNNN` for Cando, with exactly five digits in the registry allocation.
+- Replacing `id: unresolved` with the first externally allocated official ID is registration, not identity migration.
+- Once an official ID has been assigned, preserve it across redrafting, clarification, reconciliation, title changes, storage moves, and downstream work. Change it only through an explicit identity migration that preserves affected references.
+- Official registration is not a prerequisite for `Problem Aligned`; semantic Product readiness and artifact registration are separate concerns. Before downstream handoff treats a PRD as the current durable PRD, however, the PRD must have an official registered ID.
 - `artifact: prd` identifies the artifact type.
 - `owner` identifies the responsible Product owner or team at the appropriate level. AI should retrieve ownership when reasonably possible and must not infer or fabricate an owner merely to populate metadata. If ownership cannot be established, use `owner: unresolved`.
 - `references` contains material sources used to ground the PRD, such as canonical Product Knowledge references, evidence, or other authoritative context.
