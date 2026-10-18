@@ -44,6 +44,7 @@ Metadata rules:
 - Current registered ID formats are `JV-PRD-NNNNN` for JobVision and `CND-PRD-NNNNN` for Cando, with exactly five digits in the registry allocation.
 - Replacing `id: unresolved` with the first externally allocated official ID is registration, not identity migration.
 - Once an official ID has been assigned, preserve it across redrafting, clarification, reconciliation, title changes, storage moves, and downstream work. Change it only through an explicit identity migration that preserves affected references.
+- Existing stable PRD IDs created before this registration scheme are grandfathered. Do not rewrite them only to match the new format; migrate them only through an explicit identity migration with the old-to-new relationship preserved.
 - Official registration is not a prerequisite for `Problem Aligned`; semantic Product readiness and artifact registration are separate concerns. Before downstream handoff treats a PRD as the current durable PRD, however, the PRD must have an official registered ID.
 - `artifact: prd` identifies the artifact type.
 - `owner` identifies the responsible Product owner or team at the appropriate level. AI should retrieve ownership when reasonably possible and must not infer or fabricate an owner merely to populate metadata. If ownership cannot be established, use `owner: unresolved`.
