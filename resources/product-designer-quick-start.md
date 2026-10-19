@@ -10,8 +10,8 @@
 4. وضعیت فعلی Product Knowledge:
 
 - **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است. در Pilot فعلی ChatGPT Desktop / Work، مسیر تأییدشده برای دسترسی **Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension** است. Built-in Browser، Cloud Browser و Web Search مسیر جایگزین این منبع داخلی نیستند.
-- **Cando:** فعلاً canonical Product Knowledge ندارد. برای current Cando behavior از explicit owner input، approved decisions و reviewed evidence استفاده کنید و evidence را canonical معرفی نکنید.
-- **Cross-product / integration:** current behavior را بر اساس product partition کنید؛ JobVision Product Knowledge رفتار داخلی Cando را establish نمی‌کند.
+- **Cando:** منبع canonical در `https://docs-cd.jvoffice.ir/` است. فقط از execution pathی استفاده کنید که دسترسی آن به این source داخلی verify شده باشد؛ در صورت عدم دسترسی، evidence جای canonical source را نمی‌گیرد.
+- **Cross-product / integration:** current behavior را بر اساس product partition کنید؛ JobVision Product Knowledge رفتار داخلی Cando را establish نمی‌کند و Cando Product Knowledge نیز رفتار داخلی JobVision را establish نمی‌کند.
 
 ## Prompt شروع
 
@@ -29,7 +29,7 @@ https://github.com/hosseinmor/product-development-harness
 Canonical Product Knowledge در https://docs-jv.jvoffice.ir/ است. در ChatGPT Desktop / Work از Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension، استفاده کن. Built-in Browser، Cloud Browser یا Web Search را جای این مسیر قرار نده. اگر این مسیر در دسترس نیست، محدودیت دسترسی را صریح بگو و source دیگری را جایگزین canonical Product Knowledge نکن.
 
 برای Cando:
-فعلاً canonical Product Knowledge وجود ندارد. `docs-jv` را به رفتار داخلی Cando تعمیم نده. برای بازسازی Current Experience از explicit owner input، approved decisions، reviewed Product Walkthrough یا evidenceهای مرتبط استفاده کن و authority آن‌ها را حفظ کن. اگر behavior مادی قابل پشتیبانی نیست، uncertainty را صریح نگه دار و طراحی را فقط تا جایی جلو ببر که نیازمند اختراع Product behavior نباشد.
+Canonical Product Knowledge در https://docs-cd.jvoffice.ir/ است. فقط از execution pathی استفاده کن که دسترسی آن به این source داخلی verify شده باشد. `docs-jv` را به رفتار داخلی Cando تعمیم نده. اگر `docs-cd` در دسترس نیست یا برای یک claim کافی نیست، evidence مرتبط را با authority واقعی خودش استفاده کن و uncertainty را صریح نگه دار.
 
 برای current journey، flow یا feature walkthrough مرتبط، اگر Product Walkthrough در دسترس است از reviewed evidence آن برای بازسازی تجربه استفاده کن. Walkthrough evidence جای canonical Product Knowledge را نمی‌گیرد و در صورت تعارض باید اختلاف را صریح نگه داری.
 
@@ -52,7 +52,7 @@ PRD:
 ## در حین کار ممکن است چه چیزهایی ببینید؟
 
 - **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش اختراع کند.
-- **عدم دسترسی یا نبود Product Knowledge canonical** — برای JobVision ممکن است مشکل دسترسی browser/VPN وجود داشته باشد؛ برای Cando نبود source canonical وضعیت فعلی مورد انتظار است. Agent باید این دو را از هم تفکیک کند.
+- **عدم دسترسی به Product Knowledge canonical** — برای JobVision source canonical `docs-jv` و برای Cando source canonical `docs-cd` است. Agent باید access limitation هرکدام را صریح نگه دارد و source محصول دیگر را جایگزین نکند.
 - **`Product Decision needed`** — یعنی Design رفتاری را آشکار کرده که PRD هنوز مشخص نکرده است. Designer می‌تواند پیشنهاد بدهد، اما تصمیم باید به PM و PRD برگردد.
 - **`Selected` Design** — یعنی Designer جهت فعلی Design را انتخاب کرده و می‌توان آن را به‌عنوان Design Artifact durable نگه داشت. این به معنی pixel-perfect، immutable یا implementation-ready بودن نیست.
 - **`Product & Design Aligned`** — یعنی PRD و Design انتخاب‌شده به‌اندازه کافی با هم سازگار و روشن‌اند که Engineering بتواند Technical Planning را شروع کند بدون اینکه مجبور شود Product یا Design Decision مهمی را خودش اختراع کند.

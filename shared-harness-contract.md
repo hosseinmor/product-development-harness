@@ -7,13 +7,13 @@ This contract defines the rules shared by all product-development workflows and 
 Authority is scoped to the kind of claim being made. There is no single global source of truth.
 
 - The Harness is authoritative for product-development rules and artifact contracts.
-- Canonical Product Knowledge is the primary source for established Job Vision product meaning and behavior, including concepts, business rules, terminology, and current-product documentation.
+- Canonical Product Knowledge is the primary source for established JobVision and Cando product meaning and behavior inside the product scope owned by each source, including concepts, business rules, terminology, and current-product documentation.
 - Product Walkthrough provides reviewed evidence for end-to-end journeys, current flows, and feature walkthroughs. It is useful for flow reconstruction but is not canonical Product Knowledge and must not override it.
-- Relevant implementation may provide evidence when canonical documentation and reviewed evidence are insufficient, inconsistent, or require investigation. Implementation evidence may expose a Product Knowledge gap, but it does not silently replace canonical JobVision Product Knowledge. The Harness does not assume a specific code host or repository provider.
+- Relevant implementation may provide evidence when canonical documentation and reviewed evidence are insufficient, inconsistent, or require investigation. Implementation evidence may expose a Product Knowledge gap, but it does not silently replace canonical Product Knowledge for the owning product. The Harness does not assume a specific code host or repository provider.
 - The PRD owns decided intended product change, including materially affected users, intended outcomes, material Product Scenarios, required product behavior, and acceptance criteria within its scope.
 - The Design Artifact owns the selected experience and interaction solution within the constraints of the PRD.
 
-For JobVision current-product claims, canonical Product Knowledge has precedence over reviewed evidence, observed UI/design, implementation evidence, hypotheses, and recommendations. Evidence may reveal a discrepancy that requires Product Knowledge reconciliation; until reconciled, AI must surface the conflict rather than silently promoting the evidence into canonical product truth.
+For current-product claims, canonical Product Knowledge for the owning product has precedence over reviewed evidence, observed UI/design, implementation evidence, hypotheses, and recommendations. Evidence may reveal a discrepancy that requires Product Knowledge reconciliation; until reconciled, AI must surface the conflict rather than silently promoting the evidence into canonical product truth. Canonical Product Knowledge for one product does not establish another product's internal behavior.
 
 Product Knowledge and evidence about the current product do not own intended changes.
 
@@ -139,6 +139,11 @@ For the current Job Vision pilot, GitLab-based PRD persistence is paused togethe
 - For each Product Change, Product Management must explicitly identify one current durable PRD location before downstream handoff.
 - Maintain one current PRD artifact per Product Change; do not create parallel `v1`, `v2`, or `final` copies by default.
 - The PRD's stable `id` remains its machine-oriented identity independent of storage location.
+- Before an official PRD identity is allocated, a new draft uses `id: unresolved`. This placeholder does not prevent Product clarification or `Problem Aligned` when the semantic readiness conditions are otherwise met.
+- The Harness and AI must not invent, guess, or derive the next official PRD number by scanning stored PRDs. Official identity is allocated by the configured external registry. Current registered formats are `JV-PRD-NNNNN` for JobVision and `CND-PRD-NNNNN` for Cando, where `NNNNN` is a five-digit registry allocation.
+- Assigning the first official ID to a previously unresolved draft is PRD registration, not identity migration. Once an official ID has been assigned, preserve it across ordinary drafting, clarification, reconciliation, title changes, storage moves, and downstream work unless an explicit identity migration is established.
+- Stable PRD IDs created before the current registration scheme are grandfathered; do not rewrite them merely to conform to the new format. A format migration requires an explicit identity migration and preserved old-to-new references.
+- A PRD may become `Problem Aligned` before registration, but it must have an official registered ID before it is treated as the current durable PRD for downstream handoff.
 - Exported, downloaded, copied, or AI-generated working copies do not become competing sources of truth merely by existing.
 - Product Management owns Product decisions and the current durable PRD write. Other roles may propose changes through the review/comment mechanism available around the chosen artifact, but proposals do not establish Product authority.
 - When a PM accepts a proposed change, update the current durable PRD and apply downstream change-propagation rules.
@@ -161,7 +166,7 @@ For a given task, relevant context may include:
 - available evidence relevant to the stated problem,
 - and implementation references when deeper investigation is required and available.
 
-Use canonical Product Knowledge as the primary source for established product meaning and behavior. For JobVision, the current canonical Product Knowledge source is `https://docs-jv.jvoffice.ir/`, accessed through a local browser on a company-VPN-connected machine. Product Walkthrough may be used as reviewed evidence to reconstruct journeys, flows, handoffs, or feature behavior when relevant, but it does not become canonical Product Knowledge merely because the evidence was reviewed.
+Use canonical Product Knowledge as the primary source for established product meaning and behavior within the owning product scope. For JobVision, the current canonical source is `https://docs-jv.jvoffice.ir/`; the verified pilot access path is a local browser on a company-VPN-connected machine. For Cando, the current canonical source is `https://docs-cd.jvoffice.ir/`; use it through an execution path only after access to that internal source has been verified in the current environment. Product Walkthrough may be used as reviewed evidence to reconstruct journeys, flows, handoffs, or feature behavior when relevant, but it does not become canonical Product Knowledge merely because the evidence was reviewed.
 
 If an environment cannot access canonical Product Knowledge directly, preserve the access limitation and use only relevant context supplied through another trustworthy path. Do not silently substitute the Product Content/Design Knowledge repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
 
@@ -175,7 +180,7 @@ When canonical Product Knowledge is insufficient, inconsistent with evidence, or
 
 ### Direct product observation
 
-Direct inspection of a running product is an evidence-gathering method, not a replacement Product Knowledge source. It is especially useful when canonical Product Knowledge is unavailable or insufficient, including current Cando work, but its claims must remain scoped to what was actually observed.
+Direct inspection of a running product is an evidence-gathering method, not a replacement Product Knowledge source. It is especially useful when canonical Product Knowledge is unavailable, inaccessible, or insufficient, but its claims must remain scoped to what was actually observed.
 
 When using a browser, app, prototype, or other interactive product surface for investigation:
 

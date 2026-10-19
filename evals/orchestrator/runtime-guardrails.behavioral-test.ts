@@ -431,6 +431,10 @@ function testStablePrdIdentityGuard(): void {
   const stableId = "prd-kando-rejection-reason-notification-defaults";
 
   assert.equal(
+    auditStablePrdArtifactId({ previousId: "unresolved", nextId: "CND-PRD-00143" }).passed,
+    true,
+  );
+  assert.equal(
     auditStablePrdArtifactId({ previousId: stableId, nextId: stableId }).passed,
     true,
   );
@@ -465,7 +469,7 @@ console.log(
   JSON.stringify(
     {
       passed: true,
-      tests: 12,
+      tests: 13,
       coverage: [
         "compound clarification repaired before Router/reveal",
         "persistent non-atomic clarification stops after two repairs",
@@ -474,6 +478,7 @@ console.log(
         "independently authorized promotion passes",
         "persistent authority violation stops before Router/reveal",
         "reconciled Product Child output is independently re-audited",
+        "first registry allocation may replace unresolved PRD identity",
         "stable PRD artifact ID is preserved unless an identity migration is established",
       ],
     },

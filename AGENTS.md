@@ -38,12 +38,14 @@ Before retrieving or attributing Product Knowledge, determine which product owns
 Current source routing:
 
 - **JobVision** — canonical Product Knowledge is `https://docs-jv.jvoffice.ir/`.
-- **Cando** — no canonical Product Knowledge source currently exists. Preserve unsupported Cando current behavior as unknown rather than using another source as a substitute.
-- **Cross-product / integration tasks** — partition claims by product. JobVision Product Knowledge may establish JobVision-side behavior and documented integration-boundary facts, but it does not establish Cando-internal behavior, permissions, lifecycle, configuration, UI semantics, or persistence unless a future approved Cando source does so.
+- **Cando** — canonical Product Knowledge is `https://docs-cd.jvoffice.ir/`.
+- **Cross-product / integration tasks** — partition claims by product. Each canonical Product Knowledge source establishes current behavior only inside its own product scope plus integration-boundary facts it explicitly documents; do not use one product's source as canonical authority for the other product's internal behavior.
 
 Current verified pilot access path for JobVision Product Knowledge in ChatGPT Desktop / Work is **local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension**. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. In another execution environment, use an equivalent local-browser path only after access to the internal source has been verified. If the verified local-browser path is unavailable, report the access limitation rather than silently switching to another source.
 
-For Cando current-product investigation, use explicit owner input, approved decisions, relevant reviewed evidence, direct observation, or implementation evidence when available. Keep each source in its actual authority class: these inputs may support reconstruction and decision-making but do not silently become canonical Cando Product Knowledge. If materially necessary behavior remains unsupported after reasonable retrieval, keep it Unknown or Unresolved and apply the Harness clarification rules.
+For Cando, retrieve canonical Product Knowledge from `https://docs-cd.jvoffice.ir/`. Use an execution path only after access to that internal source has been verified in the current environment. If it is inaccessible, report the limitation rather than substituting JobVision Product Knowledge or another evidence source as canonical Cando truth.
+
+When canonical Product Knowledge for either product is insufficient, inconsistent, or inaccessible, use explicit owner input, approved decisions, relevant reviewed evidence, direct observation, or implementation evidence when useful. Keep each source in its actual authority class; these inputs may support reconstruction and decision-making but do not silently become canonical Product Knowledge. If materially necessary behavior remains unsupported after reasonable retrieval, keep it Unknown or Unresolved and apply the Harness clarification rules.
 
 The repository currently named `product-knowledge` owns Product Content, Design System, product standards, and source-authority guidance for JobVision and Cando. It is not a fallback store for product behavior. Its source-authority guidance may be used to confirm the current product-to-knowledge-source mapping.
 
@@ -55,9 +57,7 @@ Use these source roles when available:
 - **Implementation evidence** — inspect relevant implementation when it helps investigate a gap or discrepancy. Treat it as evidence for Product Knowledge reconciliation or Technical Planning, not as a silent replacement for canonical Product Knowledge. Do not assume a specific code host or repository provider unless the environment establishes one.
 - **Other evidence and current working artifacts** — use when materially relevant to the task.
 
-For JobVision current-product claims, canonical Product Knowledge outranks reviewed evidence, observed UI/design, implementation evidence, hypotheses, and recommendations. Evidence may expose that canonical documentation needs reconciliation, but it does not silently become the new canonical product truth.
-
-For Cando current-product claims, no source currently has canonical Product Knowledge status. Evidence and explicit owner input must remain correctly attributed, and absence of a canonical source must remain visible when material.
+For current-product claims, canonical Product Knowledge for the owning product outranks reviewed evidence, observed UI/design, implementation evidence, hypotheses, and recommendations. Evidence may expose that canonical documentation needs reconciliation, but it does not silently become the new canonical product truth. A canonical source for one product must never be used as canonical authority for another product.
 
 Product Knowledge and evidence sources do not substitute for human authority over intended Product decisions. If sources materially conflict, surface the conflict rather than silently choosing or inventing a resolution.
 
@@ -65,7 +65,7 @@ Use context that is already available instead of asking humans to restate it. Re
 
 When continuing existing product work, retrieve the current durable artifacts before relying on conversation history or tool-local state. Conversation history may provide useful context, but it must not substitute for the current artifact state.
 
-If required external context is unavailable, keep the limitation explicit and do not invent missing facts, rules, components, or guidance. For JobVision, do not silently substitute another repository or historical documentation as canonical Product Knowledge when the internal source is inaccessible. For Cando, do not invent a canonical source or treat JobVision Product Knowledge as a Cando fallback.
+If required external context is unavailable, keep the limitation explicit and do not invent missing facts, rules, components, or guidance. For either JobVision or Cando, do not silently substitute another repository, historical documentation, the other product's canonical source, or evidence as canonical Product Knowledge when the owning product's internal source is inaccessible.
 
 ## Operating constraints
 

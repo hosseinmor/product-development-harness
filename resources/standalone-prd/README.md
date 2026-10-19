@@ -12,7 +12,7 @@
 
 ## استفاده بدون Skill
 
-`prd-template.md` و `authoring-guide.md` را همراه context موجود به AI بدهید.
+`prd-template.md` و `authoring-guide.md` را همراه context موجود به AI بدهید. تمپلیت با `id: unresolved` شروع می‌شود؛ برای PRD دستی هم ID رسمی را حدس نزنید. وقتی registry رسمی ID تخصیص داد، آن را با فرمت `JV-PRD-NNNNN` برای JobVision یا `CND-PRD-NNNNN` برای Cando جایگزین کنید و بعد از آن ID را ثابت نگه دارید.
 
 ```text
 با استفاده از prd-template.md و authoring-guide.md برای این Product Intent یک PRD بساز.
