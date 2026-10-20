@@ -8,6 +8,14 @@ The canonical Harness source for the current pilot is `https://github.com/hossei
 
 The core Harness is tool-agnostic. Some validation/runtime implementations in this repository are currently provider-specific and are not required to use the core Harness.
 
+**Federated context:** [`context-sources.yml`](context-sources.yml) lists
+current authoritative source locations, independent Design Language/Content
+System entry points, pending migration state and per-task artifacts.
+[`docs/context-source-integration.md`](docs/context-source-integration.md)
+defines selective retrieval and the non-destructive cutover gates.
+Karbon's planned GitHub rename and the independent Content repository are
+**not yet completed**; their proposed names are not assumed URLs.
+
 ## Core principles
 
 - Human roles retain decision authority in their domains.
@@ -106,7 +114,7 @@ If the environment cannot directly reach canonical Product Knowledge or another 
 
 Provide access to or the location of relevant external sources such as canonical Product Knowledge, reviewed Product Walkthrough evidence, current working artifacts, other evidence, Product Content/Design System guidance, or implementation evidence. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
 
-For JobVision, the current canonical Product Knowledge entry point is `https://docs-jv.jvoffice.ir/`. In the current ChatGPT Desktop / Work pilot, the **verified access path is local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension**. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. Other environments may use an equivalent local-browser path only after access has been verified. If the verified path is unavailable, preserve the access limitation rather than silently substituting another source. The repository currently named `product-knowledge` owns Product Content, Design System, standards, and source-authority guidance; it must not be used as a fallback store for JobVision product behavior.
+For JobVision, the current canonical Product Knowledge entry point is `https://docs-jv.jvoffice.ir/`. In the documented ChatGPT Desktop / Work pilot, the recorded supported access path is local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. Verify access in each execution environment; if unavailable, preserve that limitation. Design and Content guidance is currently in `product-knowledge` pending separation (see `context-sources.yml`); it is never a fallback store for JobVision product behavior.
 
 For the current pilot, GitLab-based PRD persistence is paused together with the GitLab Harness migration. The Harness does not currently prescribe a specific PRD hosting service. For each Product Change, the PM must explicitly identify one current durable PRD location before downstream handoff; that artifact is the current PRD until it is superseded by an accepted update. The PRD's stable `id` remains its machine-oriented identity.
 
