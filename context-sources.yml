@@ -1,0 +1,63 @@
+# Runtime source registry. This is a locator, not a copy of source-owned rules.
+# Access descriptions are requirements to verify, not claims of access in this session.
+schema_version: "1"
+sources:
+  jobvision_product_knowledge:
+    authority: current_product_meaning_and_behavior
+    product_scope: jobvision
+    location: https://docs-jv.jvoffice.ir/
+    entry_point: https://docs-jv.jvoffice.ir/
+    access: verify_authenticated_internal_browser_with_vpn
+    retrieval: smallest_relevant_pages
+
+  cando_product_knowledge:
+    authority: current_product_meaning_and_behavior
+    product_scope: cando
+    location: https://docs-cd.jvoffice.ir/
+    entry_point: https://docs-cd.jvoffice.ir/
+    access: verify_authenticated_internal_browser
+    retrieval: smallest_relevant_pages
+
+  design_language:
+    authority: reusable_design_and_interaction_rules
+    current_repository: https://github.com/hosseinmor/product-knowledge
+    entry_point: shared/design-system/DESIGN.md
+    discovery: manifest.generated.json
+    access: verify_repository_read
+    intended_repository_name: karbon-design-language
+    migration_state: awaiting_repository_rename
+    retrieval: entry_then_relevant_component_pattern_or_rule
+
+  content_system:
+    authority: product_language_and_expression_rules
+    current_repository: https://github.com/hosseinmor/product-knowledge
+    entry_point: shared/content/README.md
+    discovery: manifest.generated.json
+    access: verify_repository_read
+    intended_repository_name: product-content-system
+    migration_state: awaiting_independent_repository_and_verified_copy
+    retrieval: entry_then_relevant_context_pattern_component_or_eval
+
+  product_walkthrough:
+    authority: reviewed_experience_evidence_not_product_policy
+    resolution: resolve_relevant_reviewed_source_per_task
+    access: verify_at_runtime
+    retrieval: relevant_journeys_only
+
+  current_prd:
+    authority: pm_owned_intended_product_change
+    resolution: resolve_current_durable_artifact_per_task
+    access: verify_at_runtime
+    retrieval: current_artifact_only
+
+  current_design_artifact:
+    authority: designer_owned_selected_experience
+    resolution: resolve_current_durable_artifact_per_task
+    access: verify_at_runtime
+    retrieval: current_artifact_only
+
+  other_evidence:
+    authority: evidence_only
+    resolution: resolve_per_task
+    access: verify_at_runtime
+    retrieval: materially_relevant_evidence_only
