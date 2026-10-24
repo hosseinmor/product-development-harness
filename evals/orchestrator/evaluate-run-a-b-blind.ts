@@ -101,7 +101,7 @@ type BlindCandidate = {
 type Redaction = {
   kind:
     | "frontmatter_references"
-    | "canonical_dependencies"
+    | "legacy_canonical_dependencies"
     | "context_availability_statement";
   startLine: number;
   removedLines: string[];
@@ -515,7 +515,7 @@ function blindPrd(markdown: string): { redactedPrd: string; redactions: Redactio
         removedIndexes.add(dependenciesStart + offset),
       );
       redactions.push({
-        kind: "canonical_dependencies",
+        kind: "legacy_canonical_dependencies",
         startLine: dependenciesStart + 1,
         removedLines,
         replacement: null,
@@ -816,7 +816,7 @@ await Promise.all([
       {
         policy: [
           "Remove candidate-specific references metadata from YAML frontmatter.",
-          "Remove Dependencies sections containing only canonical current-product references.",
+          "For historical PRDs only, remove legacy Dependencies sections containing only canonical current-product references.",
           "Remove statements whose sole purpose is to disclose current-product context availability.",
           "Include clarification question text but symmetrically omit whyMaterial fields, which are not requested grading evidence and may contain source-provenance commentary.",
           "Do not rewrite substantive Product claims, Current Behavior, Scope, rules, scenarios, or Acceptance Criteria.",
