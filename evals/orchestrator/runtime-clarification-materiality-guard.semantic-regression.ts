@@ -365,10 +365,12 @@ id: resume-derived-job-search
 artifact: prd
 owner: unresolved
 references:
-  - http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/job-search/0_overview/
-  - http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/0_overview/
-  - http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/entity-cv/
-  - https://jobvision.ir/jobs
+  - source: jobvision_product_knowledge
+    page: "نمای حوزه: جستجوی شغل"
+  - source: jobvision_product_knowledge
+    page: "نمای حوزه: رزومه"
+  - source: jobvision_product_knowledge
+    page: "موجودیت رزومه"
 ---
 
 # جست‌وجوی شغل بر اساس رزومه
@@ -422,12 +424,6 @@ Business Outcome هنوز توسط Product تعیین نشده است. گزین�
 - محصول باید امکان آغاز جست‌وجوی رزومه‌محور را برای کارجو فراهم کند، بی‌آنکه ورود دستی عبارت جست‌وجو یا تنظیم دستی فیلترها پیش‌نیاز آغاز جست‌وجو باشد.
 - سیستم باید با استفاده از اطلاعات رزومه، مقادیر مناسب جست‌وجو مانند keyword، گروه شغلی و فیلترهای مرتبط را تعیین کند.
 - محصول باید جست‌وجو را با مقادیر تعیین‌شده اجرا کند و کارجو را بدون مرحلهٔ الزامی ورود دستی معیارها مستقیماً به صفحهٔ نتایج متناسب ببرد.
-
-## Dependencies
-
-- \`http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/job-search/0_overview/\`
-- \`http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/0_overview/\`
-- \`http://platform-eng.pages.git.jvoffice.ir/documents/jobvision/contents/cv/entity-cv/\`
 
 ## Acceptance Criteria
 

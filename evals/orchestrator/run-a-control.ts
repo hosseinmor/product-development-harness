@@ -758,7 +758,6 @@ const prdHeadingLevels = {
   Scope: "##",
   "Key Product Scenarios": "##",
   "Required Product Behavior": "##",
-  Dependencies: "##",
   "Acceptance Criteria": "##",
   "Assumptions & Open Decisions": "##",
 } as const;
@@ -767,7 +766,6 @@ function prdFacts(markdown: string): {
   present: boolean;
   sectionPresence: Record<keyof typeof prdHeadingLevels, boolean>;
   referencesCount: number;
-  dependenciesCount: number;
 } {
   const lines = markdown.split("\n");
   const sectionPresence = Object.fromEntries(
@@ -790,22 +788,10 @@ function prdFacts(markdown: string): {
     }
   }
 
-  const dependenciesStart = lines.findIndex(
-    (line) => line.trim() === "## Dependencies",
-  );
-  let dependenciesCount = 0;
-  if (dependenciesStart >= 0) {
-    for (const line of lines.slice(dependenciesStart + 1)) {
-      if (line.startsWith("## ")) break;
-      if (line.trimStart().startsWith("- ")) dependenciesCount += 1;
-    }
-  }
-
   return {
     present: markdown.trim().length > 0,
     sectionPresence,
     referencesCount,
-    dependenciesCount,
   };
 }
 

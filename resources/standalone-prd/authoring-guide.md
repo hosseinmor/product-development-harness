@@ -12,6 +12,7 @@
 - PRD را به Design Spec یا Technical Plan تبدیل نکنید.
 - هر Product rule یک محل اصلی داشته باشد؛ برای کامل به‌نظر رسیدن آن را در چند section تکرار نکنید.
 - بخش‌های optional را اگر محتوای معناداری ندارند حذف کنید.
+- اگر canonical Product Knowledge صفحهٔ materially relevant مشخصی برای grounding یا retrieval بعدی دارید، آن را فقط در frontmatter `references` با `source + page` ثبت کنید. URL را داخل PRD نگذارید و page/ID اختراع نکنید.
 - اگر context کافی نیست، فقط سؤال‌های materially لازم را بپرسید و uncertainty باقی‌مانده را صریح نگه دارید.
 
 ## شیوه نوشتن
@@ -86,9 +87,17 @@ Detailed behavior را به این بخش منتقل نکنید و از Intent �
 - Product behavior: «Search with Profile فقط برای پروفایلی قابل اجراست که اطلاعات کافی برای ساخت جست‌وجوی معنادار داشته باشد.»
 - Design decision: «CTA بالای صفحه و به‌صورت primary button نمایش داده شود.» — این مورد معمولاً در PRD نیست.
 
-## Dependencies
+## Product Knowledge references
 
-اختیاری است. فقط dependencyهای مشخص و materially relevant را بیاورید. اگر reference قابل‌اعتمادی ندارید، dependency اختراع نکنید.
+این بخش در body PRD وجود ندارد. اگر یک صفحهٔ canonical Product Knowledge واقعاً برای grounding یا retrieval بعدی materially useful است، فقط در YAML frontmatter ثبتش کنید:
+
+```yaml
+references:
+  - source: jobvision_product_knowledge
+    page: Candidate / Recommended Jobs
+```
+
+`source` باید کلید source معتبر باشد و `page` نام/عنوان صفحه در همان source. URL، bibliography همهٔ صفحات خوانده‌شده یا dependency توضیحی داخل body اضافه نکنید. رابطه‌ها و consequenceهای Product را در Scope، Key Product Scenarios یا Required Product Behavior بنویسید.
 
 ## Acceptance Criteria
 

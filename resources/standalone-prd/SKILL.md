@@ -26,12 +26,13 @@ Treat a clear user statement that establishes a Product choice as decided Produc
 1. Start a new unregistered PRD with `id: unresolved`. Do not invent or increment an official ID. When an external registry has allocated an official ID, use `JV-PRD-NNNNN` for JobVision or `CND-PRD-NNNNN` for Cando and preserve that ID thereafter unless an explicit identity migration is established.
 2. Produce the strongest useful draft supported by the available context before asking for clarification whenever possible.
 3. Separate established Product intent from hypotheses, recommendations, assumptions, and unresolved decisions.
-4. Do not invent current-product facts, Product decisions, User or Business Outcomes, metrics, eligibility, permissions, business rules, lifecycle behavior, or dependencies merely to make the PRD look complete.
-5. Ask only the smallest set of materially necessary Product questions when the draft cannot be useful without the answer.
-6. Do not turn the PRD into a Design Spec or Technical Plan.
-7. Omit optional sections when they have no meaningful content.
-8. Follow the semantic guidance in `authoring-guide.md`.
-9. Use `prd-template.md` as the default output structure, adapting or omitting optional sections as appropriate.
+4. Do not invent current-product facts, Product decisions, User or Business Outcomes, metrics, eligibility, permissions, business rules, lifecycle behavior, Product relationships, or Product Knowledge references merely to make the PRD look complete.
+5. When a materially useful canonical Product Knowledge page is known, record it only in frontmatter `references` as `source + page`; do not store page URLs or add a body `Dependencies` section.
+6. Ask only the smallest set of materially necessary Product questions when the draft cannot be useful without the answer.
+7. Do not turn the PRD into a Design Spec or Technical Plan.
+8. Omit optional sections when they have no meaningful content.
+9. Follow the semantic guidance in `authoring-guide.md`.
+10. Use `prd-template.md` as the default output structure, adapting or omitting optional sections as appropriate.
 
 ## Missing context
 
