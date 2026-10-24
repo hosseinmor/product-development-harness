@@ -16,7 +16,7 @@ AI may draft and maintain the PRD, but AI-generated, assumed, or unresolved cont
 
 A clear PM decision establishes product intent. The PRD makes that decision durable downstream.
 
-Current-product descriptions and dependency references in the PRD are contextual views of external product truth. They do not become independently authoritative over canonical Product Knowledge. Reviewed walkthrough evidence, direct observation, and implementation evidence may ground or challenge those descriptions but do not silently become competing canonical Product Knowledge.
+Current-product descriptions and Product Knowledge references in the PRD are contextual views of external product truth. They do not become independently authoritative over canonical Product Knowledge. Reviewed walkthrough evidence, direct observation, and implementation evidence may ground or challenge those descriptions but do not silently become competing canonical Product Knowledge.
 
 ## Metadata
 
@@ -30,7 +30,8 @@ id: unresolved
 artifact: prd
 owner: <responsible-product-owner-or-team>
 references:
-  - <canonical-reference>
+  - source: jobvision_product_knowledge
+    page: <source-native-page-name>
 related_artifacts:
   - <related-artifact-reference>
 ---
@@ -48,13 +49,16 @@ Metadata rules:
 - Official registration is not a prerequisite for `Problem Aligned`; semantic Product readiness and artifact registration are separate concerns. Before downstream handoff treats a PRD as the current durable PRD, however, the PRD must have an official registered ID.
 - `artifact: prd` identifies the artifact type.
 - `owner` identifies the responsible Product owner or team at the appropriate level. AI should retrieve ownership when reasonably possible and must not infer or fabricate an owner merely to populate metadata. If ownership cannot be established, use `owner: unresolved`.
-- `references` contains material sources used to ground the PRD, such as canonical Product Knowledge references, evidence, or other authoritative context.
+- `references` is a concise machine-facing navigation list for materially relevant canonical Product Knowledge pages that ground the PRD or are useful for downstream retrieval and impact analysis.
+- Each Product Knowledge reference uses `source` + `page`. `source` must be the owning Product Knowledge source key from `context-sources.yml` (for example `jobvision_product_knowledge` or `cando_product_knowledge`), not a URL.
+- `page` is the source-native human-readable page name or hierarchy label needed to find the page inside that source. Do not store the page URL in PRD metadata and do not invent a Harness-specific Product Knowledge ID.
+- Include only materially useful Product Knowledge pages; `references` is not a bibliography of everything retrieved while drafting.
+- If the relevant canonical page cannot be identified reliably, omit the reference rather than guessing a page name. This does not by itself make the Product behavior unresolved when the behavior is otherwise established.
+- Evidence, screenshots, observations, implementation findings, and temporary research do not need to be copied into `references`; preserve their provenance in the Harness Pilot Evaluation when materially used.
 - `related_artifacts` references related durable artifacts when they exist and the relationship is useful downstream.
 - `references` and `related_artifacts` may be omitted when they have no useful entries.
 - Metadata is machine-facing navigation data. It should not duplicate semantic PRD content.
 - In the current pilot, PRD storage is manual and no specific hosting service is prescribed. Use the history/recovery capability of the explicitly designated durable store when available; do not add a separate PRD version field merely to duplicate storage history.
-
-`references` and `Dependencies` serve different semantic roles. `references` records material grounding sources; `Dependencies` records canonical Product Knowledge entities that the intended change materially depends on or affects. Do not mechanically mirror Dependencies into `references`. The same item may appear in both only when it genuinely serves both roles.
 
 Do not add generic status, version, timestamps, confidence scores, approval metadata, requirement numbering, Jira links, Figma links, or similar metadata without a demonstrated workflow need.
 
@@ -97,14 +101,12 @@ A PRD should cover the following semantic responsibilities. The headings below a
 
 ## Required Product Behavior
 
-## Dependencies
-
 ## Acceptance Criteria
 
 ## Assumptions & Open Decisions
 ```
 
-`Success Metrics`, `Key Product Scenarios`, `Dependencies`, and `Assumptions & Open Decisions` are conditional and may be omitted when their semantic responsibility does not apply or has no material content.
+`Success Metrics`, `Key Product Scenarios`, and `Assumptions & Open Decisions` are conditional and may be omitted when their semantic responsibility does not apply or has no material content.
 
 ### Problem
 
@@ -224,31 +226,6 @@ Prefer grouping behavior by product concept, actor, or lifecycle when that keeps
 
 Describe product behavior rather than interface mechanics or technical implementation unless a specific solution is itself a product constraint.
 
-### Dependencies
-
-Use Dependencies as a concise retrieval and impact-navigation aid and canonical navigation list, not as an exhaustive dependency inventory.
-
-List only materially relevant Product Knowledge entities that already have canonical references in the Product Knowledge structure that actually exists. Do not invent Product Knowledge IDs or a Harness dependency taxonomy.
-
-Preferred form:
-
-```markdown
-## Dependencies
-
-- `canonical-product-knowledge-id`
-- `another-canonical-id`
-```
-
-Do not substitute free-text dependency descriptions when no canonical reference exists. Do not turn Dependencies into mini-specs or behavior explanations, list every merely related concept, or use Dependencies as an implementation dependency inventory.
-
-If a material relationship has no canonical Product Knowledge reference, do not invent one and do not add a free-text substitute to Dependencies. Retrieve deeper context when useful, preserve a material Product uncertainty when appropriate, or leave implementation or system-of-record discovery to Technical Planning according to the actual type of gap.
-
-Absence from Dependencies must not imply that no implementation dependency exists.
-
-Do not mechanically mirror Dependencies into `references`. The same item may appear in both only when it genuinely serves both semantic roles.
-
-Behavioral implications of a dependency belong in Scope or Required Product Behavior.
-
 ### Acceptance Criteria
 
 Acceptance criteria define the observable or verifiable product conditions that must be true for the intended change to be considered correctly realized.
@@ -321,9 +298,9 @@ These may appear only when they represent a genuine product constraint rather th
 
 A PRD is `Problem Aligned` when it is sufficiently grounded and bounded for meaningful Design Exploration and remaining uncertainty does not force Design to invent materially different product intent or behavior.
 
-The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and available canonical material dependencies should be clear enough for the next use. Business Outcome must be established before `Problem Aligned`; an AI-generated candidate, recommendation, assumption, or unresolved placeholder is not sufficient. Other missing Product judgments may remain unresolved when they are explicit and do not invalidate useful Design Exploration or force Design to invent materially different Product behavior.
+The materially affected actors, local current-product baseline, established User and Business Outcomes, material scope boundaries, applicable Product Scenarios, required product behavior, and material Product context needed for downstream interpretation should be clear enough for the next use. Business Outcome must be established before `Problem Aligned`; an AI-generated candidate, recommendation, assumption, or unresolved placeholder is not sufficient. Other missing Product judgments may remain unresolved when they are explicit and do not invalidate useful Design Exploration or force Design to invent materially different Product behavior.
 
-The absence of a canonical dependency reference alone does not block Problem Alignment when the material Product behavior and implications are otherwise clear.
+The absence of a `references` entry alone does not block Problem Alignment when the material Product behavior and implications are otherwise clear.
 
 Acceptance criteria need to be sufficient for that next use, not exhaustive.
 
