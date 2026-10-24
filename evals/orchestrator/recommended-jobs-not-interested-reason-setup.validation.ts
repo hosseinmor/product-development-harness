@@ -152,6 +152,10 @@ assert.equal(
   productKnowledgeReferenceSetup.futureWorkspaceTarget,
   "context/product-knowledge",
 );
+assert.equal(
+  productKnowledgeReferenceSetup.sourceMode,
+  "committed-frozen-eval-fixture",
+);
 assert.equal(productKnowledgeReferenceSetup.generatedArtifactsCommitted, false);
 assert.deepEqual(
   productKnowledgeReferences.map(({ id }) => id),

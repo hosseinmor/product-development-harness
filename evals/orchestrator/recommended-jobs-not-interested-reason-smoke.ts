@@ -8,7 +8,10 @@ import { semanticFixtureRouterConfig } from "./semantic-fixture-router.js";
 
 const orchestratorDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(orchestratorDirectory, "../..");
-const productKnowledgeRoot = resolve(repositoryRoot, "../product-knowledge");
+const frozenProductContextRoot = resolve(
+  repositoryRoot,
+  "evals/fixtures/recommended-jobs-not-interested-reason/canonical-product-context",
+);
 
 export const syntheticEvalTruthLabel =
   "SYNTHETIC EVAL TRUTH — NOT A PRODUCTION PRODUCT DECISION";
@@ -53,13 +56,14 @@ export const productKnowledgeReferences = [
 ] as const;
 
 export const productKnowledgeReferenceSetup = {
-  sourceRepository: productKnowledgeRoot,
-  selection: "explicit canonical manifest references",
+  sourceRoot: frozenProductContextRoot,
+  sourceMode: "committed-frozen-eval-fixture",
+  selection: "explicit frozen product context references",
   futureWorkspaceTarget: "context/product-knowledge",
   copyMode: "read-only generated snapshot at run setup",
   generatedArtifactsCommitted: false,
   note:
-    "The future smoke runner must verify these hashes before copying the selected text into its isolated workspace. It must not mount the source repository into the Product Child workspace.",
+    "These files are frozen eval-only context preserved inside the Harness. The smoke runner verifies their hashes before copying the selected text into its isolated workspace. They are not current Product Knowledge and must not be used as production product truth.",
 } as const;
 
 export type FixtureReviewStatus = "review_required" | "approved";
@@ -369,7 +373,7 @@ export function approvedFixtureAnswerBank(): Record<string, string> {
 export async function validateProductKnowledgeReferences(): Promise<void> {
   for (const reference of productKnowledgeReferences) {
     const sourcePath = resolve(
-      productKnowledgeRoot,
+      frozenProductContextRoot,
       reference.repositoryRelativePath,
     );
     const actualHash = createHash("sha256")

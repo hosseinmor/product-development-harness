@@ -288,7 +288,7 @@ export async function runRecommendedJobsNotInterestedReasonSmoke(): Promise<void
   await createIsolatedPrdWorkspace({
     repositoryRoot,
     workspaceDirectory,
-    productKnowledgeRoot: futureSmokeConfig.productKnowledge.sourceRepository,
+    productKnowledgeRoot: futureSmokeConfig.productKnowledge.sourceRoot,
     productKnowledgeReferences,
   });
   const initialPrompt = buildRecommendedJobsInitialPrompt();
