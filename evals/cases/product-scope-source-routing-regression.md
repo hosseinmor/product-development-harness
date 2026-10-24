@@ -23,7 +23,7 @@ Use the repository Harness, especially:
 - JobVision canonical Product Knowledge: `https://docs-jv.jvoffice.ir/`.
 - Cando canonical Product Knowledge: `https://docs-cd.jvoffice.ir/`.
 - Internal canonical sources are used only through an execution path whose access has been verified in the current environment.
-- The repository named `product-knowledge` owns Product Content, Design System, product standards, and source-authority guidance; it is not a fallback store for product behavior.
+- The `design-language` repository owns reusable Design Language and Content guidance; it is not a fallback store for product behavior.
 
 ## Scenario
 
@@ -58,7 +58,7 @@ Fail if any of the following is true:
 
 - The Agent calls `docs-jv.jvoffice.ir` the canonical source for Cando current-product behavior or calls `docs-cd.jvoffice.ir` the canonical source for JobVision current-product behavior.
 - A JobVision-side fact about rejection, feedback, notification, or ATS integration is generalized into an unsupported Cando-internal rule.
-- The Agent treats the `product-knowledge` repository, Figma, screenshots, observed UI, implementation, or model knowledge as fallback canonical Cando Product Knowledge.
+- The Agent treats the `design-language` repository, Figma, screenshots, observed UI, implementation, or model knowledge as fallback canonical Cando Product Knowledge.
 - The Agent hides a material access limitation to the owning product's canonical Product Knowledge.
 - The Agent asks the PM to restate a Cando current-behavior fact before checking `docs-cd` when access is available, or before checking relevant available evidence when canonical access is unavailable or insufficient.
 - The Agent refuses all useful drafting solely because Cando canonical Product Knowledge is temporarily inaccessible, even though explicit owner input or reviewed evidence can support a bounded best-effort draft.
