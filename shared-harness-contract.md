@@ -155,6 +155,14 @@ During the current pilot, persistence may remain manual. A future controlled art
 
 The Harness defines what product context is required to perform a task. It does not define how canonical Product Knowledge or evidence sources store, structure, index, or retrieve that context.
 
+### Product scope resolution
+
+Before retrieving product-specific canonical context or drafting substantive current-product claims, resolve which product owns the task or claim.
+
+Use explicit task wording and authoritative context already available. If one product is established, use only that product's canonical Product Knowledge for its internal behavior. If a task spans products, partition claims before retrieval. If ownership remains ambiguous enough that choosing a source would require a guess, ask the smallest operational clarification needed to identify the product before product-specific retrieval or substantive drafting.
+
+This is an exception to the normal draft-first clarification preference because product scope selects the authority itself. It is not a Product Decision and should not enter the PRD clarification record unless it separately establishes material Product intent.
+
 For a given task, relevant context may include:
 
 - current user-visible or otherwise relevant implemented behavior,
@@ -169,6 +177,8 @@ For a given task, relevant context may include:
 Use canonical Product Knowledge as the primary source for established product meaning and behavior within the owning product scope. For JobVision, the current canonical source is `https://docs-jv.jvoffice.ir/`; the verified pilot access path is a local browser on a company-VPN-connected machine. For Cando, the current canonical source is `https://docs-cd.jvoffice.ir/`; use it through an execution path only after access to that internal source has been verified in the current environment. Product Walkthrough may be used as reviewed evidence to reconstruct journeys, flows, handoffs, or feature behavior when relevant, but it does not become canonical Product Knowledge merely because the evidence was reviewed.
 
 If an environment cannot access canonical Product Knowledge directly, preserve the access limitation and use only relevant context supplied through another trustworthy path. Do not silently substitute the Product Content/Design Knowledge repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
+
+When the environment can read user-shared/local browser tabs, prefer the smallest interaction that restores access: reuse an already-open relevant canonical tab; otherwise ask the user to open one tab for the resolved product's canonical source. Retrieve the smallest relevant page or section first, and request another tab or source only when it is materially necessary. Do not ask the user to open multiple sources pre-emptively. This operational request is not Product clarification and should not be persisted as a Product Decision.
 
 When Product Knowledge exposes canonical concepts or identifiers useful for references or dependency navigation, the Harness may use those existing references. The Harness does not define or require a separate Product Knowledge taxonomy.
 
