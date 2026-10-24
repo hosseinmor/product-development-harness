@@ -41,14 +41,14 @@ Retrieve only the current-product context needed to understand the change, inclu
 - established terminology,
 - established User and Business Outcomes already present in Product intent or authoritative context,
 - context needed to understand material Product Scenarios,
-- materially relevant canonical Product Knowledge dependencies when available,
+- materially relevant canonical Product Knowledge pages when useful for grounding or downstream retrieval,
 - and available evidence related to the stated problem.
 
 Use canonical Product Knowledge as the primary source for established product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. For JobVision, use the internal Product Knowledge source configured for the team; do not silently substitute another repository as Product Knowledge when that source is unavailable.
 
 When the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
 
-Use only canonical Product Knowledge dependency references that already exist in the Product Knowledge structure that actually exists. Do not invent a Harness dependency taxonomy, Product Knowledge IDs, or free-text substitutes for missing canonical dependency references.
+When a materially useful canonical Product Knowledge page is identified, record it in PRD frontmatter `references` using the owning source key from `context-sources.yml` plus the source-native page name or hierarchy label. Do not store page URLs, invent Harness-specific Product Knowledge IDs, or turn retrieved sources into a bibliography. If a page cannot be identified reliably, omit the reference rather than guessing.
 
 Inspect relevant implementation when canonical documentation and reviewed evidence are insufficient, inconsistent, or require deeper investigation. Treat what you find as implementation evidence for discrepancy analysis or later Technical Planning, not as a silent replacement for canonical JobVision Product Knowledge. Do not assume a specific code host or repository provider unless the environment establishes one.
 
@@ -89,7 +89,7 @@ When Business Outcome is not established, do not invent or silently establish bu
 
 Draft Key Product Scenarios when a material journey, actor handoff, lifecycle sequence, or connected behavior sequence benefits from a coherent product-level view. Keep them solution-independent, as short as needed to preserve the material sequence, and separate from selected Design User Flows and detailed Required Product Behavior.
 
-Populate `Dependencies` only with materially relevant canonical Product Knowledge references that already exist. If a material relationship has no canonical Product Knowledge reference, do not invent or substitute one in `Dependencies`; handle the gap according to whether it needs deeper retrieval, Product judgment, or later Technical Planning.
+Keep product relationships and behavioral consequences in their semantic homes such as Scope, Key Product Scenarios, or Required Product Behavior. Do not create a separate `Dependencies` section merely to list Product Knowledge pages.
 
 Do not return a skeleton dominated by `TBD` fields when a meaningful draft can be produced.
 
@@ -111,7 +111,7 @@ Check that:
 - vague abstractions such as `reconcile`, `snapshot`, `ready`, `identity`, or `version` are replaced by observable Product semantics unless the abstraction itself is an intentional Product concept,
 - future-oriented or premature specification is removed when it is not needed to constrain the current release,
 - newly introduced configurable or shared resources have their materially relevant actor, lifecycle, ownership, and scope boundary considered,
-- `Dependencies` contains only materially relevant canonical Product Knowledge entities,
+- frontmatter `references` contains only materially useful canonical Product Knowledge page navigation, with no URLs or invented Product Knowledge IDs,
 - and Acceptance Criteria capture material correctness boundaries rather than restating Required Product Behavior line by line.
 
 Normalization must not silently resolve Product uncertainty. If cleanup exposes a material missing decision, preserve it for the ambiguity scan rather than inventing an answer.
@@ -151,7 +151,7 @@ For each material uncertainty, attempt in order:
 retrieve → derive → safe reversible assumption → human clarification
 ```
 
-Do not ask the PM to restate facts that can reasonably be retrieved, including affected actors, current behavior, ownership, or canonical dependency references.
+Do not ask the PM to restate facts that can reasonably be retrieved, including affected actors, current behavior, ownership, or relevant canonical Product Knowledge context.
 
 Do not escalate a choice that belongs to Design rather than Product.
 
@@ -205,7 +205,7 @@ After a decision:
 - update affected Key Product Scenarios,
 - update affected acceptance criteria,
 - remove or replace stale assumptions,
-- reconcile related scope, behavior, or dependency references,
+- reconcile related scope, behavior, or Product Knowledge page references,
 - re-run semantic normalization on materially affected sections,
 - and run a local consistency check.
 
@@ -230,7 +230,7 @@ Re-run the semantic checks from Step 4 across the complete PRD, with particular 
 - Acceptance Criteria have not expanded into a line-by-line restatement of Required Product Behavior,
 - stale assumptions, superseded alternatives, and obsolete uncertainty have been removed,
 - current-product knowledge-status or retrieval notes have not leaked into semantic sections such as `Current Behavior`,
-- references and Dependencies still serve their distinct roles,
+- frontmatter references remain concise navigation metadata rather than duplicated PRD content or a retrieval bibliography,
 - and the final artifact remains semantically complete with low redundancy.
 
 This pass is cleanup, not a new Product decision step. It must preserve established Product decisions and must not introduce new product behavior merely to make the document look complete.
@@ -249,9 +249,9 @@ Reapply the Blocking Materiality Gate as a readiness check: Product ownership al
 
 The PRD is aligned when Design can proceed without needing to invent materially different product intent or behavior.
 
-Check that the affected actors, local current-product baseline, established Outcomes, material scope boundaries, applicable Product Scenarios, required behavior, available canonical material dependencies, acceptance criteria, and remaining uncertainty are sufficiently clear for the next use.
+Check that the affected actors, local current-product baseline, established Outcomes, material scope boundaries, applicable Product Scenarios, required behavior, material Product context, acceptance criteria, and remaining uncertainty are sufficiently clear for the next use.
 
-The absence of a canonical dependency reference alone does not block alignment when the material Product behavior and implications are otherwise clear.
+The absence of a frontmatter Product Knowledge page reference alone does not block alignment when the material Product behavior and implications are otherwise clear.
 
 Remaining uncertainty is acceptable when it is explicit and does not invalidate useful Design Exploration.
 
