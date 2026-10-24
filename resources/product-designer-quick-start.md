@@ -33,7 +33,7 @@ Canonical Product Knowledge در https://docs-cd.jvoffice.ir/ است. فقط ا�
 
 برای current journey، flow یا feature walkthrough مرتبط، اگر Product Walkthrough در دسترس است از reviewed evidence آن برای بازسازی تجربه استفاده کن. Walkthrough evidence جای canonical Product Knowledge را نمی‌گیرد و در صورت تعارض باید اختلاف را صریح نگه داری.
 
-برای Design System، Product Content و reusable product standards فقط context مرتبط را از repository فعلی `product-knowledge` retrieve کن؛ این repository Product Knowledge رفتار JobVision یا Cando نیست.
+برای Design Language، Design System و Product Content فقط context مرتبط را از `https://github.com/hosseinmor/design-language` retrieve کن؛ برای routing از `AGENTS.md` و `ai/router.md` و برای Content از `foundations/content/README.md` شروع کن. این repository Product Knowledge رفتار JobVision یا Cando نیست.
 
 اگر به source لازم دسترسی نداری، این محدودیت را صریح بگو. Current Experience را حدس نزن و از repositoryهای دیگر به‌عنوان fallback Product Knowledge استفاده نکن.
 
