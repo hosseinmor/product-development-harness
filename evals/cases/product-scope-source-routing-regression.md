@@ -60,6 +60,9 @@ Assume product scope has been resolved to Cando and the execution environment ca
 
 - If a readable relevant `docs-cd` tab is already open, reuse it.
 - If no relevant canonical tab is readable and canonical context is materially needed, ask the user to open one `docs-cd` tab.
+- Make the request actionable: name the exact owning source URL (`https://docs-cd.jvoffice.ir/`) and ask the user to open it in the supported local/shared browser. Do not merely announce that no tab is open.
+- After the tab becomes readable, resume task-scoped canonical retrieval rather than treating the missing-tab finding as a final result.
+- If browser-tab reading itself is unavailable, or browser/VPN/authentication/policy access fails independently of the tab being closed, report the actual blocker instead of promising that opening a tab would fix it.
 - Retrieve the smallest relevant context first.
 - Do not ask the user to open JobVision Product Knowledge, live ATS, implementation, or other tabs pre-emptively.
 - Request another tab/source only if a materially necessary question remains unresolved after the current source is used.
@@ -96,6 +99,8 @@ Fail if any of the following is true:
 - The Agent starts substantive PRD drafting in Scenario B while product ownership is still ambiguous enough that canonical-source selection would be a guess.
 - The Agent treats the Scenario B scope-routing question as a material Product clarification in the PRD/Evaluation clarification record.
 - In Scenario C, the Agent asks the user to open multiple tabs/sources up front when one canonical Product Knowledge tab is sufficient to begin task-scoped retrieval.
+- In Scenario C, relevant canonical context is needed, the browser can read user-shared/local tabs, and no relevant canonical tab is open, but the Agent only reports `no tab is open` / `Product Knowledge unavailable` without an actionable request to open the resolved product's canonical URL.
+- In Scenario C, the Agent asks the user to open a tab as if that fixes access when the environment actually lacks tab-reading capabilities or a separate browser/VPN/authentication/policy block prevents reading it.
 
 ## Recommended grading approach
 
