@@ -10,6 +10,9 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "context-sources.yml"
+DESIGN_LANGUAGE_REPOSITORY = "https://github.com/hosseinmor/design-language"
+DESIGN_LANGUAGE_DISCOVERY = "registry/manifest.generated.json"
+
 REQUIRED = {
     "jobvision_product_knowledge": "current_product_meaning_and_behavior",
     "cando_product_knowledge": "current_product_meaning_and_behavior",
@@ -21,8 +24,10 @@ REQUIRED = {
     "other_evidence": "evidence_only",
 }
 
+
 class StrictLoader(yaml.SafeLoader):
     pass
+
 
 def unique_mapping(loader, node):
     mapping = {}
@@ -33,13 +38,20 @@ def unique_mapping(loader, node):
         mapping[key] = loader.construct_object(value_node)
     return mapping
 
-StrictLoader.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, unique_mapping)
+
+StrictLoader.add_constructor(
+    yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+    unique_mapping,
+)
+
 
 def check():
     document = yaml.load(REGISTRY.read_text(encoding="utf-8"), Loader=StrictLoader)
     assert isinstance(document, dict) and document.get("schema_version") == "1"
+
     sources = document.get("sources")
     assert isinstance(sources, dict) and set(sources) == set(REQUIRED), "source set drift"
+
     for name, expected in REQUIRED.items():
         entry = sources[name]
         assert isinstance(entry, dict) and entry.get("authority") == expected, f"{name}: invalid authority"
@@ -49,6 +61,7 @@ def check():
             assert "location" not in entry and "current_repository" not in entry, f"{name}: unknown location guessed"
         else:
             assert isinstance(entry.get("entry_point"), str) and entry["entry_point"], f"{name}: missing entry point"
+
     for name, scope, hostname in (
         ("jobvision_product_knowledge", "jobvision", "docs-jv.jvoffice.ir"),
         ("cando_product_knowledge", "cando", "docs-cd.jvoffice.ir"),
@@ -58,16 +71,29 @@ def check():
         url = urlparse(entry["location"])
         assert url.scheme == "https" and url.hostname == hostname, f"{name}: noncanonical location"
         assert entry.get("entry_point") == entry["location"], f"{name}: wrong entry point"
-    for name in ("design_language", "content_system"):
-        entry = sources[name]
-        repo = entry.get("current_repository", "")
-        url = urlparse(repo)
-        assert url.scheme == "https" and url.hostname == "github.com" and url.path.strip("/"), f"{name}: invalid live repo URL"
-        assert entry["entry_point"] != "AGENTS.md", f"{name}: source-owned entry missing"
-        assert entry.get("discovery") == "manifest.generated.json", f"{name}: discovery contract changed"
-    assert sources["design_language"].get("intended_repository_name") == "karbon-design-language"
-    assert sources["content_system"].get("intended_repository_name") == "product-content-system"
-    print("PASS: context sources schema, authority, product scope and migration locators")
+
+    design_language = sources["design_language"]
+    content_system = sources["content_system"]
+
+    for name, entry in (("design_language", design_language), ("content_system", content_system)):
+        assert entry.get("current_repository") == DESIGN_LANGUAGE_REPOSITORY, f"{name}: stale repository locator"
+        repo = urlparse(entry["current_repository"])
+        assert repo.scheme == "https" and repo.hostname == "github.com", f"{name}: invalid repository URL"
+        assert entry.get("discovery") == DESIGN_LANGUAGE_DISCOVERY, f"{name}: discovery contract changed"
+
+    assert design_language.get("entry_point") == "AGENTS.md", "design_language: wrong entry point"
+    assert content_system.get("entry_point") == "foundations/content/README.md", "content_system: wrong entry point"
+
+    serialized = REGISTRY.read_text(encoding="utf-8")
+    assert "hosseinmor/product-knowledge" not in serialized, "stale product-knowledge repository reference"
+    assert "karbon-design-language" not in serialized, "unverified proposed repository name must not remain"
+    assert "product-content-system" not in serialized, "unverified proposed repository name must not remain"
+
+    print(
+        "PASS: context sources schema, authority, product scope, and current "
+        "Design Language / Content locators"
+    )
+
 
 if __name__ == "__main__":
     try:
