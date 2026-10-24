@@ -20,23 +20,19 @@ sources:
 
   design_language:
     authority: reusable_design_and_interaction_rules
-    current_repository: https://github.com/hosseinmor/product-knowledge
-    entry_point: shared/design-system/DESIGN.md
-    discovery: manifest.generated.json
+    current_repository: https://github.com/hosseinmor/design-language
+    entry_point: AGENTS.md
+    discovery: registry/manifest.generated.json
     access: verify_repository_read
-    intended_repository_name: karbon-design-language
-    migration_state: awaiting_repository_rename
-    retrieval: entry_then_relevant_component_pattern_or_rule
+    retrieval: agents_then_ai_router_then_smallest_owning_document
 
   content_system:
     authority: product_language_and_expression_rules
-    current_repository: https://github.com/hosseinmor/product-knowledge
-    entry_point: shared/content/README.md
-    discovery: manifest.generated.json
+    current_repository: https://github.com/hosseinmor/design-language
+    entry_point: foundations/content/README.md
+    discovery: registry/manifest.generated.json
     access: verify_repository_read
-    intended_repository_name: product-content-system
-    migration_state: awaiting_independent_repository_and_verified_copy
-    retrieval: entry_then_relevant_context_pattern_component_or_eval
+    retrieval: content_entry_then_relevant_foundation_pattern_component_or_eval
 
   product_walkthrough:
     authority: reviewed_experience_evidence_not_product_policy
