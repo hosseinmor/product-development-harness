@@ -30,7 +30,7 @@ id: unresolved
 artifact: prd
 owner: <responsible-product-owner-or-team>
 references:
-  - source: jobvision_product_knowledge
+  - source: <jobvision_product_knowledge-or-cando_product_knowledge>
     page: <source-native-page-name>
 related_artifacts:
   - <related-artifact-reference>
@@ -52,9 +52,11 @@ Metadata rules:
 - `references` is a concise machine-facing navigation list for materially relevant canonical Product Knowledge pages that ground the PRD or are useful for downstream retrieval and impact analysis.
 - Each Product Knowledge reference uses `source` + `page`. `source` must be the owning Product Knowledge source key from `context-sources.yml` (for example `jobvision_product_knowledge` or `cando_product_knowledge`), not a URL.
 - `page` is the source-native human-readable page name or hierarchy label needed to find the page inside that source. Do not store the page URL in PRD metadata and do not invent a Harness-specific Product Knowledge ID.
+- Source-location changes are resolved through `context-sources.yml`; they should not require rewriting PRDs merely because a base URL changes.
 - Include only materially useful Product Knowledge pages; `references` is not a bibliography of everything retrieved while drafting.
 - If the relevant canonical page cannot be identified reliably, omit the reference rather than guessing a page name. This does not by itself make the Product behavior unresolved when the behavior is otherwise established.
 - Evidence, screenshots, observations, implementation findings, and temporary research do not need to be copied into `references`; preserve their provenance in the Harness Pilot Evaluation when materially used.
+- When updating an existing PRD that contains legacy Product Knowledge URLs or string references, normalize them to `source + page` only when the canonical page can be identified reliably. Remove non-navigation evidence from `references` rather than inventing a page mapping.
 - `related_artifacts` references related durable artifacts when they exist and the relationship is useful downstream.
 - `references` and `related_artifacts` may be omitted when they have no useful entries.
 - Metadata is machine-facing navigation data. It should not duplicate semantic PRD content.
