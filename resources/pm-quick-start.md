@@ -5,7 +5,7 @@
 ## قبل از شروع
 
 1. Harness فعلی در GitHub است: `https://github.com/hosseinmor/product-development-harness`. مهاجرت GitLab فعلاً تا حل مشکلات دسترسی متوقف است.
-2. قبل از retrieval مشخص کنید task مربوط به کدام product است؛ Product Knowledge authority به product scope وابسته است.
+2. قبل از retrieval باید product scope مشخص شود؛ اگر Agent نتواند از Intent یا context معتبر تشخیص دهد task مربوط به JobVision، Cando یا هر دو است، باید قبل از Product Knowledge retrieval فقط یک سؤال کوتاه برای تعیین product بپرسد و نباید حدس بزند.
 3. وضعیت فعلی Product Knowledge:
 
 - **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است. در Pilot فعلی ChatGPT Desktop / Work، مسیر تأییدشده برای دسترسی **Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension** است. Built-in Browser، Cloud Browser و Web Search مسیر جایگزین این منبع داخلی نیستند.
@@ -53,6 +53,8 @@ Current PRD:
 اگر همراه task فایل، research، note، screenshot یا context دیگری می‌دهید، Agent باید فقط در صورت ارتباط از آن استفاده کند. لازم نیست workflow یا قواعد Harness را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
 
 در Pilot فعلی MCP شرط استفاده از Harness نیست. اگر محیط AI به GitHub دسترسی مستقیم ندارد، فایل‌های route‌شده را دستی در اختیار Agent بگذارید؛ از `AGENTS.md` شروع کنید و کل repository را بدون نیاز وارد context نکنید.
+
+اگر محیط Chat/Agent می‌تواند tabهای browser محلی یا share‌شده را بخواند، لازم نیست از ابتدا چند source را باز کنید. Agent باید اول tab مرتبطی را که از قبل باز است reuse کند؛ اگر canonical Product Knowledge لازم است و tab مناسب در دسترس نیست، فقط از شما بخواهد یک tab از source canonical همان product باز کنید. source یا tab بعدی فقط وقتی درخواست شود که برای یک سؤال materially لازم باشد.
 
 ## PRD را کجا نگه می‌داریم؟
 
