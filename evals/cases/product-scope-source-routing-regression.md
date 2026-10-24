@@ -66,6 +66,8 @@ Assume product scope has been resolved to Cando and the execution environment ca
 - Retrieve the smallest relevant context first.
 - Do not ask the user to open JobVision Product Knowledge, live ATS, implementation, or other tabs pre-emptively.
 - Request another tab/source only if a materially necessary question remains unresolved after the current source is used.
+- If the first `docs-cd` page points to a different canonical page required to resolve a material fact, try direct navigation/retrieval only if supported. Otherwise ask the user to open that **specific next page**, providing its verified URL when known or its known title plus navigation path when a verified deep link is unavailable. Resume retrieval when it becomes readable; never invent a URL or just report `another page is missing`.
+- Do not request the next page if the existing canonical page already answers the task, or ask for multiple pages before they are needed.
 
 ## Expected invariants
 
@@ -74,6 +76,7 @@ Assume product scope has been resolved to Cando and the execution environment ca
 - In Scenario B, the Agent uses already-available authoritative routing context when it establishes ownership; otherwise it asks one minimal product-scope routing question rather than guessing.
 - The Scenario B routing question is treated as operational source resolution, not as a Product Decision clarification.
 - In Scenario C, the Agent reuses an already-open relevant canonical tab when possible and otherwise asks for one canonical tab before requesting additional browser sources.
+- If an additional canonical page is materially needed, the Agent retrieves it directly when possible or asks the user to open the identifiable next page in read-only-tab environments.
 - JobVision canonical Product Knowledge is used only for JobVision-side current behavior and documented integration-boundary facts.
 - JobVision Product Knowledge is not cited as canonical authority for Cando-internal behavior.
 - Cando canonical Product Knowledge is retrieved from `docs-cd.jvoffice.ir` for Cando-owned current-product claims when access is available.
@@ -101,6 +104,8 @@ Fail if any of the following is true:
 - In Scenario C, the Agent asks the user to open multiple tabs/sources up front when one canonical Product Knowledge tab is sufficient to begin task-scoped retrieval.
 - In Scenario C, relevant canonical context is needed, the browser can read user-shared/local tabs, and no relevant canonical tab is open, but the Agent only reports `no tab is open` / `Product Knowledge unavailable` without an actionable request to open the resolved product's canonical URL.
 - In Scenario C, the Agent asks the user to open a tab as if that fixes access when the environment actually lacks tab-reading capabilities or a separate browser/VPN/authentication/policy block prevents reading it.
+- In Scenario C, the Agent discovers that a different canonical page is materially needed and cannot navigate to it, but only reports unavailable/missing context instead of asking the user to open the specific required page.
+- In Scenario C, the Agent invents a deep link for a needed page or asks the user to open several unneeded follow-up pages pre-emptively.
 
 ## Recommended grading approach
 
