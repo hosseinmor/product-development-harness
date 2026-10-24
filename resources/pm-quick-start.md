@@ -64,6 +64,8 @@ Current PRD:
 
 برای هر Product Change، PM باید یک **current durable PRD** مشخص داشته باشد و همان artifact را در ادامه‌ی کار به AI، Designer و سایر نقش‌ها بدهد. نسخه‌های موازی مثل `v1`، `v2` یا `final` نسازید مگر اینکه واقعاً نیاز workflow وجود داشته باشد. محل نگهداری می‌تواند بعداً با تصمیم تیم عوض شود؛ AI نباید خودش storage یا permission model را فرض کند.
 
+اگر برای یک Product Change، **GitLab Wiki** به‌صورت مشخص به‌عنوان محل durable انتخاب شده است، پیش‌نویس [راهنمای پیشنهادی ثبت شناسه و نام‌گذاری Wiki](prd-gitlab-wiki-registration.md) را برای تصمیم‌گیری دربارهٔ فرایند دستی ببینید. این راهنما هنوز مصوب یا جایگزین قرارداد hosting فعلی Harness نیست.
+
 PRD جدید تا قبل از registration رسمی با `id: unresolved` شروع می‌شود. AI یا PM نباید شمارهٔ بعدی را از روی PRDهای موجود حدس بزند. ID رسمی باید از registry configured تخصیص داده شود و با فرمت `JV-PRD-NNNNN` برای JobVision یا `CND-PRD-NNNNN` برای Cando ثبت شود. اولین تخصیص registration است و بعد از آن ID باید ثابت بماند. `Problem Aligned` شدن به registration وابسته نیست، اما قبل از downstream handoff به‌عنوان current durable PRD باید ID رسمی تخصیص داده شده باشد.
 
 وقتی PRD برای handoff آماده می‌شود، Agent باید یک خروجی واحد بدهد: ابتدا خود PRD و سپس بخش `Harness Pilot Evaluation` به‌صورت non-authoritative. اگر محل نگهداری از `<details>` پشتیبانی می‌کند، این بخش collapsed باشد؛ در غیر این صورت بلافاصله بعد از PRD با heading صریح non-authoritative نگهداری شود.
