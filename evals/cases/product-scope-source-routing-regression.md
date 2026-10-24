@@ -25,7 +25,7 @@ Use the repository Harness, especially:
 - Internal canonical sources are used only through an execution path whose access has been verified in the current environment.
 - The `design-language` repository owns reusable Design Language and Content guidance; it is not a fallback store for product behavior.
 
-## Scenario
+## Scenario A — resolved Cando scope
 
 A PM asks for a Cando capability that changes the internal `Reject with reason` experience. Cando is integrated with JobVision and JobVision canonical Product Knowledge documents relevant application-status, rejection-reason, feedback, notification, and ATS-bridge behavior.
 
@@ -39,9 +39,38 @@ The Agent can therefore retrieve authoritative JobVision-side facts, such as fac
 
 Relevant reviewed evidence, direct observation, implementation evidence, or explicit owner input may still exist for some details, especially when canonical documentation is insufficient, inaccessible, or in conflict with evidence.
 
+## Scenario B — ambiguous product scope before retrieval
+
+A PM says:
+
+> We want to add geographic auto-reject by city/province to job auto-reject settings in the ATS.
+
+The current task context does not otherwise establish whether the named ATS belongs to JobVision, Cando, or a cross-product flow. The Agent has not yet retrieved product-specific canonical Product Knowledge.
+
+Expected routing behavior:
+
+- If authoritative context already available in the task establishes which product owns this ATS surface, use that context and route directly without asking the PM to repeat it.
+- Otherwise, do not infer product ownership from generic terms such as `ATS`, `job`, `candidate`, or `reject` alone.
+- Ask one minimal operational clarification identifying the owning product before canonical Product Knowledge retrieval or substantive PRD drafting.
+- Do not record that routing question as a Product Decision clarification merely because it occurred before drafting.
+
+## Scenario C — browser-tab-assisted canonical retrieval
+
+Assume product scope has been resolved to Cando and the execution environment can read user-shared/local browser tabs.
+
+- If a readable relevant `docs-cd` tab is already open, reuse it.
+- If no relevant canonical tab is readable and canonical context is materially needed, ask the user to open one `docs-cd` tab.
+- Retrieve the smallest relevant context first.
+- Do not ask the user to open JobVision Product Knowledge, live ATS, implementation, or other tabs pre-emptively.
+- Request another tab/source only if a materially necessary question remains unresolved after the current source is used.
+
 ## Expected invariants
 
-- The Agent first determines that the task is Cando-scoped or cross-product rather than assuming the presence of JobVision documentation makes the whole task JobVision-scoped.
+- The Agent resolves product scope before product-specific canonical retrieval or substantive PRD drafting.
+- The Agent first determines that Scenario A is Cando-scoped or cross-product rather than assuming the presence of JobVision documentation makes the whole task JobVision-scoped.
+- In Scenario B, the Agent uses already-available authoritative routing context when it establishes ownership; otherwise it asks one minimal product-scope routing question rather than guessing.
+- The Scenario B routing question is treated as operational source resolution, not as a Product Decision clarification.
+- In Scenario C, the Agent reuses an already-open relevant canonical tab when possible and otherwise asks for one canonical tab before requesting additional browser sources.
 - JobVision canonical Product Knowledge is used only for JobVision-side current behavior and documented integration-boundary facts.
 - JobVision Product Knowledge is not cited as canonical authority for Cando-internal behavior.
 - Cando canonical Product Knowledge is retrieved from `docs-cd.jvoffice.ir` for Cando-owned current-product claims when access is available.
@@ -63,9 +92,13 @@ Fail if any of the following is true:
 - The Agent asks the PM to restate a Cando current-behavior fact before checking `docs-cd` when access is available, or before checking relevant available evidence when canonical access is unavailable or insufficient.
 - The Agent refuses all useful drafting solely because Cando canonical Product Knowledge is temporarily inaccessible, even though explicit owner input or reviewed evidence can support a bounded best-effort draft.
 - The Agent marks an unsupported Cando behavior as Known merely because an analogous behavior is documented for JobVision.
+- The Agent chooses `docs-jv` or `docs-cd` in Scenario B without authoritative context establishing the product.
+- The Agent starts substantive PRD drafting in Scenario B while product ownership is still ambiguous enough that canonical-source selection would be a guess.
+- The Agent treats the Scenario B scope-routing question as a material Product clarification in the PRD/Evaluation clarification record.
+- In Scenario C, the Agent asks the user to open multiple tabs/sources up front when one canonical Product Knowledge tab is sufficient to begin task-scoped retrieval.
 
 ## Recommended grading approach
 
 LLM judge.
 
-Grade claim-level source attribution and product scope, not exact wording or exact retrieval sequence. The regression passes when JobVision canonical truth remains authoritative only inside JobVision, Cando canonical truth remains authoritative only inside Cando, non-canonical evidence keeps its actual authority class, unsupported behavior remains visibly uncertain, and clarification follows the normal retrieval-first/materiality rules.
+Grade claim-level source attribution, scope resolution, and retrieval efficiency, not exact wording. The regression passes when product ownership is resolved before source selection, ambiguity triggers only the minimum routing clarification, JobVision canonical truth remains authoritative only inside JobVision, Cando canonical truth remains authoritative only inside Cando, browser-assisted access starts from the smallest sufficient canonical tab/context, non-canonical evidence keeps its actual authority class, unsupported behavior remains visibly uncertain, and Product clarification follows the normal retrieval-first/materiality rules after scope resolution.

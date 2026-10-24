@@ -7,14 +7,16 @@ The Harness owns workflows, artifact contracts, clarification, review, and readi
 ## Retrieval sequence
 
 1. Start at `AGENTS.md` and read `shared-harness-contract.md` plus the task's workflow and artifact contract.
-2. Read `context-sources.yml` to identify the source role that owns each needed claim.
-3. Partition current-product claims by JobVision/Cando and verify access to the corresponding canonical Product Knowledge source in the current execution environment.
-4. Retrieve only the smallest relevant source-owned context:
+2. Resolve product scope before product-specific retrieval. If JobVision/Cando ownership cannot be established from explicit or authoritative context, ask one minimal routing question rather than guessing.
+3. Read `context-sources.yml` to identify the source role that owns each needed claim.
+4. Partition cross-product claims by JobVision/Cando and verify access to the corresponding canonical Product Knowledge source in the current execution environment.
+5. When user-shared/local browser tabs are readable, reuse an already-open relevant canonical tab; otherwise request one canonical tab for the resolved product. Retrieve the smallest relevant context first and request additional tabs/sources only when materially necessary.
+6. Retrieve only the smallest relevant source-owned context:
    - Design Language: start with the `design-language` repository's `AGENTS.md` / `ai/router.md`, then the smallest owning document.
    - Product Content: start with `foundations/content/README.md` in the same repository, then the relevant foundation, pattern, component-copy contract, or eval.
    - Product Walkthrough and working artifacts: resolve only the task-relevant current source/artifact.
-5. Keep current-product truth, approved PM changes, designer-selected experience, reusable design rules, content expression rules, and evidence separate.
-6. Missing access or conflicting evidence is an explicit limitation. Figma, implementation, walkthroughs, Design Language, or Content guidance cannot silently substitute for canonical Product Knowledge.
+7. Keep current-product truth, approved PM changes, designer-selected experience, reusable design rules, content expression rules, and evidence separate.
+8. Missing access or conflicting evidence is an explicit limitation. Figma, implementation, walkthroughs, Design Language, or Content guidance cannot silently substitute for canonical Product Knowledge.
 
 ## Current source topology
 

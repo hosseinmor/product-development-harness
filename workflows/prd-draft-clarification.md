@@ -22,11 +22,15 @@ Discovery context is input to Product Definition, not Product authority by defau
 
 ## Workflow
 
-### 1. Receive PM Intent
+### 1. Receive PM Intent and resolve product scope
 
 Interpret the requested product change without requiring a discovery questionnaire.
 
-If the intent is too ambiguous to produce any useful draft, ask only the minimum question needed to establish what change is being discussed. Otherwise continue to retrieval.
+Before product-specific retrieval or substantive PRD drafting, resolve whether the task is JobVision, Cando, or cross-product. Use explicit task wording or authoritative context already available; do not guess from generic shared terminology.
+
+If the owning product is still ambiguous enough that choosing canonical Product Knowledge would require a guess, ask one minimal operational question to resolve product scope before continuing. This source-routing question is allowed before draft-first clarification because it determines which authority can be used; it is not a Product Decision and does not belong in the PRD clarification record.
+
+If product scope is established but the intent itself is too ambiguous to produce any useful draft, ask only the minimum Product question needed to establish what change is being discussed. Otherwise continue to retrieval.
 
 ### 2. Retrieve task-relevant context
 
@@ -44,7 +48,9 @@ Retrieve only the current-product context needed to understand the change, inclu
 - materially relevant canonical Product Knowledge pages when useful for grounding or downstream retrieval,
 - and available evidence related to the stated problem.
 
-Use canonical Product Knowledge as the primary source for established product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. For JobVision, use the internal Product Knowledge source configured for the team; do not silently substitute another repository as Product Knowledge when that source is unavailable.
+Use canonical Product Knowledge as the primary source for established product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. Route to the source identified by the resolved product scope; do not silently substitute another product's source or another repository when the owning source is unavailable.
+
+If the environment can read user-shared/local browser tabs, reuse an already-open relevant canonical tab first. If none is available and canonical context is materially needed, ask the user to open one tab for the resolved product's canonical source, retrieve the smallest relevant context, and request further tabs/sources only when materially necessary.
 
 When the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
 
