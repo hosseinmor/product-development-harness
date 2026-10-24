@@ -1,43 +1,49 @@
-# Federated context integration — migration stage 1
+# Federated context integration
 
-The Harness owns workflows, artifact contracts, clarification, review and readiness; it does **not** own the rules or current-product facts found in external sources. `context-sources.yml` is a small locator for source roles, current entry points, access requirements, and cutover state; source-owned manifests and internal navigation stay at the source.
+The Harness owns workflows, artifact contracts, clarification, review, and readiness. It does **not** own the rules or current-product facts found in external sources.
+
+`context-sources.yml` is the compact runtime locator for source roles, current entry points, access requirements, and task-resolved artifacts. Source-owned registries and navigation remain with their owning source.
 
 ## Retrieval sequence
 
 1. Start at `AGENTS.md` and read `shared-harness-contract.md` plus the task's workflow and artifact contract.
-2. Read `context-sources.yml` to identify source owners. Select sources by the **claim/domain needed**, not by folder names.
-3. Partition current-product claims by JobVision/Cando. Verify the appropriate internal documentation access in this execution environment; do not treat a listed URL as verified access.
-4. Retrieve only the relevant source-owned entry point, topic/component/pattern, and current durable artifact. For Design Language, consult its `DESIGN.md` first; for content, consult its own entry. Do **not** preload a complete manifest's documents.
+2. Read `context-sources.yml` to identify the source role that owns each needed claim.
+3. Partition current-product claims by JobVision/Cando and verify access to the corresponding canonical Product Knowledge source in the current execution environment.
+4. Retrieve only the smallest relevant source-owned context:
+   - Design Language: start with the `design-language` repository's `AGENTS.md` / `ai/router.md`, then the smallest owning document.
+   - Product Content: start with `foundations/content/README.md` in the same repository, then the relevant foundation, pattern, component-copy contract, or eval.
+   - Product Walkthrough and working artifacts: resolve only the task-relevant current source/artifact.
 5. Keep current-product truth, approved PM changes, designer-selected experience, reusable design rules, content expression rules, and evidence separate.
-6. Missing access or conflicting evidence is an explicit limitation. Figma, implementation and walkthroughs cannot silently substitute for canonical Product Knowledge.
+6. Missing access or conflicting evidence is an explicit limitation. Figma, implementation, walkthroughs, Design Language, or Content guidance cannot silently substitute for canonical Product Knowledge.
 
-## Workflow ownership and legacy convergence
+## Current source topology
 
-| Legacy file in `product-knowledge` | Harness owner | Migration disposition |
+| Source role | Current location | Entry point |
 |---|---|---|
-| `ai/prd-writing.md`, `ai/skills/prd-writing/SKILL.md`, `templates/jira-prd.md` | `workflows/prd-draft-clarification.md` + `artifacts/prd.md` | Replace legacy PRD execution contract with a compatibility pointer **after** consumers and content extraction are verified; do not import its alternate Jira template. |
-| `ai/design-start.md` | `workflows/design-exploration.md` + `artifacts/design.md` | Consolidate generic design process; retain specialist Design Language usage guidance with its owner. |
-| `ai/research.md` | Task-selected existing Harness workflow | Research is an evidence-gathering activity inside the selected workflow. A standalone research workflow is **not** created in this migration without a demonstrated need. |
-| `ai/router.md` | `AGENTS.md` task routing | Retire the duplicate general router at cutover; domain-specific Design/Content routing stays in owning repos. |
-| `docs/ai-context-retrieval-flow.md` | This document + `context-sources.yml` | Consolidate cross-source retrieval. |
+| JobVision Product Knowledge | `https://docs-jv.jvoffice.ir/` | relevant internal Product Knowledge pages |
+| Cando Product Knowledge | `https://docs-cd.jvoffice.ir/` | relevant internal Product Knowledge pages |
+| JV Design Language / Karbon | `https://github.com/hosseinmor/design-language` | `AGENTS.md` then `ai/router.md` / smallest owning document |
+| Product Content System | `https://github.com/hosseinmor/design-language` | `foundations/content/README.md` |
+| Product Walkthrough | task-resolved | relevant reviewed journey/flow evidence |
+| Current PRD | task-resolved | current durable PM-owned artifact |
+| Current Design Artifact | task-resolved | current durable Designer-owned artifact |
 
-**No PRD, Design Artifact, product behavior, or Design Language semantics are modified in stage 1.** No existing legacy file is deleted before its owning replacement and consumer links are validated.
+Design Language and Product Content are separate **authority roles** even though they currently share one repository. Repository co-location does not merge their ownership boundaries.
 
 ## Ownership and cross-system claims
 
-- Product Knowledge: established meaning and current behavior within each product's scope.
-- PM and current PRD: approved intended product change, outcomes, scope and required behavior.
-- Product Designer and current Design Artifact: selected experience and interaction.
-- Karbon Design Language: reusable visual, interaction, accessibility and implementation guidance; product-specific identities may have approved variations.
-- Product Content System: terminology, voice, tone, localization and UI expression, never product behavior.
-- Harness: process, consistency and downstream change propagation.
-- Product Walkthrough, implementation, observation and research: evidence within their verified scope, not a policy override.
+- **Product Knowledge** — established product meaning and current behavior within each product's scope.
+- **PM and current PRD** — approved intended Product Change, outcomes, scope, and required behavior.
+- **Product Designer and current Design Artifact** — selected experience and interaction.
+- **JV Design Language / Karbon** — reusable visual, interaction, accessibility, component, pattern, governance, integration, and approved product-expression rules.
+- **Product Content System** — reusable terminology, voice/tone, localization, interaction-language patterns, and component copy; never product behavior.
+- **Harness** — process, consistency, readiness, and downstream change propagation.
+- **Product Walkthrough, implementation, observation, and research** — evidence within their verified scope, not policy overrides.
 
-## Cutover gates
+## Source-location rules
 
-- **Design repo**: rename the existing `product-knowledge` repository (preserving Git history) to `karbon-design-language` using repository administration, then re-verify URL and access; only then change the registry's current location.
-- **Content repo**: create `product-content-system`, copy source documents **and** their validators/evals/manifest generation or adapt indexing there, prove equivalent coverage, then update the registry to the actual URL and new entry point. PR #83 (Cando context) is open: explicitly decide whether its reviewed changes have landed before final inventory and checksum comparison.
-- **Retirement**: remove content and legacy general router from Karbon only after Content System is independently usable, links are updated and validators pass in both repos.
-- **Harness**: run deterministic routing/source tests first. Reserve model-backed evals for a documented semantic regression risk, not a directory rename.
-
-A GitHub repository URL, GitLab location, verified AI access path or artifact store must **never** be manufactured from a proposed name.
+- Treat `context-sources.yml` as the current locator; do not hard-code obsolete repository names elsewhere in Harness guidance.
+- A repository URL or artifact location is not evidence that the source is accessible in the current execution environment; verify access when the task depends on it.
+- Do not infer a future repository or URL from a proposed name.
+- If a source moves later, update the registry only after the new location and entry point are verified, then update any intentionally human-facing direct links.
+- Keep source-owned routing, manifests, validators, and semantic rules in the owning source rather than copying them into the Harness.
