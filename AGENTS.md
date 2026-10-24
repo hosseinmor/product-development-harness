@@ -67,6 +67,8 @@ When the current environment can read user-shared or local browser tabs, use tha
 4. Ask the user to open another tab or source only when the current source cannot resolve a materially necessary question.
 5. Do not ask for pre-emptive browser setup that is not needed for the current task.
 
+**Actionable missing-tab behavior:** When this environment can read user-shared/local tabs, the owning canonical source is materially needed, and no relevant readable tab is open, **explicitly ask the user to open one tab with that product's exact canonical URL** (`https://docs-jv.jvoffice.ir/` or `https://docs-cd.jvoffice.ir/`). Do not stop at merely reporting that the tab is missing or that Product Knowledge is unavailable. Once the tab is available, retry task-scoped retrieval. If the environment cannot read user tabs at all, or access is blocked for a separate browser/VPN/authentication/policy reason, state that actual limitation; opening a tab alone must not be presented as sufficient. This is an operational access request, not Product clarification.
+
 These are retrieval-efficiency rules, not authority changes; a readable tab is still only an access path to the owning canonical source.
 
 When canonical Product Knowledge for either product is insufficient, inconsistent, or inaccessible, use explicit owner input, approved decisions, relevant reviewed evidence, direct observation, or implementation evidence when useful. Keep each source in its actual authority class; these inputs may support reconstruction and decision-making but do not silently become canonical Product Knowledge. If materially necessary behavior remains unsupported after reasonable retrieval, keep it Unknown or Unresolved and apply the Harness clarification rules.
