@@ -2,9 +2,10 @@
 id: unresolved
 artifact: prd
 owner: unresolved
-references:
-  - source: <jobvision_product_knowledge-or-cando_product_knowledge>
-    page: <source-native-page-name>
+# Optional when materially useful:
+# references:
+#   - source: <jobvision_product_knowledge-or-cando_product_knowledge>
+#     page: <source-native-page-name>
 ---
 
 # <عنوان تغییر>
