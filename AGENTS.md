@@ -29,6 +29,11 @@ Do not load every workflow by default.
 
 ## Context
 
+Read [`context-sources.yml`](context-sources.yml) as the small **source locator**
+before external context retrieval. It identifies product-scoped authorities and
+the current Design Language, Content, evidence, and artifact entry points.
+It does not replace source-owned guidance, Figma/Code or the current PRD/Design
+Artifact. See [federated retrieval](docs/context-source-integration.md).
 Retrieve only external context materially relevant to the task.
 
 ### Product scope gate
@@ -47,13 +52,26 @@ For Cando, retrieve canonical Product Knowledge from `https://docs-cd.jvoffice.i
 
 When canonical Product Knowledge for either product is insufficient, inconsistent, or inaccessible, use explicit owner input, approved decisions, relevant reviewed evidence, direct observation, or implementation evidence when useful. Keep each source in its actual authority class; these inputs may support reconstruction and decision-making but do not silently become canonical Product Knowledge. If materially necessary behavior remains unsupported after reasonable retrieval, keep it Unknown or Unresolved and apply the Harness clarification rules.
 
-The repository currently named `product-knowledge` owns Product Content, Design System, product standards, and source-authority guidance for JobVision and Cando. It is not a fallback store for product behavior. Its source-authority guidance may be used to confirm the current product-to-knowledge-source mapping.
+The current shared reusable design and content guidance lives in
+`https://github.com/hosseinmor/design-language`. Design Language and the
+Content foundation are distinct source roles but currently share that repository;
+Content starts at `foundations/content/README.md`. This repository is not a
+fallback store for JobVision or Cando product behavior.
 
 Use these source roles when available:
 
 - **Canonical Product Knowledge** — primary source for established product meaning and behavior only within the product scope for which that source is approved.
 - **Product Walkthrough** — preferred reviewed evidence source for reconstructing end-to-end journeys, current flows, and feature walkthroughs when sequence or experience context is material. Walkthrough evidence is not canonical Product Knowledge and must not override it.
-- **Product Content / Design Knowledge repository** — use the repository currently named `product-knowledge` for its owned Product Content System, Design System, product standards, and source-authority guidance. Do not use it as a fallback store for JobVision or Cando product behavior.
+- **JV Design Language / Karbon** — reusable foundations, tokens, components,
+  interaction patterns, accessibility, governance, integration and approved
+  product-expression rules. Retrieve from
+  `https://github.com/hosseinmor/design-language`, starting with its
+  `AGENTS.md` / AI router and then the smallest owning document.
+- **Product Content System** — terminology, voice/tone, localization, content
+  patterns, component copy and source-owned evals. It is currently the Content
+  foundation inside the same Design Language repository, starting at
+  `foundations/content/README.md`. Neither source role defines current
+  JobVision or Cando product behavior.
 - **Implementation evidence** — inspect relevant implementation when it helps investigate a gap or discrepancy. Treat it as evidence for Product Knowledge reconciliation or Technical Planning, not as a silent replacement for canonical Product Knowledge. Do not assume a specific code host or repository provider unless the environment establishes one.
 - **Other evidence and current working artifacts** — use when materially relevant to the task.
 
