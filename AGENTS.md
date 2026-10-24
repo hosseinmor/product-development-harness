@@ -36,9 +36,19 @@ It does not replace source-owned guidance, Figma/Code or the current PRD/Design
 Artifact. See [federated retrieval](docs/context-source-integration.md).
 Retrieve only external context materially relevant to the task.
 
-### Product scope gate
+### Product scope resolution gate
 
-Before retrieving or attributing Product Knowledge, determine which product owns each material current-product claim. Product Knowledge authority is product-scoped; a canonical source for one product must not be promoted into canonical truth for another product merely because the products integrate.
+Resolve the owning product **before canonical Product Knowledge retrieval or substantive PRD drafting**.
+
+Use, in order, the strongest available basis that actually establishes product ownership: explicit task wording, the current durable artifact, authoritative routing/context already available in the task, or an established product-scoped source. Do not guess product ownership from generic vocabulary such as `job`, `candidate`, `reject`, `notification`, or another concept that may exist across products.
+
+- If exactly one product is established, route to that product's canonical Product Knowledge.
+- If the task is cross-product or an integration, partition material claims by owning product before retrieval.
+- If product ownership cannot be established confidently enough to choose the canonical source, **stop product-specific retrieval and substantive drafting and ask one minimal operational clarification**, for example: `این تغییر مربوط به JobVision است یا Cando؟`
+- This product-scope clarification is a source-routing prerequisite, not a Product Decision clarification. It may happen before the normal draft-first clarification flow because guessing here can route the entire task to the wrong authority.
+- Once product scope is resolved, do not ask the human to restate it unless new information makes the scope materially ambiguous again.
+
+Product Knowledge authority is product-scoped; a canonical source for one product must not be promoted into canonical truth for another product merely because the products integrate.
 
 Current source routing:
 
@@ -49,6 +59,15 @@ Current source routing:
 Current verified pilot access path for JobVision Product Knowledge in ChatGPT Desktop / Work is **local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension**. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. In another execution environment, use an equivalent local-browser path only after access to the internal source has been verified. If the verified local-browser path is unavailable, report the access limitation rather than silently switching to another source.
 
 For Cando, retrieve canonical Product Knowledge from `https://docs-cd.jvoffice.ir/`. Use an execution path only after access to that internal source has been verified in the current environment. If it is inaccessible, report the limitation rather than substituting JobVision Product Knowledge or another evidence source as canonical Cando truth.
+
+When the current environment can read user-shared or local browser tabs, use that capability as a low-overhead internal-source access path:
+1. Reuse an already-open relevant canonical Product Knowledge tab when available.
+2. If the owning canonical source is needed but no readable relevant tab is available, ask the user to open **one** tab for that source rather than requesting multiple sources up front.
+3. Retrieve the smallest relevant page/section first.
+4. Ask the user to open another tab or source only when the current source cannot resolve a materially necessary question.
+5. Do not ask for pre-emptive browser setup that is not needed for the current task.
+
+These are retrieval-efficiency rules, not authority changes; a readable tab is still only an access path to the owning canonical source.
 
 When canonical Product Knowledge for either product is insufficient, inconsistent, or inaccessible, use explicit owner input, approved decisions, relevant reviewed evidence, direct observation, or implementation evidence when useful. Keep each source in its actual authority class; these inputs may support reconstruction and decision-making but do not silently become canonical Product Knowledge. If materially necessary behavior remains unsupported after reasonable retrieval, keep it Unknown or Unresolved and apply the Harness clarification rules.
 
