@@ -2,6 +2,9 @@
 id: unresolved
 artifact: prd
 owner: unresolved
+references:
+  - source: <jobvision_product_knowledge-or-cando_product_knowledge>
+    page: <source-native-page-name>
 ---
 
 # <عنوان تغییر>
@@ -43,10 +46,6 @@ owner: unresolved
 ## Required Product Behavior
 
 <!-- فقط رفتار Product established یا consequence منطقی ضروری: permit / require / prevent / preserve / cause. -->
-
-## Dependencies
-
-<!-- اختیاری؛ فقط dependencyهای مشخص و materially relevant. در صورت نبود reference معتبر حذف کنید. -->
 
 ## Acceptance Criteria
 
