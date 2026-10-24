@@ -24,7 +24,9 @@ https://github.com/hosseinmor/product-development-harness
 
 از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
 
-ابتدا product scope را مشخص کن و Product Knowledge را فقط از source canonical همان product بگیر.
+ابتدا product scope را مشخص کن و Product Knowledge را فقط از source canonical همان product بگیر. اگر از Intent یا context معتبر معلوم نیست task مربوط به JobVision، Cando یا هر دو است، قبل از retrieval و نوشتن substantive PRD فقط یک سؤال کوتاه برای تعیین product از من بپرس و product را حدس نزن.
+
+اگر محیطت می‌تواند tabهای browser محلی/share‌شده را بخواند، tab مرتبطی را که از قبل باز است reuse کن. اگر canonical Product Knowledge لازم است و tab مناسب نداری، فقط از من بخواه یک tab از source canonical همان product باز کنم؛ tab/source بعدی را فقط در صورت نیاز materially لازم درخواست کن.
 
 برای JobVision:
 https://docs-jv.jvoffice.ir/
