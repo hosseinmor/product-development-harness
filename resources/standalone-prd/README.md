@@ -12,7 +12,7 @@
 
 ## استفاده بدون Skill
 
-`prd-template.md` و `authoring-guide.md` را همراه context موجود به AI بدهید. تمپلیت با `id: unresolved` شروع می‌شود؛ برای PRD دستی هم ID رسمی را حدس نزنید. وقتی registry رسمی ID تخصیص داد، آن را با فرمت `JV-PRD-NNNNN` برای JobVision یا `CND-PRD-NNNNN` برای Cando جایگزین کنید و بعد از آن ID را ثابت نگه دارید.
+`prd-template.md` و `authoring-guide.md` را همراه context موجود به AI بدهید. تمپلیت با `id: unresolved` شروع می‌شود؛ برای اولین ثبت، AI یا PM می‌تواند بدون Registry و از **تاریخ شمسی + ساعت ایران تا دقیقه** ID با فرمت `JV-PRD-YYMMDDHHmm` یا `CND-PRD-YYMMDDHHmm` بسازد. نمونهٔ فرضی: `CND-PRD-0604081437` برای ۱۴۰۶/۰۴/۰۸ ساعت ۱۴:۳۷. اگر زمان مطمئن نیست، حدس نزنید. ID قبلاً ثبت‌شده را تغییر ندهید. برای انتشار در Wiki، AI باید حتماً Title و Path کامل قابل کپی را خارج از بدنه PRD بدهد؛ مسیر نامشخص را جعلی تکمیل نکند.
 
 ```text
 با استفاده از prd-template.md و authoring-guide.md برای این Product Intent یک PRD بساز.
