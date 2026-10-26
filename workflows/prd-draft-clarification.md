@@ -22,15 +22,11 @@ Discovery context is input to Product Definition, not Product authority by defau
 
 ## Workflow
 
-### 1. Receive PM Intent and resolve product scope
+### 1. Receive PM Intent after the execution gates
 
-Interpret the requested product change without requiring a discovery questionnaire.
+Gate 0 in `AGENTS.md` must have **actually passed** before entering this workflow. Gate 1 must have produced an **explicit human-confirmed Product Scope** (JobVision, Cando, or Cross-product). Never infer that confirmation from the first prompt, the Harness name, or an existing PRD. If either gate is incomplete, stop here and complete it without retrieving product-specific context or beginning the draft.
 
-Before product-specific retrieval or substantive PRD drafting, resolve whether the task is JobVision, Cando, or cross-product. Use explicit task wording or authoritative context already available; do not guess from generic shared terminology.
-
-If the owning product is still ambiguous enough that choosing canonical Product Knowledge would require a guess, ask one minimal operational question to resolve product scope before continuing. This source-routing question is allowed before draft-first clarification because it determines which authority can be used; it is not a Product Decision and does not belong in the PRD clarification record.
-
-If product scope is established but the intent itself is too ambiguous to produce any useful draft, ask only the minimum Product question needed to establish what change is being discussed. Otherwise continue to retrieval.
+Interpret the requested change without requiring a discovery questionnaire. Use the confirmed scope for source routing, including corrections to the initial proposal. If the intent is still too ambiguous to produce any useful working draft, ask the minimum Product question that establishes what change is being discussed. Otherwise continue to retrieval.
 
 ### 2. Retrieve task-relevant context
 
@@ -189,7 +185,7 @@ Atomicity applies to each question, not to the clarification batch. A batch may 
 
 Prioritize questions by decision dependency and downstream impact.
 
-Ask the smallest coherent batch of questions needed to unlock meaningful progress. Do not ask downstream questions whose relevance depends on an unresolved upstream answer unless resolving them together materially improves decision quality.
+**Default interaction:** ask **one atomic Product Decision question per turn** when human clarification is required, then reconcile its answer and reassess whether the next question is still needed. Batch independent questions only when the human explicitly requests a batch or there is a defensible, materially useful reason to group them; respect their dependencies. Do not ask downstream questions whose relevance depends on an unresolved upstream answer.
 
 Each clarification should, when useful, make clear:
 
@@ -267,8 +263,14 @@ Remaining uncertainty is acceptable when it is explicit and does not invalidate 
 
 If alignment is not reached, identify the specific blocking gap rather than reporting generic incompleteness.
 
-## Output
+## Output and interaction contract
 
-The durable output is the reconciled and final-normalized PRD.
+The **internal draft-first workflow does not mean emitting the complete PRD at every turn**. Use these mutually distinguishable user-facing modes:
 
-Semantic-normalization notes, ambiguity scans, retrieval notes, clarification transcripts, and reasoning do not require separate durable artifacts unless a later demonstrated need justifies one.
+1. **Clarification:** When a Product Decision still blocks `Problem Aligned`, ask the next focused question (with options/recommendation where grounded); do **not** emit a full PRD followed by a list of questions. Keep the working draft in task context and reconcile after each answer. Operational access requests are separate from Product Decision questions.
+2. **Working Draft on request:** If the human explicitly asks to inspect the draft before readiness, provide the current reconciled draft, visibly marked as **Working Draft / not ready for handoff**, with real open decisions represented in their semantic sections. Do not manufacture completeness or call it `Problem Aligned`.
+3. **PRD handoff:** Once the final-normalized draft satisfies `Problem Aligned` and required publishing metadata can be grounded, **deliver the PRD without waiting for a second request** such as "now write it". Non-blocking Open Decisions may remain in the PRD, not as conversational questions appended after it. If metadata is unavailable, disclose `unresolved` and the smallest needed operational action rather than claiming publication readiness.
+
+**Default delivery medium for this pilot:** one **copyable Markdown PRD in the conversation**, with exactly one YAML frontmatter block, followed by the non-authoritative `Harness Pilot Evaluation` record for durable handoff according to `artifacts/prd.md`. Show `GitLab Wiki Title` and full `GitLab Wiki Path` explicitly **outside** the copyable PRD payload. Do not create a downloadable file, GitHub/GitLab page, separate artifact, or write to a store merely because tools are available; do so only on an explicit human request and after verifying the action is permitted. A platform may render Markdown differently, but the semantic content and handoff must be equivalent. Never claim an external file/page was saved unless it actually was.
+
+The durable output is the reconciled and final-normalized PRD. Semantic-normalization notes, ambiguity scans, retrieval notes, clarification transcripts, and reasoning do not require separate durable artifacts unless a demonstrated need justifies one.
