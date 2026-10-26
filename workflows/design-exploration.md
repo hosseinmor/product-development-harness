@@ -39,7 +39,7 @@ Retrieve and reconstruct only the parts of the current experience needed for the
 
 Use canonical Product Knowledge as the primary documented source for established product meaning and behavior. For end-to-end journeys, current flows, handoffs, and feature walkthroughs, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
 
-Retrieve deeper evidence when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting implementation, existing design files, screenshots, prototypes, or other directly relevant product evidence. Treat those sources as evidence, not as a silent replacement for canonical JobVision Product Knowledge. Do not assume a specific code host or repository provider unless the environment establishes one.
+Retrieve deeper evidence when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting implementation, existing design files, screenshots, prototypes, or other directly relevant product evidence. Treat those sources as evidence, not as a silent replacement for the canonical Product Knowledge **of the human-confirmed product scope**. Do not assume a specific code host or repository provider unless the environment establishes one.
 
 If canonical Product Knowledge, reviewed walkthrough evidence, direct observation, or implementation evidence materially conflict, keep the discrepancy visible for reconciliation rather than choosing the most convenient source.
 
