@@ -10,7 +10,7 @@ The canonical Harness source for the current pilot is the GitHub repository `htt
 
 ## Gate 0 — Harness access (mandatory, fail-closed)
 
-**Before Product Scope confirmation, Product Knowledge retrieval, drafting, design work, or any other Harness workflow execution**, actually read the **complete content** of the current canonical GitHub `main` version of:
+**Before Product Scope confirmation, Product Knowledge retrieval, drafting, design work, or any other Harness workflow execution**, actually read the **complete content** of the Harness files from canonical GitHub **`main` by default**. For an explicitly requested PR/preview test, the user may instead pin a GitHub branch or commit: read **all** required files from that same pinned ref and clearly identify the run as a preview, not as canonical merged `main`. Required files:
 
 1. `AGENTS.md` (this entry point);
 2. `shared-harness-contract.md`;
@@ -20,7 +20,7 @@ The canonical Harness source for the current pilot is the GitHub repository `htt
 
 For **PRD creation**, that means `AGENTS.md`, `shared-harness-contract.md`, `workflows/prd-draft-clarification.md`, `artifacts/prd.md`, and `context-sources.yml`. For other workflows, follow the corresponding row of the routing table; do not load unrelated workflows.
 
-Any read-only method is valid (GitHub connector, browser/raw-file retrieval, or `git clone`/a verified up-to-date checkout). A clone is a transport, **not** a separate authority. If using an existing clone, verify its canonical remote and refresh/validate it against GitHub `main` before reading; do not silently use a stale/offline checkout. Where supported, read all required files from one consistent Git commit and retain its SHA for evaluation. Do not install dependencies or execute repository code merely to read the Harness.
+Any read-only method is valid (GitHub connector, browser/raw-file retrieval, or `git clone`/a verified up-to-date checkout). A clone is a transport, **not** a separate authority. If using an existing clone, verify its canonical remote and refresh/validate it against the **selected GitHub ref** (`main` or an explicitly pinned test ref) before reading; do not silently use a stale/offline checkout. Where supported, read all required files from one consistent Git commit and retain its SHA for evaluation. Do not install dependencies or execute repository code merely to read the Harness.
 
 **PASS requires the actual, complete, readable contents of every required file.** A repository listing, README, file name, search snippet, remembered content, broken/partial page, or successful clone command alone is **not** a pass. If a retrieval method fails, another supported method may be attempted.
 
