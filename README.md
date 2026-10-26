@@ -82,23 +82,21 @@ Optional human-facing guides and fallback resources live under `resources/`:
 
 These files are **not part of Harness execution**. Agents do not need to load them when running the Harness unless explicitly relevant.
 
-The Standalone PRD Kit is a fallback for structured PRD drafting when the full Harness is not being used or sufficient Product Knowledge/current-product context is unavailable. It is not an equivalent replacement for the Harness.
+The Standalone PRD Kit is a **separately chosen, optional mode** for structured drafting without the full Harness. It is not an equivalent replacement and must **never** be selected automatically because Harness access failed.
 
 The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflows, and artifact contracts.
 
 ### Repo-aware agents
 
-Give the agent access to `https://github.com/hosseinmor/product-development-harness` and identify it as the Harness source. The agent should begin from `AGENTS.md`, which routes the task to the relevant shared contract, workflow, and artifact contract.
+Give the agent the direct entry point `https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md`. The URL is an entry hint, **not proof of access**. Before any task execution, Gate 0 requires actually reading the entire `AGENTS.md`, `shared-harness-contract.md`, the routed workflow, required artifact contract(s) and `context-sources.yml` from canonical GitHub `main`.
 
-Do not restate Harness rules in the task prompt unless the execution environment cannot access the repository. This keeps task prompts small and makes repository behavior the source of truth.
+Direct GitHub reads and GitHub-validated clones are equivalent transport options when fully readable and current; MCP or a particular runtime is not required. If any required file cannot be read, **stop** and report the missing file(s); do not generate a generic PRD, ask product confirmation, or silently switch to Standalone. After successful reads, propose Product Scope and **always ask for one confirmation**, even if the initial task names a product. The organization's Harness name must not influence that proposal.
 
 ### Current pilot: manual Harness access
 
 MCP is **not required** to use the Harness.
 
-During the current pilot, use the GitHub repository directly when the AI environment can access it. If repository access is unavailable, a human may provide the current Harness files manually. Start from `AGENTS.md` and provide only the files it routes to for the task; do not upload the entire repository by default.
-
-A manually provided copy is working context, not a new source of truth. When the canonical repository is accessible, prefer its current contents.
+During this pilot, repository-backed Harness execution is **fail-closed**: if neither direct retrieval nor a verified current clone can read all required files, the Agent cannot proceed under the Harness. Pasted/older copies of files are not an automatic substitute for the GitHub source. A separately requested offline or Standalone exercise must be explicitly identified as **not** this normal repository-backed execution.
 
 The current manual model is intentionally simple: Harness retrieval → AI executes the Harness → a human persists the resulting PRD in the explicitly designated current durable location for that Product Change.
 
@@ -106,9 +104,9 @@ A repository or artifact-store integration may later automate retrieval and pers
 
 ### Environments without repository or internal-source access
 
-Provide `AGENTS.md` and the specific files it routes to for the task. Avoid loading every workflow by default.
+**Harness access failure:** stop before task execution; restore GitHub read access or verified Git checkout access. Do not pretend that a copied prompt, remembered rules, or the README provides the contracts.
 
-If the environment cannot directly reach canonical Product Knowledge or another required internal source, preserve that limitation explicitly and provide only the relevant current context through a trustworthy working copy when needed. Do not substitute another repository, historical Product Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
+**Product Knowledge access failure after the Harness gates:** preserve the limitation and use only sources with their actual authority roles, according to the workflow. Do not substitute another repository, historical Knowledge, walkthrough evidence, observed UI/design, implementation evidence, or model knowledge as canonical current-product truth.
 
 ### External product context
 
@@ -122,26 +120,20 @@ The PM remains the authority for Product decisions and the canonical PRD write. 
 
 The future PRD storage/integration model remains a deployment decision. The Harness must not infer a storage service, permission model, or automation path that has not been established.
 
-A minimal task handoff can look like:
+A minimal **PRD** task prompt (see the [PM Quick Start](resources/pm-quick-start.md)):
 
 ```text
-Harness:
-https://github.com/hosseinmor/product-development-harness
+برای درخواست زیر با Job Vision Product Development Harness یک PRD تهیه کن.
 
-Canonical Product Knowledge:
-<context source, when relevant>
-
-Reviewed Product Walkthrough evidence:
-<flow/journey evidence, when relevant>
-
-Current artifact:
-<current PRD or Design Artifact, when continuing existing work>
+ابتدا AGENTS.md و فایل‌های الزامی Workflow را واقعاً بخوان؛
+اگر دسترسی نداری، متوقف شو و بدون Harness ادامه نده.
+https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md
 
 Intent:
-<requested product or design change>
-
-Execute the task according to the Harness.
+[مسئله یا تغییر موردنظر]
 ```
+
+For existing work, add `Current PRD:` with the current durable artifact. The Harness owns Product confirmation, Knowledge selection, clarification and output rules; the prompt need not repeat them.
 
 When continuing existing work, provide or make retrievable the current durable artifact rather than relying on prior chat history.
 
