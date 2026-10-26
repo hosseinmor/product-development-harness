@@ -86,6 +86,12 @@ Rejected alternatives, AI-generated directions, and exploration history are not 
 
 Preserve them only when losing them would materially harm future understanding or cause important trade-offs to be repeatedly rediscovered.
 
+## Handoff and persistence
+
+Handoff should identify the **actual current selected Design Artifact**, its retrievable location or representation (Figma, prototype or structured text), and the current PRD it satisfies. The selected representation should contain the material experience direction, relevant user flows, states and interaction behavior, and material Product assumptions/change proposals as defined above. A concise chat Handoff may summarize these details **without duplicating the PRD** or creating an independent artifact.
+
+A Designer selecting a direction does not prove the Design Artifact was persisted. If no durable Design Artifact exists yet, explicitly distinguish **selected direction** from **persisted artifact** and do not claim review readiness without an inspectable representation. Do not save to Figma or another store or create a downloadable representation without a human request/authorization. The Harness does not force Markdown export or Figma-specific organization.
+
 ## Readiness for Design Review
 
 The selected Design Artifact is ready for Design Review + PRD Stress Test when:
