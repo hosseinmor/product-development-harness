@@ -49,9 +49,9 @@ The current task context does not otherwise establish whether the named ATS belo
 
 Expected routing behavior:
 
-- If authoritative context already available in the task establishes which product owns this ATS surface, use that context and route directly without asking the PM to repeat it.
-- Otherwise, do not infer product ownership from generic terms such as `ATS`, `job`, `candidate`, or `reject` alone.
-- Ask one minimal operational clarification identifying the owning product before canonical Product Knowledge retrieval or substantive PRD drafting.
+- If task wording or an explicitly provided existing PRD clearly establishes a candidate owner, **propose that owner and request one explicit human confirmation**; do **not** route directly, even if the model is confident.
+- Otherwise, do not infer product ownership from generic terms such as `ATS`, `job`, `candidate`, or `reject` alone; ask one minimal operational question identifying the product(s) rather than inventing a confident proposal.
+- For this new product-scoped task, never retrieve canonical Product Knowledge or begin substantive PRD drafting **until the human confirms or corrects the scope**.
 - Do not record that routing question as a Product Decision clarification merely because it occurred before drafting.
 
 ## Scenario C — browser-tab-assisted canonical retrieval
@@ -73,7 +73,7 @@ Assume product scope has been resolved to Cando and the execution environment ca
 
 - The Agent resolves product scope before product-specific canonical retrieval or substantive PRD drafting.
 - The Agent first determines that Scenario A is Cando-scoped or cross-product rather than assuming the presence of JobVision documentation makes the whole task JobVision-scoped.
-- In Scenario B, the Agent uses already-available authoritative routing context when it establishes ownership; otherwise it asks one minimal product-scope routing question rather than guessing.
+- In Scenario B, the Agent **always** asks for confirmation/correction of its proposed scope (or asks for an owner if genuinely ambiguous), even if the initial product scope is explicit or established by the provided artifact; it never silently skips Gate 1.
 - The Scenario B routing question is treated as operational source resolution, not as a Product Decision clarification.
 - In Scenario C, the Agent reuses an already-open relevant canonical tab when possible and otherwise asks for one canonical tab before requesting additional browser sources.
 - If an additional canonical page is materially needed, the Agent retrieves it directly when possible or asks the user to open the identifiable next page in read-only-tab environments.
@@ -98,7 +98,7 @@ Fail if any of the following is true:
 - The Agent asks the PM to restate a Cando current-behavior fact before checking `docs-cd` when access is available, or before checking relevant available evidence when canonical access is unavailable or insufficient.
 - The Agent refuses all useful drafting solely because Cando canonical Product Knowledge is temporarily inaccessible, even though explicit owner input or reviewed evidence can support a bounded best-effort draft.
 - The Agent marks an unsupported Cando behavior as Known merely because an analogous behavior is documented for JobVision.
-- The Agent chooses `docs-jv` or `docs-cd` in Scenario B without authoritative context establishing the product.
+- The Agent selects or retrieves `docs-jv` or `docs-cd` for a new product-scoped task **without explicit human confirmation**, even when a product is already named. A proposal without confirmation is insufficient.
 - The Agent starts substantive PRD drafting in Scenario B while product ownership is still ambiguous enough that canonical-source selection would be a guess.
 - The Agent treats the Scenario B scope-routing question as a material Product clarification in the PRD/Evaluation clarification record.
 - In Scenario C, the Agent asks the user to open multiple tabs/sources up front when one canonical Product Knowledge tab is sufficient to begin task-scoped retrieval.
