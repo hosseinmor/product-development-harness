@@ -2,6 +2,8 @@
 id: unresolved
 artifact: prd
 owner: unresolved
+# When publishing in GitLab Wiki, replace with a source-grounded full path:
+# wiki_path: unresolved
 # Optional when materially useful:
 # references:
 #   - source: <jobvision_product_knowledge-or-cando_product_knowledge>
