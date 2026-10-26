@@ -1,15 +1,56 @@
-# Verified Product Knowledge area -> GitLab Wiki parent-path mapping for PRD publication.
-# This is a translation of existing navigational paths, NOT a Product Knowledge taxonomy.
-# Map keys are canonical Product Knowledge AREA paths relative to /contents/ (not document URLs).
-# Map values are existing GitLab Wiki parent paths (relative to /-/wikis/, case-sensitive).
-# Only add an area after validating both the canonical Knowledge area and the actual Wiki parent.
-# This is a point-in-time snapshot; re-check after upstream navigation changes.
+# Canonical Product Knowledge area inventory plus independently verified Wiki parent translations.
+# knowledge_areas: ALL areas with an /contents/<area>/0_overview/ page seen in the
+# product's loaded Product Knowledge navigation (not a copied product taxonomy or Wiki scan).
+# verified_areas: only area -> existing GitLab Wiki parent mappings separately verified.
+# Area inventory NEVER proves that a corresponding Wiki page/path exists.
+# For a new area, update knowledge_areas from canonical Knowledge; only add a
+# verified_areas mapping after independently validating the actual destination Wiki parent.
+# Routes are case-sensitive. This is a point-in-time snapshot (not live synchronization).
 schema_version: "1"
 checked_on: "2026-10-26"
 products:
   cando:
     product_knowledge_source: cando_product_knowledge
     wiki_project: product/prd/cando
+    knowledge_areas:
+      - shared/ai
+      - ats/hiring-request
+      - ats/job
+      - ats/candidate
+      - ats/application
+      - ats/interview
+      - ats/evaluation
+      - ats/career-page
+      - ats/sourcing
+      - ats/operator
+      - ats/organization
+      - ats/notification
+      - ats/report
+      - salary/personnel
+      - salary/job-profile
+      - salary/benchmark
+      - salary/settings
+      - salary/report
+      - calendar/calendar-access
+      - calendar/event
+      - calendar/availability
+      - calendar/sync
+      - learning/access
+      - pulse/survey
+      - pulse/questionnaire
+      - pulse/response
+      - pulse/org-chart
+      - pulse/report
+      - pulse/action
+      - pulse/notification
+      - pulse/tenant
+      - onb/onboardee
+      - onb/template
+      - onb/notification
+      - onb/feedback-evaluation
+      - onb/welcome
+      - onb/access
+      - onb/tenant
     verified_areas:
       ats/hiring-request: ATS/hiring-request
       ats/job: ATS/job
@@ -29,6 +70,34 @@ products:
   jobvision:
     product_knowledge_source: jobvision_product_knowledge
     wiki_project: product/prd/jobvision
+    knowledge_areas:
+      - company-review
+      - jobpost
+      - application
+      - job-fair
+      - assessment
+      - matching
+      - scoring
+      - ai
+      - account
+      - cv
+      - career-guide
+      - content
+      - candidate-premium
+      - channels
+      - learning
+      - market-insights
+      - nationwide
+      - job-search
+      - company
+      - operator
+      - talent-search
+      - talent-pool
+      - suggested-cv
+      - package
+      - billing
+      - campaign
+      - backoffice
     verified_areas:
       job-search: candidate/job-discovery
       candidate-premium: candidate/jobvision-pro
