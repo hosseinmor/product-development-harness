@@ -8,10 +8,10 @@
 | --- | --- | --- |
 | `id` | `CND-PRD-0604081437` | هویت پایدار سند |
 | GitLab Wiki Title | `رد خودکار درخواست‌های شغلی بر اساس محل سکونت` | عنوان خوانا در Wiki |
-| GitLab Wiki Path | `ATS/job/CND-PRD-0604081437-auto-reject-by-location` | مسیر کامل صفحه در فیلد `Path` |
-| نام فایل در Git repository داخلی Wiki | `ATS/job/CND-PRD-0604081437-auto-reject-by-location.md` | مشتق از Wiki Path؛ **در فیلد Path، `.md` ننویسید** |
+| GitLab Wiki Path | `ats/job/CND-PRD-0604081437-auto-reject-by-location` | مسیر پیشنهادی صفحه جدید، مطابق حوزه در Knowledge |
+| نام فایل در Git repository داخلی Wiki | `ats/job/CND-PRD-0604081437-auto-reject-by-location.md` | مشتق از Wiki Path؛ **در فیلد Path، `.md` ننویسید** |
 
-مسیر `ATS/job` در این مثال **پیشنهاد مبتنی بر حوزهٔ مالک Product Knowledge** است و بدون بررسی Wiki ادعای وجود چنین فولدری نیست. GitLab Wiki بین `Title` و `Path` تفاوت دارد؛ گزینهٔ **Generate page path from title** را خاموش کنید.
+مسیر `ats/job` در این مثال **عین مسیر حوزه مالک در Product Knowledge** است و قرارداد انتشار PRDهای جدید از همین ساختار پیروی می‌کند. این مسیر پیشنهادی لزوماً از قبل در Wiki ساخته نشده و PM ممکن است هنگام انتشار آن را ایجاد کند. صفحات قبلاً منتشرشده، حتی با مسیر متفاوت مثل `ATS/application`، خودکار جابه‌جا نمی‌شوند. GitLab Wiki بین `Title` و `Path` تفاوت دارد؛ گزینهٔ **Generate page path from title** را خاموش کنید.
 
 ## ۲. ID کوتاه، مستقل از Registry
 
@@ -33,8 +33,8 @@
 
 ۱. ابتدا محصول مالک را مشخص کنید: Wiki مستقل JobVision یا Cando.
 ۲. در canonical Product Knowledge همان محصول، `Primary Area` مالک **رفتار اصلی تغییر** را شناسایی کنید؛ `references` ممکن است چند حوزهٔ مرتبط دیگر داشته باشد.
-۳. بعد از تشخیص حوزهٔ مالک، آن را دقیقاً در [`prd-wiki-placement-map.yml`](prd-wiki-placement-map.yml) پیدا کنید. فایل دو بخش جدا دارد: `knowledge_areas` فهرست کامل حوزه‌هایی است که از Product Knowledge جاب‌ویژن و کندو استخراج شده‌اند، ولی **به معنی وجود فولدر Wiki نیستند**؛ `verified_areas` فقط نگاشت‌های جداگانه تأییدشدهٔ Product Knowledge Area به Wiki Parent را ثبت می‌کند. صرف وجود صفحهٔ `rule` یا `capability` دلیل ساخت فولدر فرعی به همان نام نیست.
-۴. اگر Mapping معتبر وجود دارد، Parent ثبت‌شده با همان حروف بزرگ/کوچک استفاده شود. این Snapshot است؛ اگر ساختار Wiki یا Knowledge تغییر کرده، مسیر فعلی را دوباره بررسی و **فایل نگاشت را اصلاح** کنید. اگر Mapping وجود ندارد، در صورت دسترسی ابتدا هر دو سمت را بررسی کنید؛ تا قبل از تأیید، مسیر را **پیشنهادی/تأییدنشده** بنامید یا وقتی کامل‌شدنی نیست، `wiki_path: unresolved` بگذارید. نبود Mapping به معنای نبود Area نیست.
+۳. در صورت نیاز برای ناوبری، فهرست [`prd-knowledge-areas.yml`](prd-knowledge-areas.yml) را بخوانید؛ این فایل فقط Snapshot مسیرهای حوزه‌های هر دو Product Knowledge است و هرگاه ساختار Knowledge تغییر کند، **از همان Knowledge** به‌روزرسانی می‌شود. تشخیص حوزهٔ مالک همیشه بر اساس Knowledge زنده است؛ این فایل جای آن را نمی‌گیرد.
+۴. برای **PRD جدید** مسیر والد را عین Slug حوزه مالک در Product Knowledge، با همان حروف کوچک/بزرگ و ساختار تو در تو، بنویسید. Mapping جدا به Wiki و تأیید وجود قبلی فولدر لازم نیست؛ PM در صورت لزوم مسیر را هنگام ثبت می‌سازد. هر فایل `rule`، `flow` یا `capability` فولدر جدید ایجاد نمی‌کند. برای PRD موجود، همان Wiki Path ذخیره‌شده حفظ می‌شود؛ تغییر آن فقط با تصمیم صریح انجام شود.
 ۵. اگر حوزهٔ مالک قابل تشخیص نیست، `wiki_path: unresolved`؛ به‌جای حدس‌زدن، فقط اطلاعات عملیاتی لازم را از PM بخواهید. این ابهام لزوماً Product Decision یا مانع `Problem Aligned` نیست.
 ۶. اگر PRD چندحوزه‌ای است، تنها یک صفحهٔ canonical در حوزهٔ مالک اصلی منتشر شود؛ حوزه‌های دیگر لینک می‌دهند، نه اینکه سند را تکثیر کنند.
 
@@ -52,7 +52,7 @@ PRD باید فقط **یک** YAML Frontmatter در ابتدای Markdown داش�
 id: CND-PRD-0604081437
 artifact: prd
 owner: unresolved
-wiki_path: ATS/job/CND-PRD-0604081437-auto-reject-by-location
+wiki_path: ats/job/CND-PRD-0604081437-auto-reject-by-location
 references:
   - source: cando_product_knowledge
     page: ATS / موقعیت شغلی / قواعد رد خودکار
@@ -65,7 +65,7 @@ references:
 
 ```text
 GitLab Wiki Title: رد خودکار درخواست‌های شغلی بر اساس محل سکونت کارجو
-GitLab Wiki Path: ATS/job/CND-PRD-0604081437-auto-reject-by-location
+GitLab Wiki Path: ats/job/CND-PRD-0604081437-auto-reject-by-location
 ```
 
 اگر ID یا Parent به‌طور قابل اتکا تعیین نشده، AI باید مقدار مربوط را `unresolved` و اقدام لازم را صریح نشان دهد؛ نباید یک مسیر ساختگی ارائه کند یا این بخش را کلاً حذف کند.
