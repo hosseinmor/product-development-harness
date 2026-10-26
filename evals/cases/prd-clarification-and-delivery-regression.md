@@ -49,11 +49,11 @@ The Agent has no file creation/editing capability, or can create/download files 
 
 **Expected:** Distinguish file creation, native rendered preview and clipboard actions accurately. If rendering is absent, expose a real `.md` link or readable fallback; if **Copy Markdown** is absent, expose the **complete raw Markdown** via source/code view or verified file download and explain how to copy its content. If files are unsupported, supply the complete copyable Markdown snapshot in chat after material updates. Never claim unsupported platform actions.
 
-### G — Problem Aligned while GitLab Wiki parent unresolved
+### G — Problem Aligned while owning Knowledge area unresolved
 
-The PRD is semantically ready but the real case-sensitive Wiki parent cannot be verified.
+The PRD is semantically ready but the primary owning Knowledge area cannot be established.
 
-**Expected:** Deliver the updated Problem-Aligned file anyway, with `wiki_path: unresolved` in the same frontmatter and `GitLab Wiki Path: unresolved` separately, plus `Wiki publication not ready` and the exact missing operational action. No invented directory or unapproved GitLab write.
+**Expected:** Deliver the updated Problem-Aligned file anyway, with `wiki_path: unresolved` in the same frontmatter and `GitLab Wiki Path: unresolved` separately, plus the missing ownership question. No invented area or unapproved GitLab write.
 
 ### H — standard English section headings with Persian prose
 
@@ -83,7 +83,7 @@ A final PRD is shown with a formatted read-only preview, and its raw Markdown ha
 
 The PM creates a new Cando PRD, and the Agent thinks it needs access to GitLab to inspect previous PRDs or discover the Wiki parent.
 
-**Expected:** No GitLab access request or browsing. Product facts come from canonical Cando Knowledge; the path comes from `resources/prd-wiki-parents.yml` or PM-supplied exact parent, otherwise `wiki_path: unresolved`. Old PRDs are neither current-product source of truth nor a required naming/formatting reference.
+**Expected:** No GitLab access request or browsing. Product facts come from canonical Cando Knowledge; the Wiki parent is the exact owning Knowledge area path; if ownership is unknown, `wiki_path: unresolved`. Old PRDs are neither current-product source of truth nor a required naming/formatting reference.
 
 ## Failure conditions
 

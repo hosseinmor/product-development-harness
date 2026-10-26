@@ -2,10 +2,10 @@
 # Read the live canonical Knowledge source to determine product ownership and update this
 # inventory whenever its structure changes. Do NOT read GitLab Wiki to refresh it.
 # Paths are relative to /contents/; each has a corresponding <area>/0_overview/ page.
-# Knowledge determines the owning area, NOT the spelling of a GitLab Wiki parent.
-# PRD publishing parent paths are held separately in prd-wiki-parents.yml.
+# Live Knowledge determines the owning area; its exact relative path is also the
+# proposed Wiki parent for a new PRD. This snapshot only aids navigation.
 # Do NOT browse previous PRDs or GitLab Wiki during new-PRD drafting.
-# For an unregistered parent use wiki_path: unresolved; do not infer casing.
+# If the owning area is unknown, use wiki_path: unresolved.
 # Published paths stay stable unless an explicit move is approved.
 schema_version: "1"
 checked_on: "2026-10-26"
