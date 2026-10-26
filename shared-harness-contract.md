@@ -2,6 +2,16 @@
 
 This contract defines the rules shared by all product-development workflows and artifacts in the Job Vision Product Development Harness.
 
+## 0. Execution prerequisites and tool independence
+
+The entry point is `AGENTS.md`. On each new task, **Gate 0 (Harness Access)** must pass through actual, complete reading of the current canonical GitHub Harness's entry point, this shared contract, the selected workflow, its required artifact contract(s), and `context-sources.yml`. The choice of direct GitHub read, browser/raw-file read, or a GitHub-validated clone/checkout is implementation-specific; the readable, current source content and execution result are not. Neither a URL nor a successful Git operation alone proves access. No autonomous alternative workflow or Standalone fallback is allowed after Gate 0 failure; report the missing files and stop.
+
+After Gate 0, **Gate 1 (Product Scope Confirmation)** always requires one explicit human confirmation/correction of the Agent's proposed product scope **for each new task**, even if the task text or artifact already states the product. The words "Job Vision" in the Harness name are organizational identity, not Product Scope evidence. No product-specific retrieval or substantive drafting/design may precede confirmation. Corrections override the proposal; do not repeat the question once corrected and confirmed during the same task. Treat the gate as operational routing, not Product clarification.
+
+**Access failures differ by stage:** missing Harness contracts are a hard execution stop; missing Product Knowledge after both gates pass is handled under the source/uncertainty rules without pretending the Harness itself was unreadable.
+
+**Tool-agnostic means invariant decisions and handoffs, not identical tool calls or UI.** Do not claim repository reads, file creation, external writes, or publication occurred unless actually confirmed by the environment. A capability being available does not grant permission to change the agreed output medium or store.
+
 ## 1. Source of Truth
 
 Authority is scoped to the kind of claim being made. There is no single global source of truth.
