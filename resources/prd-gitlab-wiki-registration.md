@@ -1,6 +1,6 @@
 # ثبت دستی و انتشار PRD در GitLab Wiki
 
-> این راهنما برای زمانی است که PM، Wiki پروژهٔ همان محصول را به‌عنوان محل current durable PRD انتخاب می‌کند. مهاجرت خود ریپوی Harness به GitLab همچنان جداگانه و متوقف است. قرارداد اصلی ID و Metadata در `artifacts/prd.md` و `shared-harness-contract.md` است.
+> در پایلوت جاب‌ویژن و کندو، Wiki پروژهٔ همان محصول **محل پیش‌فرض انتشار دستی PRD** است؛ مگر اینکه PM صریحاً محل durable دیگری انتخاب کند. مهاجرت خود ریپوی Harness به GitLab همچنان جداگانه و متوقف است. قرارداد اصلی ID و Metadata در `artifacts/prd.md` و `shared-harness-contract.md` است.
 
 ## ۱. هویت، عنوان و مسیر سه مفهوم مجزا هستند
 
