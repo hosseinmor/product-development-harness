@@ -74,6 +74,32 @@ Expected:
 - A new/renamed area in live Knowledge supersedes the cached area list; a stale index cannot override canonical Knowledge.
 - Publishing path selection uses the live Knowledge area name even if the index has not yet been refreshed.
 
+## Scenario F — Frontmatter references are page names, never links
+
+The canonical Cando Knowledge source was actually read and contains a page whose **verified source-native name** is `entity-candidate`. The agent found it via a browser and also knows its URL. The PRD also uses `wiki_path` for publication.
+
+Expected frontmatter reference:
+
+```yaml
+references:
+  - source: cando_product_knowledge
+    page: entity-candidate
+```
+
+The exact `page` value must be a **plain source-native page name/slug**, not a hyperlink, URL, browser address/path, file extension, or descriptive breadcrumb. The `source` key is still required; "only the page name" applies to `page`'s value, not removal of source scoping.
+
+Invalid examples:
+
+```yaml
+page: https://docs-cd.jvoffice.ir/contents/ats/candidate/...
+page: "[entity-candidate](https://docs-cd.jvoffice.ir/...)"
+page: ATS / Candidate / Entity
+```
+
+If a retrieved source page is known only through a URL and its actual source-native page name is not established, omit that specific `references` entry; do not fabricate `entity-candidate` merely because this fixture uses it. When updating a PRD that already has a URL/Markdown-link entry, normalize it to the verified page name if possible; otherwise omit the entry.
+
+The document still has **one** opening YAML block, and the only separately presented Wiki handoff field is `GitLab Wiki Path`.
+
 ## Fail if
 
 - The Agent uses Gregorian dates, the browser timezone, Persian digits, wrong padding, or seconds instead of ten digits of Jalali date and Iran-local time.
