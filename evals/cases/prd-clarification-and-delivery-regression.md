@@ -35,7 +35,7 @@ During clarification, the PM explicitly asks: "پیش‌نویس فعلی را �
 
 After material decisions have been established and reconciled, `Problem Aligned` is satisfied and the metadata for publication can be constructed.
 
-**Expected:** Automatically deliver **one complete copyable Markdown PRD** in the conversation with one YAML frontmatter block. Display `GitLab Wiki Title` and complete `GitLab Wiki Path` separately, outside the PRD payload, and append the pilot evaluation record as non-authoritative according to the artifact contract. Do not append unasked Product clarification questions. Non-blocking Product Open Decisions remain within the document. Do not require the human to say "حالا PRD را بنویس".
+**Expected:** Automatically deliver **one complete copyable Markdown PRD** in the conversation with one YAML frontmatter block. Display only the complete `GitLab Wiki Path` separately, outside the PRD payload (use the PRD heading as the page title), and append the pilot evaluation record as non-authoritative according to the artifact contract. Do not append unasked Product clarification questions. Non-blocking Product Open Decisions remain within the document. Do not require the human to say "حالا PRD را بنویس".
 
 ### E — file generation is explicitly requested or unsupported
 
