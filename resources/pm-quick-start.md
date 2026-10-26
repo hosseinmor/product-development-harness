@@ -1,91 +1,25 @@
-# راهنمای شروع برای PM
+# PM Quick Start
 
-از این راهنما برای شروع یا ادامه یک Product Task با Job Vision Product Development Harness استفاده کنید.
-
-## قبل از شروع
-
-1. Harness فعلی در GitHub است: `https://github.com/hosseinmor/product-development-harness`. مهاجرت GitLab فعلاً تا حل مشکلات دسترسی متوقف است.
-2. قبل از retrieval باید product scope مشخص شود؛ اگر Agent نتواند از Intent یا context معتبر تشخیص دهد task مربوط به JobVision، Cando یا هر دو است، باید قبل از Product Knowledge retrieval فقط یک سؤال کوتاه برای تعیین product بپرسد و نباید حدس بزند.
-3. وضعیت فعلی Product Knowledge:
-
-- **JobVision:** منبع canonical در `https://docs-jv.jvoffice.ir/` است. در Pilot فعلی ChatGPT Desktop / Work، مسیر تأییدشده برای دسترسی **Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension** است. Built-in Browser، Cloud Browser و Web Search مسیر جایگزین این منبع داخلی نیستند.
-- **Cando:** منبع canonical در `https://docs-cd.jvoffice.ir/` است. در هر execution environment فقط از مسیری استفاده کنید که دسترسی آن به این source داخلی verify شده باشد؛ در صورت عدم دسترسی، source دیگری را جای canonical Cando Product Knowledge قرار ندهید.
-- **Taskهای integration:** ادعاها را بر اساس product تفکیک کنید؛ `docs-jv` فقط authority سمت JobVision و `docs-cd` فقط authority سمت Cando را دارد، مگر اینکه یک integration-boundary fact صریحاً در source مربوط مستند شده باشد.
-
-4. در پایلوت جاب‌ویژن و کندو، **محل پیش‌فرض انتشار PRD، GitLab Wiki همان محصول است** و PM سند را فعلاً دستی ثبت می‌کند؛ اگر محل durable دیگری انتخاب کردید، صریح به Agent بگویید. مهاجرت خود ریپوی Harness به GitLab همچنان متوقف است. در ادامه همان سند جاری را به Agent بدهید؛ chat history یا فایل قدیمی جای آن نیست.
-
-## Prompt شروع
+برای ساخت یا ادامهٔ PRD، این متن را در ChatGPT، Claude یا یک Agent دیگر استفاده کنید:
 
 ```text
-برای این Product Task از Job Vision Product Development Harness استفاده کن.
+برای درخواست زیر با Job Vision Product Development Harness یک PRD تهیه کن.
 
-Harness:
-https://github.com/hosseinmor/product-development-harness
+https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md
 
-از AGENTS.md شروع کن و فقط contextهایی را بخوان که برای این task route یا materially لازم می‌شوند.
-
-ابتدا product scope را مشخص کن و Product Knowledge را فقط از source canonical همان product بگیر. اگر از Intent یا context معتبر معلوم نیست task مربوط به JobVision، Cando یا هر دو است، قبل از retrieval و نوشتن substantive PRD فقط یک سؤال کوتاه برای تعیین product از من بپرس و product را حدس نزن.
-
-اگر محیطت می‌تواند tabهای browser محلی/share‌شده را بخواند، tab مرتبطی را که از قبل باز است reuse کن. اگر canonical Product Knowledge لازم است و tab مناسب نداری، فقط از من بخواه یک tab از source canonical همان product باز کنم؛ tab/source بعدی را فقط در صورت نیاز materially لازم درخواست کن.
-
-برای JobVision:
-https://docs-jv.jvoffice.ir/
-این سایت مرجع canonical رفتار و مفاهیم فعلی JobVision است. در ChatGPT Desktop / Work از Chrome محلی روی همان دستگاه متصل به VPN شرکت، از طریق Computer Use + Chrome extension، استفاده کن. Built-in Browser، Cloud Browser یا Web Search را جای این مسیر قرار نده. اگر این مسیر در دسترس نیست، محدودیت دسترسی را صریح بگو و source دیگری را جایگزین canonical Product Knowledge نکن.
-
-برای Cando:
-Canonical Product Knowledge در https://docs-cd.jvoffice.ir/ است. فقط از execution pathی استفاده کن که دسترسی آن به این source داخلی verify شده باشد. `docs-jv` را به رفتار داخلی Cando تعمیم نده و اگر `docs-cd` در دسترس نیست، این محدودیت را صریح نگه دار. اگر canonical source برای یک claim کافی نیست یا با evidence تعارض دارد، evidence مرتبط را با authority واقعی خودش استفاده کن و uncertainty را طبق Harness حفظ کن.
-
-اگر برای journey یا flow مرتبط Product Walkthrough در دسترس است، از reviewed evidence آن برای بازسازی flow استفاده کن، اما آن را جای Product Knowledge canonical قرار نده.
-
-اگر به source لازم دسترسی نداری، این محدودیت را صریح بگو. Current Product Context را حدس نزن و از repositoryهای دیگر به‌عنوان fallback Product Knowledge استفاده نکن.
-
-Intent من:
-[مسئله، ایده یا تغییر محصول را با زبان خودت توضیح بده]
+Intent:
+[مسئله یا تغییر موردنظر]
 ```
 
-اگر task ادامه‌ی یک PRD موجود است، این بخش را هم اضافه کنید:
+برای **ادامهٔ PRD موجود**، این دو خط را به انتها اضافه کنید:
 
 ```text
 Current PRD:
-[لینک یا فایل current PRD را attach کن]
-
-این PRD را به‌عنوان durable artifact فعلی ادامه بده؛ از صفر PRD موازی نساز.
+[لینک یا فایل PRD فعلی]
 ```
 
-اگر همراه task فایل، research، note، screenshot یا context دیگری می‌دهید، Agent باید فقط در صورت ارتباط از آن استفاده کند. لازم نیست workflow یا قواعد Harness را دوباره در prompt توضیح دهید؛ `AGENTS.md` Agent را به workflow و artifact contract مناسب هدایت می‌کند.
+Agent ابتدا دسترسی به Harness را بررسی می‌کند، سپس محصول پیشنهادی را برای تأیید شما مطرح می‌کند. **لازم نیست نام محصول، لینک Knowledge، روش دسترسی به مرورگر یا دستورهای Workflow را در Prompt بنویسید.** اگر نمی‌تواند فایل‌های ضروری Harness را بخواند، باید اجرا را متوقف کند. روش خواندن مستقیم GitHub یا Clone، وابسته به امکانات محیط است.
 
-در Pilot فعلی MCP شرط استفاده از Harness نیست. اگر محیط AI به GitHub دسترسی مستقیم ندارد، فایل‌های route‌شده را دستی در اختیار Agent بگذارید؛ از `AGENTS.md` شروع کنید و کل repository را بدون نیاز وارد context نکنید.
+خروجی پیش‌فرض، **Markdown قابل کپی در گفتگو** است. فایل دانلودی یا انتشار در Wiki فقط در صورت درخواست صریح ایجاد می‌شود. قواعد و استثناها داخل خود Harness قرار دارند و این Quick Start منبع مستقل آن‌ها نیست.
 
-اگر محیط Chat/Agent می‌تواند tabهای browser محلی یا share‌شده را بخواند، لازم نیست از ابتدا چند source را باز کنید. Agent باید اول tab مرتبطی را که از قبل باز است reuse کند؛ اگر canonical Product Knowledge لازم است و tab مناسب در دسترس نیست، فقط از شما بخواهد یک tab از source canonical همان product باز کنید. source یا tab بعدی فقط وقتی درخواست شود که برای یک سؤال materially لازم باشد.
-
-## PRD را کجا نگه می‌داریم؟
-
-مهاجرت **ریپوی Harness** به GitLab فعلاً متوقف است، اما در پایلوت، **GitLab Wiki محصول محل پیش‌فرض انتشار دستی PRD** است؛ PM می‌تواند محل durable دیگری را صریحاً تعیین کند. Harness برای محیط‌های دیگر سرویس hosting مشخصی را تحمیل نمی‌کند.
-
-برای هر Product Change، PM باید یک **current durable PRD** مشخص داشته باشد و همان artifact را در ادامه‌ی کار به AI، Designer و سایر نقش‌ها بدهد. نسخه‌های موازی مثل `v1`، `v2` یا `final` نسازید مگر اینکه واقعاً نیاز workflow وجود داشته باشد. محل نگهداری می‌تواند بعداً با تصمیم تیم عوض شود؛ AI نباید خودش storage یا permission model را فرض کند.
-
-برای PRD جدید، AI یا PM می‌تواند ID را بدون Registry یا Issue و با **تاریخ شمسی و ساعت ایران تا دقیقه** بسازد: `JV-PRD-YYMMDDHHmm` یا `CND-PRD-YYMMDDHHmm`. `YY` دو رقم انتهایی سال شمسی است؛ `HHmm` ساعت ۲۴ساعتهٔ ایران. نمونهٔ فرضی برای ۱۴۰۶/۰۴/۰۸ ساعت ۱۴:۳۷: `CND-PRD-0604081437`. اگر تاریخ/زمان قابل اتکا نبود، به‌جای حدس‌زدن از PM زمان را بپرسد و موقتاً `id: unresolved` نگه دارد. شناسهٔ قبلی هنگام ویرایش هرگز نباید دوباره تولید شود.
-
-**در هر خروجی PRD که قرار است در GitLab Wiki منتشر شود، AI باید حتماً دو مقدار را جدا از متن PRD ارائه کند:** `GitLab Wiki Title` (عنوان فارسی قابل‌فهم) و `GitLab Wiki Path` (مسیر کامل قابل کپی، شامل نام انگلیسی کوتاه و `kebab-case` بعد از ID). `wiki_path` همین Path کامل در یک Frontmatter واحد PRD قرار می‌گیرد. مثال فرضی برای PRD **جدید**: `ats/job/CND-PRD-0604081437-auto-reject-by-location`. AI حوزهٔ مالک را از Product Knowledge همان محصول تشخیص می‌دهد و مسیر همان حوزه را بدون تبدیل/نگاشت مستقل به‌عنوان Parent پیشنهاد می‌کند. [`prd-knowledge-areas.yml`](prd-knowledge-areas.yml) فقط فهرست راهنمای حوزه‌های Knowledge است و منبع حقیقت جداگانه‌ای نیست. اگر Wiki هنوز این شاخه را ندارد، PM می‌تواند هنگام انتشار بسازد؛ مسیر PRDهای موجود بدون تصمیم صریح عوض نمی‌شود. اگر حوزه مالک معلوم نیست، `unresolved` گزارش شود. در GitLab گزینهٔ `Generate page path from title` را غیرفعال کنید و Path را بدون `.md` وارد کنید. اگر مسیر نامشخص است، AI موظف است `unresolved` و اقدام لازم را گزارش کند، نه اینکه آن را حذف یا جعل کند.
-
-راهنمای کامل ثبت دستی: [GitLab Wiki publication](prd-gitlab-wiki-registration.md).
-
-وقتی PRD برای handoff آماده می‌شود، Agent باید یک خروجی واحد بدهد: ابتدا خود PRD و سپس بخش `Harness Pilot Evaluation` به‌صورت non-authoritative. اگر محل نگهداری از `<details>` پشتیبانی می‌کند، این بخش collapsed باشد؛ در غیر این صورت بلافاصله بعد از PRD با heading صریح non-authoritative نگهداری شود.
-
-PM لازم نیست سؤال‌وجواب‌ها یا Evaluation Record را دستی بازنویسی کند. Agent باید آن را consolidate کند. اگر Harness Owner بعداً run را review کند، می‌تواند `Harness Owner Review` را اضافه کند؛ Agent نباید این review را از طرف Owner پر کند.
-
-## اگر Product Knowledge در دسترس نیست
-
-برای JobVision، اگر canonical Product Knowledge موقتاً در دسترس نیست اما Current Product Context معتبر دیگری مثل PRD قبلی، reviewed evidence، screenshot، Figma یا implementation context دارید، می‌توانید برای drafting یا investigation از Harness استفاده کنید ولی Agent باید محدودیت authority را صریح نگه دارد. این context جای canonical Product Knowledge را نمی‌گیرد.
-
-برای Cando، اگر `https://docs-cd.jvoffice.ir/` موقتاً در دسترس نیست، Agent باید محدودیت access را صریح نگه دارد. explicit owner input، approved decisions و reviewed evidence می‌توانند برای drafting یا investigation استفاده شوند، اما جای canonical Cando Product Knowledge را نمی‌گیرند و `docs-jv` نیز fallback canonical برای Cando نیست.
-
-اگر Product Knowledge و Current Product Context قابل‌اعتمادی در دسترس نیست، برای ساخت یک PRD اولیه می‌توانید از [Standalone PRD Kit](standalone-prd/README.md) استفاده کنید. این مسیر جایگزین هم‌ارز Harness نیست؛ فقط برای drafting ساختاریافته با context محدود است.
-
-## در حین کار ممکن است چه چیزهایی ببینید؟
-
-- **`Problem Aligned`** — یعنی PRD برای شروع Design Exploration به‌اندازه کافی روشن است و Designer مجبور نیست یک Product Decision مهم را خودش حدس بزند. این به معنی حل شدن همه سؤال‌های باز نیست.
-- **سؤال Clarification** — Agent ممکن است درباره یک Product Decision مهم که قابل retrieval یا derivation نیست از شما سؤال کند. کافی است تصمیم‌تان را طبیعی و روشن بگویید؛ Agent باید آن را در PRD ثبت و reconcile کند. در Pilot، clarificationهای material و پاسخ شما برای Eval در بخش non-authoritative کنار همان current durable PRD حفظ می‌شوند.
-- **عدم دسترسی به Product Knowledge canonical** — Agent باید محدودیت source را در product scope درست اعلام کند؛ برای JobVision source canonical `docs-jv` و برای Cando source canonical `docs-cd` است و نبود دسترسی به یکی اجازهٔ جایگزینی source محصول دیگر را نمی‌دهد.
-- **باقی ماندن Open Decision** — اگر یک تصمیم باز مانده ولی مانع Design Exploration معنادار نیست، PRD همچنان می‌تواند `Problem Aligned` باشد.
-- **برگشت Product gap از Design** — ممکن است Design یک Product Decision جاافتاده را آشکار کند. در این حالت تصمیم به PM برمی‌گردد و PRD باید قبل از ادامه کار downstream به‌روزرسانی شود.
+[راهنمای ثبت PRD در GitLab Wiki](prd-gitlab-wiki-registration.md) · [Standalone PRD Kit (مسیر مستقل و اختیاری)](standalone-prd/README.md)

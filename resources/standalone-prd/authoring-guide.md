@@ -5,7 +5,7 @@
 ## قواعد اصلی
 
 - برای PRD جدید، ID اولیه را از تاریخ شمسی + ساعت ۲۴ساعتهٔ ایران تا دقیقه بسازید: `JV-PRD-YYMMDDHHmm` یا `CND-PRD-YYMMDDHHmm`، با ارقام لاتین. مثال فرضی: `CND-PRD-0604081437` برای ۱۴۰۶/۰۴/۰۸ ساعت ۱۴:۳۷. اگر ساعت یا تاریخ دقیق در دسترس نیست، `id: unresolved` و زمان را از PM بخواهید؛ هرگز زمان را حدس نزنید. نیازی به registry یا شماره GitLab Issue نیست. بعد از ثبت، ID را تغییر ندهید مگر با identity migration صریح؛ برخورد احتمالی را پیش از انتشار حل کنید.
-- برای انتشار در GitLab Wiki، یک `wiki_path` با مسیر کامل `parent/<ID>-<short-english-kebab-title>` در همان Frontmatter ذخیره کنید؛ Parent را فقط از مستندات معتبر حوزه مالک و در صورت امکان مسیر واقعی Wiki تعیین کنید. اگر معلوم نیست `wiki_path: unresolved`. هنگام تحویل PRD حتماً `GitLab Wiki Title` (عنوان انسانی) و `GitLab Wiki Path` (مسیر کامل و بدون `.md`) را خارج از متن PRD نمایش دهید. `Generate page path from title` در GitLab خاموش شود.
+- برای انتشار در GitLab Wiki، یک `wiki_path` با مسیر کامل `parent/<ID>-<short-english-kebab-title>` در همان Frontmatter ذخیره کنید؛ Parent را فقط از مستندات معتبر حوزه مالک و در صورت امکان مسیر واقعی Wiki تعیین کنید. اگر معلوم نیست `wiki_path: unresolved`. هنگام تحویل PRD **فقط** `GitLab Wiki Path` (مسیر کامل و بدون `.md`) را خارج از متن PRD نمایش دهید؛ عنوان صفحه از Heading سند گرفته می‌شود. `Generate page path from title` در GitLab خاموش شود.
 - اول یک draft best-effort بسازید؛ PRD را به questionnaire تبدیل نکنید.
 - اطلاعاتی را که ندارید اختراع نکنید، مخصوصاً Current Product Behavior، Outcomes، Business Rules، eligibility، permissions و lifecycle.
 - جمله روشن PM که یک Product choice را تعیین می‌کند، تصمیم Product است. مثال، سؤال، پیشنهاد موقت، hypothesis یا UI preference را خودکار به requirement تبدیل نکنید.
@@ -13,7 +13,7 @@
 - PRD را به Design Spec یا Technical Plan تبدیل نکنید.
 - هر Product rule یک محل اصلی داشته باشد؛ برای کامل به‌نظر رسیدن آن را در چند section تکرار نکنید.
 - بخش‌های optional را اگر محتوای معناداری ندارند حذف کنید.
-- اگر canonical Product Knowledge صفحهٔ materially relevant مشخصی برای grounding یا retrieval بعدی دارید، آن را فقط در frontmatter `references` با `source + page` ثبت کنید. URL را داخل PRD نگذارید و page/ID اختراع نکنید.
+- اگر canonical Product Knowledge صفحهٔ materially relevant مشخصی برای grounding یا retrieval بعدی دارید، آن را فقط در frontmatter `references` با `source + page` ثبت کنید. فیلد `page` فقط نام/Slug واقعی همان صفحه است (مثلاً `entity-candidate` اگر واقعاً نام آن صفحه باشد)، نه URL، لینک Markdown، مسیر مرورگر یا Breadcrumb. نام/ID اختراع نکنید.
 - اگر context کافی نیست، فقط سؤال‌های materially لازم را بپرسید و uncertainty باقی‌مانده را صریح نگه دارید.
 
 ## شیوه نوشتن
@@ -95,10 +95,10 @@ Detailed behavior را به این بخش منتقل نکنید و از Intent �
 ```yaml
 references:
   - source: jobvision_product_knowledge
-    page: Candidate / Recommended Jobs
+    page: entity-candidate
 ```
 
-`source` باید کلید source معتبر باشد و `page` نام/عنوان صفحه در همان source. URL، bibliography همهٔ صفحات خوانده‌شده یا dependency توضیحی داخل body اضافه نکنید. رابطه‌ها و consequenceهای Product را در Scope، Key Product Scenarios یا Required Product Behavior بنویسید.
+`source` باید کلید source معتبر باشد و `page` فقط نام واقعی و بدون قالب‌بندیِ صفحه در همان Source باشد. مثال `entity-candidate` فقط قالب نام‌گذاری را نشان می‌دهد؛ در PRD واقعی تنها پس از تأیید وجود همان صفحه استفاده شود. از URL، Markdown link، Breadcrumb، bibliography همهٔ صفحات خوانده‌شده یا dependency توضیحی داخل body استفاده نکنید. رابطه‌ها و consequenceهای Product را در Scope، Key Product Scenarios یا Required Product Behavior بنویسید.
 
 ## Acceptance Criteria
 

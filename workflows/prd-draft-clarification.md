@@ -22,15 +22,11 @@ Discovery context is input to Product Definition, not Product authority by defau
 
 ## Workflow
 
-### 1. Receive PM Intent and resolve product scope
+### 1. Receive PM Intent after the execution gates
 
-Interpret the requested product change without requiring a discovery questionnaire.
+Gate 0 in `AGENTS.md` must have **actually passed** before entering this workflow. Gate 1 must have produced an **explicit human-confirmed Product Scope** (JobVision, Cando, or Cross-product). Never infer that confirmation from the first prompt, the Harness name, or an existing PRD. If either gate is incomplete, stop here and complete it without retrieving product-specific context or beginning the draft.
 
-Before product-specific retrieval or substantive PRD drafting, resolve whether the task is JobVision, Cando, or cross-product. Use explicit task wording or authoritative context already available; do not guess from generic shared terminology.
-
-If the owning product is still ambiguous enough that choosing canonical Product Knowledge would require a guess, ask one minimal operational question to resolve product scope before continuing. This source-routing question is allowed before draft-first clarification because it determines which authority can be used; it is not a Product Decision and does not belong in the PRD clarification record.
-
-If product scope is established but the intent itself is too ambiguous to produce any useful draft, ask only the minimum Product question needed to establish what change is being discussed. Otherwise continue to retrieval.
+Interpret the requested change without requiring a discovery questionnaire. Use the confirmed scope for source routing, including corrections to the initial proposal. If the intent is still too ambiguous to produce any useful working draft, ask the minimum Product question that establishes what change is being discussed. Otherwise continue to retrieval.
 
 ### 2. Retrieve task-relevant context
 
@@ -54,7 +50,7 @@ If the environment can read user-shared/local browser tabs, reuse an already-ope
 
 When the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
 
-When a materially useful canonical Product Knowledge page is identified, record it in PRD frontmatter `references` using the owning source key from `context-sources.yml` plus the source-native page name or hierarchy label. Do not store page URLs, invent Harness-specific Product Knowledge IDs, or turn retrieved sources into a bibliography. If a page cannot be identified reliably, omit the reference rather than guessing.
+When a materially useful canonical Product Knowledge page is identified, record it in PRD frontmatter `references` as `{source, page}`, where `source` is the owning key from `context-sources.yml` and `page` is **only the exact source-native page name/slug** (e.g. `entity-candidate` when that is the actual page name). Do not use URLs, Markdown links, browser paths, breadcrumb labels, descriptive page titles substituted for file names, or invented IDs. If the source-native name cannot be identified, omit that reference rather than guessing or falling back to a link. Before handoff, verify every entry conforms.
 
 **GitLab Wiki placement for Wiki-bound PRDs:** Identify the area in **live canonical Product Knowledge** that owns the changed behavior; do not select an area merely because it appears in `references` or has a similar name. `../resources/prd-knowledge-areas.yml` is a cached index of Knowledge overview areas for both products and can help locate or check the area, but live Knowledge always wins if the snapshot is stale. For a **new** Wiki PRD, construct the proposed parent path from that exact canonical Knowledge area path (including casing), without a separate Wiki mapping or a prerequisite Wiki navigation audit; the publisher creates a missing Wiki hierarchy if necessary. This is a naming convention for future PRDs, not a claim about existing Wiki page availability. Select one primary area, retain other related areas in `references`, and avoid duplicate PRD pages. If ownership cannot be grounded, use `wiki_path: unresolved` with the smallest clarification needed. For an **existing** published PRD, preserve its current Wiki path until an explicitly approved move; do not silently migrate prior audience-oriented Wiki branches to the new naming convention.
 
@@ -103,7 +99,7 @@ Do not return a skeleton dominated by `TBD` fields when a meaningful draft can b
 
 Follow the PRD Artifact Contract in `../artifacts/prd.md`.
 
-**Wiki publishing handoff:** Before outputting a PRD intended for GitLab Wiki, recheck its primary placement against the final Scope, keep its established path when editing an already published PRD, and **always show `GitLab Wiki Title` and full `GitLab Wiki Path` outside the copyable PRD Markdown**. The Title follows the human-readable PRD heading; the Path is the exact value of frontmatter `wiki_path`, ready to paste into the Wiki Path field (without `.md`). Explain that GitLab's automatic path-from-title option should be disabled. If the path or timestamp is not reliably resolvable, show `unresolved` and request only the missing operational fact instead of claiming publication readiness. Do not treat missing Wiki navigation as an unresolved Product decision or allow it to silently alter `Problem Aligned` semantics.
+**Wiki publishing handoff:** Before outputting a PRD intended for GitLab Wiki, recheck its primary placement against the final Scope, keep the established path when editing an existing page, and **show only the full `GitLab Wiki Path` outside the copyable PRD Markdown**. This Path equals frontmatter `wiki_path`, ready to paste into the Wiki Path field (without `.md`). The PRD heading serves as the page title; do not emit a separate `GitLab Wiki Title` value. Explain that GitLab's automatic path-from-title option should be disabled. If the path or timestamp cannot be resolved, show `GitLab Wiki Path: unresolved` and the needed operational fact rather than claiming publication readiness. Do not treat missing Wiki navigation as an unresolved Product decision or silently alter `Problem Aligned` semantics.
 
 ### 4. Run semantic normalization
 
@@ -121,7 +117,7 @@ Check that:
 - vague abstractions such as `reconcile`, `snapshot`, `ready`, `identity`, or `version` are replaced by observable Product semantics unless the abstraction itself is an intentional Product concept,
 - future-oriented or premature specification is removed when it is not needed to constrain the current release,
 - newly introduced configurable or shared resources have their materially relevant actor, lifecycle, ownership, and scope boundary considered,
-- frontmatter `references` contains only materially useful canonical Product Knowledge page navigation, with no URLs or invented Product Knowledge IDs,
+- frontmatter `references` contains only materially useful canonical Product Knowledge source keys plus verified plain page names/slugs, with no URLs, Markdown links, browser paths, breadcrumbs or invented IDs,
 - and Acceptance Criteria capture material correctness boundaries rather than restating Required Product Behavior line by line.
 
 Normalization must not silently resolve Product uncertainty. If cleanup exposes a material missing decision, preserve it for the ambiguity scan rather than inventing an answer.
@@ -189,7 +185,7 @@ Atomicity applies to each question, not to the clarification batch. A batch may 
 
 Prioritize questions by decision dependency and downstream impact.
 
-Ask the smallest coherent batch of questions needed to unlock meaningful progress. Do not ask downstream questions whose relevance depends on an unresolved upstream answer unless resolving them together materially improves decision quality.
+**Default interaction:** ask **one atomic Product Decision question per turn** when human clarification is required, then reconcile its answer and reassess whether the next question is still needed. Batch independent questions only when the human explicitly requests a batch or there is a defensible, materially useful reason to group them; respect their dependencies. Do not ask downstream questions whose relevance depends on an unresolved upstream answer.
 
 Each clarification should, when useful, make clear:
 
@@ -267,8 +263,14 @@ Remaining uncertainty is acceptable when it is explicit and does not invalidate 
 
 If alignment is not reached, identify the specific blocking gap rather than reporting generic incompleteness.
 
-## Output
+## Output and interaction contract
 
-The durable output is the reconciled and final-normalized PRD.
+The **internal draft-first workflow does not mean emitting the complete PRD at every turn**. Use these mutually distinguishable user-facing modes:
 
-Semantic-normalization notes, ambiguity scans, retrieval notes, clarification transcripts, and reasoning do not require separate durable artifacts unless a later demonstrated need justifies one.
+1. **Clarification:** When a Product Decision still blocks `Problem Aligned`, ask the next focused question (with options/recommendation where grounded); do **not** emit a full PRD followed by a list of questions. Keep the working draft in task context and reconcile after each answer. Operational access requests are separate from Product Decision questions.
+2. **Working Draft on request:** If the human explicitly asks to inspect the draft before readiness, provide the current reconciled draft, visibly marked as **Working Draft / not ready for handoff**, with real open decisions represented in their semantic sections. Do not manufacture completeness or call it `Problem Aligned`.
+3. **PRD handoff:** Once the final-normalized draft satisfies `Problem Aligned` and required publishing metadata can be grounded, **deliver the PRD without waiting for a second request** such as "now write it". Non-blocking Open Decisions may remain in the PRD, not as conversational questions appended after it. If metadata is unavailable, disclose `unresolved` and the smallest needed operational action rather than claiming publication readiness.
+
+**Default delivery medium for this pilot:** one **copyable Markdown PRD in the conversation**, with exactly one YAML frontmatter block, followed by the non-authoritative `Harness Pilot Evaluation` record for durable handoff according to `artifacts/prd.md`. Show only the full `GitLab Wiki Path` explicitly **outside** the copyable PRD payload; the PRD heading is already its title. Do not create a downloadable file, GitHub/GitLab page, separate artifact, or write to a store merely because tools are available; do so only on an explicit human request and after verifying the action is permitted. A platform may render Markdown differently, but the semantic content and handoff must be equivalent. Never claim an external file/page was saved unless it actually was.
+
+The durable output is the reconciled and final-normalized PRD. Semantic-normalization notes, ambiguity scans, retrieval notes, clarification transcripts, and reasoning do not require separate durable artifacts unless a demonstrated need justifies one.

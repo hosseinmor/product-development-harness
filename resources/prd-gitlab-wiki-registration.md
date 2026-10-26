@@ -2,12 +2,11 @@
 
 > در پایلوت جاب‌ویژن و کندو، Wiki پروژهٔ همان محصول **محل پیش‌فرض انتشار دستی PRD** است؛ مگر اینکه PM صریحاً محل durable دیگری انتخاب کند. مهاجرت خود ریپوی Harness به GitLab همچنان جداگانه و متوقف است. قرارداد اصلی ID و Metadata در `artifacts/prd.md` و `shared-harness-contract.md` است.
 
-## ۱. هویت، عنوان و مسیر سه مفهوم مجزا هستند
+## ۱. هویت سند و مسیر Wiki
 
 | مقدار | مثال فرضی برای Cando | استفاده |
 | --- | --- | --- |
 | `id` | `CND-PRD-0604081437` | هویت پایدار سند |
-| GitLab Wiki Title | `رد خودکار درخواست‌های شغلی بر اساس محل سکونت` | عنوان خوانا در Wiki |
 | GitLab Wiki Path | `ats/job/CND-PRD-0604081437-auto-reject-by-location` | مسیر پیشنهادی صفحه جدید، مطابق حوزه در Knowledge |
 | نام فایل در Git repository داخلی Wiki | `ats/job/CND-PRD-0604081437-auto-reject-by-location.md` | مشتق از Wiki Path؛ **در فیلد Path، `.md` ننویسید** |
 
@@ -41,7 +40,7 @@
 نام انتهایی صفحه:
 `<stable-PRD-ID>-<short-english-kebab-case-slug>`
 
-Slug را AI از عنوان یا مسئلهٔ PRD پیشنهاد می‌دهد. از واژگان متعارف حوزه و اصطلاحات Product Knowledge استفاده شود؛ حروف کوچک لاتین، اعداد و خط تیرهٔ تکی، بدون فاصله، پسوند فایل، نسخه یا علامت خاص. عنوان فارسی GitLab مستقل است. تغییر بعدی Title باعث تولید ID یا Slug جدید نمی‌شود.
+Slug را AI از عنوان یا مسئلهٔ PRD پیشنهاد می‌دهد. از واژگان متعارف حوزه و اصطلاحات Product Knowledge استفاده شود؛ حروف کوچک لاتین، اعداد و خط تیرهٔ تکی، بدون فاصله، پسوند فایل، نسخه یا علامت خاص. عنوان خوانای صفحه از Heading خود PRD گرفته می‌شود و نیازی به تحویل فیلد مستقل `GitLab Wiki Title` نیست. تغییر بعدی عنوان PRD باعث تولید ID یا Slug جدید نمی‌شود.
 
 ## ۴. Frontmatter واحد و راهنمای تحویل الزامی
 
@@ -55,24 +54,25 @@ owner: unresolved
 wiki_path: ats/job/CND-PRD-0604081437-auto-reject-by-location
 references:
   - source: cando_product_knowledge
-    page: ATS / موقعیت شغلی / قواعد رد خودکار
+    page: entity-candidate
 ---
 
 # رد خودکار درخواست‌های شغلی بر اساس محل سکونت کارجو
 ```
 
-**صرف درج `wiki_path` در YAML کافی نیست.** هنگام تحویل یک PRD برای GitLab Wiki، AI **همیشه** دو مقدار را بیرون از بلوک Markdown قابل کپی PRD ارائه می‌کند:
+**صرف درج `wiki_path` در YAML کافی نیست.** هنگام تحویل PRD برای GitLab Wiki، AI **فقط مسیر Wiki** را خارج از بلوک Markdown قابل کپی PRD ارائه می‌کند؛ عنوان از Heading خود PRD گرفته می‌شود:
 
 ```text
-GitLab Wiki Title: رد خودکار درخواست‌های شغلی بر اساس محل سکونت کارجو
 GitLab Wiki Path: ats/job/CND-PRD-0604081437-auto-reject-by-location
 ```
+
+در مثال YAML، `page: entity-candidate` فقط **نمونهٔ قالب نام صفحه** است و زمانی باید در PRD واقعی استفاده شود که همین نام در Product Knowledge تأیید شده باشد؛ URL، لینک Markdown یا مسیر توصیفی جای آن مجاز نیست.
 
 اگر ID یا Parent به‌طور قابل اتکا تعیین نشده، AI باید مقدار مربوط را `unresolved` و اقدام لازم را صریح نشان دهد؛ نباید یک مسیر ساختگی ارائه کند یا این بخش را کلاً حذف کند.
 
 ## ۵. ثبت و بازیابی در GitLab
 
-۱. PM فیلدهای Title و Path را طبق خروجی AI تنظیم می‌کند؛ `Generate page path from title` خاموش شود.
+۱. PM عنوان Wiki را از Heading PRD می‌گیرد و فقط مقدار `GitLab Wiki Path` را از Handoff کپی می‌کند؛ `Generate page path from title` خاموش شود.
 ۲. کل Markdown PRD را **با یک Frontmatter** قرار می‌دهد؛ بلوک Frontmatter دیگری به ابتدا اضافه نکند.
 ۳. پس از Save، اگر نیاز به تأیید ماشین‌خوانی بود، Wiki API را بخواند؛ خروجی API ممکن است `front_matter` را جدا از `content` نمایش دهد.
 ۴. GitLab ممکن است Frontmatter را در نمای rendered یا editor پنهان کند؛ ملاک ماندگاری، محتوای خام API/مخزن Wiki است. اگر `front_matter` بخش `wiki_path` را ندارد، ابتدا بررسی کنید چند بلوک `--- ... ---` پشت‌سر هم وجود نداشته باشد.

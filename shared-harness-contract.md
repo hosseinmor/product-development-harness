@@ -2,6 +2,16 @@
 
 This contract defines the rules shared by all product-development workflows and artifacts in the Job Vision Product Development Harness.
 
+## 0. Execution prerequisites and tool independence
+
+The entry point is `AGENTS.md`. On each new task, **Gate 0 (Harness Access)** must pass through actual, complete reading of the canonical GitHub Harness's entry point, this shared contract, the selected workflow, its required artifact contract(s), and `context-sources.yml`. Use `main` unless the user explicitly selects a GitHub PR branch or commit for a **preview/test run**; in that case every required file must come from that same selected ref, and the result must not be presented as merged canonical behavior. The choice of direct GitHub read, browser/raw-file read, or a GitHub-validated clone/checkout is implementation-specific; the readable, current source content and execution result are not. Neither a URL nor a successful Git operation alone proves access. No autonomous alternative workflow or Standalone fallback is allowed after Gate 0 failure; report the missing files and stop.
+
+After Gate 0, **Gate 1 (Product Scope Confirmation)** always requires one explicit human confirmation/correction of the Agent's proposed product scope **for each new task**, even if the task text or artifact already states the product. The words "Job Vision" in the Harness name are organizational identity, not Product Scope evidence. No product-specific retrieval or substantive drafting/design may precede confirmation. Corrections override the proposal; do not repeat the question once corrected and confirmed during the same task. Treat the gate as operational routing, not Product clarification.
+
+**Access failures differ by stage:** missing Harness contracts are a hard execution stop; missing Product Knowledge after both gates pass is handled under the source/uncertainty rules without pretending the Harness itself was unreadable.
+
+**Tool-agnostic means invariant decisions and handoffs, not identical tool calls or UI.** Do not claim repository reads, file creation, external writes, or publication occurred unless actually confirmed by the environment. A capability being available does not grant permission to change the agreed output medium or store.
+
 ## 1. Source of Truth
 
 Authority is scoped to the kind of claim being made. There is no single global source of truth.
@@ -100,7 +110,7 @@ Owns the intended product change, including:
 - acceptance criteria,
 - and material unresolved product decisions or assumptions.
 
-The PRD may include concise current-product context and material canonical Product Knowledge page references in metadata for downstream retrieval and impact analysis. These references use the owning source key plus source-native page name and do not duplicate page URLs in the PRD. They do not override canonical Product Knowledge or become duplicate owners of current-product truth. Walkthrough, observation, or implementation evidence may support or challenge current-product understanding, but discrepancies with canonical Product Knowledge must remain visible until reconciled.
+The PRD may include concise current-product context and material canonical Product Knowledge page references in metadata for downstream retrieval and impact analysis. These references use the owning source key plus the **exact source-native page name/slug** as a plain YAML scalar (for example `page: entity-candidate` if the canonical page uses that name). Neither `page` nor another PRD frontmatter field should store the URL, a Markdown link, a full browser path, or an invented human-readable breadcrumb in place of the page name. They do not override canonical Product Knowledge or become duplicate owners of current-product truth. Walkthrough, observation, or implementation evidence may support or challenge current-product understanding, but discrepancies with canonical Product Knowledge must remain visible until reconciled.
 
 The PRD should describe observable or verifiable product expectations without prescribing the experience or implementation unless that prescription is itself a product constraint.
 
@@ -144,7 +154,7 @@ For the current Job Vision pilot, the Harness repository's migration to GitLab i
 - Stable PRD IDs created before the current registration scheme are grandfathered; do not rewrite them merely to conform to the new format. A format migration requires an explicit identity migration and preserved old-to-new references.
 - A PRD may become `Problem Aligned` before registration, but a new PRD intended for durable handoff must have an assigned non-placeholder ID before publication. Do not silently claim uniqueness from timestamp alone.
 - For a **new** PRD intended for GitLab Wiki, derive a proposed complete `wiki_path` directly from the **exact owning canonical Product Knowledge area path** plus `<stable-PRD-ID>-<concise-english-kebab-case-slug>`. This is a publishing naming convention, not a separate Wiki directory mapping; the destination branch may not exist before the PM publishes the PRD. Use the path as written in Knowledge, without altering casing or replacing it with legacy audience-oriented Wiki paths. The Wiki Path has no `.md` suffix. Do not invent a Product Knowledge owner from materially related areas, and do not create duplicate PRDs. Keep a single YAML frontmatter block. Existing published Wiki paths are durable and must not be automatically migrated.
-- When delivering a new/updated Wiki-bound PRD, **always** show the human-readable GitLab `Title` and copy-ready complete `Path` *outside* the PRD body, in addition to `wiki_path` in its frontmatter. The GitLab Title follows the current PRD heading; the Path follows source-derived placement and the stable initial leaf. If either cannot be resolved reliably, explicitly show it as unresolved and the smallest necessary next step rather than fabricating a path. Retain the established Wiki page path for existing artifacts until an explicit move is approved.
+- When delivering a new/updated Wiki-bound PRD, show **only `GitLab Wiki Path`** as a separate copy-ready value outside the PRD body, matching `wiki_path` in its frontmatter. The human-readable Wiki page title is the PRD heading itself; do not add an explicit `GitLab Wiki Title` handoff field. If the Path cannot be resolved reliably, show `GitLab Wiki Path: unresolved` and the smallest necessary next step; never fabricate a path. Retain the established Wiki page path for existing artifacts until an explicit move is approved.
 - Exported, downloaded, copied, or AI-generated working copies do not become competing sources of truth merely by existing.
 - Product Management owns Product decisions and the current durable PRD write. Other roles may propose changes through the review/comment mechanism available around the chosen artifact, but proposals do not establish Product authority.
 - When a PM accepts a proposed change, update the current durable PRD and apply downstream change-propagation rules.
@@ -158,11 +168,9 @@ The Harness defines what product context is required to perform a task. It does 
 
 ### Product scope resolution
 
-Before retrieving product-specific canonical context or drafting substantive current-product claims, resolve which product owns the task or claim.
+Before retrieving product-specific canonical context or drafting substantive current-product claims, the Agent must **propose and obtain explicit human confirmation** of which product owns the task, as defined by Gate 1 in `AGENTS.md`. Use task wording and available authoritative artifacts to form a proposal; **even an explicitly named product requires confirmation once for each new task**. If the evidence cannot support a confident proposal, ask the smallest operational question needed without pretending certainty. Never use the organization's Harness name as product-identification evidence.
 
-Use explicit task wording and authoritative context already available. If one product is established, use only that product's canonical Product Knowledge for its internal behavior. If a task spans products, partition claims before retrieval. If ownership remains ambiguous enough that choosing a source would require a guess, ask the smallest operational clarification needed to identify the product before product-specific retrieval or substantive drafting.
-
-This is an exception to the normal draft-first clarification preference because product scope selects the authority itself. It is not a Product Decision and should not enter the PRD clarification record unless it separately establishes material Product intent.
+Once confirmed, use only the confirmed product's canonical Knowledge for its internal behavior, or partition claims by the confirmed owners for a Cross-product task. A correction from the human immediately replaces the proposal and is itself confirmation of the corrected scope; do not ask repeatedly. This pre-draft gate chooses the authority and is not a Product Decision clarification or part of the PRD clarification record.
 
 For a given task, relevant context may include:
 

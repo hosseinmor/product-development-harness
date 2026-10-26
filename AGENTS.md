@@ -8,15 +8,29 @@ For product-development tasks, start here.
 
 The canonical Harness source for the current pilot is the GitHub repository `https://github.com/hosseinmor/product-development-harness`. GitLab migration is paused until the internal access issues are resolved; do not use the GitLab copy as the current Harness source.
 
-If the execution environment cannot access the canonical repository directly, a human may provide the current Harness files manually. Start from this `AGENTS.md` and follow its routing; do not load the whole repository by default.
+## Gate 0 — Harness access (mandatory, fail-closed)
+
+**Before Product Scope confirmation, Product Knowledge retrieval, drafting, design work, or any other Harness workflow execution**, actually read the **complete content** of the Harness files from canonical GitHub **`main` by default**. For an explicitly requested PR/preview test, the user may instead pin a GitHub branch or commit: read **all** required files from that same pinned ref and clearly identify the run as a preview, not as canonical merged `main`. Required files:
+
+1. `AGENTS.md` (this entry point);
+2. `shared-harness-contract.md`;
+3. the workflow selected by the Task Routing table below;
+4. each artifact contract required by that workflow;
+5. `context-sources.yml` before any external context retrieval.
+
+For **PRD creation**, that means `AGENTS.md`, `shared-harness-contract.md`, `workflows/prd-draft-clarification.md`, `artifacts/prd.md`, and `context-sources.yml`. For other workflows, follow the corresponding row of the routing table; do not load unrelated workflows.
+
+Any read-only method is valid (GitHub connector, browser/raw-file retrieval, or `git clone`/a verified up-to-date checkout). A clone is a transport, **not** a separate authority. If using an existing clone, verify its canonical remote and refresh/validate it against the **selected GitHub ref** (`main` or an explicitly pinned test ref) before reading; do not silently use a stale/offline checkout. Where supported, read all required files from one consistent Git commit and retain its SHA for evaluation. Do not install dependencies or execute repository code merely to read the Harness.
+
+**PASS requires the actual, complete, readable contents of every required file.** A repository listing, README, file name, search snippet, remembered content, broken/partial page, or successful clone command alone is **not** a pass. If a retrieval method fails, another supported method may be attempted.
+
+**FAIL:** If any required file still cannot be read reliably, stop. Report the exact unreadable path(s) and the access issue, request that GitHub/repository access be enabled, and do **not** infer missing rules, ask Product confirmation, retrieve Product Knowledge, create a PRD/Design artifact, or automatically switch to the Standalone PRD Kit. Providing pasted files is not an automatic fallback for the normal GitHub-backed Harness workflow. Never claim Gate 0 passed without evidence of the reads. Recheck this gate for each new task execution; avoid unnecessary rereads within the same task. The URL used to start the task does not by itself establish access.
+
+The words **"Job Vision" in the Harness name designate the organization, not the target product**. Selecting the target product is a separate, mandatory confirmation step after Gate 0.
 
 ## How to use the Harness
 
-1. Read `shared-harness-contract.md` for the rules shared across all workflows and artifacts.
-2. Read only the workflow relevant to the current task.
-3. Read the artifact contract for any durable artifact you are creating, reviewing, or updating.
-
-Do not load every workflow by default.
+Use the Task Routing table to select the workflow and required artifact contract after reading this entry point. Gate 0 above determines which files must be fully read before execution. Keep retrieval task-scoped; do not load every workflow by default.
 
 ## Task routing
 
@@ -27,7 +41,7 @@ Do not load every workflow by default.
 | Design Review + PRD Stress Test | `workflows/design-review-prd-stress-test.md` | `artifacts/prd.md` and `artifacts/design.md` |
 | Harness Improvement | `workflows/harness-improvement.md` | — |
 
-**Required GitLab Wiki PRD handoff:** In the JobVision/Cando PRD pilot, assume publication in the corresponding product GitLab Wiki unless the PM explicitly selects another durable store. For any PRD intended for manual publication to a product Wiki, identify the owning area in live canonical Product Knowledge first; use [`resources/prd-knowledge-areas.yml`](resources/prd-knowledge-areas.yml) only as a dated navigation snapshot to help find the relevant area or spot changes. For a NEW Wiki PRD, use that canonical area's **exact path** (including casing) directly as the Wiki parent; never consult or invent a separate Knowledge-to-Wiki mapping. This new-page naming convention does not prove the page/folder exists in Wiki, and existing published Wiki paths must be preserved unless a move is approved. The Agent must derive a stable timestamp-based ID and complete `wiki_path` according to `artifacts/prd.md`, and **explicitly provide GitLab Wiki Title and full GitLab Wiki Path outside the copyable PRD Markdown**. When the ID or placement cannot be grounded, show `unresolved` and the needed operational input; do not omit these fields or fabricate the page path.
+**Required GitLab Wiki PRD handoff:** In the JobVision/Cando PRD pilot, assume publication in the corresponding product GitLab Wiki unless the PM explicitly selects another durable store. For any PRD intended for manual publication to a product Wiki, identify the owning area in live canonical Product Knowledge first; use [`resources/prd-knowledge-areas.yml`](resources/prd-knowledge-areas.yml) only as a dated navigation snapshot to help find the relevant area or spot changes. For a NEW Wiki PRD, use that canonical area's **exact path** (including casing) directly as the Wiki parent; never consult or invent a separate Knowledge-to-Wiki mapping. This new-page naming convention does not prove the page/folder exists in Wiki, and existing published Wiki paths must be preserved unless a move is approved. The Agent must derive a stable timestamp-based ID and complete `wiki_path` according to `artifacts/prd.md`, and **explicitly provide only the full `GitLab Wiki Path` outside the copyable PRD Markdown**. When the ID or placement cannot be grounded, show `GitLab Wiki Path: unresolved` and the needed operational input; do not omit or fabricate the page path. PRD `references` frontmatter must use only an authoritative source key and the exact source-native page name/slug (for example `page: entity-candidate` when that page exists): no URLs, Markdown links, browsable URL paths, or invented breadcrumb labels.
 
 ## Context
 
@@ -38,17 +52,19 @@ It does not replace source-owned guidance, Figma/Code or the current PRD/Design
 Artifact. See [federated retrieval](docs/context-source-integration.md).
 Retrieve only external context materially relevant to the task.
 
-### Product scope resolution gate
+### Gate 1 — Product Scope confirmation (mandatory after Gate 0)
 
-Resolve the owning product **before canonical Product Knowledge retrieval or substantive PRD drafting**.
+Before **any product-specific retrieval or substantive PRD/Design work**, propose the target product from the **user's actual task intent**, the current durable artifact if provided, and available authoritative scope context. Ask the human to **confirm or correct** that proposal in one short turn, **on every new task**, even when JobVision or Cando was explicitly named in the initial request or current artifact. Explicit naming is evidence for the proposal, **not a waiver** of this gate.
 
-Use, in order, the strongest available basis that actually establishes product ownership: explicit task wording, the current durable artifact, authoritative routing/context already available in the task, or an established product-scoped source. Do not guess product ownership from generic vocabulary such as `job`, `candidate`, `reject`, `notification`, or another concept that may exist across products.
+- Never use the organization name `Job Vision Product Development Harness`, the Harness repository name, or generic terms such as `job`, `candidate`, `reject`, or `notification` as evidence that the target product is JobVision.
+- If a single product is well-supported, say for example: `این درخواست را مربوط به **Cando** تشخیص دادم. تأیید می‌کنی؟` Then **stop and await an explicit answer**; do not preemptively retrieve its Knowledge.
+- If both products are affected, propose **Cross-product (JobVision + Cando)** and, when reasonably identifiable, the primary owner. Ask for confirmation of that scope.
+- If the source material is genuinely ambiguous, say so and ask which product(s) own the task; do **not** fabricate a confident proposal merely to appear decisive.
+- A correction supersedes the proposal: discard any unverified source/ownership assumptions, select the corrected canonical source, and confirm the corrected scope from the human's explicit reply without another redundant confirmation loop.
+- After confirmation, do not reconfirm during the **same task** unless new information materially contradicts the confirmed scope. A new unrelated task requires a new Gate 1 confirmation.
+- Product Scope confirmation is an **operational routing decision**, not a Product Decision clarification, and must not be recorded in the PRD Clarification Record. It precedes the draft-first workflow.
 
-- If exactly one product is established, route to that product's canonical Product Knowledge.
-- If the task is cross-product or an integration, partition material claims by owning product before retrieval.
-- If product ownership cannot be established confidently enough to choose the canonical source, **stop product-specific retrieval and substantive drafting and ask one minimal operational clarification**, for example: `این تغییر مربوط به JobVision است یا Cando؟`
-- This product-scope clarification is a source-routing prerequisite, not a Product Decision clarification. It may happen before the normal draft-first clarification flow because guessing here can route the entire task to the wrong authority.
-- Once product scope is resolved, do not ask the human to restate it unless new information makes the scope materially ambiguous again.
+Only after Gate 1 passes, route to the confirmed product's canonical Knowledge. For cross-product work, partition materially relevant claims by each owning source.
 
 Product Knowledge authority is product-scoped; a canonical source for one product must not be promoted into canonical truth for another product merely because the products integrate.
 
@@ -120,6 +136,6 @@ Do not treat AI proposals or assumptions as authoritative facts.
 
 Do not create parallel PRD versions such as `v1`, `v2`, or `final` artifacts unless a demonstrated workflow need explicitly requires them. Maintain one explicitly designated current durable PRD artifact per Product Change. During the current pilot, PRD persistence is manual and the Harness does not assume a GitLab Wiki or any other specific hosting service.
 
-During the current pilot, append a collapsed `Harness Pilot Evaluation` record after the PRD in the same durable artifact when the chosen storage format supports it; otherwise keep the record immediately adjacent to the persisted PRD under an explicit non-authoritative heading. This record is evaluation metadata and is not part of the PRD's Product decision domain. Normal Product, Design, Engineering, and Validation work must not treat original PM intent, clarification history, evaluation assumptions, derivations, or Harness Owner findings in that block as Product truth. Product decisions established through clarification must be reconciled into the PRD itself. Use the evaluation block only when the task explicitly involves Harness evaluation or pilot review.
+During the current pilot, for a PRD prepared for durable handoff, append the non-authoritative `Harness Pilot Evaluation` record after the PRD as specified in `artifacts/prd.md`; keep it visually separated/collapsed where supported. It is evaluation metadata, not Product decision content. Normal downstream work must not promote that record to Product truth. Decisions established through clarification must be reconciled into the PRD itself.
 
 During normal product work, do not add files, schemas, routers, agent layers, or other Harness abstractions unless the task is explicitly to evolve the Harness and a demonstrated need justifies the change.

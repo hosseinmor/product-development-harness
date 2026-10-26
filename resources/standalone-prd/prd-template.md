@@ -7,7 +7,7 @@ owner: unresolved
 # Optional when materially useful:
 # references:
 #   - source: <jobvision_product_knowledge-or-cando_product_knowledge>
-#     page: <source-native-page-name>
+#     page: <verified-source-native-page-slug-only-no-URL-or-Markdown-link>
 ---
 
 # <عنوان تغییر>
