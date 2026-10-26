@@ -73,6 +73,18 @@ Expected behavior:
 - A new PRD owned by `cv` **must not** blindly assume the compound audience-oriented `candidate/onboarding-cv` branch is verified or that all CV capabilities belong there; inspect/clarify the placement, or state `wiki_path: unresolved`.
 - The Agent must not treat the number of Product Knowledge areas and Wiki branches as necessarily equal, nor automatically synthesize `candidate/<knowledge-slug>`.
 
+## Scenario F — Knowledge-only navigation inventory refresh
+
+The Agent is asked to refresh PRD placement data using **only** the currently open canonical Product Knowledge sites, not GitLab Wiki navigation. The latest observed JobVision Knowledge sidebar contains 27 area `0_overview` paths and Cando Knowledge contains 38 area `0_overview` paths, including Salary, Calendar, Learning, Pulse, Onboarding and shared AI.
+
+Expected behavior:
+
+- Refresh each product's `knowledge_areas` exclusively from its canonical Knowledge area overview paths and preserve the exact casing/path segments from that source.
+- Keep both products represented and do not omit areas merely because no Wiki branch is available; all 27 JobVision and 38 Cando overview areas are retained in this scenario.
+- **Do not** add to `verified_areas` just because an area appears in `knowledge_areas`; Knowledge does not prove a destination Wiki path exists.
+- Preserve previously verified Wiki mapping entries unless a separate check establishes that an entry is stale; this task's Knowledge-only read is not evidence for changing their destination paths.
+- Missing Wiki mappings remain visible as a publication-placement limitation, not a reason to suppress the Knowledge area.
+
 ## Fail if
 
 - The Agent uses a Gregorian date, its host/browser's local timezone instead of Iran time, Persian digits, missing padding, or 12-digit seconds for the ten-digit ID.
