@@ -56,6 +56,8 @@ When the task depends on an end-to-end journey, current flow, handoff, or featur
 
 When a materially useful canonical Product Knowledge page is identified, record it in PRD frontmatter `references` using the owning source key from `context-sources.yml` plus the source-native page name or hierarchy label. Do not store page URLs, invent Harness-specific Product Knowledge IDs, or turn retrieved sources into a bibliography. If a page cannot be identified reliably, omit the reference rather than guessing.
 
+**GitLab Wiki placement for Wiki-bound PRDs:** While retrieving current-product context, identify the canonical Product Knowledge area that **owns the behavior being changed**, not merely a related area mentioned in `references`. Reuse the existing Product Knowledge hierarchy and check the actual target Wiki's current parent-path casing/navigation when accessible; never assume a Product Knowledge URL is already a matching Wiki folder. Select one primary parent, retain related areas in `references`, and avoid duplicate PRD pages. If materially ambiguous, ask for the smallest operational placement clarification; if Wiki access is unavailable, keep path verification distinct from the source-grounded placement proposal. Do not demand broader Product Knowledge retrieval solely for naming/placement when the owning area is already established.
+
 Inspect relevant implementation when canonical documentation and reviewed evidence are insufficient, inconsistent, or require deeper investigation. Treat what you find as implementation evidence for discrepancy analysis or later Technical Planning, not as a silent replacement for canonical JobVision Product Knowledge. Do not assume a specific code host or repository provider unless the environment establishes one.
 
 Treat direct product observation as establishing only what is directly observable in the state or session inspected. Static copy, layout, visual grouping, or one rendered state does not by itself establish navigation destination, result-set membership, eligibility, persistence, state or data ownership, lifecycle behavior, universal visibility, cross-session behavior, or business-rule semantics. When such an interpretation is materially relevant, verify it through stronger available context such as deeper canonical Product Knowledge retrieval, reviewed walkthrough evidence, interaction with the product, or implementation evidence. Until verified in canonical Product Knowledge, state only the narrow observable fact or preserve the semantic uncertainty rather than promoting the interpretation into canonical `Current Behavior`.
@@ -87,7 +89,7 @@ Apply a Solution Promotion Gate to proposed interaction or presentation mechanic
 
 Use the test `if this proposed solution were removed from the PM input, would the established Product decisions still necessarily require this behavior?` only when evaluating behavior inferred from an in-scope surface, an adjacent decision, or another implicit inference. Do not use the test to invalidate an explicit PM or human decision. In particular, `surface or touchpoint is in scope` does not imply `the proposed mechanic or capability on that surface is required`.
 
-Populate the PRD metadata and semantic responsibilities defined by `../artifacts/prd.md` without rendering empty conditional sections merely for completeness.
+Populate the PRD metadata and semantic responsibilities defined by `../artifacts/prd.md` without rendering empty conditional sections merely for completeness. For a new PRD, generate the first stable `YYMMDDHHmm` ID from a trustworthy current Jalali date and 24-hour Iran-local time when available, with manual PM-provided date/time as the fallback. Do not silently fabricate the date or change an existing non-placeholder ID. For Wiki-bound PRDs, propose a short English kebab-case slug and construct the **complete** `wiki_path` from the grounded primary parent, stable ID and slug. Put all metadata in one opening YAML frontmatter block; never append a second block.
 
 Retrieve the responsible Product owner or team when reasonably possible. Do not infer or fabricate ownership; when ownership cannot be established, use `owner: unresolved`.
 
@@ -100,6 +102,8 @@ Keep product relationships and behavioral consequences in their semantic homes s
 Do not return a skeleton dominated by `TBD` fields when a meaningful draft can be produced.
 
 Follow the PRD Artifact Contract in `../artifacts/prd.md`.
+
+**Wiki publishing handoff:** Before outputting a PRD intended for GitLab Wiki, recheck its primary placement against the final Scope, keep its established path when editing an already published PRD, and **always show `GitLab Wiki Title` and full `GitLab Wiki Path` outside the copyable PRD Markdown**. The Title follows the human-readable PRD heading; the Path is the exact value of frontmatter `wiki_path`, ready to paste into the Wiki Path field (without `.md`). Explain that GitLab's automatic path-from-title option should be disabled. If the path or timestamp is not reliably resolvable, show `unresolved` and request only the missing operational fact instead of claiming publication readiness. Do not treat missing Wiki navigation as an unresolved Product decision or allow it to silently alter `Problem Aligned` semantics.
 
 ### 4. Run semantic normalization
 
