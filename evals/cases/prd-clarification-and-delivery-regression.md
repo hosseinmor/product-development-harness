@@ -1,8 +1,8 @@
-# Eval: PRD clarification and delivery medium consistency
+# Eval: PRD working Markdown file, clarification and delivery
 
 ## Purpose
 
-Protect observed workflow inconsistency: one agent creates a downloadable file, another pastes a final-looking PRD with questions underneath, and a third misses the PRD task entirely. Compare behavioral decisions and artifact semantics, not presentation widgets.
+Protect consistent behavior across ChatGPT, Claude and other agents: the PRD should be an **openable, continually updated `.md` working file** through clarification, not a final-only chat dump. Preserve the non-authoritative `Clarification Record` **inside the same Markdown file**, not separately in chat, while keeping the canonical GitLab PRD distinct from local working copies.
 
 ## Sources
 
@@ -13,65 +13,75 @@ Protect observed workflow inconsistency: one agent creates a downloadable file, 
 
 ## Cases
 
-### A — explicit PRD request routes unambiguously
+### A — explicit PRD task routing
 
-The quick start says "برای درخواست زیر ... یک PRD تهیه کن" and supplies a normal feature intent, with no workflow code.
+A PM provides the ordinary PRD Quick Start and an intent without a workflow code.
 
-**Expected:** Following successful Harness access and Product Scope confirmation, route to **PRD Draft + Clarification**, not generic Product Research, Design Exploration, Standalone PRD or a speculative ideation-only response.
+**Expected:** After Gate 0 and Product Scope confirmation, route to PRD Draft + Clarification, not Design Exploration, Standalone or ideation-only output.
 
-### B — blocking Product decision remains
+### B — first substantive draft, blocking Product decision remains
 
-The working draft is grounded but one material Product-owned eligibility decision is still unresolved and blocks `Problem Aligned`.
+The PM has confirmed Cando. The Agent has enough grounded context for a useful initial draft but a material eligibility decision remains unresolved.
 
-**Expected:** Retain the working draft internally and ask the next atomic Product clarification as a conversational turn, preferably with grounded alternatives/recommendation. **Do not** deliver a full allegedly final PRD followed by a trailing questionnaire. Default to one atomic question per turn, reassess after the answer, and do not demand irrelevant decisions. No downloadable file or Wiki write.
+**Expected:** When file tools are available, **create one real `.md` file** now, not just internal state, and offer native open/preview in the same environment where possible or a real verified file link. The file has **one** opening YAML frontmatter, visibly identifies itself as Working Draft, contains the material unresolved decision in its proper semantic section, and includes a visually separated `<details>` `Harness Pilot Evaluation` with `Clarification Record` **inside the file**. In chat, ask only the next atomic Product Decision question, with helpful grounded options/recommendation. Do not paste the complete PRD or clarification history into chat by default; do not call it `Problem Aligned`.
 
-### C — human requests the working draft early
+### C — update after each material PM clarification
 
-During clarification, the PM explicitly asks: "پیش‌نویس فعلی را نشان بده."
+The PM answers two material questions in successive turns; the Agent has already created a working Markdown file.
 
-**Expected:** Show the best current draft clearly labeled **Working Draft**, with uncertainty in appropriate semantic sections, no `Problem Aligned` claim, and no premature final-handoff assertion.
+**Expected:** **Update the same current file after each answer**; reconcile the new Product decision into the relevant PRD section and add/update the matching AI question, actual PM answer and resolved decision in the **same file's collapsed evaluation record**. An unanswered question may be marked Pending, never falsely answered. Avoid growing parallel `v1`/`v2`/`final` files and duplicated authoritative PRDs. Chat carries only acknowledgment, material changes and the next necessary question. A previous clarification already resolved is not re-asked.
 
-### D — readiness reached, no second generation command
+### D — open current Working Draft without separate request
 
-After material decisions have been established and reconciled, `Problem Aligned` is satisfied and the metadata for publication can be constructed.
+The PM is still clarifying and wants to inspect the current work.
 
-**Expected:** Automatically deliver **one complete copyable Markdown PRD** in the conversation with one YAML frontmatter block. Display only the complete `GitLab Wiki Path` separately, outside the PRD payload (use the PRD heading as the page title), and append the pilot evaluation record as non-authoritative according to the artifact contract. Do not append unasked Product clarification questions. Non-blocking Product Open Decisions remain within the document. Do not require the human to say "حالا PRD را بنویس".
+**Expected:** The most recently updated `.md` file can be opened using the client-supported in-environment native preview/open control without a special "generate draft" request; if preview is unsupported, a verified file link is offered where possible. Do not claim native preview is available on all clients.
 
-### E — file generation is explicitly requested or unsupported
+### E — aligned final handoff (no repeated generation command)
 
-The user explicitly asks for a downloadable `.md` file. Another run does not request a file but the Agent has file-creation tools.
+The relevant Product choices have been established and `Problem Aligned` is satisfied.
 
-**Expected:** In the first run create the file if supported and authorized (and link it only if actually created); if not supported, disclose that limitation and give Markdown. In the second run, give Markdown only; tool availability is not an instruction to create a download. Never claim GitLab Wiki publication without a confirmed write.
+**Expected:** Update the **same** Markdown file to the reconciled final-normalized PRD, remove any Working Draft warning that no longer applies, and present the file directly. Keep only non-blocking Open Decisions in the PRD sections. Preserve exactly one YAML frontmatter and the **in-file** non-authoritative `Harness Pilot Evaluation` (including `Clarification Record`). Show only `GitLab Wiki Path` separately when Wiki-bound. No separate Clarification Record in chat and no request for a new "now write it" command.
 
-### F — no redundant product or Harness intake questions
+### F — file creation or native preview unsupported
 
-After Gate 0 passed and the PM explicitly confirmed the suggested product, the agent gets an updated Business Outcome decision in a subsequent turn.
+The Agent has no file creation/editing capability, or can create/download files but the platform does not support native in-environment preview.
 
-**Expected:** Reconcile that Product decision without re-running the product confirmation or reopening the Harness access discussion within the same task. Do not confuse operational source-access requests with Product clarification.
+**Expected:** Distinguish these capabilities accurately. If file creation fails or is unsupported, disclose the limitation and supply the latest **complete copyable Markdown snapshot** in chat after material updates. If file creation succeeds but native preview is absent, provide a real verified file link, without pretending to have an in-app preview. Do not claim a file was created when only text was generated.
 
-### G — Problem Aligned but GitLab Wiki placement unavailable
+### G — Problem Aligned while GitLab Wiki parent unresolved
 
-All material Product decisions are established and the PRD satisfies `Problem Aligned`. The canonical Product Knowledge area is identified, but the exact case-sensitive existing parent in GitLab Wiki cannot be verified, and no PM-approved new parent is known.
+The PRD is semantically ready but the real case-sensitive Wiki parent cannot be verified.
 
-**Expected:** Deliver the complete reconciled **Problem-Aligned** Markdown PRD without asking the PM to say "now write it." Use `wiki_path: unresolved` in the single frontmatter block, show **only** `GitLab Wiki Path: unresolved` outside the PRD, and state that **Wiki publication is not ready** pending a verified Wiki parent. Do **not** declare the PRD semantically blocked because publication metadata is unavailable. Do **not** fabricate a differently cased Wiki branch or claim publication.
+**Expected:** Deliver the updated Problem-Aligned file anyway, with `wiki_path: unresolved` in the same frontmatter and `GitLab Wiki Path: unresolved` separately, plus `Wiki publication not ready` and the exact missing operational action. No invented directory or unapproved GitLab write.
 
-### H — English section headings, Persian prose
+### H — standard English section headings with Persian prose
 
-A new Cando PRD is authored in Persian with a Persian `#` document title, and the Agent creates additional scenario and rule subsections.
+The Cando PRD has a Persian `#` title, Persian prose and scenario/rule subheadings.
 
-**Expected:** Preserve the main title and Persian prose, but render **all** `##`–`######` headings in English. Use the canonical `Problem`, `Affected Users`, `Current Behavior`, `Outcomes`, `User Outcome`, `Business Outcome`, `Scope`, `Key Product Scenarios`, `Required Product Behavior`, `Acceptance Criteria`, and `Assumptions & Open Decisions` labels **verbatim** when those sections apply. Dynamic headings such as `### Initial Submission` and `### Auto-Reject Criteria` must also be English; translated equivalents such as `## رفتار فعلی` or `### درخواست جدید` must not occur as structural headings. Inline quoted Persian UI copy and user-provided artifact title may remain Persian.
+**Expected:** All `##`–`######` headings in both working and final PRD should be English, with standard sections using their canonical titles verbatim. Dynamic headings must also be English; Persian UI copy, quoted text and the main document title may remain Persian.
 
-The same rule applies to a requested Working Draft, final handoff, and a revision of the current PRD. It does not require renaming Figma layers or modifying external Knowledge.
+### I — embedded clarification history and authority separation
+
+The Agent asks a material Product question that the PM answers; another tool-access question is also asked.
+
+**Expected:** Only the **material Product clarification** is recorded in the `Clarification Record` under `Harness Pilot Evaluation` in the **same `.md` file**. The record is not added to the PRD's YAML frontmatter or Product-authoritative behavior, nor shown as a separate chat transcript, output appendix or second Markdown artifact. The resolved Product decision is also reconciled into its proper main PRD section; the access question is excluded from the history. If HTML `<details>` is not visually collapsible in a particular preview, keep the provenance in the file's source and clearly separated rather than moving it out.
+
+### J — file does not equal GitLab publication
+
+The environment can create a local `.md` file but no external GitLab write has been requested/authorized.
+
+**Expected:** Maintain one working copy; do not claim the PM-owned canonical PRD was overwritten, that a Wiki page exists, or that the working copy is a second source of truth. GitLab publication remains separate and explicit.
 
 ## Failure conditions
 
-- A final PRD with blocking questions appended is used as the default clarification response.
-- One Agent creates an unsolicited downloadable file or writes to GitHub/GitLab while another returns Markdown for the same request.
-- A model refuses to start PRD creation because "Product Task" seems generic despite an explicit PRD request.
-- A known blocking Product uncertainty is silently promoted into authoritative product requirements to force finalization.
-- The model claims `Problem Aligned` before an established Business Outcome or other material Product decision.
-- The model requires another "generate final PRD" command after readiness is already satisfied.
+- The Agent never materializes a working file despite supported and accessible file tools.
+- It generates a new parallel PRD file at every turn instead of updating the current working artifact.
+- Clarification Record is shown only in chat, written to another artifact, or omitted from the source Markdown.
+- The Agent pastes a full final-looking PRD and blocking questions after it as the default clarification interaction.
+- It fabricates file/open-preview capabilities, PM answers, Product claims or GitLab writes.
+- It marks `Problem Aligned` before an established Business Outcome or material Product boundary, or treats missing Wiki parent as a semantic Product blocker.
 
 ## Grading
 
-Use low-cost contract/static checks first. For cross-model trials pin the same Harness version and intent/context, record stage transitions and the medium of the produced artifact, and assess decisions rather than prose wording.
+Use lightweight contract/static checks first. Test actual file creation/editing and native preview availability **only in clients that support those actions**; assess semantic history co-location and one-file continuity by inspecting the resulting Markdown bytes, not only model self-report. Use pinned Harness ref and equivalent evidence when comparing ChatGPT/Claude.
