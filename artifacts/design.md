@@ -20,7 +20,7 @@ The Harness does not require a specific design tool or representation.
 
 A Design Artifact may be represented by Figma, a prototype, diagrams, structured text, or another medium that can satisfy this contract.
 
-The Harness does not prescribe Figma page structure, frame naming, component structure, or tool-local organization.
+The Harness does not prescribe Figma page structure, frame naming, component structure, or tool-local organization. **For a textual/Markdown Design Artifact**, all section and subsection headings (`##`–`######`) must be English, including additional flow/state/interaction headings. The document's main `#` title and explanatory prose may be Persian. This formatting rule does not rename Figma frames/pages, UI labels, or external design references.
 
 ## Semantic responsibilities
 
