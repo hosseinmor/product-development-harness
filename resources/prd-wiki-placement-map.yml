@@ -29,7 +29,16 @@ products:
   jobvision:
     product_knowledge_source: jobvision_product_knowledge
     wiki_project: product/prd/jobvision
-    verified_areas: {}
-    # Wiki branches including candidate/ and employer/ are visible.
-    # Current environment could not read the JobVision Knowledge area hierarchy.
-    # Do not fabricate one-to-one matches until both sides are checked.
+    verified_areas:
+      job-search: candidate/job-discovery
+      candidate-premium: candidate/jobvision-pro
+    # JobVision Knowledge has 27 area overview paths in the inspected sidebar.
+    # The Wiki groups its paths by audience/journey rather than mirroring those
+    # areas one-for-one. These two associations have direct contextual support:
+    # job-search -> Job Discovery (search-related sample PRD);
+    # candidate-premium -> JobVision Pro (independent premium-pack PRD).
+    # Pending: cv vs candidate/onboarding-cv; application vs
+    # candidate/apply-follow-up / employer applicant-management;
+    # company-review vs candidate/company-transparency; career-guide vs
+    # candidate/career-growth; and other knowledge areas.
+    # Do not treat those pending associations as verified mappings.
