@@ -114,7 +114,7 @@ Provide access to or the location of relevant external sources such as canonical
 
 For JobVision, the current canonical Product Knowledge entry point is `https://docs-jv.jvoffice.ir/`. In the documented ChatGPT Desktop / Work pilot, the recorded supported access path is local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. Verify access in each execution environment; if unavailable, preserve that limitation. Reusable Design Language and Content guidance is in `https://github.com/hosseinmor/design-language` (see `context-sources.yml`); it is never a fallback store for JobVision product behavior.
 
-For the current pilot, migration of the **Harness repository** to GitLab is paused. For the current JobVision/Cando pilot, the corresponding product GitLab Wiki is the **default** manual PRD publishing target unless the PM explicitly chooses another durable store; the Harness remains portable across storage providers and does not claim automatic Wiki write access. Identify one canonical durable PRD per Product Change before downstream handoff. A new PRD ID uses product prefix + 10-digit Jalali Iran-local `YYMMDDHHmm` timestamp rather than a registry/Issue sequence; the existing stable `id` must be preserved when updating. For Wiki-bound PRDs, `wiki_path` records the full proposed/established Wiki page path, and the AI must provide the human-readable Wiki Title and copy-ready Path outside the PRD content. See `artifacts/prd.md` and the GitLab Wiki publication guide.
+For the current pilot, migration of the **Harness repository** to GitLab is paused. For the current JobVision/Cando pilot, the corresponding product GitLab Wiki is the **default** manual PRD publishing target unless the PM explicitly chooses another durable store; the Harness remains portable across storage providers and does not claim automatic Wiki write access. Identify one canonical durable PRD per Product Change before downstream handoff. A new PRD ID uses product prefix + 10-digit Jalali Iran-local `YYMMDDHHmm` timestamp rather than a registry/Issue sequence; the existing stable `id` must be preserved when updating. For Wiki-bound PRDs, `wiki_path` records the full proposed/established Wiki page path, and the AI must provide only the copy-ready `GitLab Wiki Path` outside the PRD content; the document heading supplies the page title. See `artifacts/prd.md` and the GitLab Wiki publication guide.
 
 The PM remains the authority for Product decisions and the canonical PRD write. Other roles may propose changes through the review/comment mechanism available around the chosen durable artifact, but a proposal is not itself a Product decision. When a PM accepts a proposed change, the current durable PRD is updated and downstream propagation rules apply.
 
@@ -125,8 +125,6 @@ A minimal **PRD** task prompt (see the [PM Quick Start](resources/pm-quick-start
 ```text
 برای درخواست زیر با Job Vision Product Development Harness یک PRD تهیه کن.
 
-ابتدا AGENTS.md و فایل‌های الزامی Workflow را واقعاً بخوان؛
-اگر دسترسی نداری، متوقف شو و بدون Harness ادامه نده.
 https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md
 
 Intent:
