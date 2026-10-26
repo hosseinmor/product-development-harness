@@ -168,11 +168,9 @@ The Harness defines what product context is required to perform a task. It does 
 
 ### Product scope resolution
 
-Before retrieving product-specific canonical context or drafting substantive current-product claims, resolve which product owns the task or claim.
+Before retrieving product-specific canonical context or drafting substantive current-product claims, the Agent must **propose and obtain explicit human confirmation** of which product owns the task, as defined by Gate 1 in `AGENTS.md`. Use task wording and available authoritative artifacts to form a proposal; **even an explicitly named product requires confirmation once for each new task**. If the evidence cannot support a confident proposal, ask the smallest operational question needed without pretending certainty. Never use the organization's Harness name as product-identification evidence.
 
-Use explicit task wording and authoritative context already available. If one product is established, use only that product's canonical Product Knowledge for its internal behavior. If a task spans products, partition claims before retrieval. If ownership remains ambiguous enough that choosing a source would require a guess, ask the smallest operational clarification needed to identify the product before product-specific retrieval or substantive drafting.
-
-This is an exception to the normal draft-first clarification preference because product scope selects the authority itself. It is not a Product Decision and should not enter the PRD clarification record unless it separately establishes material Product intent.
+Once confirmed, use only the confirmed product's canonical Knowledge for its internal behavior, or partition claims by the confirmed owners for a Cross-product task. A correction from the human immediately replaces the proposal and is itself confirmation of the corrected scope; do not ask repeatedly. This pre-draft gate chooses the authority and is not a Product Decision clarification or part of the PRD clarification record.
 
 For a given task, relevant context may include:
 
