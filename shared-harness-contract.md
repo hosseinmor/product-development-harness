@@ -134,7 +134,7 @@ When an established decision changes, update the current owning artifact and the
 
 Durable artifacts must remain retrievable and versioned enough for downstream work and change recovery.
 
-For the current Job Vision pilot, the Harness repository's migration to GitLab is paused. Manual publication of PRDs in product-specific GitLab Wikis is supported when designated by the PM; the Harness itself remains storage-agnostic and does not claim Wiki write access.
+For the current Job Vision pilot, the Harness repository's migration to GitLab is paused. **For JobVision and Cando PRDs, use the corresponding product GitLab Wiki as the default manual publishing target unless the PM explicitly selects another current durable store.** The Harness stays portable across providers and does not claim Wiki write access.
 
 - For each Product Change, Product Management must explicitly identify one current durable PRD location before downstream handoff.
 - Maintain one current PRD artifact per Product Change; do not create parallel `v1`, `v2`, or `final` copies by default.
