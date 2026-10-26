@@ -3,10 +3,10 @@
 # inventory whenever its structure changes. Do NOT read GitLab Wiki to refresh it.
 # Paths are relative to /contents/; each has a corresponding <area>/0_overview/ page.
 # Knowledge determines the owning area, NOT the spelling of a GitLab Wiki parent.
-# For a new Wiki PRD, check the actual Wiki hierarchy and preserve its exact
-# case-sensitive segments (e.g. Knowledge ats/job vs existing Wiki ATS/job).
-# If the parent cannot be verified, leave Wiki placement unresolved instead of
-# creating a duplicate differently cased branch. Published paths stay stable.
+# PRD publishing parent paths are held separately in prd-wiki-parents.yml.
+# Do NOT browse previous PRDs or GitLab Wiki during new-PRD drafting.
+# For an unregistered parent use wiki_path: unresolved; do not infer casing.
+# Published paths stay stable unless an explicit move is approved.
 schema_version: "1"
 checked_on: "2026-10-26"
 products:
