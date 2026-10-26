@@ -33,9 +33,9 @@ function isStableId(value: string | null): boolean {
 /**
  * Protects durable PRD identity across redrafting and reconciliation.
  *
- * Official ID allocation is external to this guard. Per the PRD contract, a
- * new draft may move from an unresolved placeholder to its first registry-
- * allocated official ID without that being an identity migration. This guard
+ * Initial ID creation is external to this guard. Per the PRD contract, a
+ * new draft may move from an unresolved placeholder to its first timestamp-
+ * based ID without that being an identity migration. This guard
  * protects an already-established non-placeholder ID from silently changing
  * or regressing to an unresolved/placeholder value.
  */

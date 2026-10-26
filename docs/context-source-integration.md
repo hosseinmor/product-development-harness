@@ -42,6 +42,10 @@ Design Language and Product Content are separate **authority roles** even though
 - **Harness** — process, consistency, readiness, and downstream change propagation.
 - **Product Walkthrough, implementation, observation, and research** — evidence within their verified scope, not policy overrides.
 
+## PRD Wiki placement map
+
+`resources/prd-knowledge-areas.yml` is a **dated navigation index** of area overview paths extracted **only from canonical Product Knowledge** (JobVision 27 + Cando 38 as of 2026-10-26). It does not own or duplicate product semantics, and is not a second source of truth. `context-sources.yml` continues to hold source endpoints. For every new Wiki PRD, read live canonical Knowledge to establish the owning area; consult this inventory only to locate it or detect changes; then use the **exact Knowledge area path unchanged as the proposed Wiki parent**, appending `<ID>-<english-kebab-case-slug>`. Neither this index nor a GitLab folder mapping is a required publication authority. New Wiki branches may need to be created by the PM to follow Knowledge's structure. If Knowledge navigation changes, update this single index **from Knowledge only**, without inspecting Wiki or adding Wiki path aliases. Existing published PRD paths are preserved unless explicitly moved.
+
 ## Source-location rules
 
 - Treat `context-sources.yml` as the current locator; do not hard-code obsolete repository names elsewhere in Harness guidance.

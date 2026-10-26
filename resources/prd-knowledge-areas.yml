@@ -1,0 +1,83 @@
+# Snapshot of canonical Product Knowledge area overview paths, not independent product truth.
+# Read the live canonical Knowledge source to determine product ownership and update this
+# inventory whenever its structure changes. Do NOT read GitLab Wiki to refresh it.
+# Paths are relative to /contents/; each has a corresponding <area>/0_overview/ page.
+# For a NEW Wiki PRD, use the exact owning Knowledge area path as its parent, with
+# the same segments and casing. This is a publication naming convention, not
+# a claim that an identically named Wiki folder currently exists.
+# Never change an existing published PRD's path just to match this convention.
+schema_version: "1"
+checked_on: "2026-10-26"
+products:
+  cando:
+    product_knowledge_source: cando_product_knowledge
+    knowledge_areas:
+      - shared/ai
+      - ats/hiring-request
+      - ats/job
+      - ats/candidate
+      - ats/application
+      - ats/interview
+      - ats/evaluation
+      - ats/career-page
+      - ats/sourcing
+      - ats/operator
+      - ats/organization
+      - ats/notification
+      - ats/report
+      - salary/personnel
+      - salary/job-profile
+      - salary/benchmark
+      - salary/settings
+      - salary/report
+      - calendar/calendar-access
+      - calendar/event
+      - calendar/availability
+      - calendar/sync
+      - learning/access
+      - pulse/survey
+      - pulse/questionnaire
+      - pulse/response
+      - pulse/org-chart
+      - pulse/report
+      - pulse/action
+      - pulse/notification
+      - pulse/tenant
+      - onb/onboardee
+      - onb/template
+      - onb/notification
+      - onb/feedback-evaluation
+      - onb/welcome
+      - onb/access
+      - onb/tenant
+
+  jobvision:
+    product_knowledge_source: jobvision_product_knowledge
+    knowledge_areas:
+      - company-review
+      - jobpost
+      - application
+      - job-fair
+      - assessment
+      - matching
+      - scoring
+      - ai
+      - account
+      - cv
+      - career-guide
+      - content
+      - candidate-premium
+      - channels
+      - learning
+      - market-insights
+      - nationwide
+      - job-search
+      - company
+      - operator
+      - talent-search
+      - talent-pool
+      - suggested-cv
+      - package
+      - billing
+      - campaign
+      - backoffice

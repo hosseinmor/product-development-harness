@@ -12,7 +12,7 @@
 - **Cando:** منبع canonical در `https://docs-cd.jvoffice.ir/` است. در هر execution environment فقط از مسیری استفاده کنید که دسترسی آن به این source داخلی verify شده باشد؛ در صورت عدم دسترسی، source دیگری را جای canonical Cando Product Knowledge قرار ندهید.
 - **Taskهای integration:** ادعاها را بر اساس product تفکیک کنید؛ `docs-jv` فقط authority سمت JobVision و `docs-cd` فقط authority سمت Cando را دارد، مگر اینکه یک integration-boundary fact صریحاً در source مربوط مستند شده باشد.
 
-4. محل نهایی hosting برای PRD فعلاً در Harness تثبیت نشده است. برای هر Product Change یک current durable PRD مشخص کنید و در ادامه‌ی کار همان را به Agent بدهید؛ chat history یا فایل قدیمی جای آن نیست.
+4. در پایلوت جاب‌ویژن و کندو، **محل پیش‌فرض انتشار PRD، GitLab Wiki همان محصول است** و PM سند را فعلاً دستی ثبت می‌کند؛ اگر محل durable دیگری انتخاب کردید، صریح به Agent بگویید. مهاجرت خود ریپوی Harness به GitLab همچنان متوقف است. در ادامه همان سند جاری را به Agent بدهید؛ chat history یا فایل قدیمی جای آن نیست.
 
 ## Prompt شروع
 
@@ -60,11 +60,15 @@ Current PRD:
 
 ## PRD را کجا نگه می‌داریم؟
 
-مهاجرت GitLab و استفاده از GitLab Wiki فعلاً به‌دلیل مشکلات دسترسی متوقف است. Harness در این Pilot یک سرویس hosting مشخص برای PRD تحمیل نمی‌کند.
+مهاجرت **ریپوی Harness** به GitLab فعلاً متوقف است، اما در پایلوت، **GitLab Wiki محصول محل پیش‌فرض انتشار دستی PRD** است؛ PM می‌تواند محل durable دیگری را صریحاً تعیین کند. Harness برای محیط‌های دیگر سرویس hosting مشخصی را تحمیل نمی‌کند.
 
 برای هر Product Change، PM باید یک **current durable PRD** مشخص داشته باشد و همان artifact را در ادامه‌ی کار به AI، Designer و سایر نقش‌ها بدهد. نسخه‌های موازی مثل `v1`، `v2` یا `final` نسازید مگر اینکه واقعاً نیاز workflow وجود داشته باشد. محل نگهداری می‌تواند بعداً با تصمیم تیم عوض شود؛ AI نباید خودش storage یا permission model را فرض کند.
 
-PRD جدید تا قبل از registration رسمی با `id: unresolved` شروع می‌شود. AI یا PM نباید شمارهٔ بعدی را از روی PRDهای موجود حدس بزند. ID رسمی باید از registry configured تخصیص داده شود و با فرمت `JV-PRD-NNNNN` برای JobVision یا `CND-PRD-NNNNN` برای Cando ثبت شود. اولین تخصیص registration است و بعد از آن ID باید ثابت بماند. `Problem Aligned` شدن به registration وابسته نیست، اما قبل از downstream handoff به‌عنوان current durable PRD باید ID رسمی تخصیص داده شده باشد.
+برای PRD جدید، AI یا PM می‌تواند ID را بدون Registry یا Issue و با **تاریخ شمسی و ساعت ایران تا دقیقه** بسازد: `JV-PRD-YYMMDDHHmm` یا `CND-PRD-YYMMDDHHmm`. `YY` دو رقم انتهایی سال شمسی است؛ `HHmm` ساعت ۲۴ساعتهٔ ایران. نمونهٔ فرضی برای ۱۴۰۶/۰۴/۰۸ ساعت ۱۴:۳۷: `CND-PRD-0604081437`. اگر تاریخ/زمان قابل اتکا نبود، به‌جای حدس‌زدن از PM زمان را بپرسد و موقتاً `id: unresolved` نگه دارد. شناسهٔ قبلی هنگام ویرایش هرگز نباید دوباره تولید شود.
+
+**در هر خروجی PRD که قرار است در GitLab Wiki منتشر شود، AI باید حتماً دو مقدار را جدا از متن PRD ارائه کند:** `GitLab Wiki Title` (عنوان فارسی قابل‌فهم) و `GitLab Wiki Path` (مسیر کامل قابل کپی، شامل نام انگلیسی کوتاه و `kebab-case` بعد از ID). `wiki_path` همین Path کامل در یک Frontmatter واحد PRD قرار می‌گیرد. مثال فرضی برای PRD **جدید**: `ats/job/CND-PRD-0604081437-auto-reject-by-location`. AI حوزهٔ مالک را از Product Knowledge همان محصول تشخیص می‌دهد و مسیر همان حوزه را بدون تبدیل/نگاشت مستقل به‌عنوان Parent پیشنهاد می‌کند. [`prd-knowledge-areas.yml`](prd-knowledge-areas.yml) فقط فهرست راهنمای حوزه‌های Knowledge است و منبع حقیقت جداگانه‌ای نیست. اگر Wiki هنوز این شاخه را ندارد، PM می‌تواند هنگام انتشار بسازد؛ مسیر PRDهای موجود بدون تصمیم صریح عوض نمی‌شود. اگر حوزه مالک معلوم نیست، `unresolved` گزارش شود. در GitLab گزینهٔ `Generate page path from title` را غیرفعال کنید و Path را بدون `.md` وارد کنید. اگر مسیر نامشخص است، AI موظف است `unresolved` و اقدام لازم را گزارش کند، نه اینکه آن را حذف یا جعل کند.
+
+راهنمای کامل ثبت دستی: [GitLab Wiki publication](prd-gitlab-wiki-registration.md).
 
 وقتی PRD برای handoff آماده می‌شود، Agent باید یک خروجی واحد بدهد: ابتدا خود PRD و سپس بخش `Harness Pilot Evaluation` به‌صورت non-authoritative. اگر محل نگهداری از `<details>` پشتیبانی می‌کند، این بخش collapsed باشد؛ در غیر این صورت بلافاصله بعد از PRD با heading صریح non-authoritative نگهداری شود.
 
