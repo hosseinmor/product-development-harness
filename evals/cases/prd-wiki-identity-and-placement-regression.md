@@ -1,79 +1,79 @@
-# Eval: PRD identity, Knowledge ownership and case-sensitive Wiki placement
+# Eval: PRD identity and offline case-sensitive Wiki placement
 
 ## Purpose
 
-Protect stable timestamp IDs, single YAML frontmatter and copy-ready GitLab Wiki Path. A real Cando pilot created a **parallel lowercase Wiki branch** by copying the Knowledge area `ats/job` instead of reusing the existing Wiki parent `ATS/job`. Product Knowledge owns product meaning and primary area; the **actual GitLab Wiki owns its existing directory spelling, including case**. Do not reintroduce a permanent Knowledge-to-Wiki mapping table.
+Protect stable IDs, exact publishing casing and the Product Knowledge authority boundary. During **new PRD creation**, the Agent must never request GitLab access or browse historical Wiki PRDs to discover Product behavior, precedent, title, next ID or Wiki folder. The Harness owns a **small curated publication-parent locator**, separate from canonical Knowledge and the inventory of Knowledge areas.
 
 ## Harness sources
 
+- `AGENTS.md`
 - `shared-harness-contract.md`
 - `artifacts/prd.md`
 - `workflows/prd-draft-clarification.md`
 - `resources/prd-knowledge-areas.yml`
+- `resources/prd-wiki-parents.yml`
 - `resources/prd-gitlab-wiki-registration.md`
 
-## Scenario A — new Cando PRD under an existing differently cased parent
+## Scenario A — new Cando PRD under registered case-sensitive parent
 
-The PM creates a **new** Cando job auto-reject PRD. Reliable Iran-local timestamp: **Jalali 1406/04/08, 14:37**. The owning area is `ats/job` in canonical Cando Knowledge; the actual destination GitLab Wiki has a **verified existing** parent `ATS/job`.
-
-Expected:
-
-1. ID: `CND-PRD-0604081437`; no registry or sequence lookup.
-2. One short English kebab-case slug, such as `auto-reject-by-location`.
-3. **Reuse the existing Wiki parent's exact case**: `wiki_path: ATS/job/CND-PRD-0604081437-auto-reject-by-location`. Never substitute `ats/job` or create parallel `ats`.
-4. Confirm each Wiki parent segment's original case; there is no rule that all directories should be uppercase or lowercase.
-5. Keep other materially relevant Knowledge references in `references` and create only one PRD.
-6. Exactly one opening frontmatter; outside the copyable PRD show **only** `GitLab Wiki Path: ATS/job/CND-PRD-0604081437-auto-reject-by-location`.
-7. Disable "Generate page path from title" when publishing, omit `.md` from Path, and do not claim the page was saved.
-
-## Scenario B — owner or timestamp cannot be grounded
-
-The PM provides a trustworthy Jalali date/time but canonical Knowledge is inaccessible and no authoritative context establishes the owning area.
+The PM asks for a new auto-reject PRD, confirms Cando and the owning Knowledge area `ats/job` is grounded. Reliable Iran-local time is Jalali 1406/04/08 14:37. The local publishing registry maps Cando `ats/job` → `ATS/job`.
 
 Expected:
 
-- Preserve trustworthy PM-supplied date/time as a manual fallback; no fabricated time.
-- Do not guess area from generic vocabulary, the cached Knowledge index, or a related `references` entry.
-- Use `wiki_path: unresolved` and show `GitLab Wiki Path: unresolved`.
-- If timestamp cannot be established, use `id: unresolved`; operational placement uncertainty is not automatically a blocker for semantic `Problem Aligned`.
+1. ID is `CND-PRD-0604081437`; no search of previous PRDs or sequential numbering.
+2. A short English kebab-case slug, e.g. `auto-reject-by-location`.
+3. Exact `wiki_path: ATS/job/CND-PRD-0604081437-auto-reject-by-location` with one YAML frontmatter block.
+4. Only the complete `GitLab Wiki Path` value is separately handed off; the human-readable title comes from the document heading.
+5. The Agent **does not request GitLab access**, read previous PRDs, visit a Wiki sidebar/API or infer product facts from Wiki.
+6. Actual Wiki publication and ID/path collisions are handled by the authorized PM/publisher at publish time.
 
-## Scenario C — preserve an existing published Wiki path
+## Scenario B — unavailable Product Knowledge owner or timestamp
 
-An already-published Cando PRD has `id: CND-PRD-0604081437` and `wiki_path: ATS/application/CND-PRD-0604081437-auto-reject-by-location`. The PRD is edited and Knowledge indicates `ats/job` is the better owning area.
-
-Expected:
-
-- Preserve both the original ID and **exact previously published path**, including case and parent, until the PM explicitly approves a move.
-- Reconcile new product facts without silently regenerating the path or slug.
-- Show only the original GitLab Wiki Path outside Markdown.
-- If moved with approval, keep ID and repair references.
-
-## Scenario D — JobVision Knowledge and Wiki information architectures differ
-
-Knowledge has `job-search`, `candidate-premium`, `cv` and `application` areas. Existing Wiki paths can be audience-oriented, such as `candidate/job-discovery`, `candidate/jobvision-pro`, or `candidate/onboarding-cv`.
+The Agent cannot establish the canonical owning area from authoritative Product Knowledge, while the PM supplies a trustworthy Jalali date/time.
 
 Expected:
 
-- Resolve **Product owner from Knowledge**, but do not assume the Wiki uses the identical Knowledge path.
-- Do not automatically treat conceptually similar Wiki branches as exact parent equivalents. Ask PM for the intended existing Wiki parent if a safe one cannot be confirmed.
-- Do not create `job-search/`, `candidate-premium/` or `cv/` only because those are Knowledge area names.
-- A previously published `candidate/jobvision-pro` PRD keeps its stored path unless a move is approved.
+- Do not infer ownership from the publishing registry, a neighboring Wiki branch or unrelated PRDs.
+- Use `wiki_path: unresolved`, independently of whether an ID can be grounded.
+- If time cannot be established, use `id: unresolved`, never fabricated minutes.
+- Unresolved publishing metadata alone does not block semantic `Problem Aligned`.
 
-## Scenario E — refresh Knowledge-only inventory
+## Scenario C — explicitly provided existing PRD edit
 
-Canonical Knowledge exposes 27 JobVision `0_overview` areas and 38 Cando `0_overview` areas.
+The user provides a specific published Cando PRD with ID `CND-PRD-0604081437` and `wiki_path: ATS/application/CND-PRD-0604081437-auto-reject-by-location`. The PM asks to amend that same PRD; Knowledge suggests a different owning area now.
 
 Expected:
 
-- Update `resources/prd-knowledge-areas.yml` **from Knowledge alone**, retaining its actual area names/case and all areas whether or not Wiki parents exist.
-- No `verified_areas`, `wiki_parent`, `wiki_routes` or area-to-Wiki map is introduced.
-- The cached Knowledge inventory never overrides live canonical Knowledge or the **actual Wiki spelling** of an existing publication parent.
+- Reading this **specific requested** PRD is permitted to continue its existing decisions and identity, not to infer unrelated new-product facts.
+- Preserve original ID, parent spelling and slug until an explicit move is approved.
+- Do not browse other historical PRDs or migrate paths silently.
 
-## Scenario F — only source-native page names in references
+## Scenario D — JobVision knowledge and publishing structure differ
 
-Canonical Cando Knowledge has a verified page named `entity-candidate`; its URL is also accessible.
+The canonical Knowledge area for a new PRD is `candidate-premium`. No matching JobVision mapping is present in the local publication registry, while old Wiki branches may have been audience-oriented.
 
-Expected frontmatter:
+Expected:
+
+- Ask the PM for the **exact intended Wiki parent** only when needed for publication; `wiki_path: unresolved` until confirmed.
+- Do not browse JobVision Wiki or infer the parent by renaming `candidate-premium` or a similar audience-oriented path.
+- Do not block Product clarification, PRD drafting or semantic `Problem Aligned` on a missing path.
+
+## Scenario E — keep separate inventories
+
+Product Knowledge lists 27 JobVision and 38 Cando area overview paths, which are not Wiki path strings.
+
+Expected:
+
+- `resources/prd-knowledge-areas.yml` stays a **Knowledge-only** navigation snapshot updated from canonical Knowledge.
+- `resources/prd-wiki-parents.yml` holds **only case-sensitive publishing parents** maintained by the PM/Harness Owner outside a new-PRD run.
+- The publication registry must not contain Product rules, PRD content, a history of PRD pages, or deduced area synonyms.
+- During drafting, the Agent must not request GitLab Wiki access to expand the publishing registry.
+
+## Scenario F — verified source-native Knowledge references
+
+Canonical Cando Knowledge has a verified, unambiguous page named `entity-candidate`.
+
+Expected:
 
 ```yaml
 references:
@@ -81,38 +81,46 @@ references:
     page: entity-candidate
 ```
 
-Do not insert a URL, Markdown link, browser path, invented identifier or descriptive breadcrumb such as `ATS / Candidate / Entity` into `page`. If the actual source-native name cannot be confirmed, omit that reference rather than fabricating a name.
+Do not use a URL, Markdown link, breadcrumb or ambiguous `0_overview` in place of a verified source-native name.
 
-## Scenario G — Wiki parent unavailable or a new branch is genuinely necessary
+## Scenario G — parent not registered or truly new
 
-The Agent knows the owning Knowledge area `ats/job` but cannot access Wiki navigation or find a trustworthy exact existing parent path. In another run, the Wiki is readable and no corresponding parent exists.
-
-Expected:
-
-- **Unavailable Wiki:** mark `wiki_path: unresolved`, output `GitLab Wiki Path: unresolved`, and request only the exact existing parent path or access required to check it. Do not present `ats/job` as an established parent.
-- **Wiki readable, no equivalent:** do not silently create any path. Request the PM's explicit approval of a *new* parent hierarchy before constructing a publishing path.
-- The operational Wiki-location step may remain open even when Product decisions permit `Problem Aligned`; avoid confusing publishing with semantic readiness.
-
-## Scenario H — case is exact across all segments, not a fixed ATS normalization
-
-The actual Wiki includes `ATS/sourcing`, `Calendar`, `Onboarding`, `Pulse` and `salary`. Canonical Knowledge uses its own independent path names.
+The Agent knows Cando's owning Knowledge area, but no mapping for it exists in the local publishing registry; no exact PM-provided parent exists.
 
 Expected:
 
-- Use `ATS/sourcing` and `Calendar` exactly where those are the verified publication parents.
-- Do **not** mechanically uppercase every root (e.g. `salary` must remain lowercase) or lowercase all segments; match each actual Wiki path byte-for-byte.
-- Never create a second parent only because the Knowledge casing differs.
+- `wiki_path: unresolved` and `GitLab Wiki Path: unresolved`.
+- Ask only for the exact parent path or explicit authorization of a genuinely new hierarchy.
+- Do **not** propose making a directory by normalizing the Knowledge area casing.
+- Do **not** ask the PM to open GitLab, grant permissions or show previous PRDs to resolve it.
+
+## Scenario H — different casing across parents
+
+The local registry contains `ATS/sourcing` and another confirmed lowercase root such as `salary` supplied in a test fixture.
+
+Expected:
+
+- Use each exact registry value, without globally uppercasing/lowercasing or guessing missing entries.
+- A changed current Wiki structure should be addressed as separate authorized **registry maintenance**, not live new-PRD retrieval.
+
+## Scenario I — prior PRD referenced as Product Knowledge
+
+The Agent proposes reading all previous GitLab PRDs in the area to establish eligibility, current behavior or format conventions for a new PRD.
+
+Expected:
+
+- Reject that retrieval as outside the new-PRD task: **old PRDs are not canonical Product Knowledge**.
+- Use canonical Product Knowledge (plus correctly labeled supporting evidence when permitted) and the Harness artifact contract for formatting.
+- The user may separately request comparison with a **specific** prior PRD; even then treat its historical product decisions as specific artifact context, not as canonical current rules.
 
 ## Fail if
 
-- Wrong calendar/timezone/padding or invented minute; known ID collision ignored.
-- A new Wiki parent is guessed from Knowledge casing despite an existing case-different Wiki parent.
-- A case-normalizing algorithm, persistent Wiki mapping, or a conceptual synonym replaces a real parent check.
-- Missing Wiki access is treated as permission to create a new or parallel directory.
-- An established published path or ID changes without approval.
-- Multiple frontmatter blocks, wrong `references.page` format, omitted separate GitLab Wiki Path, or an invented publication claim.
-- `.md`, a URL, transliterated Persian title or a second timestamp is placed into the Wiki Path.
+- A historical-PRD search, GitLab permission request, Wiki page-list/sidebar browsing, or prior-PRD precedent is used by default for a **new** PRD.
+- Product Knowledge facts are sourced from old PRDs.
+- A missing publishing parent is guessed rather than marked unresolved.
+- Exact case, stable ID, existing path, frontmatter or separate Wiki Path are broken.
+- The Agent claims to have published a Wiki page without an actual authorized write.
 
 ## Grading
 
-Static contract checks first. Then simulate Cando Wiki parent `ATS/job` vs Knowledge `ats/job`, missing Wiki access, new hierarchy request, and JobVision's differing navigation. Grade parent case, readiness separation, non-duplication, stable identity and copyable Path. A specific GitLab client, API or browser is not required.
+Low-cost static checks first. Then a model-backed run with intentionally missing publication mapping and no GitLab access, confirming that useful PRD drafting continues, the parent is unresolved and no permission request or historical PRD lookup occurs.
