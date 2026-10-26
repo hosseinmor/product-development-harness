@@ -5,8 +5,6 @@
 ```text
 برای درخواست زیر با Job Vision Product Development Harness یک PRD تهیه کن.
 
-ابتدا AGENTS.md و فایل‌های الزامی Workflow را واقعاً بخوان؛
-اگر دسترسی نداری، متوقف شو و بدون Harness ادامه نده.
 https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md
 
 Intent:
