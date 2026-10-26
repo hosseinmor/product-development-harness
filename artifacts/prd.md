@@ -312,6 +312,12 @@ The absence of a `references` entry alone does not block Problem Alignment when 
 
 Acceptance criteria need to be sufficient for that next use, not exhaustive.
 
+## Delivery representation (current pilot)
+
+The PRD is a durable **Markdown document**, not a transcript or a question list. Unless the human explicitly requests a file or a permitted external write, the default handoff is **one complete, copyable Markdown PRD in the conversation**. Tools may render the copyable content differently, but must not silently choose an alternative medium, create an `.md` download, or publish to GitLab/GitHub. If a file is explicitly requested and the environment cannot create one, disclose that limitation and provide copyable Markdown without claiming a file was saved.
+
+The PRD payload starts with **one** YAML frontmatter block and contains decided behavior plus explicitly labeled remaining **non-blocking** Open Decisions in their semantic home. Do not append a list of unresolved Product clarification questions after a final PRD; blocking questions belong in the separate clarification interaction *before* final handoff. A human-requested earlier draft must be labeled Working Draft and must not claim `Problem Aligned`. For Wiki-bound PRDs the separately presented `GitLab Wiki Title` and `GitLab Wiki Path` are handoff values outside the PRD payload.
+
 ## Harness Pilot Evaluation record
 
 During the current pilot, when a PRD is prepared for durable persistence, append one visually separated `Harness Pilot Evaluation` record immediately after the PRD in the same artifact when the chosen storage format supports it. Prefer a collapsed representation when possible. This record exists only to support Harness evaluation and must not be treated as part of the PRD's Product decision domain.
