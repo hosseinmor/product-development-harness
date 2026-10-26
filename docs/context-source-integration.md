@@ -42,9 +42,9 @@ Design Language and Product Content are separate **authority roles** even though
 - **Harness** — process, consistency, readiness, and downstream change propagation.
 - **Product Walkthrough, implementation, observation, and research** — evidence within their verified scope, not policy overrides.
 
-## PRD Wiki placement map
+## PRD Wiki placement
 
-`resources/prd-knowledge-areas.yml` is the dated **Knowledge-only** navigation inventory (27 JobVision and 38 Cando areas as of 2026-10-26). It never determines actual Wiki casing. **`resources/prd-wiki-parents.yml` is a separate, intentionally small, PM/Harness-Owner-maintained publication locator** containing only known case-sensitive parent paths; it is neither Product Knowledge nor a catalogue of PRD pages. Resolve new PRD ownership from live canonical Knowledge, then look up `(product, owning Knowledge area)` in the local publishing locator and append `<ID>-<english-kebab-case-slug>`. Do not inspect historical GitLab Wiki PRDs or ask for GitLab access to infer a parent, product behavior or naming during new-PRD drafting. An unlisted parent stays `wiki_path: unresolved` until the PM supplies an exact valid parent or approves a new hierarchy. Updating the publishing registry is a **separate maintenance action** by an authorized owner, not an implicit step in new PRD drafting. Preserve paths of explicitly identified published PRDs being edited.
+`resources/prd-knowledge-areas.yml` is a dated navigation inventory, not a second source of product ownership. Determine the primary owning area from live canonical Product Knowledge. For a new PRD, use that area's exact relative path, including casing, as the Wiki parent and append `<ID>-<english-kebab-case-slug>`. Do not inspect GitLab Wiki or historical PRDs to determine the parent. If the owning area cannot be established, keep `wiki_path: unresolved` until Knowledge or PM input establishes it. The PM corrects any divergence between Knowledge and Wiki paths outside the drafting run. Preserve the path of an explicitly identified existing published PRD when editing it.
 
 ## Source-location rules
 

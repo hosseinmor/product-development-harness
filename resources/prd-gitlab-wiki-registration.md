@@ -7,10 +7,10 @@
 | مقدار | مثال فرضی برای Cando | استفاده |
 | --- | --- | --- |
 | `id` | `CND-PRD-0604081437` | هویت پایدار سند |
-| GitLab Wiki Path | `ATS/job/CND-PRD-0604081437-auto-reject-by-location` | مسیر صفحه جدید با حفظ حروف بزرگ و کوچک والد موجود Wiki |
-| نام فایل در Git repository داخلی Wiki | `ATS/job/CND-PRD-0604081437-auto-reject-by-location.md` | مشتق از Wiki Path؛ **در فیلد Path، `.md` ننویسید** |
+| GitLab Wiki Path | `ats/job/CND-PRD-0604081437-auto-reject-by-location` | مسیر صفحهٔ جدید مطابق مسیر حوزهٔ مالک در Knowledge |
+| نام فایل در Git repository داخلی Wiki | `ats/job/CND-PRD-0604081437-auto-reject-by-location.md` | مشتق از Wiki Path؛ **در فیلد Path، `.md` ننویسید** |
 
-مسیر حوزه مالک در Knowledge کندو `ats/job` است، اما والد موجود در GitLab Wiki کندو **`ATS/job`** ثبت شده است. هنگام انتشار باید حروف بزرگ و کوچک **دقیق مسیر واقعی Wiki** حفظ شود؛ استفاده از `ats/job` در این مثال می‌تواند شاخه‌ای موازی و اشتباه ایجاد کند. Knowledge مرجع تعیین حوزه مالک محصول است؛ ساختار فعلی Wiki مرجع نام دقیق مسیر انتشار. بدون تأیید مسیر موجود Wiki، مسیر تازه نسازید یا آن را حدس نزنید. صفحات قبلاً منتشرشده جابه‌جا نمی‌شوند. گزینهٔ **Generate page path from title** را خاموش کنید.
+مسیر حوزهٔ مالک در Knowledge کندو `ats/job` است؛ همان مسیر با همان حروف، والد پیشنهادی Wiki می‌شود. Agent برای ساخت PRD مسیر موجود Wiki را بررسی نمی‌کند. اگر ساختار واقعی Wiki متفاوت بود، PM آن را بیرون از اجرای ساخت PRD تصحیح می‌کند. صفحات قبلاً منتشرشده خودکار جابه‌جا نمی‌شوند. گزینهٔ **Generate page path from title** را خاموش کنید.
 
 ## ۲. ID کوتاه، مستقل از Registry
 
@@ -33,8 +33,8 @@
 ۱. ابتدا محصول مالک را مشخص کنید: Wiki مستقل JobVision یا Cando.
 ۲. در canonical Product Knowledge همان محصول، `Primary Area` مالک **رفتار اصلی تغییر** را شناسایی کنید؛ `references` ممکن است چند حوزهٔ مرتبط دیگر داشته باشد.
 ۳. در صورت نیاز برای ناوبری، فهرست [`prd-knowledge-areas.yml`](prd-knowledge-areas.yml) را بخوانید؛ این فایل فقط Snapshot مسیرهای حوزه‌های هر دو Product Knowledge است و هرگاه ساختار Knowledge تغییر کند، **از همان Knowledge** به‌روزرسانی می‌شود. تشخیص حوزهٔ مالک همیشه بر اساس Knowledge زنده است؛ این فایل جای آن را نمی‌گیرد.
-۴. برای **PRD جدید**، پس از تعیین حوزه مالک در Knowledge، ابتدا [`prd-wiki-parents.yml`](prd-wiki-parents.yml) را بخوانید. این فهرست کوچک مسیرهای والدِ تأییدشده را با حروف دقیق Wiki نگه می‌دارد (مثلاً `ats/job` → `ATS/job`). **Agent نباید برای تعیین مسیر، سراغ صفحات PRD قدیمی GitLab یا Sidebar/API آن برود یا از PM اجازه دسترسی GitLab بخواهد.** اگر مسیر ثبت نشده، فقط مسیر دقیق والد را از PM بخواهد و تا آن زمان `wiki_path: unresolved` نگه دارد. ایجاد Parent جدید نیاز به اجازه صریح PM دارد. به‌روزرسانی فهرست مسیرها، عملیات نگهداری جداگانه توسط Owner است؛ PRDهای قدیمی دانش معتبر رفتار فعلی محصول نیستند. برای PRD موجودِ مشخص، مسیر و ID قبلی را حفظ کنید مگر انتقال با تأیید انسانی.
-۵. اگر حوزهٔ مالک Knowledge **یا** مسیر دقیق والد GitLab Wiki مشخص نیست، `wiki_path: unresolved` بگذارید؛ فقط اطلاعات عملیاتی موردنیاز برای تعیین مسیر را بخواهید. تأییدنداشتن مسیر Wiki لزوماً Product Decision یا مانع `Problem Aligned` نیست.
+۴. برای **PRD جدید**، مسیر نسبی همان حوزهٔ مالک Knowledge را با همان املا و حروف، والد Wiki بگذارید. **Agent نباید برای تعیین مسیر، سراغ صفحات PRD قدیمی GitLab یا Sidebar/API آن برود یا از PM اجازهٔ دسترسی GitLab بخواهد.** اگر Wiki واقعی تفاوتی دارد، PM آن را بیرون از اجرای PRD تصحیح می‌کند. برای PRD موجودِ مشخص، مسیر و ID قبلی را حفظ کنید مگر انتقال با تأیید انسانی.
+۵. اگر حوزهٔ مالک Knowledge مشخص نیست، `wiki_path: unresolved` بگذارید تا Knowledge یا PM آن را روشن کند. این ابهام مانع `Problem Aligned` نیست.
 ۶. اگر PRD چندحوزه‌ای است، تنها یک صفحهٔ canonical در حوزهٔ مالک اصلی منتشر شود؛ حوزه‌های دیگر لینک می‌دهند، نه اینکه سند را تکثیر کنند.
 
 نام انتهایی صفحه:
@@ -51,7 +51,7 @@ PRD باید فقط **یک** YAML Frontmatter در ابتدای Markdown داش�
 id: CND-PRD-0604081437
 artifact: prd
 owner: unresolved
-wiki_path: ATS/job/CND-PRD-0604081437-auto-reject-by-location
+wiki_path: ats/job/CND-PRD-0604081437-auto-reject-by-location
 references:
   - source: cando_product_knowledge
     page: entity-candidate
@@ -63,12 +63,12 @@ references:
 **صرف درج `wiki_path` در YAML کافی نیست.** هنگام تحویل PRD برای GitLab Wiki، AI **فقط مسیر Wiki** را خارج از بلوک Markdown قابل کپی PRD ارائه می‌کند؛ عنوان از Heading خود PRD گرفته می‌شود:
 
 ```text
-GitLab Wiki Path: ATS/job/CND-PRD-0604081437-auto-reject-by-location
+GitLab Wiki Path: ats/job/CND-PRD-0604081437-auto-reject-by-location
 ```
 
 در مثال YAML، `page: entity-candidate` فقط **نمونهٔ قالب نام صفحه** است و زمانی باید در PRD واقعی استفاده شود که همین نام در Product Knowledge تأیید شده باشد؛ URL، لینک Markdown یا مسیر توصیفی جای آن مجاز نیست.
 
-اگر ID یا Parent به‌طور قابل اتکا تعیین نشده، AI باید مقدار مربوط را `unresolved` و اقدام لازم را صریح نشان دهد؛ نباید یک مسیر ساختگی ارائه کند یا این بخش را کلاً حذف کند.
+اگر ID یا حوزهٔ مالک به‌طور قابل اتکا تعیین نشده، AI باید مقدار مربوط را `unresolved` و اقدام لازم را صریح نشان دهد؛ نباید یک مسیر ساختگی ارائه کند یا این بخش را کلاً حذف کند.
 
 ## ۵. ثبت و بازیابی در GitLab
 
