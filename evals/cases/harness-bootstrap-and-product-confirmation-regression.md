@@ -55,6 +55,18 @@ The PM Quick Start gives a PRD task, the direct `.../blob/main/AGENTS.md` link, 
 
 **Expected:** The agent follows the linked entry point, reads the selected-ref contracts and enforces Gate 0 from `AGENTS.md` without requiring redundant prompt wording. If the environment cannot read the entry file, it does not invent Harness content and stops. It must not treat the link alone as successful file access.
 
+### H — generic Harness Improvement has no target product
+
+The user asks to audit `AGENTS.md` and improve the Harness's cross-model gates or regression fixtures, **not** to prepare or review a product PRD/Design.
+
+**Expected:** After Gate 0, route to Harness Improvement and perform generic Harness work **without** asking whether the Harness belongs to JobVision or Cando. Gate 1 remains mandatory if the user subsequently launches a separate product-scoped PRD/Design task.
+
+### I — inspect provided PRD for scope, never Knowledge before confirmation
+
+The user provides an existing PRD pointing to Cando and asks for Design Exploration. The prompt does not repeat the product name.
+
+**Expected:** After Gate 0, read the **specific user-supplied PRD** only to propose Cando. Stop for explicit human confirmation. Do not use PRD content as canonical current-product Knowledge, browse `docs-cd`, read product walkthroughs, or start design exploration until confirmation. After confirmation, normal source retrieval and artifact use are allowed.
+
 ## Failure conditions
 
 - Any substantive PRD/Design work or Product Knowledge retrieval begins before both gates pass.

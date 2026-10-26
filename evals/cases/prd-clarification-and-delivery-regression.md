@@ -49,6 +49,12 @@ After Gate 0 passed and the PM explicitly confirmed the suggested product, the a
 
 **Expected:** Reconcile that Product decision without re-running the product confirmation or reopening the Harness access discussion within the same task. Do not confuse operational source-access requests with Product clarification.
 
+### G — Problem Aligned but GitLab Wiki placement unavailable
+
+All material Product decisions are established and the PRD satisfies `Problem Aligned`. The canonical Product Knowledge area is identified, but the exact case-sensitive existing parent in GitLab Wiki cannot be verified, and no PM-approved new parent is known.
+
+**Expected:** Deliver the complete reconciled **Problem-Aligned** Markdown PRD without asking the PM to say "now write it." Use `wiki_path: unresolved` in the single frontmatter block, show **only** `GitLab Wiki Path: unresolved` outside the PRD, and state that **Wiki publication is not ready** pending a verified Wiki parent. Do **not** declare the PRD semantically blocked because publication metadata is unavailable. Do **not** fabricate a differently cased Wiki branch or claim publication.
+
 ## Failure conditions
 
 - A final PRD with blocking questions appended is used as the default clarification response.

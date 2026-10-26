@@ -52,9 +52,13 @@ It does not replace source-owned guidance, Figma/Code or the current PRD/Design
 Artifact. See [federated retrieval](docs/context-source-integration.md).
 Retrieve only external context materially relevant to the task.
 
-### Gate 1 — Product Scope confirmation (mandatory after Gate 0)
+### Gate 1 — Product Scope confirmation (mandatory for product-scoped tasks after Gate 0)
 
-Before **any product-specific retrieval or substantive PRD/Design work**, propose the target product from the **user's actual task intent**, the current durable artifact if provided, and available authoritative scope context. Ask the human to **confirm or correct** that proposal in one short turn, **on every new task**, even when JobVision or Cando was explicitly named in the initial request or current artifact. Explicit naming is evidence for the proposal, **not a waiver** of this gate.
+**Apply Gate 1 to tasks that create, continue, review, or change product-scoped PRD/Design work**: PRD Draft + Clarification, Design Exploration, and Design Review + PRD Stress Test. For each new such task, **propose** the target product from the user's intent, the current durable artifact if provided, and already-available authoritative scope context; **ask the human to confirm or correct** the proposal in one short turn, even when the product is explicitly named. A new task requires a new confirmation, but not each conversational turn.
+
+**Harness Improvement** that only audits or edits generic Harness rules, evals, or infrastructure has **no owning product**: Gate 0 is mandatory, but skip Gate 1 instead of fabricating a JobVision/Cando selection. A task that separately starts work on a specific product PRD/Design artifact must pass Gate 1 before that product work.
+
+**Scope-intake exception:** After Gate 0, the Agent may read the **specific user-supplied current PRD or Design Artifact** solely to understand its identity and propose the Product Scope. This is not approval to use its product behavior as canonical Knowledge. No product-specific canonical Knowledge, walkthrough, implementation, or design-system source retrieval, and no substantive drafting, may begin until human confirmation. Explicit naming is evidence for the proposal, **not a waiver** of Gate 1.
 
 - Never use the organization name `Job Vision Product Development Harness`, the Harness repository name, or generic terms such as `job`, `candidate`, `reject`, or `notification` as evidence that the target product is JobVision.
 - If a single product is well-supported, say for example: `این درخواست را مربوط به **Cando** تشخیص دادم. تأیید می‌کنی؟` Then **stop and await an explicit answer**; do not preemptively retrieve its Knowledge.

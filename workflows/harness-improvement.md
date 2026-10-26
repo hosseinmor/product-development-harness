@@ -16,6 +16,8 @@ Do not require a separate failure log or improvement artifact.
 
 ## Workflow
 
+Gate 0 (Harness Access) is mandatory. **Gate 1 (Product Scope Confirmation) does not apply to generic Harness Improvement** that audits/edits Harness rules, evals, or infrastructure; do not ask the user to assign the Harness itself to JobVision or Cando. If a follow-up explicitly starts a separate product-scoped PRD/Design task, perform Gate 1 for that task before product-specific retrieval or work.
+
 ### 1. Diagnose the observation
 
 Identify what failed or created material friction and what behavior was expected instead.
