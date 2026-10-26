@@ -7,7 +7,7 @@ The Harness owns workflows, artifact contracts, clarification, review, and readi
 ## Retrieval sequence
 
 1. Start at `AGENTS.md` and read `shared-harness-contract.md` plus the task's workflow and artifact contract.
-2. Resolve product scope before product-specific retrieval. If JobVision/Cando ownership cannot be established from explicit or authoritative context, ask one minimal routing question rather than guessing.
+2. For a product-scoped PRD/Design task, after Gate 0, inspect the **user-provided current PRD/Design Artifact for scope identification if needed**, then propose and obtain explicit human confirmation **once per new task**, even when the product is already explicit. Only afterward retrieve product-specific canonical sources. Generic Harness Improvement tasks do not require product confirmation. If ownership cannot be established, ask one minimal routing question rather than guessing.
 3. Read `context-sources.yml` to identify the source role that owns each needed claim.
 4. Partition cross-product claims by JobVision/Cando and verify access to the corresponding canonical Product Knowledge source in the current execution environment.
 5. When user-shared/local browser tabs are readable, reuse an already-open relevant canonical tab; otherwise request one canonical tab for the resolved product. Retrieve the smallest relevant context first and request additional tabs/sources only when materially necessary.
