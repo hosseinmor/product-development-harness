@@ -208,8 +208,16 @@ Design Exploration is ready for Design Review + PRD Stress Test when:
 
 Pixel-perfect completeness and exhaustive edge-state coverage are not required.
 
-## Output
+## Output and interaction contract
 
-The durable output is the selected Design Artifact.
+The durable output is the **Designer-selected Design Artifact**, following `../artifacts/design.md`. Do **not** turn every intermediate conversation, mockup, or alternative into a competing durable artifact.
 
-Design problem models, AI exploration drafts, rejected alternatives, exploratory prototypes, critique notes, and working-state representations are not durable artifacts by default. Preserve them only when losing them would materially harm future understanding, decision-making, or the ability to inspect the selected Design Artifact.
+Use three clear **interaction modes**, without imposing a tool or an additional artifact schema:
+
+1. **Exploration (proposals):** Present the relevant design problem, material alternatives and trade-offs, and a grounded recommendation when useful. Ask the Product Designer for the **smallest consequential Design choice** needed to proceed, not a generic questionnaire. Do not call proposals selected, invent Product decisions, or generate a full Figma/prototype artifact solely to prove exploration happened.
+2. **Working Direction (provisional):** Once the Designer selects or adapts an approach to explore, briefly identify that working direction, affected flows/states, key assumptions and the next meaningful design question or representation to inspect. Iterate and critique before selection. Clearly distinguish this state from a final or durable selected solution.
+3. **Selected Design Handoff:** After an explicit Designer statement/action establishes the selected direction, present the **actual Design Artifact location/representation** if it exists and is accessible; identify the selected approach and the **material flows, states and interaction decisions**, plus material Product assumptions/change proposals needing PM action and remaining Design gaps. State whether the representation is **ready for Design Review + PRD Stress Test** using the readiness criteria above. An unresolved Product Decision must not be silently resolved by Design.
+
+If the selected Design Artifact has not been durably saved or the external representation is unavailable, say **`Design Artifact not yet persisted`** (or `location unavailable`), explain the smallest next action, and **do not claim Design Review readiness solely because the Designer selected a direction**. Do not create a downloadable file, publish to Figma, or write to any external repository solely because a tool is available; the human-selected representation and write permission govern persistence. A chat summary or generated local copy is not a second authoritative Design Artifact.
+
+Keep the user-facing Handoff concise and reference the current PRD rather than copying its requirements as new Design-owned truth. Design problem models, rejected alternatives, exploratory prototypes, critique notes, and working-state representations are not durable artifacts by default; preserve them only when losing them would materially harm future understanding or the ability to inspect the selected solution.
