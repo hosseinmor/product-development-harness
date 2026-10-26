@@ -1,0 +1,22 @@
+# Curated, case-sensitive GitLab Wiki publication parents for PRDs.
+# This is a PUBLISHING-ONLY locator, not Product Knowledge or a PRD registry.
+# The owning area comes exclusively from live canonical Product Knowledge.
+# Do not search/browse previous PRDs or request GitLab access to fill this file
+# during a PRD drafting run. An owner may verify/update this list outside the run.
+# Never infer unlisted parents from Product Knowledge case or nearby Wiki names.
+# If no exact mapping is listed, ask the PM for the exact existing parent and
+# use wiki_path: unresolved until supplied, or seek explicit approval for
+# creating a genuinely new Wiki hierarchy.
+# Preserve the exact case of every wiki_parent segment.
+schema_version: "1"
+maintained_by: "Harness Owner / Product Management"
+entries:
+  - product: cando
+    knowledge_area: ats/job
+    wiki_parent: ATS/job
+  - product: cando
+    knowledge_area: ats/application
+    wiki_parent: ATS/application
+  - product: cando
+    knowledge_area: ats/sourcing
+    wiki_parent: ATS/sourcing
