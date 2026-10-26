@@ -12,7 +12,7 @@
 - **Cando:** منبع canonical در `https://docs-cd.jvoffice.ir/` است. در هر execution environment فقط از مسیری استفاده کنید که دسترسی آن به این source داخلی verify شده باشد؛ در صورت عدم دسترسی، source دیگری را جای canonical Cando Product Knowledge قرار ندهید.
 - **Taskهای integration:** ادعاها را بر اساس product تفکیک کنید؛ `docs-jv` فقط authority سمت JobVision و `docs-cd` فقط authority سمت Cando را دارد، مگر اینکه یک integration-boundary fact صریحاً در source مربوط مستند شده باشد.
 
-4. محل PRD را برای هر Product Change مشخص کنید: GitLab Wiki جاب‌ویژن یا کندو می‌تواند دستی به‌عنوان current durable PRD انتخاب شود؛ مهاجرت خود ریپوی Harness به GitLab همچنان متوقف است. در ادامه همان سند جاری را به Agent بدهید؛ chat history یا فایل قدیمی جای آن نیست.
+4. در پایلوت جاب‌ویژن و کندو، **محل پیش‌فرض انتشار PRD، GitLab Wiki همان محصول است** و PM سند را فعلاً دستی ثبت می‌کند؛ اگر محل durable دیگری انتخاب کردید، صریح به Agent بگویید. مهاجرت خود ریپوی Harness به GitLab همچنان متوقف است. در ادامه همان سند جاری را به Agent بدهید؛ chat history یا فایل قدیمی جای آن نیست.
 
 ## Prompt شروع
 
