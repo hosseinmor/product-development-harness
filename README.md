@@ -88,9 +88,9 @@ The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflo
 
 ### Repo-aware agents
 
-Give the agent the direct entry point `https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md`. The URL is an entry hint, **not proof of access**. Before any task execution, Gate 0 requires actually reading the entire `AGENTS.md`, `shared-harness-contract.md`, the routed workflow, required artifact contract(s) and `context-sources.yml` from canonical GitHub `main`.
+Give the agent the direct entry point `https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md`. The URL is an entry hint, **not proof of access**. Before any task execution, Gate 0 requires actually reading the entire `AGENTS.md`, `shared-harness-contract.md`, the routed workflow, required artifact contract(s) and `context-sources.yml` from canonical GitHub `main` by default, or from **one explicitly pinned GitHub ref** when testing an unmerged PR. Do not mix files from different refs; label a branch-based run as a preview.
 
-Direct GitHub reads and GitHub-validated clones are equivalent transport options when fully readable and current; MCP or a particular runtime is not required. If any required file cannot be read, **stop** and report the missing file(s); do not generate a generic PRD, ask product confirmation, or silently switch to Standalone. After successful reads, propose Product Scope and **always ask for one confirmation**, even if the initial task names a product. The organization's Harness name must not influence that proposal.
+Direct GitHub reads and GitHub-validated clones are equivalent transport options when fully readable at the selected ref; MCP or a particular runtime is not required. If any required file cannot be read, **stop** and report the missing file(s); do not generate a generic PRD, ask product confirmation, or silently switch to Standalone. After successful reads, propose Product Scope and **always ask for one confirmation**, even if the initial task names a product. The organization's Harness name must not influence that proposal.
 
 ### Current pilot: manual Harness access
 
