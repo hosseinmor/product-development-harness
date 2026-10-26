@@ -5,8 +5,6 @@
 ```text
 با Job Vision Product Development Harness برای PRD زیر Design Exploration انجام بده.
 
-ابتدا AGENTS.md و فایل‌های الزامی Workflow را واقعاً بخوان؛
-اگر دسترسی نداری، متوقف شو و بدون Harness ادامه نده.
 https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md
 
 Current PRD:
