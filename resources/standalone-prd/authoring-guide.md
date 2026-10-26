@@ -4,7 +4,8 @@
 
 ## قواعد اصلی
 
-- PRD جدید تا قبل از registration رسمی با `id: unresolved` شروع می‌شود. ID رسمی را حدس نزنید، از عنوان یا آخرین PRD نسازید و sequence را دستی increment نکنید. وقتی registry رسمی ID تخصیص داد، برای JobVision از `JV-PRD-NNNNN` و برای Cando از `CND-PRD-NNNNN` استفاده کنید. اولین تخصیص registration است؛ بعد از آن ID فقط با identity migration صریح تغییر می‌کند.
+- برای PRD جدید، ID اولیه را از تاریخ شمسی + ساعت ۲۴ساعتهٔ ایران تا دقیقه بسازید: `JV-PRD-YYMMDDHHmm` یا `CND-PRD-YYMMDDHHmm`، با ارقام لاتین. مثال فرضی: `CND-PRD-0604081437` برای ۱۴۰۶/۰۴/۰۸ ساعت ۱۴:۳۷. اگر ساعت یا تاریخ دقیق در دسترس نیست، `id: unresolved` و زمان را از PM بخواهید؛ هرگز زمان را حدس نزنید. نیازی به registry یا شماره GitLab Issue نیست. بعد از ثبت، ID را تغییر ندهید مگر با identity migration صریح؛ برخورد احتمالی را پیش از انتشار حل کنید.
+- برای انتشار در GitLab Wiki، یک `wiki_path` با مسیر کامل `parent/<ID>-<short-english-kebab-title>` در همان Frontmatter ذخیره کنید؛ Parent را فقط از مستندات معتبر حوزه مالک و در صورت امکان مسیر واقعی Wiki تعیین کنید. اگر معلوم نیست `wiki_path: unresolved`. هنگام تحویل PRD حتماً `GitLab Wiki Title` (عنوان انسانی) و `GitLab Wiki Path` (مسیر کامل و بدون `.md`) را خارج از متن PRD نمایش دهید. `Generate page path from title` در GitLab خاموش شود.
 - اول یک draft best-effort بسازید؛ PRD را به questionnaire تبدیل نکنید.
 - اطلاعاتی را که ندارید اختراع نکنید، مخصوصاً Current Product Behavior، Outcomes، Business Rules، eligibility، permissions و lifecycle.
 - جمله روشن PM که یک Product choice را تعیین می‌کند، تصمیم Product است. مثال، سؤال، پیشنهاد موقت، hypothesis یا UI preference را خودکار به requirement تبدیل نکنید.
