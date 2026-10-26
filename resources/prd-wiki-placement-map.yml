@@ -1,0 +1,35 @@
+# Verified Product Knowledge area -> GitLab Wiki parent-path mapping for PRD publication.
+# This is a translation of existing navigational paths, NOT a Product Knowledge taxonomy.
+# Map keys are canonical Product Knowledge AREA paths relative to /contents/ (not document URLs).
+# Map values are existing GitLab Wiki parent paths (relative to /-/wikis/, case-sensitive).
+# Only add an area after validating both the canonical Knowledge area and the actual Wiki parent.
+# This is a point-in-time snapshot; re-check after upstream navigation changes.
+schema_version: "1"
+checked_on: "2026-10-26"
+products:
+  cando:
+    product_knowledge_source: cando_product_knowledge
+    wiki_project: product/prd/cando
+    verified_areas:
+      ats/hiring-request: ATS/hiring-request
+      ats/job: ATS/job
+      ats/candidate: ATS/candidate
+      ats/application: ATS/application
+      ats/interview: ATS/interview
+      ats/evaluation: ATS/evaluation
+      ats/career-page: ATS/career-page
+      ats/sourcing: ATS/sourcing
+      ats/operator: ATS/operator
+      ats/organization: ATS/organization
+      ats/notification: ATS/notification
+      ats/report: ATS/report
+    # Pending verification: salary/*, calendar/*, learning/*, pulse/*, onb/*.
+    # Seeing a group root (such as 'salary') is NOT verification of each child area.
+
+  jobvision:
+    product_knowledge_source: jobvision_product_knowledge
+    wiki_project: product/prd/jobvision
+    verified_areas: {}
+    # Wiki branches including candidate/ and employer/ are visible.
+    # Current environment could not read the JobVision Knowledge area hierarchy.
+    # Do not fabricate one-to-one matches until both sides are checked.
