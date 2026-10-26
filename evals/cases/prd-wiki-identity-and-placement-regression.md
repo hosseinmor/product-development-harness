@@ -10,16 +10,17 @@ Protect the chosen manual-friendly PRD naming/placement workflow in the JobVisio
 - `artifacts/prd.md`
 - `workflows/prd-draft-clarification.md`
 - `resources/prd-gitlab-wiki-registration.md`
+- `resources/prd-wiki-placement-map.yml`
 
 ## Scenario A — new Cando auto-reject PRD
 
-Assume the PM has selected the Cando GitLab Wiki for manual publication. A trusted source confirms Iranian **Jalali 1406/04/08 14:37**. Canonical Cando Product Knowledge establishes that the auto-reject configuration behavior is owned by the **ATS job** area, while the Candidate and Application areas have materially relevant references. The actual Wiki has an `ATS` top-level parent; the exact `ATS/job` child has **not** yet been verified.
+Assume the PM has selected the Cando GitLab Wiki for manual publication. A trusted source confirms Iranian **Jalali 1406/04/08 14:37**. Canonical Cando Product Knowledge establishes that the auto-reject configuration behavior is owned by the **ATS job** area, while the Candidate and Application areas have materially relevant references. The placement map contains the verified exact area mapping `ats/job: ATS/job`; the map is a point-in-time snapshot, so an upstream rename still requires a fresh check.
 
 Expected behavior:
 
 1. Generate `id: CND-PRD-0604081437` without registering a GitLab Issue or scanning the last PRD.
 2. Propose a concise English slug, such as `auto-reject-by-location`, and a complete `wiki_path: ATS/job/CND-PRD-0604081437-auto-reject-by-location`.
-3. Treat `ATS/job` as **proposed**, not an asserted existing page/folder, until GitLab navigation verifies it.
+3. Resolve `ats/job` as the primary area in Product Knowledge, then look it up using an **exact matching key** in `resources/prd-wiki-placement-map.yml`; use its case-sensitive `ATS/job` parent. Do not claim it is freshly verified if the source hierarchy was recently changed.
 4. Preserve other relevant areas as `references`, not as duplicate canonical PRDs.
 5. Produce **exactly one** opening YAML frontmatter block that contains `id` and `wiki_path`.
 6. **Always** emit a separate, human-readable publishing handoff outside the PRD Markdown with:
@@ -34,7 +35,7 @@ The Agent cannot determine the current Iranian Jalali date/time reliably, but th
 Expected behavior:
 
 - Derive the same date-based ID using the PM's date/time and product scope; do **not** require any API, UUID service, registry, or Issue.
-- **Do not** invent a primary parent from a secondary `references` page or fake a verified Wiki directory.
+- **Do not** invent a primary parent from a secondary `references` page, infer it from a similarly named sibling mapping, or fake a verified Wiki directory.
 - Keep `wiki_path: unresolved` and explicitly emit `GitLab Wiki Path: unresolved` with the minimal needed placement question or verification step.
 - Never omit the explicit publication handoff simply because the Path is unresolved; do not misclassify a placement question as Product decision-making or falsely block `Problem Aligned`.
 - When neither PM nor tools provide trustworthy time, do not invent a timestamp; retain `id: unresolved` while pursuing the smallest operational clarification.
@@ -50,6 +51,17 @@ Expected behavior:
 - Report the established Title and Path for manual Wiki editing, without silently moving the page.
 - If the PM explicitly approves a move to a different parent, preserve `id`, update `wiki_path` to the approved location and surface link reconciliation.
 
+## Scenario D — missing map entry
+
+A new PRD's owning area has been verified as `salary/report` in Cando Product Knowledge, but the map includes only verified ATS area entries. A `salary` root is visible in the Wiki, while the `salary/report` child has not been checked against current navigation.
+
+Expected behavior:
+
+- Do not substitute `ATS/report` or collapse the area to `salary` based only on the nearest matching folder name.
+- Try to verify the specific Wiki child route if browser access permits; after **both** Product Knowledge area and actual Wiki parent have been confirmed, propose updating the map.
+- Until verified, expose a source-grounded but unverified proposed path only when defensible, otherwise keep `wiki_path: unresolved`; do not present an unverified path as confirmed.
+- Do not demand a mapping update merely because a capability is added under an already mapped area.
+
 ## Fail if
 
 - The Agent uses a Gregorian date, its host/browser's local timezone instead of Iran time, Persian digits, missing padding, or 12-digit seconds for the ten-digit ID.
@@ -58,7 +70,8 @@ Expected behavior:
 - `wiki_path` contains a URL, just a parent, whitespace, a `.md` suffix, a duplicated ID timestamp, or a Persian title transliteration.
 - There are two consecutive `--- ... ---` frontmatter blocks.
 - A materially related but non-owning area is selected as primary merely because it appears in `references`.
-- The Agent asserts a proposed Wiki folder exists without verifying it.
+- The Agent asserts a proposed Wiki folder exists without verifying it, mistakes the map snapshot for an authoritative live Wiki state after a detected change, or invents a map entry without confirming both endpoints.
+- The Agent chooses a Wiki parent by a fuzzy area-name match, a related Product Knowledge reference, or an automatic ancestor/sibling lookup rather than an exact verified mapping.
 - A Wiki-bound PRD is delivered without explicit separate Title **and** complete Path, even if `wiki_path` is in frontmatter.
 - Reconciliation changes a stable ID or published Wiki path without appropriate identity migration or page-move approval.
 
