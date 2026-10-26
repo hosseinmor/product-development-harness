@@ -73,7 +73,7 @@ GitLab Wiki Path: ats/job/CND-PRD-0604081437-auto-reject-by-location
 ## ۵. ثبت و بازیابی در GitLab
 
 ۱. PM عنوان Wiki را از Heading PRD می‌گیرد و فقط مقدار `GitLab Wiki Path` را از Handoff کپی می‌کند؛ `Generate page path from title` خاموش شود.
-۲. PM روی **Copy Markdown** می‌زند تا محتوای **خام** همان فایل `.md` (نه HTML نمای Render شده) کپی شود؛ سپس در **ویرایشگر Markdown/Source** صفحه GitLab Wiki Paste می‌کند. YAML Frontmatter، همه Headingها، جدول‌ها، لینک‌ها و `<details>` مربوط به `Harness Pilot Evaluation` باید بدون تغییر منتقل شوند. بلوک Frontmatter یا Code Fence اضافی نسازد. اگر دکمه خام‌کپی در محیط وجود ندارد، کل Source فایل `.md` را کپی کند، نه متن انتخاب‌شده از Preview.
+۲. برای دیدن و بازبینی PRD، روی **لینک فایل `.md`** در پاسخ Agent کلیک کند. برای انتشار، کل Markdown خام را از **بلوک کدِ همراه همان لینک** با کنترل کپی آن (اگر وجود دارد) کپی و در **ویرایشگر Markdown/Source** صفحه GitLab Wiki Paste کند. اگر کنترل کپی نیست، محتوای داخل بلوک را انتخاب و کپی کند. YAML Frontmatter، همه Headingها، جدول‌ها، لینک‌ها و `<details>` مربوط به `Harness Pilot Evaluation` باید بدون تغییر منتقل شوند؛ حصار بیرونی بلوک کد یا HTML نمای Render شده را کپی نکند. محتوای بلوک باید دقیقاً با فایل فعلی یکسان باشد.
 ۳. پس از Save، اگر نیاز به تأیید ماشین‌خوانی بود، Wiki API را بخواند؛ خروجی API ممکن است `front_matter` را جدا از `content` نمایش دهد.
 ۴. GitLab ممکن است Frontmatter را در نمای rendered یا editor پنهان کند؛ ملاک ماندگاری، محتوای خام API/مخزن Wiki است. اگر `front_matter` بخش `wiki_path` را ندارد، ابتدا بررسی کنید چند بلوک `--- ... ---` پشت‌سر هم وجود نداشته باشد.
 ۵. PRD موجود را با همان `id` و Wiki Path ادامه دهید. جابه‌جایی صفحهٔ منتشرشده نیاز به تأیید انسانی و اصلاح لینک‌های ارجاع‌دهنده دارد؛ فرایند ویرایش نباید مسیر را خودکار عوض کند.

@@ -41,13 +41,13 @@ The PM is still clarifying and wants to inspect the current work.
 
 The relevant Product choices have been established and `Problem Aligned` is satisfied.
 
-**Expected:** Update the **same raw Markdown file**, remove the Working Draft warning once aligned and show its rendered read-only preview where supported, plus a working **Copy Markdown** action that copies the exact full raw source, not HTML. Preserve one YAML frontmatter and the **in-file** `Harness Pilot Evaluation` with `Clarification Record`. Show/copy `GitLab Wiki Path` separately. No extra generation command, chat-only Clarification Record or parallel HTML document.
+**Expected:** Update the **same raw Markdown file**, remove the Working Draft warning once aligned and show its rendered read-only preview where supported. Deliver **both** a verified clickable link to that file and the complete identical raw source in one fenced Markdown code block in chat. Say explicitly to click the link to view the PRD and use the code block's copy control when available to copy Markdown. Preserve one YAML frontmatter and the **in-file** `Harness Pilot Evaluation` with `Clarification Record`. Show `GitLab Wiki Path` separately. No extra generation command, chat-only Clarification Record or parallel HTML document.
 
 ### F — file creation or native preview unsupported
 
 The Agent has no file creation/editing capability, or can create/download files but the platform does not support native in-environment preview.
 
-**Expected:** Distinguish file creation, native rendered preview and clipboard actions accurately. If rendering is absent, expose a real `.md` link or readable fallback; if **Copy Markdown** is absent, expose the **complete raw Markdown** via source/code view or verified file download and explain how to copy its content. If files are unsupported, supply the complete copyable Markdown snapshot in chat after material updates. Never claim unsupported platform actions.
+**Expected:** Distinguish file creation, native rendered preview and clipboard actions accurately. If rendering is absent, expose a real `.md` link and tell the PM to click it to view the PRD. Provide the complete raw Markdown code block at final handoff regardless of preview availability. If files are unsupported, disclose that limitation and supply the complete copyable Markdown snapshot in chat after material updates. If the code block has no copy control, explain selection and copying instead of claiming a button. Never claim unsupported platform actions.
 
 ### G — Problem Aligned while owning Knowledge area unresolved
 
@@ -77,7 +77,7 @@ The environment can create a local `.md` file but no external GitLab write has b
 
 A final PRD is shown with a formatted read-only preview, and its raw Markdown has one YAML frontmatter block, Markdown headings, table syntax, a link, and a collapsed `<details>` containing `Clarification Record`.
 
-**Expected:** A real **Copy Markdown** button copies **exactly the current raw Markdown** as plain text to the clipboard, without rendered HTML, stripped/flattened tables, missing YAML, omitted collapsed contents, or added wrapper code fences. A separate **Copy Wiki Path** action copies the case-sensitive publishing path only. A copied Working Draft is not represented as published or final.
+**Expected:** The final response contains a verified file link with explicit click-to-view guidance and one code block containing **exactly the current raw Markdown**. Its outer fence is longer than any contained code fence, and copying the block's contents excludes the outer fence. The payload retains YAML, tables, links and collapsed contents, without rendered HTML. Mention the code block copy control only if present; otherwise explain selecting its contents. Show the Wiki Path separately. A copied Working Draft is not represented as published or final.
 
 ### L — no historical GitLab PRDs for new work
 
@@ -93,6 +93,7 @@ The PM creates a new Cando PRD, and the Agent thinks it needs access to GitLab t
 - The Agent pastes a full final-looking PRD and blocking questions after it as the default clarification interaction.
 - It fabricates file/open-preview/copy capabilities, PM answers, Product claims or GitLab writes.
 - It copies rendered HTML or only visually selected text instead of complete raw Markdown.
+- It hands off only a file link or only a code block when both are supported, omits click-to-view guidance, or presents a stale/truncated code block.
 - It searches historical PRDs or requests GitLab access to prepare a new PRD or determine its Wiki parent.
 - It marks `Problem Aligned` before an established Business Outcome or material Product boundary, or treats missing Wiki parent as a semantic Product blocker.
 
