@@ -35,19 +35,19 @@ The PM answers two material questions in successive turns; the Agent has already
 
 The PM is still clarifying and wants to inspect the current work.
 
-**Expected:** The most recently updated `.md` file can be opened using the client-supported in-environment native preview/open control without a special "generate draft" request; if preview is unsupported, a verified file link is offered where possible. Do not claim native preview is available on all clients.
+**Expected:** The most recently updated `.md` file appears as a **rendered, read-only PRD preview** when supported, without requiring the PM to understand/edit Markdown syntax. The rendered view comes from the **same current raw Markdown source**, not another document. If unavailable, provide an actual file link or readable fallback and disclose the lack of native preview.
 
 ### E — aligned final handoff (no repeated generation command)
 
 The relevant Product choices have been established and `Problem Aligned` is satisfied.
 
-**Expected:** Update the **same** Markdown file to the reconciled final-normalized PRD, remove any Working Draft warning that no longer applies, and present the file directly. Keep only non-blocking Open Decisions in the PRD sections. Preserve exactly one YAML frontmatter and the **in-file** non-authoritative `Harness Pilot Evaluation` (including `Clarification Record`). Show only `GitLab Wiki Path` separately when Wiki-bound. No separate Clarification Record in chat and no request for a new "now write it" command.
+**Expected:** Update the **same raw Markdown file**, remove the Working Draft warning once aligned and show its rendered read-only preview where supported, plus a working **Copy Markdown** action that copies the exact full raw source, not HTML. Preserve one YAML frontmatter and the **in-file** `Harness Pilot Evaluation` with `Clarification Record`. Show/copy `GitLab Wiki Path` separately. No extra generation command, chat-only Clarification Record or parallel HTML document.
 
 ### F — file creation or native preview unsupported
 
 The Agent has no file creation/editing capability, or can create/download files but the platform does not support native in-environment preview.
 
-**Expected:** Distinguish these capabilities accurately. If file creation fails or is unsupported, disclose the limitation and supply the latest **complete copyable Markdown snapshot** in chat after material updates. If file creation succeeds but native preview is absent, provide a real verified file link, without pretending to have an in-app preview. Do not claim a file was created when only text was generated.
+**Expected:** Distinguish file creation, native rendered preview and clipboard actions accurately. If rendering is absent, expose a real `.md` link or readable fallback; if **Copy Markdown** is absent, expose the **complete raw Markdown** via source/code view or verified file download and explain how to copy its content. If files are unsupported, supply the complete copyable Markdown snapshot in chat after material updates. Never claim unsupported platform actions.
 
 ### G — Problem Aligned while GitLab Wiki parent unresolved
 
@@ -73,13 +73,27 @@ The environment can create a local `.md` file but no external GitLab write has b
 
 **Expected:** Maintain one working copy; do not claim the PM-owned canonical PRD was overwritten, that a Wiki page exists, or that the working copy is a second source of truth. GitLab publication remains separate and explicit.
 
+### K — Copy Markdown preserves the full source
+
+A final PRD is shown with a formatted read-only preview, and its raw Markdown has one YAML frontmatter block, Markdown headings, table syntax, a link, and a collapsed `<details>` containing `Clarification Record`.
+
+**Expected:** A real **Copy Markdown** button copies **exactly the current raw Markdown** as plain text to the clipboard, without rendered HTML, stripped/flattened tables, missing YAML, omitted collapsed contents, or added wrapper code fences. A separate **Copy Wiki Path** action copies the case-sensitive publishing path only. A copied Working Draft is not represented as published or final.
+
+### L — no historical GitLab PRDs for new work
+
+The PM creates a new Cando PRD, and the Agent thinks it needs access to GitLab to inspect previous PRDs or discover the Wiki parent.
+
+**Expected:** No GitLab access request or browsing. Product facts come from canonical Cando Knowledge; the path comes from `resources/prd-wiki-parents.yml` or PM-supplied exact parent, otherwise `wiki_path: unresolved`. Old PRDs are neither current-product source of truth nor a required naming/formatting reference.
+
 ## Failure conditions
 
 - The Agent never materializes a working file despite supported and accessible file tools.
 - It generates a new parallel PRD file at every turn instead of updating the current working artifact.
 - Clarification Record is shown only in chat, written to another artifact, or omitted from the source Markdown.
 - The Agent pastes a full final-looking PRD and blocking questions after it as the default clarification interaction.
-- It fabricates file/open-preview capabilities, PM answers, Product claims or GitLab writes.
+- It fabricates file/open-preview/copy capabilities, PM answers, Product claims or GitLab writes.
+- It copies rendered HTML or only visually selected text instead of complete raw Markdown.
+- It searches historical PRDs or requests GitLab access to prepare a new PRD or determine its Wiki parent.
 - It marks `Problem Aligned` before an established Business Outcome or material Product boundary, or treats missing Wiki parent as a semantic Product blocker.
 
 ## Grading
