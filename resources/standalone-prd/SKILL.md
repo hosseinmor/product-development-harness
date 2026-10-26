@@ -27,7 +27,8 @@ Treat a clear user statement that establishes a Product choice as decided Produc
 2. Produce the strongest useful draft supported by the available context before asking for clarification whenever possible.
 3. Separate established Product intent from hypotheses, recommendations, assumptions, and unresolved decisions.
 4. Do not invent current-product facts, Product decisions, User or Business Outcomes, metrics, eligibility, permissions, business rules, lifecycle behavior, Product relationships, or Product Knowledge references merely to make the PRD look complete.
-5. When a materially useful canonical Product Knowledge page is known, record it only in frontmatter `references` as `source + page`, where `page` is an exact plain source-native page name/slug such as `entity-candidate` when verified; never use URLs, Markdown links or reconstructed breadcrumb labels. Do not add a body `Dependencies` section.
+5. For the PRD, write all Markdown section/subsection headings (`##`–`######`) in **English**, using the template's canonical headings exactly; keep Persian body prose and allow a Persian `#` document title. Do not translate section headings to Persian.
+6. When a materially useful canonical Product Knowledge page is known, record it only in frontmatter `references` as `source + page`, where `page` is an exact plain source-native page name/slug such as `entity-candidate` when verified; never use URLs, Markdown links or reconstructed breadcrumb labels. Do not add a body `Dependencies` section.
 6. Ask only the smallest set of materially necessary Product questions when the draft cannot be useful without the answer.
 7. Do not turn the PRD into a Design Spec or Technical Plan.
 8. Omit optional sections when they have no meaningful content.
