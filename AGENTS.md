@@ -27,6 +27,8 @@ Do not load every workflow by default.
 | Design Review + PRD Stress Test | `workflows/design-review-prd-stress-test.md` | `artifacts/prd.md` and `artifacts/design.md` |
 | Harness Improvement | `workflows/harness-improvement.md` | — |
 
+**Required GitLab Wiki PRD handoff:** For any PRD intended for manual publication to a product Wiki, the Agent must derive a stable timestamp-based ID and a complete proposed `wiki_path` according to `artifacts/prd.md`, and **explicitly provide GitLab Wiki Title and full GitLab Wiki Path outside the copyable PRD Markdown**. When the ID or placement cannot be grounded, show `unresolved` and the needed operational input; do not omit these fields or fabricate the page path.
+
 ## Context
 
 Read [`context-sources.yml`](context-sources.yml) as the small **source locator**
