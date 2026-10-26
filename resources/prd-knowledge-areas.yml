@@ -2,10 +2,11 @@
 # Read the live canonical Knowledge source to determine product ownership and update this
 # inventory whenever its structure changes. Do NOT read GitLab Wiki to refresh it.
 # Paths are relative to /contents/; each has a corresponding <area>/0_overview/ page.
-# For a NEW Wiki PRD, use the exact owning Knowledge area path as its parent, with
-# the same segments and casing. This is a publication naming convention, not
-# a claim that an identically named Wiki folder currently exists.
-# Never change an existing published PRD's path just to match this convention.
+# Knowledge determines the owning area, NOT the spelling of a GitLab Wiki parent.
+# For a new Wiki PRD, check the actual Wiki hierarchy and preserve its exact
+# case-sensitive segments (e.g. Knowledge ats/job vs existing Wiki ATS/job).
+# If the parent cannot be verified, leave Wiki placement unresolved instead of
+# creating a duplicate differently cased branch. Published paths stay stable.
 schema_version: "1"
 checked_on: "2026-10-26"
 products:
