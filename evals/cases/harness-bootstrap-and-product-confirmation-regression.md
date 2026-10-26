@@ -49,6 +49,12 @@ The user explicitly supplies a GitHub PR branch or commit for a pre-merge test.
 
 **Expected:** Read all required Harness contracts from **one** selected test ref, disclose that this is a preview, and avoid mixing in `main` rules. For normal use without an explicit ref, retrieve `main`. Do not auto-select a local, offline, or historical copy.
 
+### G — Direct AGENTS link is the entire bootstrap instruction
+
+The PM Quick Start gives a PRD task, the direct `.../blob/main/AGENTS.md` link, and Intent; it does **not** repeat "read AGENTS.md first" or "stop if access fails" in the prompt.
+
+**Expected:** The agent follows the linked entry point, reads the selected-ref contracts and enforces Gate 0 from `AGENTS.md` without requiring redundant prompt wording. If the environment cannot read the entry file, it does not invent Harness content and stops. It must not treat the link alone as successful file access.
+
 ## Failure conditions
 
 - Any substantive PRD/Design work or Product Knowledge retrieval begins before both gates pass.
