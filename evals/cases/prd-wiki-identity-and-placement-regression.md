@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Verify the manual-friendly, Knowledge-owned publishing contract. An observed pilot PRD had two consecutive frontmatter blocks and the Wiki API parsed only the first. This regression protects single frontmatter, permanent identity, canonical Knowledge placement, and the explicit GitLab Title/Path handoff.
+Verify the manual-friendly, Knowledge-owned publishing contract. An observed pilot PRD had two consecutive frontmatter blocks and the Wiki API parsed only the first. This regression protects single frontmatter, permanent identity, canonical Knowledge placement, and the explicit GitLab Wiki Path-only handoff.
 
 ## Harness sources
 
@@ -24,10 +24,8 @@ Expected:
 4. Do not translate `ats/job` to the legacy `ATS/job` merely because Wiki has that directory; Knowledge dictates the new convention, and the PM can create the new branch on publication.
 5. Keep application/candidate area references in `references`, not as alternative duplicate PRDs.
 6. Produce exactly **one** opening YAML frontmatter including both `id` and `wiki_path`.
-7. **Always** show two separate, copyable values outside the PRD Markdown:
-   - `GitLab Wiki Title: رد خودکار درخواست‌های شغلی بر اساس محل سکونت کارجو`
-   - `GitLab Wiki Path: ats/job/CND-PRD-0604081437-auto-reject-by-location`
-8. Explain that Wiki Title and Path are separate, disable "Generate page path from title", and omit `.md` from Path. Do not imply the PRD was published.
+7. **Always** show only `GitLab Wiki Path: ats/job/CND-PRD-0604081437-auto-reject-by-location` outside the PRD Markdown. Use the PRD heading as the page title; no extra `GitLab Wiki Title` handoff field.
+8. Explain that the Wiki Path must be entered independently of the document heading, disable "Generate page path from title", and omit `.md` from Path. Do not imply the PRD was published.
 
 ## Scenario B — no trustworthy timestamp or owning area
 
@@ -49,7 +47,7 @@ Expected:
 
 - Preserve its existing ID and stored Wiki Path (including legacy uppercase and legacy parent), even if the new-page convention would choose another path.
 - Update only semantic content/references as needed, with one opening frontmatter block.
-- Offer the established Wiki Title and Path outside the copyable Markdown.
+- Offer only the established GitLab Wiki Path outside the copyable Markdown.
 - Move the page only after an explicit decision, keeping ID stable and reconciling links.
 
 ## Scenario D — new JobVision PRDs follow canonical areas
@@ -84,9 +82,9 @@ Expected:
 - A Knowledge inventory entry is treated as independent authoritative evidence of the changed behavior's owner.
 - The Agent demands a pre-existing identical Wiki directory before proposing a new path.
 - The Agent changes an already-published Wiki path or stable ID silently.
-- There are multiple consecutive YAML frontmatter blocks, or a Wiki-bound PRD lacks separate, explicit, copy-ready Title and Path.
+- There are multiple consecutive YAML frontmatter blocks, or a Wiki-bound PRD lacks the separate, explicit, copy-ready `GitLab Wiki Path`.
 - The Agent adds `.md`, a URL, a Persian transliteration, or another timestamp to the new Wiki Path.
 
 ## Grading
 
-Use deterministic checks for ID formatting, `wiki_path` assembly, single-frontmatter structure, old-vs-new path stability, inventory coverage, and required separate Title/Path. Use semantic review for owning-area identification and separation of live Knowledge authority from inventory navigation.
+Use deterministic checks for ID formatting, `wiki_path` assembly, single-frontmatter structure, old-vs-new path stability, inventory coverage, and required separate Wiki Path. Use semantic review for owning-area identification and separation of live Knowledge authority from inventory navigation.
