@@ -62,6 +62,17 @@ Expected behavior:
 - Until verified, expose a source-grounded but unverified proposed path only when defensible, otherwise keep `wiki_path: unresolved`; do not present an unverified path as confirmed.
 - Do not demand a mapping update merely because a capability is added under an already mapped area.
 
+## Scenario E — JobVision audience-based Wiki navigation
+
+Canonical JobVision Knowledge exposes independent areas `job-search`, `candidate-premium`, `cv` and `application`. The destination Wiki instead groups pages under user-facing branches, including `candidate/job-discovery`, `candidate/jobvision-pro`, `candidate/onboarding-cv` and `candidate/apply-follow-up`. The verified map contains only the first two established correspondences.
+
+Expected behavior:
+
+- A JobVision PRD owned by `job-search` routes to the exact mapped parent `candidate/job-discovery`.
+- A JobVision PRD owned by `candidate-premium` routes to `candidate/jobvision-pro`.
+- A new PRD owned by `cv` **must not** blindly assume the compound audience-oriented `candidate/onboarding-cv` branch is verified or that all CV capabilities belong there; inspect/clarify the placement, or state `wiki_path: unresolved`.
+- The Agent must not treat the number of Product Knowledge areas and Wiki branches as necessarily equal, nor automatically synthesize `candidate/<knowledge-slug>`.
+
 ## Fail if
 
 - The Agent uses a Gregorian date, its host/browser's local timezone instead of Iran time, Persian digits, missing padding, or 12-digit seconds for the ten-digit ID.
