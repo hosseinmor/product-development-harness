@@ -237,6 +237,7 @@ Re-run the semantic checks from Step 4 across the complete PRD, with particular 
 - stale assumptions, superseded alternatives, and obsolete uncertainty have been removed,
 - current-product knowledge-status or retrieval notes have not leaked into semantic sections such as `Current Behavior`,
 - frontmatter references remain concise navigation metadata rather than duplicated PRD content or a retrieval bibliography,
+- all PRD section/subsection Markdown headings (`##`–`######`) use English, with the canonical labels in `artifacts/prd.md` preserved verbatim even when body prose is Persian,
 - and the final artifact remains semantically complete with low redundancy.
 
 This pass is cleanup, not a new Product decision step. It must preserve established Product decisions and must not introduce new product behavior merely to make the document look complete.
