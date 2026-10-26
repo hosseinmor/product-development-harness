@@ -130,6 +130,9 @@ Owns how correctness and agreed expectations are verified. This boundary is inte
 
 ### Cross-artifact rule
 
+**Durable Markdown artifact heading language:** In new or edited PRD and structured textual Design Artifact content, **all section/subsection Markdown headings (`##` through `######`) must be in English**. Keep the canonical PRD section titles from `artifacts/prd.md` **verbatim**; dynamic scenario/state/behavior subheadings also use concise descriptive English. The artifact's main document title (`#`) may remain in Persian, and user-facing prose, examples, quotes, and product UI copy may remain Persian. Do not translate confirmed product decisions or rewrite source-owned Figma/page titles merely to satisfy this Markdown artifact formatting rule. For edited existing artifacts, normalize headings in the touched delivered document without claiming unrelated external artifacts were modified.
+
+
 When work in one artifact requires changing a decision owned by another artifact, the change must return to the owning artifact rather than remaining only in the downstream artifact.
 
 ### Durable artifact persistence

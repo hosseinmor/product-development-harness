@@ -55,6 +55,14 @@ All material Product decisions are established and the PRD satisfies `Problem Al
 
 **Expected:** Deliver the complete reconciled **Problem-Aligned** Markdown PRD without asking the PM to say "now write it." Use `wiki_path: unresolved` in the single frontmatter block, show **only** `GitLab Wiki Path: unresolved` outside the PRD, and state that **Wiki publication is not ready** pending a verified Wiki parent. Do **not** declare the PRD semantically blocked because publication metadata is unavailable. Do **not** fabricate a differently cased Wiki branch or claim publication.
 
+### H — English section headings, Persian prose
+
+A new Cando PRD is authored in Persian with a Persian `#` document title, and the Agent creates additional scenario and rule subsections.
+
+**Expected:** Preserve the main title and Persian prose, but render **all** `##`–`######` headings in English. Use the canonical `Problem`, `Affected Users`, `Current Behavior`, `Outcomes`, `User Outcome`, `Business Outcome`, `Scope`, `Key Product Scenarios`, `Required Product Behavior`, `Acceptance Criteria`, and `Assumptions & Open Decisions` labels **verbatim** when those sections apply. Dynamic headings such as `### Initial Submission` and `### Auto-Reject Criteria` must also be English; translated equivalents such as `## رفتار فعلی` or `### درخواست جدید` must not occur as structural headings. Inline quoted Persian UI copy and user-provided artifact title may remain Persian.
+
+The same rule applies to a requested Working Draft, final handoff, and a revision of the current PRD. It does not require renaming Figma layers or modifying external Knowledge.
+
 ## Failure conditions
 
 - A final PRD with blocking questions appended is used as the default clarification response.

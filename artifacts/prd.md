@@ -74,7 +74,7 @@ Do not add generic status, version, timestamps, confidence scores, approval meta
 
 The PRD is a durable Product artifact, so its wording should make Product intent easy to understand without depending on the conversation that produced it.
 
-- For Job Vision PRDs, write in Persian by default unless the responsible human requests another language.
+- For Job Vision PRDs, write the **body prose in Persian by default** unless the responsible human requests another language. **Every Markdown section and subsection heading (`##`–`######`) in the produced PRD must be English.** Preserve the canonical English section headings listed below exactly (e.g. `## Current Behavior`, `## Required Product Behavior`, `## Assumptions & Open Decisions`); never replace them with Persian headings. Any additional scenario/rule/state subheading must also have a concise English label. The document's main `#` title may be Persian; content, field examples, and quotations may be Persian. Apply this to Working Drafts, final handoffs, and revisions. Do not treat product UI copy displayed as quoted evidence as structural document headings.
 - Use canonical product terminology from Product Knowledge and other authoritative context. Do not create alternate names for the same concept merely for stylistic variety.
 - Prefer natural Persian prose. Keep English terms when they are canonical Product, technical, artifact, or Harness terms, or when translation would reduce precision; otherwise avoid unnecessary Persian-English mixing.
 - Use a direct, neutral, product-oriented tone. Do not write marketing copy, conversational dialogue with the PM, approval narration, or AI process/reasoning into the PRD.
