@@ -42,6 +42,10 @@ Design Language and Product Content are separate **authority roles** even though
 - **Harness** — process, consistency, readiness, and downstream change propagation.
 - **Product Walkthrough, implementation, observation, and research** — evidence within their verified scope, not policy overrides.
 
+## PRD Wiki placement map
+
+`resources/prd-wiki-placement-map.yml` is a **small, verified cross-system navigation map**: canonical Product Knowledge *area paths* to existing GitLab Wiki *parent paths*. It is deliberately separate from `context-sources.yml` (source locations). It neither duplicates the Product Knowledge hierarchy in full nor establishes area ownership. For Wiki-bound PRDs, resolve ownership from canonical Knowledge first, then use an **exact matching** area entry to translate its path; no generic parent/sibling fallbacks. If an area has no verified entry, verify both the Knowledge owner and Wiki parent and add only a confirmed mapping; absent that, treat publication placement as proposed/unresolved. Keep this snapshot synchronized when either source changes its area navigation, and do not migrate published PRDs merely because the map was updated.
+
 ## Source-location rules
 
 - Treat `context-sources.yml` as the current locator; do not hard-code obsolete repository names elsewhere in Harness guidance.
