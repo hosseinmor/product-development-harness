@@ -29,6 +29,8 @@ The default metadata responsibilities are:
 id: unresolved
 artifact: prd
 owner: <responsible-product-owner-or-team>
+# Required when publishing to GitLab Wiki; omit otherwise:
+# wiki_path: <verified-or-proposed-wiki-parent>/<PRD-ID>-<english-kebab-case-slug>
 references:
   - source: <jobvision_product_knowledge-or-cando_product_knowledge>
     page: <source-native-page-name>
@@ -40,14 +42,18 @@ related_artifacts:
 Metadata rules:
 
 - `id` provides stable identity for the PRD.
-- A new PRD that has not yet been registered uses `id: unresolved`. The Harness and AI must not invent, guess, or increment an official PRD ID.
-- Official PRD IDs are allocated by the configured external registry, not generated from the PRD title, Wiki path, latest visible PRD, or conversation state.
-- Current registered ID formats are `JV-PRD-NNNNN` for JobVision and `CND-PRD-NNNNN` for Cando, with exactly five digits in the registry allocation.
-- Replacing `id: unresolved` with the first externally allocated official ID is registration, not identity migration.
+- A new draft may start with `id: unresolved` until an accurate timestamp can be obtained. For the first stable ID, use `JV-PRD-YYMMDDHHmm` (JobVision) or `CND-PRD-YYMMDDHHmm` (Cando); no registry or sequential numbering is needed. In this notation `YY` means the last two digits of the **Jalali/Solar Hijri year** (for example 1406 → `06`), `MMDD` is the Jalali month/day, and `HHmm` is the current 24-hour clock time in `Asia/Tehran`. Use ten ASCII digits and zero-pad each part; no separators, seconds, or Western/Gregorian calendar date.
+- An AI may produce the ID itself when it has an accurate time source and can reliably obtain/convert the Iran-local Jalali date. Do not invent current minute or calendar conversion. If it cannot be established, ask for the actual current Iran-local Jalali date/time (e.g. from the PM) or retain `id: unresolved` until supplied. A person may generate the identical ID manually from the Iranian calendar and clock. Do not read existing PRDs to calculate a next ID.
+- A first valid assignment replacing `id: unresolved` is registration, not identity migration. Timestamp-based IDs are not guaranteed globally unique; if a collision is actually encountered at publication, resolve it before publishing rather than overwriting an existing PRD.
 - Once an official ID has been assigned, preserve it across redrafting, clarification, reconciliation, title changes, storage moves, and downstream work. Change it only through an explicit identity migration that preserves affected references.
 - Existing stable PRD IDs created before this registration scheme are grandfathered. Do not rewrite them only to match the new format; migrate them only through an explicit identity migration with the old-to-new relationship preserved.
-- Official registration is not a prerequisite for `Problem Aligned`; semantic Product readiness and artifact registration are separate concerns. Before downstream handoff treats a PRD as the current durable PRD, however, the PRD must have an official registered ID.
+- Assigning a stable ID is not a prerequisite for `Problem Aligned`; semantic Product readiness and artifact registration are separate concerns. Before publication or downstream handoff as a current durable PRD, resolve `id: unresolved`.
 - `artifact: prd` identifies the artifact type.
+- For PRDs intended for GitLab Wiki, include exactly one `wiki_path` in the **single** YAML frontmatter block. It holds the **entire proposed or established GitLab Wiki page Path**, without leading `/`, base domain, `.md`, or spaces; it is not merely a parent directory. Format: `<existing-or-proposed-parent-path>/<stable-PRD-ID>-<short-english-kebab-case-title>`. Example with a **hypothetical** ID: `ATS/job/CND-PRD-0604081437-auto-reject-by-location`.
+- Select the parent semantically from the owning Product Knowledge hierarchy, prioritizing the area responsible for the changed behavior. Other affected areas belong in `references`; never duplicate the PRD across Wiki branches. Knowledge document kinds such as `entity`, `flow`, `rule`, or `capability` are not automatically Wiki directories. Respect existing Wiki folder names and case when verified; do not claim that a derived folder already exists. If no reliable parent can be determined, use `wiki_path: unresolved` and make the specific missing decision or source clear outside the PRD.
+- Propose the English slug using canonical product terminology, lowercase `a-z` and digits separated by single hyphens; keep it concise and descriptive. Do not use spaces, a translated Persian title, a PRD version, a timestamp repeated outside the ID, or `.md`. The GitLab **Title** is human-readable Persian by default, taken from the PRD heading, and is independent of the Wiki Path. When entering the Wiki page, turn off **Generate page path from title** and paste the complete Path.
+- A proposed `wiki_path` is publication metadata, not proof the path exists in GitLab. Preserve the established Wiki page Path and leaf when updating an existing PRD; do not silently regenerate its slug because the title changed. When publication moves between primary areas, keep the stable `id` and request approval before moving an already published page.
+- **Mandatory Wiki handoff:** For every Wiki-bound PRD output, present `GitLab Wiki Title` and `GitLab Wiki Path` as explicit copy-ready values *outside the PRD's Markdown payload*, so the PM knows exactly what to paste into GitLab. Do this even though frontmatter is machine-readable via the Wiki API and may not appear in the rendered page. If values cannot be grounded, show `unresolved` plus the minimum action needed; never omit the publishing details silently.
 - `owner` identifies the responsible Product owner or team at the appropriate level. AI should retrieve ownership when reasonably possible and must not infer or fabricate an owner merely to populate metadata. If ownership cannot be established, use `owner: unresolved`.
 - `references` is a concise machine-facing navigation list for materially relevant canonical Product Knowledge pages that ground the PRD or are useful for downstream retrieval and impact analysis.
 - Each Product Knowledge reference uses `source` + `page`. `source` must be the owning Product Knowledge source key from `context-sources.yml` (for example `jobvision_product_knowledge` or `cando_product_knowledge`), not a URL.
@@ -59,8 +65,8 @@ Metadata rules:
 - When updating an existing PRD that contains legacy Product Knowledge URLs or string references, normalize them to `source + page` only when the canonical page can be identified reliably. Remove non-navigation evidence from `references` rather than inventing a page mapping.
 - `related_artifacts` references related durable artifacts when they exist and the relationship is useful downstream.
 - `references` and `related_artifacts` may be omitted when they have no useful entries.
-- Metadata is machine-facing navigation data. It should not duplicate semantic PRD content.
-- In the current pilot, PRD storage is manual and no specific hosting service is prescribed. Use the history/recovery capability of the explicitly designated durable store when available; do not add a separate PRD version field merely to duplicate storage history.
+- Metadata is machine-facing navigation data. It should not duplicate semantic PRD content. Write **one** YAML frontmatter block at the start of a PRD; never append a second `--- ... ---` block to add Wiki placement.
+- In the current pilot, PRD storage can be manual. The Harness does not require GitLab Wiki for all use cases; when the PM chooses it, use the Wiki publication metadata and the store's history/recovery capability. Do not add a separate PRD version field merely to duplicate storage history.
 
 Do not add generic status, version, timestamps, confidence scores, approval metadata, requirement numbering, Jira links, Figma links, or similar metadata without a demonstrated workflow need.
 
