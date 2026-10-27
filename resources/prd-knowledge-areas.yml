@@ -1,4 +1,6 @@
-# Snapshot of canonical Product Knowledge area overview paths, not independent product truth.
+# PRD publication parents aligned to the canonical Product Knowledge taxonomy.
+# The PM excludes the JobVision platform area from PRD placement; its absence here
+# does not remove it from Product Knowledge.
 # Read the live canonical Knowledge source to determine product ownership and update this
 # inventory whenever its structure changes. Do NOT read GitLab Wiki to refresh it.
 # JobVision paths below reflect the Knowledge taxonomy and Wiki hierarchy.
