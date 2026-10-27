@@ -10,7 +10,15 @@
 # Choose the primary area that owns the changed product behavior, even when several
 # panels or areas are affected. Record other affected areas as PRD references.
 # Do not invent a child area; use only a verified path from the taxonomy.
-# If the owning area is unknown, use wiki_path: unresolved.
+# Read this inventory for every new Wiki-bound PRD.
+# If live Knowledge is inaccessible, propose the best-supported listed parent from
+# the confirmed product and PM intent/current draft; disclose unverified ownership.
+# If several parents are plausible, recommend one and ask PM to confirm/correct.
+# Keep a supported complete path visibly proposed pending confirmation.
+# Use unresolved only for insufficient placement evidence, a material taxonomy
+# conflict, or a missing valid ID; still suggest a parent if only the ID is missing.
+# This fallback establishes neither current-product behavior nor page references.
+# Generate the ID independently from reliable Iran-local Jalali date/time.
 # Published paths stay stable unless an explicit move is approved.
 schema_version: "2"
 checked_on: "2026-10-26"
