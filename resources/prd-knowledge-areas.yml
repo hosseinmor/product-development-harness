@@ -1,14 +1,13 @@
 # Snapshot of canonical Product Knowledge area overview paths, not independent product truth.
 # Read the live canonical Knowledge source to determine product ownership and update this
 # inventory whenever its structure changes. Do NOT read GitLab Wiki to refresh it.
-# Paths are relative to /contents/; each has a corresponding <area>/0_overview/ page.
-# Live Knowledge determines the owning area; its exact relative path is also the
-# proposed Wiki parent for a new PRD. This snapshot only aids navigation.
+# JobVision paths below reflect the Knowledge taxonomy and Wiki hierarchy.
+# The docs site may serve area pages from flat /contents/<area>/ URLs; those
+# browser URLs are not the PRD parent paths. Use each complete path below.
 # Do NOT browse previous PRDs or GitLab Wiki during new-PRD drafting.
 # Choose the primary area that owns the changed product behavior, even when several
 # panels or areas are affected. Record other affected areas as PRD references.
-# Group headings in the Knowledge map are navigation, not path prefixes. Do not
-# invent a child area (such as application/management) unless it exists in live Knowledge.
+# Do not invent a child area; use only a verified path from the taxonomy.
 # If the owning area is unknown, use wiki_path: unresolved.
 # Published paths stay stable unless an explicit move is approved.
 schema_version: "2"
@@ -58,39 +57,38 @@ products:
 
   jobvision:
     product_knowledge_source: jobvision_product_knowledge
-    # Groups mirror the Product Knowledge map. They are navigation labels, not
-    # path segments: for example, shared/application is not a Knowledge path.
-    # Use the leaf path verbatim as the Wiki parent.
+    # Values are complete PRD parent paths; include the group in Wiki Path.
+    # _common, candidate, employer, and root admin are visible in the Wiki tree.
     knowledge_areas:
       shared:
-        - company-review
-        - jobpost
-        - application
-        - job-fair
-        - assessment
-        - matching
-        - scoring
-        - ai
+        - _common/company-review
+        - _common/jobpost
+        - _common/application
+        - _common/job-fair
+        - _common/assessment
+        - _common/matching
+        - _common/scoring
+        - _common/ai
       candidate:
-        - account
-        - cv
-        - career-guide
-        - content
-        - candidate-premium
-        - channels
-        - learning
-        - market-insights
-        - nationwide
-        - job-search
+        - candidate/account
+        - candidate/cv
+        - candidate/career-guide
+        - candidate/content
+        - candidate/candidate-premium
+        - candidate/channels
+        - candidate/learning
+        - candidate/market-insights
+        - candidate/nationwide
+        - candidate/job-search
       employer:
-        - company
-        - operator
-        - talent-search
-        - talent-pool
-        - suggested-cv
-        - package
-        - billing
-        - campaign
+        - employer/company
+        - employer/operator
+        - employer/talent-search
+        - employer/talent-pool
+        - employer/suggested-cv
+        - employer/package
+        - employer/billing
+        - employer/campaign
       admin:
         - backoffice
       platform:
