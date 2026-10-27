@@ -11,7 +11,7 @@
 # invent a child area (such as application/management) unless it exists in live Knowledge.
 # If the owning area is unknown, use wiki_path: unresolved.
 # Published paths stay stable unless an explicit move is approved.
-schema_version: "1"
+schema_version: "2"
 checked_on: "2026-10-26"
 products:
   cando:
@@ -58,32 +58,40 @@ products:
 
   jobvision:
     product_knowledge_source: jobvision_product_knowledge
+    # Groups mirror the Product Knowledge map. They are navigation labels, not
+    # path segments: for example, shared/application is not a Knowledge path.
+    # Use the leaf path verbatim as the Wiki parent.
     knowledge_areas:
-      - company-review
-      - jobpost
-      - application
-      - job-fair
-      - assessment
-      - matching
-      - scoring
-      - ai
-      - account
-      - cv
-      - career-guide
-      - content
-      - candidate-premium
-      - channels
-      - learning
-      - market-insights
-      - nationwide
-      - job-search
-      - company
-      - operator
-      - talent-search
-      - talent-pool
-      - suggested-cv
-      - package
-      - billing
-      - campaign
-      - backoffice
-      - platform
+      shared:
+        - company-review
+        - jobpost
+        - application
+        - job-fair
+        - assessment
+        - matching
+        - scoring
+        - ai
+      candidate:
+        - account
+        - cv
+        - career-guide
+        - content
+        - candidate-premium
+        - channels
+        - learning
+        - market-insights
+        - nationwide
+        - job-search
+      employer:
+        - company
+        - operator
+        - talent-search
+        - talent-pool
+        - suggested-cv
+        - package
+        - billing
+        - campaign
+      admin:
+        - backoffice
+      platform:
+        - platform
