@@ -15,46 +15,54 @@ checked_on: "2026-10-26"
 products:
   cando:
     product_knowledge_source: cando_product_knowledge
+    # Group keys mirror the first path segment; values are complete PRD parents.
+    # Select the owning area, then use its full value (e.g. ats/job), not just job.
     knowledge_areas:
-      - shared/ai
-      - ats/hiring-request
-      - ats/job
-      - ats/candidate
-      - ats/application
-      - ats/interview
-      - ats/evaluation
-      - ats/career-page
-      - ats/sourcing
-      - ats/operator
-      - ats/organization
-      - ats/notification
-      - ats/report
-      - salary/personnel
-      - salary/job-profile
-      - salary/benchmark
-      - salary/settings
-      - salary/report
-      - calendar/calendar-access
-      - calendar/event
-      - calendar/availability
-      - calendar/sync
-      - learning/access
-      - pulse/survey
-      - pulse/questionnaire
-      - pulse/response
-      - pulse/org-chart
-      - pulse/report
-      - pulse/action
-      - pulse/notification
-      - pulse/tenant
-      - onb/onboardee
-      - onb/template
-      - onb/notification
-      - onb/feedback-evaluation
-      - onb/welcome
-      - onb/access
-      - onb/tenant
-
+      shared:
+        - shared/ai
+      ats:
+        - ats/hiring-request
+        - ats/job
+        - ats/candidate
+        - ats/application
+        - ats/interview
+        - ats/evaluation
+        - ats/career-page
+        - ats/sourcing
+        - ats/operator
+        - ats/organization
+        - ats/notification
+        - ats/report
+      salary:
+        - salary/personnel
+        - salary/job-profile
+        - salary/benchmark
+        - salary/settings
+        - salary/report
+      calendar:
+        - calendar/calendar-access
+        - calendar/event
+        - calendar/availability
+        - calendar/sync
+      learning:
+        - learning/access
+      pulse:
+        - pulse/survey
+        - pulse/questionnaire
+        - pulse/response
+        - pulse/org-chart
+        - pulse/report
+        - pulse/action
+        - pulse/notification
+        - pulse/tenant
+      onb:
+        - onb/onboardee
+        - onb/template
+        - onb/notification
+        - onb/feedback-evaluation
+        - onb/welcome
+        - onb/access
+        - onb/tenant
   jobvision:
     product_knowledge_source: jobvision_product_knowledge
     # Values are complete PRD parent paths; include the group in Wiki Path.
