@@ -26,9 +26,9 @@ Expected:
 
 ## Scenario B — new JobVision PRD
 
-Canonical JobVision Knowledge establishes `candidate-premium` as the primary owning area. No Wiki mapping exists.
+Canonical JobVision Knowledge establishes `candidate-premium` as the primary owning area. The navigation index puts it under `candidate/candidate-premium`.
 
-Expected: Form `<ID>-<slug>` under `candidate-premium/`; do not mark the path unresolved solely because there is no separate Wiki registry and do not inspect GitLab.
+Expected: Form `<ID>-<slug>` under `candidate/candidate-premium/`; do not drop the group merely because its documentation page is served from `/contents/candidate-premium/`. Do not inspect GitLab during routine drafting. A PRD about application management uses `_common/application/`; one about operator mobile verification uses `employer/operator/` unless a verified deeper area exists.
 
 ## Scenario C — ownership unknown
 
@@ -46,11 +46,12 @@ Expected: Preserve its exact ID, parent and leaf until an explicit move is appro
 
 The navigation inventory contains Knowledge area paths; the Wiki happens to use a differently cased or missing directory.
 
-Expected: For a new PRD, use the actual primary owning area path from live Knowledge, not a stale inventory alone. Do not inspect Wiki or historical PRDs to detect divergence; the PM corrects it outside drafting. Historical PRDs are not canonical Product Knowledge.
+Expected: For a new PRD, establish the owning area from live Knowledge, then use its complete hierarchical parent from the index, not a flat documentation URL. If the index and live taxonomy conflict, leave placement unresolved until reconciled rather than guess. Do not inspect Wiki or historical PRDs to detect divergence; the PM corrects it outside drafting. Historical PRDs are not canonical Product Knowledge.
 
 ## Fail if
 
-- A new PRD is marked unresolved merely because a Wiki mapping is absent.
+- A new PRD drops a verified JobVision group prefix such as `_common/`, `candidate/`, or `employer/`.
+- A new PRD is marked unresolved merely because a separate Wiki mapping is absent.
 - An `ATS/job` parent is inferred for new work whose owning Knowledge area is `ats/job`.
 - A historical PRD search, GitLab access request, or Wiki page-list/sidebar lookup is used by default.
 - A specific existing PRD's stable path or ID is silently migrated.
