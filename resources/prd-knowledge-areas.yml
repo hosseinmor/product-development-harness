@@ -99,5 +99,5 @@ products:
         - employer/package
         - employer/billing
         - employer/campaign
-      admin:
+      backoffice:
         - backoffice
