@@ -44,7 +44,7 @@ Design Language and Product Content are separate **authority roles** even though
 
 ## PRD Wiki placement
 
-`resources/prd-knowledge-areas.yml` is a dated navigation inventory, not a second source of product ownership. Determine the primary owning area from live canonical Product Knowledge. For a new PRD, use that area's exact relative path, including casing, as the Wiki parent and append `<ID>-<english-kebab-case-slug>`. Do not inspect GitLab Wiki or historical PRDs to determine the parent. If the owning area cannot be established, keep `wiki_path: unresolved` until Knowledge or PM input establishes it. The PM corrects any divergence between Knowledge and Wiki paths outside the drafting run. Preserve the path of an explicitly identified existing published PRD when editing it.
+`resources/prd-knowledge-areas.yml` is a dated navigation inventory, not a second source of product ownership. Determine the primary owning area from live canonical Product Knowledge. For a new PRD, use the complete hierarchical area path from `resources/prd-knowledge-areas.yml`, including casing, as the Wiki parent; do not use the flat documentation page URL and append `<ID>-<english-kebab-case-slug>`. Do not inspect GitLab Wiki or historical PRDs to determine the parent. If the owning area cannot be established, keep `wiki_path: unresolved` until Knowledge or PM input establishes it. The PM corrects any divergence between Knowledge and Wiki paths outside the drafting run. Preserve the path of an explicitly identified existing published PRD when editing it.
 
 ## Source-location rules
 
