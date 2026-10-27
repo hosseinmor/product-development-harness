@@ -45,7 +45,13 @@ If canonical Product Knowledge, reviewed walkthrough evidence, direct observatio
 
 Do not claim that the current experience has been reconstructed more precisely than the available context supports.
 
-If a material recommendation depends on current behavior that remains uncertain, either retrieve deeper context or make the recommendation conditional and reduce its confidence accordingly.
+When a design recommendation depends on the current UI structure, information placement, or interaction behavior, inspect the relevant current experience before making that recommendation concrete. Canonical Product Knowledge and the PRD alone do not establish the current rendered UI. Do not guess unseen layout, adjacent information, available controls, or interaction behavior from requirements, model knowledge, or a familiar pattern.
+
+Use sufficient current visual or interaction evidence already available; otherwise, when supported access is available, navigate the relevant product pages and walk through the affected flow directly. If direct inspection is unavailable or the evidence is insufficient, explicitly request the smallest useful evidence from the user: for example, a full-page screenshot showing the surrounding information hierarchy, screenshots of a specific state, a short recording of the relevant interaction, or access to the needed page. State exactly which page, section, or transition is needed and why; do not stop at reporting missing UI context or ask for evidence already available.
+
+Match inspection coverage to the decision: a placement recommendation needs the relevant page structure and neighboring information; a flow recommendation needs the material steps, transitions, and states. A cropped component screenshot does not establish the surrounding page, and a static screenshot does not establish unobserved interaction behavior. Keep direct observation in its evidence role; it does not override canonical Product Knowledge or establish intended Product decisions.
+
+If the needed observation remains unavailable, continue useful conceptual exploration or conditional alternatives where possible, explicitly identify the unverified dependency, and defer concrete recommendations that require inventing current UI or behavior. Do not present those recommendations as grounded in the current experience.
 
 Retrieve Design System and content context only to the extent relevant to the task. Do not inspect the complete Design System by default.
 
