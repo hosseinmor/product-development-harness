@@ -33,7 +33,7 @@ Expected: Form `<ID>-<slug>` under `candidate/candidate-premium/`; do not drop t
 
 ## Scenario C — ownership unknown
 
-The primary owning Knowledge area cannot be established from live Knowledge or PM input.
+Live Knowledge is inaccessible and the supplied intent/current draft is too ambiguous to support any listed parent. No PM placement decision is available.
 
 Expected: `wiki_path: unresolved` and `GitLab Wiki Path: unresolved`, without guessing from adjacent areas. A stable ID can still be assigned independently and semantic `Problem Aligned` is not blocked by placement.
 
@@ -49,6 +49,30 @@ The navigation inventory contains Knowledge area paths; the Wiki happens to use 
 
 Expected: For a new PRD, establish the owning area from live Knowledge, then use its complete hierarchical parent from the index, not a flat documentation URL. If the index and live taxonomy conflict, leave placement unresolved until reconciled rather than guess. Do not inspect Wiki or historical PRDs to detect divergence; the PM corrects it outside drafting. Historical PRDs are not canonical Product Knowledge.
 
+## Scenario F — Knowledge inaccessible, supported placement
+
+Gate 0 passes and the PM confirms Cando. Internal Knowledge is inaccessible because of browser/VPN/authentication limitations after reasonable access attempts. PM intent unambiguously concerns adding a configuration to a job's automatic rejection settings. The inventory lists `ats/job`. Reliable Iran-local time is Jalali 1406/04/08 14:37.
+
+Expected:
+
+1. Read the inventory and generate `CND-PRD-0604081437` independently of Knowledge access.
+2. Propose `wiki_path: ats/job/CND-PRD-0604081437-auto-reject-by-location` and hand off the identical `GitLab Wiki Path`.
+3. State briefly that primary-area ownership was not checked against live Knowledge; record a material access limitation in the existing Pilot Evaluation.
+4. Do not require restored Knowledge access or another approval merely to offer this supported placement proposal.
+5. Do not infer current product behavior, invent page references, or claim canonical verification from the inventory. Continue drafting only within the existing uncertainty/authority rules.
+
+## Scenario G — multiple plausible listed parents
+
+Knowledge is inaccessible. The confirmed product is Cando, and supplied intent leaves `ats/job` and `ats/sourcing` genuinely plausible owners.
+
+Expected: Recommend the better-supported listed parent with a short reason, present a supported complete path as proposed when a valid ID exists, and ask the smallest operational placement question for PM confirmation/correction. Do not invent a third area or silently call the candidate verified. Do not record this as a Product Decision clarification. Semantic drafting can continue.
+
+## Scenario H — time unavailable and existing identity
+
+Knowledge is inaccessible. A new PRD has a supported listed parent, but no reliable Iran-local date/time.
+
+Expected: Request the missing date/time, keep `id: unresolved` and `wiki_path: unresolved`, and still show the proposed parent. Do not fabricate time or suppress the parent because the ID is missing. For a specifically supplied existing PRD, preserve its ID and path regardless of Knowledge access; do not re-register or relocate it.
+
 ## Fail if
 
 - A new PRD drops a verified JobVision group prefix such as `_common/`, `candidate/`, or `employer/`, or a Cando prefix such as `ats/`, `pulse/`, or `onb/`.
@@ -56,3 +80,7 @@ Expected: For a new PRD, establish the owning area from live Knowledge, then use
 - An `ATS/job` parent is inferred for new work whose owning Knowledge area is `ats/job`.
 - A historical PRD search, GitLab access request, or Wiki page-list/sidebar lookup is used by default.
 - A specific existing PRD's stable path or ID is silently migrated.
+
+- Missing live Knowledge alone causes an unresolved ID or suppresses a supported listed parent/full-path proposal despite a valid time source.
+- The inventory is used to assert current-product behavior, fabricate Knowledge references, or claim verified ownership.
+- Ambiguous placement is silently decided instead of showing a recommendation and asking PM for confirmation/correction.
