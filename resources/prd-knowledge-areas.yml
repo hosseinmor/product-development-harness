@@ -5,6 +5,10 @@
 # Live Knowledge determines the owning area; its exact relative path is also the
 # proposed Wiki parent for a new PRD. This snapshot only aids navigation.
 # Do NOT browse previous PRDs or GitLab Wiki during new-PRD drafting.
+# Choose the primary area that owns the changed product behavior, even when several
+# panels or areas are affected. Record other affected areas as PRD references.
+# Group headings in the Knowledge map are navigation, not path prefixes. Do not
+# invent a child area (such as application/management) unless it exists in live Knowledge.
 # If the owning area is unknown, use wiki_path: unresolved.
 # Published paths stay stable unless an explicit move is approved.
 schema_version: "1"
@@ -82,3 +86,4 @@ products:
       - billing
       - campaign
       - backoffice
+      - platform
