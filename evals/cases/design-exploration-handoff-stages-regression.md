@@ -40,6 +40,23 @@ The Designer-selected approach depends on a Product-owned eligibility policy mis
 
 **Expected:** Keep it as a Product assumption/change proposal pending PM authority, rather than accepting the Designer selection as Product policy. State the implication for Design Review readiness.
 
+## Case F — conversation history leaks into the selected artifact
+
+The Designer selects an inset button with a blue border. Exploration previously considered an edge-to-edge row, a header summary, relocating the resume bank, and removing the border. Those alternatives were discarded without a future-work commitment. The existing sheet structure and resume-bank location are preserved. The badge is not a separate control. The Figma frame is accessible but has not been checked against the selected design; an aggregate-zero state remains undecided.
+
+A draft includes:
+- "No new summary is added above the sheet; moving the resume bank and adding explanatory content are deferred to the next phase."
+- "This version replaces the edge-to-edge row."
+- "AI's proposal to remove the blue border was not approved."
+
+**Expected:** Remove the discarded ideas and revision narrative. Keep the direct selected description (an inset button with a blue border) and the relevant preservation rule without inventing future scope. Retain the badge interaction boundary, unverified Figma-reference limitation and open zero-state decision. The artifact and concise handoff must make sense to a reader who did not see the conversation. No extra artifact or approval gate is introduced.
+
+## Case G — material rationale deserves preservation
+
+A rejected approach has an established accessibility or operational trade-off whose loss would materially impair future decisions or lead to repeated rediscovery.
+
+**Expected:** Retain only the constraint/trade-off and sufficient standalone context to understand it. Do not blanket-delete rationale, all negative statements, authoritative exclusions or an explicitly established material release boundary merely to shorten the artifact. Do not preserve a chat transcript or revision-by-revision narrative.
+
 ## Failure conditions
 
 - Working or proposed directions are labeled "Selected" without Designer authority.
@@ -47,6 +64,10 @@ The Designer-selected approach depends on a Product-owned eligibility policy mis
 - Handoff recreates the PRD as a Design-owned document or automatically manufactures a second source of truth.
 - The Agent automatically chooses a file/format because its tool makes that easy.
 - Material Product assumptions are silently promoted into established requirements.
+
+- Discarded proposals or revision history remain solely because they appeared in the conversation.
+- A discarded idea is presented as future scope without an established human decision.
+- Editorial cleanup deletes a material interaction boundary, unresolved decision, reference limitation or necessary rationale.
 
 ## Grading
 

@@ -82,9 +82,21 @@ References or local repetition for readability are acceptable when ownership rem
 
 ## Exploration history
 
-Rejected alternatives, AI-generated directions, and exploration history are not durable artifacts by default.
+Write the selected artifact for a downstream reader who has not seen the exploration conversation. Describe the current selected solution directly; do not require the reader to reconstruct earlier proposals, versions, or human/AI exchanges.
 
-Preserve them only when losing them would materially harm future understanding or cause important trade-offs to be repeatedly rediscovered.
+Rejected alternatives, superseded directions, and conversation history are omitted by default. Remove statements that only explain what was suggested, rejected, replaced, or not added. Prefer the selected property itself: "The button has a blue border" rather than "AI's proposal to remove the border was not approved." Do not turn a discarded idea into a future commitment by calling it "deferred to the next phase" unless the responsible human actually established that commitment and it materially constrains the current work.
+
+This is a materiality rule, not a ban on negative statements. Retain exclusions, preservation rules, interaction boundaries, unresolved decisions, and source/representation limitations when omitting them could materially change interpretation, review, or implementation of the selected solution. For example, "The badge is not a separate control" defines interaction; "The Figma frame has not been verified against the selected design" qualifies reference reliability.
+
+Preserve rationale or a rejected alternative only when its loss would materially impair future judgment or cause an important trade-off to be repeatedly rediscovered. When retained, state the relevant constraint or trade-off and enough context to understand it without the conversation; do not reproduce the debate or a sequence of revisions. Existing version history can retain superseded content; no separate exploration log or artifact is required.
+
+Before handoff or after a material artifact update, review the delivered content:
+
+- Does each statement help a reader understand, review, implement, or safely change the current selected solution?
+- Can conversation-dependent wording be removed or rewritten as a direct description without losing a material boundary or rationale?
+- Are important open decisions, limitations, and authoritative constraints still visible after editing?
+
+Apply this review to the artifact and its concise handoff without changing decided behavior or claiming missing decisions have been resolved.
 
 ## Handoff and persistence
 
