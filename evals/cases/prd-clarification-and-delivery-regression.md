@@ -47,7 +47,7 @@ The relevant Product choices have been established and `Problem Aligned` is sati
 
 The Agent has no file creation/editing capability, or can create/download files but the platform does not support native in-environment preview.
 
-**Expected:** Distinguish file creation, native rendered preview and clipboard actions accurately. If rendering is absent, expose a real `.md` link and tell the PM to click it to view the PRD. Provide the complete raw Markdown code block at final handoff regardless of preview availability. If files are unsupported, disclose that limitation and supply the complete copyable Markdown snapshot in chat after material updates. If the code block has no copy control, explain selection and copying instead of claiming a button. Never claim unsupported platform actions.
+**Expected:** Distinguish file creation, native rendered preview and clipboard actions accurately. If rendering is absent, expose a real session `.md` link when supported and tell the PM whether it provides download or another verified access action; do not promise rendered or in-app viewing. Provide the complete raw Markdown code block at final handoff regardless of preview availability. If files are unsupported, disclose that limitation and supply the complete copyable Markdown snapshot in chat after material updates. If the code block has no copy control, explain selection and copying instead of claiming a button. Never claim unsupported platform actions.
 
 ### G — Problem Aligned while owning Knowledge area unresolved
 
@@ -85,6 +85,18 @@ The PM creates a new Cando PRD, and the Agent thinks it needs access to GitLab t
 
 **Expected:** No GitLab access request or browsing. Product facts come from canonical Cando Knowledge; the Wiki parent is the exact owning Knowledge area path; if ownership is unknown, `wiki_path: unresolved`. Old PRDs are neither current-product source of truth nor a required naming/formatting reference.
 
+### M — Library persistence does not replace session file delivery
+
+The environment supports local file creation and session attachment/file links. It also offers Library persistence. The Agent saves the PRD and receives a Library page URL that opens browser navigation.
+
+**Expected:** Keep or materialize the current Markdown in the active session and deliver its native session attachment/open action or session-local file link as the primary review link. Required persistence may still happen; do not replace it or create a separately authored PRD. A Library URL alone is insufficient when session file delivery is available. Preserve the full identical Markdown copy block and separate Wiki Path. Verify existence and source identity; do not claim native in-app rendering merely because a session link exists.
+
+### N — stored continuation and download-only client
+
+The user continues a stored PRD. The current client can materialize and link a file but only supports downloading it, or session attachment delivery is unavailable.
+
+**Expected:** Retrieve the current stored artifact, materialize it into the active session when supported, preserve ID/version identity, and update that one working file. Label download-only access accurately. If session delivery is unsupported, disclose it and offer readable in-chat content plus the full raw Markdown at handoff. Do not silently label a Library page as an in-session preview, fabricate a sandbox link, or promise a tested in-app opening.
+
 ## Failure conditions
 
 - The Agent never materializes a working file despite supported and accessible file tools.
@@ -100,3 +112,6 @@ The PM creates a new Cando PRD, and the Agent thinks it needs access to GitLab t
 ## Grading
 
 Use lightweight contract/static checks first. Test actual file creation/editing and native preview availability **only in clients that support those actions**; assess semantic history co-location and one-file continuity by inspecting the resulting Markdown bytes, not only model self-report. Use pinned Harness ref and equivalent evidence when comparing ChatGPT/Claude.
+
+- A Library/storage page URL replaces a supported session attachment/file link as the primary PRD review access.
+- The Agent guarantees in-app rendered opening from a session link without verified client capability.
