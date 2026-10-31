@@ -199,6 +199,8 @@ If later refinement materially changes the selected design, re-review the affect
 
 The durable Design Artifact follows `../artifacts/design.md`.
 
+Before handing off or materially updating the selected artifact, apply its `Exploration history` review: write for a reader absent from the conversation, describe the current selected solution directly, and remove superseded proposals or debate that add no material value. Preserve meaningful interaction/scope boundaries, rationale, remaining decisions and reference limitations. Do not convert discarded exploration into an assumed future phase. This is an editorial review within the existing handoff, not another approval gate, artifact or workflow stage.
+
 ## Readiness for Design Review
 
 Design Exploration is ready for Design Review + PRD Stress Test when:
