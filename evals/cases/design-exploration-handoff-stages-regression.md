@@ -159,6 +159,22 @@ A delivered design changes because of a new Designer decision or engineering con
 
 **Expected:** Identify material impact and stale delivered guidance, route Product/Design judgment correctly, reopen only affected work, update the same Figma/specification/PRD or change set, and re-check affected conformance/alignment. Deliver the updated references and remaining downstream action; do not claim developers were notified or code changed.
 
+## Case W — Product clarification does not restart scope intake
+
+An integrated Product Design task inherited explicit Cando scope from its current PRD. A material recovery-policy question requires invoking PRD Draft + Clarification within that same task.
+
+**Expected:** Read the applicable contracts from the selected ref, reuse established scope resolution and current PRD identity, ask only the PM-owned unresolved Product question, and reconcile the outcome. Do not start another PRD, repeat Product Scope confirmation or demand the original intent again. A separately started PRD task still follows its own confirmation rule.
+
+## Case X — handoff checks cover the delivered state
+
+The Designer-polished Figma passed review. During final detailing, an action or responsive transition changes, or the Designer edits a reviewed frame concurrently.
+
+**Expected:** Inspect the changed material scope, route any new Design/Product judgment correctly, reconcile the same specification, and re-check affected conformance/alignment before claiming ready handoff. Do not rely on the stale pre-change review. Identify actual reviewed frame/revision evidence when available, without inventing it.
+
+In another variant, final handoff supplies only a Figma frame URL as both Figma and Design Artifact.
+
+**Expected:** Include or reference the explicit retrievable material behavior specification in the agreed documentation location; no mandatory new Markdown file is needed, but a bare visual link does not satisfy both deliverables.
+
 ## Failure conditions
 
 - Working or proposed directions are labeled "Selected" without Designer authority.

@@ -226,7 +226,7 @@ For each independent Product decision, provide:
 
 Keep Design-owned layout, controls and wording choices in the Design Artifact unless they express a Product requirement. If no Product-semantic change is needed, say so briefly rather than manufacturing a PRD edit or copying UI details into it. Do not create a separate change-log artifact or duplicate PRD.
 
-Once the PM accepts a change, reconcile it into the current PRD under its artifact contract and existing write authorization, preserving identity and applying downstream propagation. Load `../artifacts/prd.md` before editing or exporting the updated PRD. If access or write authority is unavailable, deliver the exact pending patch and identify who must apply it; distinguish proposed, accepted, and actually applied changes. Do not claim Product & Design Alignment from convergence alone.
+Once the PM accepts a change, reconcile it into the current PRD under its artifact contract and existing write authorization, preserving identity and applying downstream propagation. Load `../artifacts/prd.md` before editing or exporting the updated PRD. If access or write authority is unavailable, deliver the exact pending patch and identify who must apply it; distinguish proposed, accepted, and actually applied changes. If deeper Product clarification requires `prd-draft-clarification.md`, read it from the same ref and apply its integrated-reconciliation entry exception rather than starting a new task or repeating scope confirmation. Do not claim Product & Design Alignment from convergence alone.
 
 ### 8. Establish the selected design direction
 
@@ -263,6 +263,7 @@ The Designer may refine visual craft, content, layout and interactions, or disco
 When the Designer returns the design, retrieve the current Figma frames, current PRD, current Design Artifact and the last agreed material baseline. Read the actual returned representation rather than assuming it matches the AI-authored design or relying on memory. If the prior baseline is unavailable, retrieve available version history/decisions or ask a targeted question about the uncertain material change; disclose the comparison limit instead of fabricating a diff.
 
 Compare decision-level meaning and behavior, not every pixel:
+
 - **Consistent refinement:** visual/copy/spacing changes or other changes that still satisfy agreed experience and Product constraints. Accept them and update the representation references or material specification as needed; do not require a rationale for routine polish.
 - **Material Design departure:** a changed hierarchy, flow, interaction, state coverage or experience constraint that conflicts with the agreed direction or introduces consequential judgment. Cite the affected frame/state and prior decision, describe the actual difference and consequence, and ask the Designer whether it is intentional and why before treating it as the new agreed baseline. Do not automatically revert it or call it a mistake.
 - **Product-semantic change:** a change to eligibility, permissions, persistence, consequences, scope or other PM-owned behavior. Explain its impact and use Step 7's PRD proposal process; Designer polish/selection alone cannot establish that policy.
@@ -278,7 +279,10 @@ This is **design conformance and change-impact review**, not a runtime software 
 
 Complete and verify the design details needed for the actual handoff scope: material screens and responsive behavior, relevant states, actions/transitions, validation/recovery, content and applicable accessibility/interaction constraints. Do not require exhaustive irrelevant states or pixel perfection, but do not defer a material decision to developers under the label "polish".
 
+If this completion changes the Designer-returned design after review, re-check the affected conformance and PRD alignment before declaring handoff ready. A material new Design choice returns to Designer judgment, and a Product-semantic change returns to PM; routine authorized detailing can proceed without another approval ceremony. Keep the actual delivered Figma and specification synchronized. If the frames materially change while review/handoff is in progress, inspect the changed scope again rather than handing off a stale review. Identify the reviewed frame set and its revision/version when the tool exposes one; never invent version evidence.
+
 Deliver one coherent package:
+
 1. **Figma:** exact accessible file/frame references to the current Designer-polished, reviewed design. Identify any part of the design that remains unverified.
 2. **Design Artifact:** the same current specification, reconciled with those Figma frames, containing material flows/states/interactions, necessary rationale and explicit remaining dependencies. It complements Figma rather than becoming an independently conflicting design.
 3. **PRD:** the current PM-authoritative final PRD when accessible and reconciled, **or** the exact copy-ready proposed/accepted changes against the identified PRD with section targets and decision/application status. Preserve ID and path; never label an unapplied patch as an updated PRD or unapproved changes as final.
