@@ -7,7 +7,7 @@ The Harness owns workflows, artifact contracts, clarification, review, and readi
 ## Retrieval sequence
 
 1. Start at `AGENTS.md` and read `shared-harness-contract.md` plus the task's workflow and artifact contract.
-2. For a product-scoped PRD/Design task, after Gate 0, inspect the **user-provided current PRD/Design Artifact for scope identification if needed**, then resolve scope under Gate 1: normally propose and obtain explicit human confirmation **once per new task**, even when the product is already explicit. For Design Exploration, an explicit, unambiguous, non-conflicting scope in the specific supplied current PRD instead satisfies Gate 1: state the inherited scope and continue without another confirmation, as defined in `AGENTS.md`. Only after scope resolution retrieve product-specific canonical sources. Generic Harness Improvement tasks do not require product confirmation. If ownership cannot be established, ask one minimal routing question rather than guessing.
+2. For a product-scoped PRD/Design task, after Gate 0, inspect the **user-provided current PRD/Design Artifact for scope identification if needed**, then resolve scope under Gate 1: normally propose and obtain explicit human confirmation **once per new task**, even when the product is already explicit. For Product Design / Design Exploration, an explicit, unambiguous, non-conflicting scope in the specific supplied current PRD instead satisfies Gate 1: state the inherited scope and continue without another confirmation, as defined in `AGENTS.md`. Only after scope resolution retrieve product-specific canonical sources. Generic Harness Improvement tasks do not require product confirmation. If ownership cannot be established, ask one minimal routing question rather than guessing.
 3. Read `context-sources.yml` to identify the source role that owns each needed claim.
 4. Partition cross-product claims by JobVision/Cando and verify access to the corresponding canonical Product Knowledge source in the current execution environment.
 5. When user-shared/local browser tabs are readable, reuse an already-open relevant canonical tab; otherwise request one canonical tab for the resolved product. Retrieve the smallest relevant context first and request additional tabs/sources only when materially necessary.
@@ -15,8 +15,9 @@ The Harness owns workflows, artifact contracts, clarification, review, and readi
    - Design Language: start with the `design-language` repository's `AGENTS.md` / `ai/router.md`, then the smallest owning document.
    - Product Content: start with `foundations/content/README.md` in the same repository, then the relevant foundation, pattern, component-copy contract, or eval.
    - Product Walkthrough and working artifacts: resolve only the task-relevant current source/artifact.
-7. Keep current-product truth, approved PM changes, designer-selected experience, reusable design rules, content expression rules, and evidence separate.
-8. Missing access or conflicting evidence is an explicit limitation. Figma, implementation, walkthroughs, Design Language, or Content guidance cannot silently substitute for canonical Product Knowledge.
+7. During integrated Product Design, retrieve the designated live Figma before execution and again when the Designer returns polished frames. Compare against the current agreed Design Artifact/available version history; static screenshots or remembered AI output cannot establish unobserved behavior or a complete semantic diff. Resume long-running work from the latest PRD, current design specification and frames.
+8. Keep current-product truth, approved PM changes, designer-selected experience, reusable design rules, content expression rules, and evidence separate.
+9. Missing access or conflicting evidence is an explicit limitation. Figma, implementation, walkthroughs, Design Language, or Content guidance cannot silently substitute for canonical Product Knowledge.
 
 ## Current source topology
 

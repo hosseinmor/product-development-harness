@@ -1,12 +1,14 @@
-# Design Exploration Workflow
+# Product Design Workflow
 
 ## Purpose
 
-Turn a Problem-Aligned PRD into a strong design exploration and then a Designer-selected experience direction, while preserving Product and Design decision boundaries.
+Turn a Problem-Aligned PRD into an explored, Designer-selected solution, implement the approved direction in Figma, incorporate Designer polish, and reconcile the final Figma, Design Artifact and PRD or precise PRD changes for development handoff. Preserve Product and Design decision boundaries throughout.
 
 AI should reduce blank-canvas work by doing substantive design reasoning before asking the Product Designer to choose or refine a direction.
 
-Design Exploration is not a one-shot prototype generation step. The workflow should reconstruct the relevant current experience, model the design problem, identify the material design decisions, explore meaningful directions, and iterate on a working direction before treating it as selected.
+Design Exploration is the opening activity of this integrated workflow, not its default endpoint. The existing file path and Design Exploration prompt remain supported. An explicitly exploration-only request ends at a selected inspectable direction with remaining work visible; otherwise continue through Figma, Designer polish, review and handoff. Product & Design Alignment and design handoff do not certify engineering feasibility, implementation QA, release readiness or the broader Delivery Readiness lifecycle.
+
+This is not a one-shot prototype generation step. The workflow should reconstruct the relevant current experience, model the design problem, identify the material design decisions, explore meaningful directions, and iterate on a working direction before treating it as selected.
 
 ## Inputs
 
@@ -22,7 +24,7 @@ Design Exploration is not a one-shot prototype generation step. The workflow sho
 
 ## Entry and progression
 
-After Gate 0, read the supplied current PRD and resolve Product Scope under Gate 1 in `../AGENTS.md`. Inherit explicit, unambiguous, non-conflicting PRD ownership without another confirmation; otherwise ask the smallest scope question. Check that the PRD is sufficiently Problem Aligned for the requested exploration. A separate Design Intent is optional; when absent, explore the relevant PRD scope rather than asking the Designer to invent an initial direction.
+After Gate 0, read the supplied current PRD and resolve Product Scope under Gate 1 in `../AGENTS.md`. Inherit explicit, unambiguous, non-conflicting PRD ownership without another confirmation; otherwise ask the smallest scope question. Check that the PRD is sufficiently Problem Aligned for useful design work; unresolved Product dependencies that invalidate the affected scope must be routed before relying on it. A separate Design Intent is optional; when absent, explore the relevant PRD scope rather than asking the Designer to invent an initial direction.
 
 The steps below are a revisitable design loop, not a one-way checklist. Proceed autonomously through useful retrieval, synthesis, visual exploration and critique. Pause only for consequential human judgment or a real access/capability dependency; when pausing, identify the exact decision or evidence needed and what it unlocks. Recommending the next step is not a reason to pause: perform already-authorized useful work in the same turn when possible. A working-direction choice authorizes the next detailing/critique work within the existing task scope; do not replace that work with an offer to do it later.
 
@@ -114,7 +116,7 @@ For UI changes, **present a simple visible wireframe or equivalent visual before
 
 Use a rendered representation the Designer can actually inspect, such as an inline visual, screen sketch, lightweight rendered HTML, or accessible existing design. A prose description, raw code, or flowchart alone does not replace a UI wireframe when the decision concerns screen structure. Reuse adequate visuals already available. For a non-UI problem, use a relevant diagram or other inspectable representation when it aids judgment rather than forcing a screen wireframe. If the environment cannot present a visual, explicitly state the capability limitation and the smallest next action; do not silently finish with text or claim a visual was delivered.
 
-The Design Exploration request authorizes lightweight session-local exploratory visuals and files needed to render them; do not ask for a separate "give me a wireframe" instruction. It does not authorize publishing, changing a shared Figma file, or writing to an external repository. Keep unsupported current-UI dependencies visibly conditional under Step 1.
+The Product Design / Design Exploration request authorizes lightweight session-local exploratory visuals and files needed to render them; do not ask for a separate "give me a wireframe" instruction. Shared Figma execution follows the explicit direction approval and destination rules in Step 9, not tool availability alone. Keep unsupported current-UI dependencies visibly conditional under Step 1.
 
 ### 4. Product Designer establishes a working direction
 
@@ -238,11 +240,62 @@ Detailed visual refinement may be deferred, including until after Product & Desi
 
 If later refinement materially changes the selected design, re-review the affected Product and Design decisions before relying on the revised design downstream.
 
-After selection, curate the current representation and concise Design handoff from the settled solution: material flows/states/interactions, necessary rationale, open dependencies, PRD proposals or the statement that no Product-semantic update is needed, and readiness for the next workflow. Do this within existing authorization rather than stopping at "the design is selected". Reuse the designated artifact and visual; if its storage or write authorization is not established, recommend a concrete representation/location and ask only for that missing operational choice. State what has actually been prepared or persisted.
+After selection, reconcile the material experience decisions into the current Design Artifact under `../artifacts/design.md`. A working copy may be persisted earlier to support PM discussions; keep working and selected claims distinguishable. Do not create a second artifact simply to mark selection. In the full workflow, selection is an intermediate checkpoint: recommend and perform the approved Figma execution below, rather than reporting development completion.
 
-The durable Design Artifact follows `../artifacts/design.md`.
+### 9. Execute the approved direction in Figma
 
-Before handing off or materially updating the selected artifact, apply its `Exploration history` review: write for a reader absent from the conversation, describe the current selected solution directly, and remove superseded proposals or debate that add no material value. Preserve meaningful interaction/scope boundaries, rationale, remaining decisions and reference limitations. Do not convert discarded exploration into an assumed future phase. This is an editorial review within the existing handoff, not another approval gate, artifact or workflow stage.
+After explicit Designer approval to proceed with the direction in Figma, implement it in the human-designated file/page or frames. A single clear "proceed in Figma" or equivalent approval in this task is sufficient; do not ask again for already-approved writes within that scope. In a full Product Design request that already asks AI to implement the approved design in Figma, direction approval plus an established destination satisfies this requirement. If only a provisional choice to explore was made, or the target file/scope is missing, ask only for the missing execution approval or destination.
+
+Before writing, read the current target and relevant source-owned Figma, Design Language and Content guidance. Follow the environment's applicable Figma skills/tools for actual execution. Reuse valid components, variables and established product patterns; respect existing content and masters. This workflow does not prescribe a Figma file structure. Do not replace unrelated frames, redesign shared components or publish a library as incidental implementation work.
+
+Implement the approved material flow and states, including responsive relationships, content and interactions necessary for this change. Inspect the rendered result and material behavior rather than assuming successful tool calls prove fidelity. State the actual file/frame location, what was implemented, and any limitations. If access or write capabilities are unavailable, request the smallest remedy, retain the prepared design and state the outstanding Figma work; do not claim completion from a local visual.
+
+Before the Designer takes over, reconcile the current Design Artifact with the approved solution and verified Figma representation. Retain enough of this agreed baseline to compare later changes, using the same artifact and available Figma/version history rather than a new baseline document, duplicate file or exhaustive property snapshot. It must be possible to tell what material behavior, hierarchy, flow, constraints and states were agreed.
+
+### 10. Designer polishes the design
+
+Hand the Designer the exact Figma location and identify any remaining visual/detail work, material open questions and known limitations. State the next action explicitly: the Designer polishes the design and returns the updated frames for conformance review. Do not imply that polishing is completed by AI or silently skip this human step in the normal workflow.
+
+The Designer may refine visual craft, content, layout and interactions, or discover a need to revisit the direction. Earlier AI output is not a constraint on Designer judgment. If the Designer explicitly approves the existing Figma as sufficient and returns it without changes, treat that as their completion of this step without manufacturing edits.
+
+### 11. Review returned design and reconcile decisions
+
+When the Designer returns the design, retrieve the current Figma frames, current PRD, current Design Artifact and the last agreed material baseline. Read the actual returned representation rather than assuming it matches the AI-authored design or relying on memory. If the prior baseline is unavailable, retrieve available version history/decisions or ask a targeted question about the uncertain material change; disclose the comparison limit instead of fabricating a diff.
+
+Compare decision-level meaning and behavior, not every pixel:
+- **Consistent refinement:** visual/copy/spacing changes or other changes that still satisfy agreed experience and Product constraints. Accept them and update the representation references or material specification as needed; do not require a rationale for routine polish.
+- **Material Design departure:** a changed hierarchy, flow, interaction, state coverage or experience constraint that conflicts with the agreed direction or introduces consequential judgment. Cite the affected frame/state and prior decision, describe the actual difference and consequence, and ask the Designer whether it is intentional and why before treating it as the new agreed baseline. Do not automatically revert it or call it a mistake.
+- **Product-semantic change:** a change to eligibility, permissions, persistence, consequences, scope or other PM-owned behavior. Explain its impact and use Step 7's PRD proposal process; Designer polish/selection alone cannot establish that policy.
+- **Unverifiable behavior:** static frames do not establish an unrepresented interaction or persistence rule. Retrieve the smallest additional evidence or clarify the specific behavior.
+
+A clear intentional Design decision may supersede the earlier selection in the Design domain. Preserve necessary rationale, update the same artifact and current baseline, and re-check affected flows; reopen exploration when the effect is material enough. PM decisions reconcile into the same PRD and affected design. Do not demand that all polish preserve AI choices.
+
+Use `design-review-prd-stress-test.md` for the bidirectional PRD ↔ Design check within this same task, both when material decisions need review and before final handoff. Read that workflow from the same Harness ref before use; no new chat or repeated scope gate is required. Inspect the returned Figma against the current design specifications and relevant Design Language constraints as well. Re-check changed portions after fixes; avoid full rework when the change is local.
+
+This is **design conformance and change-impact review**, not a runtime software regression test. Regression evals protect whether the Harness performs this review correctly; they do not establish that a real product design is correct. A tool diff or pixel comparison alone cannot establish semantic conformance.
+
+### 12. Prepare development handoff
+
+Complete and verify the design details needed for the actual handoff scope: material screens and responsive behavior, relevant states, actions/transitions, validation/recovery, content and applicable accessibility/interaction constraints. Do not require exhaustive irrelevant states or pixel perfection, but do not defer a material decision to developers under the label "polish".
+
+Deliver one coherent package:
+1. **Figma:** exact accessible file/frame references to the current Designer-polished, reviewed design. Identify any part of the design that remains unverified.
+2. **Design Artifact:** the same current specification, reconciled with those Figma frames, containing material flows/states/interactions, necessary rationale and explicit remaining dependencies. It complements Figma rather than becoming an independently conflicting design.
+3. **PRD:** the current PM-authoritative final PRD when accessible and reconciled, **or** the exact copy-ready proposed/accepted changes against the identified PRD with section targets and decision/application status. Preserve ID and path; never label an unapplied patch as an updated PRD or unapproved changes as final.
+
+Before handing off, apply the Design Artifact's `Exploration history` review: write for a developer absent from the conversation, describe the current solution directly, remove superseded debate, and retain material boundaries, rationale, unresolved issues and reference limitations.
+
+State design handoff readiness separately from Product & Design Alignment. Handoff is ready when the Designer has completed/accepted the Figma, the returned design has been reviewed, material implementation-facing design decisions and coverage are sufficient, the three deliverables are retrievable and consistent, and no unresolved judgment would cause development to invent materially different behavior. An accepted but not applied PRD patch may be the agreed handoff representation if it is exact, clearly identified, and non-conflicting; a still-unapproved Product change that development depends on blocks unconditional handoff.
+
+If a blocker remains, deliver the useful current package marked conditional, name the owner/action needed, and continue independent work. Do not claim a verified Figma handoff from screenshots alone or from a selection statement. Preparing the package is not authorization to send messages to developers, publish a library, or perform other external distribution.
+
+### Pause, resume and reopen
+
+The workflow may span weeks and multiple PM/Designer discussions. At a material pause or handoff, keep a concise continuation note in the same current Design Artifact/working representation: current working or selected direction, authoritative PRD and Figma references, material open decisions/dependencies, and next action/owner/expected delivery. Preserve only what is needed to resume; do not add a transcript, separate process artifact or duplicate versions.
+
+On resume, read the latest artifacts and returned frames, reconcile new PM/Designer decisions, remove stale assumptions and continue from the affected step. Do not restart discovery or reconfirm unchanged product scope solely because time passed or a new conversation is used; apply entry gates for the resumed task and inherit clear current PRD scope.
+
+After handoff, classify new changes by Design/Product/technical impact, identify affected screens/specifications/PRD sections and any previously delivered guidance now superseded, and reopen only the relevant work. Obtain responsible-role decisions where needed, update the same current artifacts and re-run the affected conformance/alignment checks. State the updated handoff location and outstanding downstream reconciliation without claiming developers were notified or code was changed.
 
 ## Readiness for Design Review
 
@@ -261,31 +314,28 @@ Pixel-perfect completeness and exhaustive edge-state coverage are not required.
 
 ## Output and interaction contract
 
-The durable output is the **Designer-selected Design Artifact**, following `../artifacts/design.md`. Do **not** turn every intermediate conversation, mockup, or alternative into a competing durable artifact.
+The full workflow delivers the reconciled **Figma + Design Artifact + current PRD or exact PRD changes** package from Step 12. Direction selection alone is not the default final output. For an explicitly exploration-only task, stop at the selected inspectable direction, state that Figma execution/polish/handoff remain outside that requested outcome, and identify the next action.
 
 ### Always make the next step clear
 
-Every substantive Designer-facing response that advances, pauses, or hands off this work must make three things clear, concisely and in natural language: **where the work stands, the recommended next action and its owner, and what inspectable output or decision that action will produce**. This is a conversation rule, not a repeated status form or additional artifact. A narrow factual answer can refer back to the still-current next step rather than restating the whole workflow.
+Every substantive Designer-facing response that advances, pauses or hands off work must make three things clear, concisely: **where the work stands, the next action and its owner, and the inspectable delivery or decision it produces**. This is a conversation rule, not a repeated status form. A narrow factual answer may refer to the still-current next action.
 
-Recommend the highest-value next action, with a short reason when not obvious; avoid generic endings such as "let me know", "what next?", or "I can make a wireframe if you want". Do not invent new work when the requested scope is complete.
+Recommend the highest-value next action with a short reason when useful. Perform already-authorized work instead of ending with "I can do it if you want", asking generic "what next?", or repeatedly asking to continue. Do not invent additional work when the requested outcome is complete.
 
-| Current situation | Next action to communicate | Expected next delivery |
+| Current situation | Next action / owner | Expected delivery |
 | --- | --- | --- |
-| Context is insufficient | Retrieve the missing evidence autonomously, or request the precise unavailable page/state/transition and explain the decision it unlocks. | A grounded comparison or an explicitly conditional visual, within available evidence. |
-| Directions have not converged | Name the most consequential unresolved choice and recommend how to distinguish the alternatives; ask only the needed Designer judgment after doing available comparison work. | Comparable sketches, a targeted interaction test/prototype, or a revised recommendation for that choice. |
-| A working direction needs testing | Detail and critique the relevant flow/states; ask only for a new consequential choice if the work exposes one. | The updated visible representation and material critique findings. |
-| Convergence supports selection | Recommend closing this exploration scope and identify any still-needed Designer selection; if selection is already explicit, proceed. | The curated selected visual/Design handoff and reviewable PRD proposals, or an explicit statement that no Product-semantic PRD change is needed. |
-| Product judgment or persistence blocks handoff | Name the specific PM decision or operational action, responsible owner, and its effect; continue useful independent work. | A copy-ready PRD proposal/pending patch, or the selected artifact saved at the authorized location once the dependency is resolved. |
-| The selected artifact is persisted and reviewable | Recommend Design Review + PRD Stress Test against the identified current PRD and Design Artifact; identify remaining material gaps honestly. | Bidirectional findings and reconciliation, followed by an alignment assessment under that workflow. |
+| Context is insufficient | AI retrieves evidence or asks for the precise missing page/state/transition. | Grounded comparison or explicitly conditional visual. |
+| Directions have not converged | AI compares the consequential unresolved choice; Designer decides where judgment is needed. | Comparable sketches, targeted prototype or revised recommendation. |
+| A working direction needs testing | AI details and critiques material flow/states. | Updated visual and material findings. |
+| Direction is selected | Designer gives any still-needed Figma execution approval/destination; AI proceeds within existing authorization. | Implemented and inspected Figma plus the reconciled baseline Design Artifact. |
+| AI's Figma work is complete | Designer polishes the specified frames and returns them, or explicitly accepts them unchanged. | Current Designer-returned Figma for conformance review. |
+| Returned design has material departures | AI explains exact differences and impacts; Designer explains/decides Design changes, PM decides Product changes. | Reconciled Figma/specification and exact PRD proposals or updates. |
+| The design is consistent and sufficiently detailed | AI completes integrated review and prepares Step 12's package. | Verified Figma references, current Design Artifact, final PRD or identified copy-ready changes, readiness and remaining limitations. |
+| A dependency blocks progress | AI names the exact decision/access action and owner, continues independent work and preserves a resumption point. | A conditional working package and explicit next action. |
+| A delivered design needs revision | AI reopens affected work and routes new decisions to their owner. | Updated same artifacts, affected checks and clear supersession of stale handoff guidance. |
 
-Recommending Design Review does not claim it has run or that Technical Planning/Delivery is ready. If the user has asked to continue through review, route to and read its required contracts before performing it; otherwise hand off the concrete next action and inputs without fabricating completion.
+A review within this full workflow is already in scope; load its contracts and perform it without asking the Designer to start a separate workflow. A standalone review remains available. Neither a selected direction, a successful Figma write nor a polished screen alone proves conformance or handoff readiness.
 
-Use three clear **interaction modes**, without imposing a tool or an additional artifact schema:
+Keep working, selected, awaiting Designer polish/review, and ready/conditional handoff distinguishable in natural language, without imposing a status schema or approval ceremony. Never claim Figma access, writes, publication, persistence, PM acceptance or final readiness without evidence. When a required destination, capability, decision or write authorization is missing, state the exact limitation and smallest next action rather than silently substituting a different final deliverable.
 
-1. **Exploration (proposals):** Present the relevant design problem, material alternatives and trade-offs, and a grounded recommendation when useful. For UI choices, include the simple comparative visuals from Step 3 before asking the Product Designer for the **smallest consequential Design choice** needed to proceed, not a generic questionnaire. Do not call proposals selected, invent Product decisions, or generate a full Figma/prototype artifact solely to prove exploration happened.
-2. **Working Direction (provisional):** Once the Designer selects or adapts an approach to explore, identify that working direction and continue its visible flow/state representation, key assumptions and next meaningful design question. Iterate, revisit alternatives when needed, and proactively propose closure when the convergence conditions hold. Clearly distinguish this state from a final or durable selected solution.
-3. **Selected Design Handoff:** After an explicit Designer statement/action establishes the selected direction, present the **actual Design Artifact location/representation** if it exists and is accessible; identify the selected approach and the **material flows, states and interaction decisions**, plus material Product assumptions/change proposals needing PM action (using Step 7's proposal structure) and remaining Design gaps. State whether the representation is **ready for Design Review + PRD Stress Test** using the readiness criteria above. An unresolved Product Decision must not be silently resolved by Design.
-
-If the selected Design Artifact has not been durably saved or the external representation is unavailable, say **`Design Artifact not yet persisted`** (or `location unavailable`), explain the smallest next action, and **do not claim Design Review readiness solely because the Designer selected a direction**. Lightweight session-local exploratory visuals are authorized by this workflow, but do not publish to Figma, write to an external repository, or persist a selected authoritative artifact solely because a tool is available; the human-selected representation and write permission govern durable persistence. A chat summary or generated local copy is not a second authoritative Design Artifact.
-
-Keep the user-facing Handoff concise and reference the current PRD rather than copying its requirements as new Design-owned truth. Design problem models, rejected alternatives, exploratory prototypes, critique notes, and working-state representations are not durable artifacts by default; preserve them only when losing them would materially harm future understanding or the ability to inspect the selected solution.
+Maintain one current Design Artifact and designated Figma representation; exploratory sketches, alternatives and critique notes are not competing durable artifacts. Retain intermediate decisions only when needed for resumption, conformance or material rationale. Once reconciled, remove superseded discussion and keep the final package understandable without the conversation.

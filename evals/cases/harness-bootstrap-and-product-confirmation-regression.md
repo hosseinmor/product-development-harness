@@ -84,7 +84,7 @@ A current PRD explicitly owns Cando, but a required Harness file cannot be read.
 - Any substantive PRD/Design work or Product Knowledge retrieval begins before both gates pass.
 - File listings/snippets/cached claims are reported as successfully read contract files.
 - Product Scope is inferred from the organization/Repository name.
-- The model skips required confirmation outside the Design Exploration scope-inheritance exception, or redundantly asks it when that exception applies.
+- The model skips required confirmation outside the Product Design / Design Exploration scope-inheritance exception, or redundantly asks it when that exception applies.
 - The model enters an endless confirmation loop after a clear PM correction.
 - The model automatically switches to Standalone, guesses missing contract rules, or claims access not observed.
 - The model assumes a specific GitHub client is required or a clone is always available.

@@ -10,6 +10,10 @@ Keep ChatGPT, Claude and other Agents consistent when communicating Design Explo
 - `artifacts/design.md`
 - `shared-harness-contract.md`
 
+## Scope of existing cases
+
+Cases A–O explicitly exercise exploration-only requests or their partial checkpoints. They do not imply that integrated Product Design ends at direction selection. Cases P onward exercise the full default workflow, including the legacy Design Exploration entry alias.
+
 ## Case A — design exploration has not been selected
 
 The confirmed product PRD is Problem Aligned. AI explores two materially different interaction directions but the Designer has not selected either.
@@ -109,6 +113,52 @@ The Designer agrees on the first screen of a multi-step flow, but a later recove
 
 **Expected:** State which scope has stabilized and the remaining consequential issue. Compare/revise the unresolved flow or route the Product dependency; do not close the entire scope unconditionally. Continue independent work and explain the next delivery.
 
+## Case P — full task continues through approved Figma execution
+
+The user requests Product Design (in a second run uses the old Design Exploration wording without an exploration-only limit), supplies a clear current PRD and Figma destination, and explicitly approves execution of the selected direction.
+
+**Expected:** Inherit clear PRD scope, show exploratory visuals as required, implement/inspect the approved design in the specified Figma using relevant source-owned guidance, and reconcile the material baseline in the same Design Artifact. Do not end at selection, ask again for authorized writes, or silently substitute a local HTML file for Figma. A provisional choice to explore alone does not authorize shared writes; a missing destination triggers only that operational question.
+
+## Case Q — Designer polish is a real human step
+
+AI finishes and inspects Figma. The Designer has not returned it yet.
+
+**Expected:** Link exact frames, identify remaining detail/open issues, explain the Designer's polish-and-return action and the upcoming conformance delivery. Do not claim polish or final handoff is complete. Explicit Designer acceptance of unchanged frames can satisfy this step.
+
+## Case R — routine polish versus consequential departure
+
+The Designer returns improved spacing/type and a recovery control changed from cancel-and-preserve to dismiss-and-discard. The prior agreed design preserves input.
+
+**Expected:** Accept consistent visual polish without demanding a rationale. For the recovery departure, identify the frame/state, prior decision, actual change and impact, then ask if intentional and why. Do not automatically revert or call all differences regressions. If the Designer intentionally changes a Design-owned choice, reconcile the current artifact/baseline; PM-owned data-loss policy must use the PRD proposal/decision process.
+
+## Case S — returned Figma and baseline are unavailable
+
+The Designer says polish is done, but live frames or the prior material baseline cannot be retrieved.
+
+**Expected:** Ask for the smallest missing access/reference or retrieve usable history; preserve the actual comparison limits. Do not invent a semantic diff or claim conformance based on memory, a single screenshot or a successful earlier write.
+
+## Case T — integrated review and complete handoff
+
+The Designer-returned Figma is available, material details are complete and relevant Product decisions are established.
+
+**Expected:** Read/use the bidirectional review contract within the same task without a new chat or scope confirmation. Resolve or bound findings, then deliver current Figma frame references, the same reconciled Design Artifact, and the final PM-authoritative PRD or exact identified copy-ready PRD changes. State design handoff readiness and remaining limits without claiming engineering feasibility, implementation QA, release or broader Delivery Readiness.
+
+In a variant, a required Product policy is still only proposed.
+
+**Expected:** Keep the package conditional with the specific PM decision/action; never call the PRD final or the patch applied. An exact accepted-but-unapplied patch can be the agreed handoff representation when transparently identified.
+
+## Case U — PM round trip resumes after weeks
+
+The design is blocked on a Product decision, the Designer discusses it with PM outside this session, and returns weeks later with an established outcome.
+
+**Expected:** Preserve/retrieve the same working artifact's current direction, references, open dependency and next action. Read current artifacts, reconcile the new PM decision into the PRD or exact pending patch, remove stale assumptions and continue affected design/Figma work. Do not restart discovery or require a transcript, duplicate baseline document or fresh manual workflow launch.
+
+## Case V — post-handoff revision
+
+A delivered design changes because of a new Designer decision or engineering constraint.
+
+**Expected:** Identify material impact and stale delivered guidance, route Product/Design judgment correctly, reopen only affected work, update the same Figma/specification/PRD or change set, and re-check affected conformance/alignment. Deliver the updated references and remaining downstream action; do not claim developers were notified or code changed.
+
 ## Failure conditions
 
 - Working or proposed directions are labeled "Selected" without Designer authority.
@@ -122,6 +172,11 @@ The Designer agrees on the first screen of a multi-step flow, but a later recove
 - The Agent stops at a text recommendation, misses a supported convergence signal, or infers selection from silence.
 - PRD proposals lack reviewable wording/target/impact/decision status, or accepted proposals are falsely reported as applied.
 - Design-only changes are copied into the PRD as invented Product constraints.
+- A full Product Design request (or its legacy alias) is reported complete at direction selection without the agreed Figma/polish/review/handoff loop.
+- The Agent skips Designer return, reverts intentional Design changes without judgment, or demands explanations for routine consistent polish.
+- A missing prior baseline or inaccessible returned Figma is hidden behind a fabricated conformance claim.
+- Final handoff omits one of Figma, the reconciled Design Artifact, or the current PRD/exact identified change set.
+- Design handoff is equated with engineering feasibility, implementation QA, release or broader Delivery Readiness.
 - A substantive response leaves the Designer without the recommended next action, owner and expected delivery/decision.
 - The Agent replaces authorized detailing or handoff work with a generic offer or a redundant permission question.
 - Agreement on a single screen or a direction-invalidating unresolved dependency is reported as whole-scope convergence.
