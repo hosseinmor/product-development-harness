@@ -288,7 +288,7 @@ If this completion changes the Designer-returned design after review, re-check t
 Deliver one coherent package:
 
 1. **Figma:** exact accessible file/frame references to the current Designer-polished, reviewed design. Identify any part of the design that remains unverified.
-2. **Design Artifact:** the same current specification, reconciled with those Figma frames, containing material flows/states/interactions, necessary rationale and explicit remaining dependencies. It complements Figma rather than becoming an independently conflicting design.
+2. **Design Artifact:** the same current specification, reconciled with those Figma frames, containing material flows/states/interactions, necessary rationale and explicit remaining dependencies. Apply `../artifacts/design.md`'s lightweight document structure and writing/materiality rules: stable relevant sections, no empty boilerplate, and no transcription of unambiguous Figma details or PRD requirements. It complements Figma rather than becoming an independently conflicting design.
 3. **PRD:** the current PM-authoritative final PRD when accessible and reconciled, **or** the exact copy-ready proposed/accepted changes against the identified PRD with section targets and decision/application status. Preserve ID and path; never label an unapplied patch as an updated PRD or unapproved changes as final.
 
 Before handing off, apply the Design Artifact's `Exploration history` review: write for a developer absent from the conversation, describe the current solution directly, remove superseded debate, and retain material boundaries, rationale, unresolved issues and reference limitations.

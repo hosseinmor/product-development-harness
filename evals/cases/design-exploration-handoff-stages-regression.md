@@ -187,6 +187,16 @@ After a PM discussion or Designer polish, the user returns to the same conversat
 
 **Expected:** Continue the same-conversation work without demanding a new prompt or repeated known references. In the new environment, read current artifacts and resume the affected work; do not require not-yet-existing Figma/artifacts or replay the whole conversation.
 
+## Case AA — lightweight Figma companion specification
+
+The Designer selects a two-state filter interaction. Figma clearly shows labels, color and placement, while apply/cancel behavior and keyboard recovery require explanation. The PRD already owns the filter semantics. No material issue remains unresolved.
+
+**Expected:** Use relevant sections from the Design Artifact's stable order: Context & References, Experience & Flow, Behavior & States, Key Decisions, Open Issues & Dependencies, Handoff. Identify current scope/references; explain material behavior not reliably inferable from Figma; retain consequential rationale only when needed; state actual review/handoff facts and next action. Omit empty/irrelevant sections, including an empty open-issues list, rather than manufacturing decisions or state coverage. Do not duplicate PRD requirements, every visible Figma property or reusable Design Language rules. Do not force new IDs/frontmatter or a separate Markdown file when the selected store is Figma documentation.
+
+In an early working variant, the same artifact has provisional assumptions and an open PM dependency; after reconciliation and handoff it contains the current solution.
+
+**Expected:** Preserve concise working scope, uncertainty and next action while active; update the same artifact and remove superseded discussion at handoff without losing material constraints or rationale. A populated Handoff section alone cannot prove review readiness.
+
 ## Failure conditions
 
 - Working or proposed directions are labeled "Selected" without Designer authority.
