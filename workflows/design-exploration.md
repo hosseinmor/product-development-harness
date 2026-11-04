@@ -20,6 +20,12 @@ Design Exploration is not a one-shot prototype generation step. The workflow sho
 - Relevant content or language guidance.
 - Available evidence, screenshots, implementation references, analytics, or other experience context when materially useful.
 
+## Entry and progression
+
+After Gate 0, read the supplied current PRD and resolve Product Scope under Gate 1 in `../AGENTS.md`. Inherit explicit, unambiguous, non-conflicting PRD ownership without another confirmation; otherwise ask the smallest scope question. Check that the PRD is sufficiently Problem Aligned for the requested exploration. A separate Design Intent is optional; when absent, explore the relevant PRD scope rather than asking the Designer to invent an initial direction.
+
+The steps below are a revisitable design loop, not a one-way checklist. Proceed autonomously through useful retrieval, synthesis, visual exploration and critique. Pause only for consequential human judgment or a real access/capability dependency; when pausing, identify the exact decision or evidence needed and what it unlocks.
+
 ## Workflow
 
 ### 1. Reconstruct the relevant current experience
@@ -104,7 +110,11 @@ Recommend a preferred direction when there is a defensible basis, and make the r
 
 AI-generated directions remain proposals. They are not selected Design decisions.
 
-A lightweight exploratory sketch or micro-prototype may be used during this step when it materially helps answer a specific design question, but a full prototype is not the default output of early exploration.
+For UI changes, **present a simple visible wireframe or equivalent visual before asking the Designer to choose a working direction**. Show the material differences in layout, hierarchy, controls or flow between the directions being compared, at comparable fidelity and scope. Keep the visuals small and focused on the decision; a full prototype or polished design is unnecessary. If only one defensible direction exists, show its proposal visually without manufacturing alternatives.
+
+Use a rendered representation the Designer can actually inspect, such as an inline visual, screen sketch, lightweight rendered HTML, or accessible existing design. A prose description, raw code, or flowchart alone does not replace a UI wireframe when the decision concerns screen structure. Reuse adequate visuals already available. For a non-UI problem, use a relevant diagram or other inspectable representation when it aids judgment rather than forcing a screen wireframe. If the environment cannot present a visual, explicitly state the capability limitation and the smallest next action; do not silently finish with text or claim a visual was delivered.
+
+The Design Exploration request authorizes lightweight session-local exploratory visuals and files needed to render them; do not ask for a separate "give me a wireframe" instruction. It does not authorize publishing, changing a shared Figma file, or writing to an external repository. Keep unsupported current-UI dependencies visibly conditional under Step 1.
 
 ### 4. Product Designer establishes a working direction
 
@@ -119,6 +129,8 @@ A working direction is intentionally provisional. It is concrete enough to deepe
 If the Designer delegates a material Design choice to AI by giving decision constraints or criteria, AI may choose and recommend within those constraints, but the choice remains in the Design decision domain.
 
 ### 5. Prototype or detail the working direction
+
+After the Designer establishes a working direction, **continue to detail its visible representation without requiring another request for a wireframe**. Cover the material changed flow from entry to outcome, including alternate paths and states needed for the decision; one default screen is insufficient when the change spans several steps. Reuse and deepen the exploratory wireframes rather than creating a mandatory second deliverable.
 
 Choose the representation that best exposes the material design decisions and experience behavior.
 
@@ -168,6 +180,17 @@ When a prototype or interactive representation exists, exercise the material sta
 
 Iterate only where critique would materially improve the solution or decision quality. Do not create an endless polish loop or optimize low-value details before material Design decisions are stable.
 
+Revisit earlier steps whenever discussion, critique, or new evidence changes the problem or reveals a stronger approach. The Designer may challenge the framing, request more alternatives, combine directions, or return to a previously rejected direction. AI should propose additional directions when they expose a material opportunity, without a fixed count or a limit on discussion rounds. Update the current visual and recommendation when the working direction changes; do not continue detailing a superseded direction.
+
+**Recognize convergence proactively.** After material discussion or revision, assess whether:
+
+- the main experience, hierarchy and interaction choices have stabilized through Designer input;
+- the current visible representation covers the material flow and states;
+- critique has addressed material weaknesses and there is no active competing direction requiring comparison;
+- remaining Design questions are minor or explicitly bounded, and Product dependencies are identified.
+
+When these conditions hold, recommend closing exploration and establishing the selected design direction. Briefly show the current visual, settled decisions, remaining gaps and PRD implications, then ask only for any still-needed Designer selection. Do not wait for the human to ask "what next?". Convergence is an advisory signal, not authority: silence, elapsed time, number of rounds, or lack of objections is not selection. If a new substantive objection or alternative appears, return to exploration; if the Designer has already clearly selected the critiqued direction, proceed without asking for the same decision again.
+
 This internal Design critique is distinct from `Design Review + PRD Stress Test`. It improves the candidate solution before cross-artifact alignment review.
 
 ### 7. Reconcile Product and Design decision boundaries
@@ -184,6 +207,22 @@ Design may originate Product-change proposals, but it may not silently make them
 Exploration may legitimately expose missing Product decisions. That is not a workflow failure.
 
 When a Product decision changes the design constraints, update the affected exploration rather than continuing to optimize against stale Product assumptions.
+
+#### PRD update proposals
+
+When exploration exposes a material PRD change or clarification, prepare a concise reviewable proposal in the conversation or existing review mechanism. Raise blocking Product issues when discovered; do not wait for convergence. At convergence, reconcile the complete remaining set against the current PRD, removing proposals superseded by later design changes.
+
+For each independent Product decision, provide:
+
+- **Target:** current PRD identity/location and exact affected section or scenario.
+- **Current → proposed:** the relevant current wording (or identify the omission) and exact replacement/addition/removal in copy-ready Markdown. Do not invent unread current wording.
+- **Reason:** the design finding or evidence that makes this change necessary.
+- **Impact:** materially affected behavior, scenarios, scope, acceptance criteria and Design dependencies, including the consequence of leaving it unchanged.
+- **Decision/status:** whether PM acceptance, correction or clarification is needed, or which explicit PM decision already establishes the change. Designer selection alone is not PM acceptance.
+
+Keep Design-owned layout, controls and wording choices in the Design Artifact unless they express a Product requirement. If no Product-semantic change is needed, say so briefly rather than manufacturing a PRD edit or copying UI details into it. Do not create a separate change-log artifact or duplicate PRD.
+
+Once the PM accepts a change, reconcile it into the current PRD under its artifact contract and existing write authorization, preserving identity and applying downstream propagation. Load `../artifacts/prd.md` before editing or exporting the updated PRD. If access or write authority is unavailable, deliver the exact pending patch and identify who must apply it; distinguish proposed, accepted, and actually applied changes. Do not claim Product & Design Alignment from convergence alone.
 
 ### 8. Establish the selected design direction
 
@@ -222,10 +261,10 @@ The durable output is the **Designer-selected Design Artifact**, following `../a
 
 Use three clear **interaction modes**, without imposing a tool or an additional artifact schema:
 
-1. **Exploration (proposals):** Present the relevant design problem, material alternatives and trade-offs, and a grounded recommendation when useful. Ask the Product Designer for the **smallest consequential Design choice** needed to proceed, not a generic questionnaire. Do not call proposals selected, invent Product decisions, or generate a full Figma/prototype artifact solely to prove exploration happened.
-2. **Working Direction (provisional):** Once the Designer selects or adapts an approach to explore, briefly identify that working direction, affected flows/states, key assumptions and the next meaningful design question or representation to inspect. Iterate and critique before selection. Clearly distinguish this state from a final or durable selected solution.
-3. **Selected Design Handoff:** After an explicit Designer statement/action establishes the selected direction, present the **actual Design Artifact location/representation** if it exists and is accessible; identify the selected approach and the **material flows, states and interaction decisions**, plus material Product assumptions/change proposals needing PM action and remaining Design gaps. State whether the representation is **ready for Design Review + PRD Stress Test** using the readiness criteria above. An unresolved Product Decision must not be silently resolved by Design.
+1. **Exploration (proposals):** Present the relevant design problem, material alternatives and trade-offs, and a grounded recommendation when useful. For UI choices, include the simple comparative visuals from Step 3 before asking the Product Designer for the **smallest consequential Design choice** needed to proceed, not a generic questionnaire. Do not call proposals selected, invent Product decisions, or generate a full Figma/prototype artifact solely to prove exploration happened.
+2. **Working Direction (provisional):** Once the Designer selects or adapts an approach to explore, identify that working direction and continue its visible flow/state representation, key assumptions and next meaningful design question. Iterate, revisit alternatives when needed, and proactively propose closure when the convergence conditions hold. Clearly distinguish this state from a final or durable selected solution.
+3. **Selected Design Handoff:** After an explicit Designer statement/action establishes the selected direction, present the **actual Design Artifact location/representation** if it exists and is accessible; identify the selected approach and the **material flows, states and interaction decisions**, plus material Product assumptions/change proposals needing PM action (using Step 7's proposal structure) and remaining Design gaps. State whether the representation is **ready for Design Review + PRD Stress Test** using the readiness criteria above. An unresolved Product Decision must not be silently resolved by Design.
 
-If the selected Design Artifact has not been durably saved or the external representation is unavailable, say **`Design Artifact not yet persisted`** (or `location unavailable`), explain the smallest next action, and **do not claim Design Review readiness solely because the Designer selected a direction**. Do not create a downloadable file, publish to Figma, or write to any external repository solely because a tool is available; the human-selected representation and write permission govern persistence. A chat summary or generated local copy is not a second authoritative Design Artifact.
+If the selected Design Artifact has not been durably saved or the external representation is unavailable, say **`Design Artifact not yet persisted`** (or `location unavailable`), explain the smallest next action, and **do not claim Design Review readiness solely because the Designer selected a direction**. Lightweight session-local exploratory visuals are authorized by this workflow, but do not publish to Figma, write to an external repository, or persist a selected authoritative artifact solely because a tool is available; the human-selected representation and write permission govern durable persistence. A chat summary or generated local copy is not a second authoritative Design Artifact.
 
 Keep the user-facing Handoff concise and reference the current PRD rather than copying its requirements as new Design-owned truth. Design problem models, rejected alternatives, exploratory prototypes, critique notes, and working-state representations are not durable artifacts by default; preserve them only when losing them would materially harm future understanding or the ability to inspect the selected solution.

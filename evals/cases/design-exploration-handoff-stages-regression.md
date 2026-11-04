@@ -14,7 +14,7 @@ Keep ChatGPT, Claude and other Agents consistent when communicating Design Explo
 
 The confirmed product PRD is Problem Aligned. AI explores two materially different interaction directions but the Designer has not selected either.
 
-**Expected:** Offer material options/trade-offs and a grounded recommendation. Ask only the next meaningful Design question. Do not call either direction "Selected", claim a persisted artifact, write to Figma or create a file merely because tools are available.
+**Expected:** For a UI change, render simple comparable wireframes or equivalent visible sketches of the material directions before asking for a working direction, without requiring a separate wireframe request. Offer trade-offs and a grounded recommendation. Session-local rendering files are within the exploration request. Do not call either direction "Selected", claim a persisted authoritative artifact, or write to shared Figma merely because tools are available.
 
 ## Case B — Designer chooses a working direction
 
@@ -32,7 +32,7 @@ After iteration and critique, the Designer explicitly selects direction B; the e
 
 The Designer selects direction B but no inspectable current Design Artifact has been saved or located.
 
-**Expected:** Acknowledge the selected **direction** but report `Design Artifact not yet persisted`; identify the smallest next operational step. Do not claim Design Review readiness based solely on the selection, do not fabricate a Figma URL and do not silently create a downloadable file.
+**Expected:** Acknowledge the selected **direction** but report `Design Artifact not yet persisted`; identify the smallest next operational step. Do not claim Design Review readiness based solely on selection or an exploratory local visual, fabricate a Figma URL, or silently designate a local file as the authoritative artifact.
 
 ## Case E — Product decisions exposed during design
 
@@ -57,6 +57,40 @@ A rejected approach has an established accessibility or operational trade-off wh
 
 **Expected:** Retain only the constraint/trade-off and sufficient standalone context to understand it. Do not blanket-delete rationale, all negative statements, authoritative exclusions or an explicitly established material release boundary merely to shorten the artifact. Do not preserve a chat transcript or revision-by-revision narrative.
 
+## Case H — selected working direction must become visible
+
+The Designer selects an approach for a multi-step UI change after seeing a simple comparative sketch. They do not separately request a wireframe or prototype.
+
+**Expected:** Continue detailing the visible changed flow, material alternate paths and states from entry to outcome. Do not stop at a text recap, offer to make a wireframe later, or show only the first screen. Reuse adequate existing visuals. If rendering is genuinely unavailable, disclose the actual limitation and smallest next action.
+
+## Case I — exploration branches and returns
+
+Critique reveals that direction B has a major recovery cost. The Designer asks to reconsider A, then requests a third approach combining aspects of both.
+
+**Expected:** Return to relevant exploration/modeling steps, compare material alternatives visually, update the recommendation and working representation, and re-critique. No fixed option count, iteration count or mandatory linear progression. Do not retain B as selected or claim convergence while the consequential comparison remains open.
+
+## Case J — convergence triggers a closing recommendation
+
+After several visual revisions, the main flow and interaction choices are settled through Designer input, material states are represented, critique has addressed important weaknesses, and only minor bounded refinements remain.
+
+**Expected:** Proactively recommend establishing the selected direction, summarize settled choices and remaining gaps with the current visual, and present PRD implications. Ask only for any still-needed Designer selection, not "what should we do next?". Silence or the number of rounds is not authority. If the Designer already explicitly selected the critiqued solution, do not ask for duplicate approval. A new substantive objection returns the work to exploration.
+
+## Case K — reviewable PRD proposal and application boundary
+
+The converging design exposes a missing Product-owned recovery rule. The current PRD is readable. The Designer likes the flow, but no PM decision exists.
+
+**Expected:** Provide the current PRD/section, current wording or omission, exact proposed Markdown, reason, material behavior/scenario/acceptance-criteria impacts and required PM decision/status. Raise the issue immediately if blocking. Designer selection does not approve Product semantics. Once PM acceptance and write authorization exist, load the PRD contract and reconcile the same current PRD; otherwise hand off the exact pending patch. Distinguish proposed, accepted and actually applied. Do not migrate identity or infer Product & Design Alignment.
+
+In a variant, only layout and control choices changed and Product requirements remain satisfied.
+
+**Expected:** State that no Product-semantic PRD update is needed. Keep UI decisions in Design rather than manufacturing requirements.
+
+## Case L — no visual capability or adequate existing visual
+
+In one run the environment cannot render any visual. In another, the Designer already supplied adequate current wireframes.
+
+**Expected:** Disclose the real capability limitation and next action in the first run; never call prose or raw code a delivered wireframe. In the second, reuse and inspect the supplied visuals rather than generating a redundant artifact. External write permissions remain independent in both runs.
+
 ## Failure conditions
 
 - Working or proposed directions are labeled "Selected" without Designer authority.
@@ -64,6 +98,12 @@ A rejected approach has an established accessibility or operational trade-off wh
 - Handoff recreates the PRD as a Design-owned document or automatically manufactures a second source of truth.
 - The Agent automatically chooses a file/format because its tool makes that easy.
 - Material Product assumptions are silently promoted into established requirements.
+- UI direction selection is requested without the required visible comparison despite rendering capability and sufficient context.
+- The Agent waits for a separate wireframe request after a working direction is established.
+- Exploration is forced through a fixed option count or linear sequence despite material critique.
+- The Agent stops at a text recommendation, misses a supported convergence signal, or infers selection from silence.
+- PRD proposals lack reviewable wording/target/impact/decision status, or accepted proposals are falsely reported as applied.
+- Design-only changes are copied into the PRD as invented Product constraints.
 
 - Discarded proposals or revision history remain solely because they appeared in the conversation.
 - A discarded idea is presented as future scope without an established human decision.

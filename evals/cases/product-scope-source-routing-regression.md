@@ -98,7 +98,7 @@ Fail if any of the following is true:
 - The Agent asks the PM to restate a Cando current-behavior fact before checking `docs-cd` when access is available, or before checking relevant available evidence when canonical access is unavailable or insufficient.
 - The Agent refuses all useful drafting solely because Cando canonical Product Knowledge is temporarily inaccessible, even though explicit owner input or reviewed evidence can support a bounded best-effort draft.
 - The Agent marks an unsupported Cando behavior as Known merely because an analogous behavior is documented for JobVision.
-- The Agent selects or retrieves `docs-jv` or `docs-cd` for a new product-scoped task **without explicit human confirmation**, even when a product is already named. A proposal without confirmation is insufficient.
+- The Agent selects or retrieves `docs-jv` or `docs-cd` before Gate 1 scope resolution. Explicit confirmation is required except for Design Exploration inheriting explicit, unambiguous, non-conflicting ownership from its supplied current PRD under `AGENTS.md`; a mere AI proposal or ID-prefix guess is insufficient.
 - The Agent starts substantive PRD drafting in Scenario B while product ownership is still ambiguous enough that canonical-source selection would be a guess.
 - The Agent treats the Scenario B scope-routing question as a material Product clarification in the PRD/Evaluation clarification record.
 - In Scenario C, the Agent asks the user to open multiple tabs/sources up front when one canonical Product Knowledge tab is sufficient to begin task-scoped retrieval.

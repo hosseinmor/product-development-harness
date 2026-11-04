@@ -18,7 +18,7 @@ AI-generated exploration remains proposal content until the Product Designer est
 
 The Harness does not require a specific design tool or representation.
 
-A Design Artifact may be represented by Figma, a prototype, diagrams, structured text, or another medium that can satisfy this contract.
+A Design Artifact may be represented by Figma, a prototype, diagrams, structured text, or another medium that can satisfy this contract. For UI changes, textual specifications may accompany or reference the visible wireframes/design required by Design Exploration; text alone does not discharge that workflow's visual comparison and inspection requirements. Existing adequate visuals may be reused.
 
 The Harness does not prescribe Figma page structure, frame naming, component structure, or tool-local organization. **For a textual/Markdown Design Artifact**, all section and subsection headings (`##`–`######`) must be English, including additional flow/state/interaction headings. The document's main `#` title and explanatory prose may be Persian. This formatting rule does not rename Figma frames/pages, UI labels, or external design references.
 
@@ -102,7 +102,7 @@ Apply this review to the artifact and its concise handoff without changing decid
 
 Handoff should identify the **actual current selected Design Artifact**, its retrievable location or representation (Figma, prototype or structured text), and the current PRD it satisfies. The selected representation should contain the material experience direction, relevant user flows, states and interaction behavior, and material Product assumptions/change proposals as defined above. A concise chat Handoff may summarize these details **without duplicating the PRD** or creating an independent artifact.
 
-A Designer selecting a direction does not prove the Design Artifact was persisted. If no durable Design Artifact exists yet, explicitly distinguish **selected direction** from **persisted artifact** and do not claim review readiness without an inspectable representation. Do not save to Figma or another store or create a downloadable representation without a human request/authorization. The Harness does not force Markdown export or Figma-specific organization.
+A Designer selecting a direction does not prove the Design Artifact was persisted. If no durable Design Artifact exists yet, explicitly distinguish **selected direction** from **persisted artifact** and do not claim review readiness without an inspectable representation. The Design Exploration request authorizes lightweight session-local exploratory visuals and rendering files under its workflow; these are not automatically the selected durable artifact. Saving a selected authoritative representation or modifying Figma or another external store still requires the applicable human request/write authorization. The Harness does not force Markdown export or Figma-specific organization.
 
 ## Readiness for Design Review
 
