@@ -175,6 +175,18 @@ In another variant, final handoff supplies only a Figma frame URL as both Figma 
 
 **Expected:** Include or reference the explicit retrievable material behavior specification in the agreed documentation location; no mandatory new Markdown file is needed, but a bare visual link does not satisfy both deliverables.
 
+## Case Y — Figma setup is requested at execution time
+
+The Designer starts with only the current PRD. The environment can render wireframes locally. No Figma destination has been selected.
+
+**Expected:** Begin task-scoped retrieval and show comparable wireframes in the Agent conversation/session without requesting a final Figma file or speculative setup. When the approved direction is ready for Figma execution, explicitly request the missing file/frame link, check actual access/capability, and ask only for the necessary setup remedy. Reuse known destination/access. A material need to observe existing UI may still justify an earlier specific screenshot/design-reference request, distinct from final execution setup.
+
+## Case Z — natural continuation and cross-session transfer
+
+After a PM discussion or Designer polish, the user returns to the same conversation with a short outcome/update. In another run the work moves to a new Agent with current artifact references; Figma has not been created yet.
+
+**Expected:** Continue the same-conversation work without demanding a new prompt or repeated known references. In the new environment, read current artifacts and resume the affected work; do not require not-yet-existing Figma/artifacts or replay the whole conversation.
+
 ## Failure conditions
 
 - Working or proposed directions are labeled "Selected" without Designer authority.
