@@ -4,7 +4,7 @@
 
 The Design Artifact is the durable specification of the current experience and interaction solution used to satisfy the PRD. During integrated Product Design it may first be a clearly provisional working representation; after selection it records the Designer-owned selected solution, and at handoff it is reconciled with the Designer-polished, reviewed Figma.
 
-It makes the experience concrete enough to inspect, challenge, and reconcile without becoming a second owner of product intent.
+It is the specification accompanying the visual design: enough experience context to inspect, implement, challenge and safely change the solution, without becoming a second owner of product intent. Prioritize behavior and decisions that cannot be understood reliably from the Figma frames alone.
 
 ## Authority
 
@@ -22,43 +22,53 @@ A Design Artifact may be represented by Figma documentation, a prototype with sp
 
 The Harness does not prescribe Figma page structure, frame naming, component structure, or tool-local organization. **For a textual/Markdown Design Artifact**, all section and subsection headings (`##`–`######`) must be English, including additional flow/state/interaction headings. The document's main `#` title and explanatory prose may be Persian. This formatting rule does not rename Figma frames/pages, UI labels, or external design references.
 
-## Semantic responsibilities
+## Document structure
 
-The selected Design Artifact should communicate, to the extent material for the change:
+Use the following stable, lightweight section order for a textual/Markdown Design Artifact. These are document sections, not required database fields or a new artifact schema. Use the English headings below when their content is relevant; omit empty or irrelevant sections instead of filling them with "N/A", speculative edge cases or boilerplate. Add focused flow/state subsections only when useful. In Figma documentation or another selected representation, preserve the same semantic grouping without forcing Markdown formatting.
 
-### Experience Direction
+The document must identify the change and its current PRD/design references; during early work, state any not-yet-established reference honestly. The remaining sections grow only as the design needs them. No new ID scheme, mandatory frontmatter or fixed length is introduced.
 
-Make the selected experience approach understandable.
+### Context & References
 
-### User Flow
+Identify the design scope in a short orientation, the current PRD, and the actual relevant Figma frames or other current design representation. Make it clear which part of the experience this specification covers and whether the representation is working, selected or ready/conditional for handoff when that affects interpretation.
 
-Represent how the user moves through the material parts of the changed experience.
+Reference the PRD for product intent and requirements; do not reproduce its problem statement, goals, business rules or acceptance criteria. Use precise retrievable references when available, not invented links or a falsely verified Figma location.
 
-A PRD Key Product Scenario describes what materially happens in the product. The Design Artifact User Flow owns how the selected experience enables that product scenario.
+### Experience & Flow
 
-If Design exposes a missing or incorrect Product Scenario, the material Product change must return to the PRD rather than silently becoming Design authority.
+Explain the material user path and relationships between the changed screens, panels or steps. Reference the corresponding visual rather than narrating every visible element. Describe entry, exit, alternate paths or cross-surface context only when needed to understand the change.
 
-The artifact does not need to reproduce the full end-to-end product journey when only a subset is relevant.
+PRD Key Product Scenarios own what materially happens in the product; this section owns how the selected experience enables it. If a missing Product Scenario or behavior is exposed, route it to PRD reconciliation rather than establishing it here.
 
-### Material States
+### Behavior & States
 
-Represent states whose presence or absence changes interpretation of the experience or product behavior.
+Specify material interaction behavior that a developer/reviewer cannot reliably infer from the static frames: relevant triggers/actions, transitions, feedback, validation, recovery, persistence expectations already established by Product, and responsive/accessibility behavior when relevant.
 
-Examples may include success, empty, error, permission, confirmation, loading, recovery, or other states, but no fixed state taxonomy is required.
+Connect rules to their screen/control/state references. Cover necessary success, empty, error, loading, confirmation or other states without a mandatory state taxonomy. Do not list every possible state merely for completeness or infer unobserved semantics from a screenshot. Do not prescribe APIs or technical implementation decisions unless they are established constraints.
 
-Only states needed for meaningful understanding and review are required at this stage.
+### Key Decisions
 
-### Interaction Behavior
+Retain consequential Design choices and concise rationale whose loss would make implementation or future change materially harder. State the current chosen property and necessary trade-off directly. Do not turn all visual choices into formal decisions, preserve a debate log, or list rejected alternatives by default. Use the rationale and exploration-history rules below.
 
-Make the interaction decisions needed to understand the solution concrete, including relevant actions, transitions, and recovery behavior.
+### Open Issues & Dependencies
 
-### Product Assumptions and Change Proposals
+Include only material unresolved questions, assumptions, Product proposals, access/reference limitations or external dependencies. State the effect on the affected design/handoff scope, the responsible decision/action owner, and the next needed step.
 
-If the design depends on product behavior not established by the PRD, make that dependency visible.
+Keep reversible proposals distinguishable from established decisions. Reference the current PRD or exact Product-change proposal rather than making a second Product decision ledger here. Resolve/remove stale entries when the owning decision changes; omit this section if nothing material remains open.
 
-A material product assumption remains non-authoritative until resolved by Product Management.
+### Handoff
 
-A proposed product change must return to the PRD decision process rather than silently becoming a design decision.
+Briefly state what representation and scope were actually inspected, the current handoff readiness/limitations, and the next action/owner. Reference the same final Figma, Design Artifact and PRD/change set rather than duplicating their contents. Readiness must follow the criteria below and the integrated workflow; a filled section is not proof the checks were performed.
+
+While work is paused, use this section for the concise next action and expected delivery needed to resume. At final handoff, replace obsolete working instructions with the current handoff facts; keep any remaining material dependency visible.
+
+## Writing and materiality
+
+Write for a developer or reviewer who has not seen the conversation. Prefer clear, observable behavior and necessary constraints over a long narrative.
+
+Do not transcribe what Figma already makes unambiguous, such as every label, color, dimension or placement. Include such a fact only when it carries a material interaction, responsive/accessibility rule, exception, constraint or rationale that would otherwise be missed. Likewise, do not reproduce reusable Design Language rules or selected UI copy as an independent source when a precise reference is sufficient. Use local repetition only when necessary for understandable behavior or a material boundary.
+
+Keep one owner for each decision: Figma and this specification describe one consistent Design solution; the PRD owns Product intent. If they conflict, surface and reconcile the discrepancy rather than picking whichever is convenient or handing off competing requirements.
 
 ## Design rationale
 
