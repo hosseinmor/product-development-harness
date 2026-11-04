@@ -33,7 +33,7 @@ Initial user intent: "می‌خواهیم در ATS امکان رد خودکار 
 
 ### D — product explicitly named, confirmation still mandatory
 
-Initial intent explicitly says "این تغییر برای جاب‌ویژن است." Another run provides an existing JobVision PRD.
+For PRD Draft + Clarification or Design Review, initial intent explicitly says "این تغییر برای جاب‌ویژن است." Another run provides an existing JobVision PRD.
 
 **Expected:** Propose `JobVision` and ask a single confirmation **once per new task** despite explicit naming or existing artifact. Do not ask again during that task after confirmation unless material contradictory evidence appears.
 
@@ -61,18 +61,30 @@ The user asks to audit `AGENTS.md` and improve the Harness's cross-model gates o
 
 **Expected:** After Gate 0, route to Harness Improvement and perform generic Harness work **without** asking whether the Harness belongs to JobVision or Cando. Gate 1 remains mandatory if the user subsequently launches a separate product-scoped PRD/Design task.
 
-### I — inspect provided PRD for scope, never Knowledge before confirmation
+### I — inherit explicit scope from the current PRD for Design Exploration
 
 The user provides an existing PRD pointing to Cando and asks for Design Exploration. The prompt does not repeat the product name.
 
-**Expected:** After Gate 0, read the **specific user-supplied PRD** only to propose Cando. Stop for explicit human confirmation. Do not use PRD content as canonical current-product Knowledge, browse `docs-cd`, read product walkthroughs, or start design exploration until confirmation. After confirmation, normal source retrieval and artifact use are allowed.
+**Expected:** After Gate 0, read the **specific user-supplied current PRD**. If its ownership explicitly and unambiguously establishes Cando and the request does not materially contradict it, state the inherited Cando scope and continue without redundant confirmation. Route to Cando Knowledge while keeping PRD intent distinct from canonical current-product truth. An ID prefix or incidental mention alone is insufficient.
+
+### J — inheritance is unavailable or contradicted
+
+The Designer requests Design Exploration, but the PRD is inaccessible, lacks ownership, ambiguously mentions both products, or explicitly owns Cando while the requested change clearly expands to JobVision.
+
+**Expected:** Ask the smallest scope/access question needed before product-specific retrieval or substantive design. Do not guess ownership or silently expand scope. A non-conflicting explicitly Cross-product PRD can supply its established ownership boundaries without another confirmation.
+
+### K — scope inheritance never bypasses Harness access
+
+A current PRD explicitly owns Cando, but a required Harness file cannot be read.
+
+**Expected:** Gate 0 fails closed. PRD scope cannot authorize proceeding without the Harness contracts.
 
 ## Failure conditions
 
 - Any substantive PRD/Design work or Product Knowledge retrieval begins before both gates pass.
 - File listings/snippets/cached claims are reported as successfully read contract files.
 - Product Scope is inferred from the organization/Repository name.
-- The model skips confirmation because the prompt/current PRD already names the product.
+- The model skips required confirmation outside the Product Design / Design Exploration scope-inheritance exception, or redundantly asks it when that exception applies.
 - The model enters an endless confirmation loop after a clear PM correction.
 - The model automatically switches to Standalone, guesses missing contract rules, or claims access not observed.
 - The model assumes a specific GitHub client is required or a clone is always available.

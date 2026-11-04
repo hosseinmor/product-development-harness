@@ -2,7 +2,7 @@
 
 ## Purpose
 
-The Design Artifact is the durable representation of the selected experience and interaction solution used to satisfy the PRD.
+The Design Artifact is the durable specification of the current experience and interaction solution used to satisfy the PRD. During integrated Product Design it may first be a clearly provisional working representation; after selection it records the Designer-owned selected solution, and at handoff it is reconciled with the Designer-polished, reviewed Figma.
 
 It makes the experience concrete enough to inspect, challenge, and reconcile without becoming a second owner of product intent.
 
@@ -12,13 +12,13 @@ The Design Artifact owns design claims within the Product Design decision domain
 
 AI-generated exploration remains proposal content until the Product Designer establishes a selected direction.
 
-`Selected` does not mean final, immutable, technically validated, or ready for delivery.
+`Selected` does not mean final, immutable, technically validated, or ready for development handoff. The integrated workflow continues through approved Figma execution, Designer polish, conformance/alignment review and sufficient detailing. Working/proposed content remains non-authoritative until the responsible human establishes its decisions.
 
 ## Tool independence
 
-The Harness does not require a specific design tool or representation.
+The artifact contract can support different representations. The current integrated Product Design workflow explicitly uses Figma for execution, Designer polish and handoff; alternative media require the human to choose that scope/representation, and cannot silently stand in for a promised Figma deliverable.
 
-A Design Artifact may be represented by Figma, a prototype, diagrams, structured text, or another medium that can satisfy this contract.
+A Design Artifact may be represented by Figma documentation, a prototype with specification, diagrams, structured text, or another medium that can satisfy this contract. In full Product Design, the visual Figma deliverable must be accompanied by an explicit retrievable specification of the material experience behavior; a bare frame link alone does not satisfy both deliverables. The specification can live in the designated Figma documentation or existing document store; no separate Markdown file is mandatory. For UI changes, textual specifications may accompany or reference the visible wireframes/design required by Design Exploration; text alone does not discharge that workflow's visual comparison and inspection requirements. Existing adequate visuals may be reused.
 
 The Harness does not prescribe Figma page structure, frame naming, component structure, or tool-local organization. **For a textual/Markdown Design Artifact**, all section and subsection headings (`##`–`######`) must be English, including additional flow/state/interaction headings. The document's main `#` title and explanatory prose may be Persian. This formatting rule does not rename Figma frames/pages, UI labels, or external design references.
 
@@ -98,11 +98,21 @@ Before handoff or after a material artifact update, review the delivered content
 
 Apply this review to the artifact and its concise handoff without changing decided behavior or claiming missing decisions have been resolved.
 
+## Working continuity and conformance
+
+Maintain the same current artifact from useful working progress through selection and handoff; distinguish provisional proposals, established decisions and open dependencies. At pauses, retain the current direction, PRD/Figma references and next action/owner/expected delivery so work can resume after a PM discussion or weeks later. These are concise material continuation details, not a transcript or a separate process document.
+
+Before Designer polish, reconcile the approved material baseline and actual AI-authored Figma into this artifact. Use existing version history and the agreed decisions to compare returned work; do not require a duplicate baseline file or pixel inventory. On return, inspect live frames and reconcile intentional Design changes after the Designer's judgment; Product-semantic changes still require PM authority. Material departures require a targeted explanation request, while routine consistent polish does not. The prior AI design is not an immutable authority.
+
 ## Handoff and persistence
 
-Handoff should identify the **actual current selected Design Artifact**, its retrievable location or representation (Figma, prototype or structured text), and the current PRD it satisfies. The selected representation should contain the material experience direction, relevant user flows, states and interaction behavior, and material Product assumptions/change proposals as defined above. A concise chat Handoff may summarize these details **without duplicating the PRD** or creating an independent artifact.
+The full workflow's development handoff identifies **the current Designer-polished and reviewed Figma, this reconciled Design Artifact, and the current PRD or precise copy-ready PRD changes**. Include actual retrievable locations, affected scope, material remaining dependencies and the next action/owner. Final specifications must match the reviewed Figma; do not hand developers competing descriptions.
 
-A Designer selecting a direction does not prove the Design Artifact was persisted. If no durable Design Artifact exists yet, explicitly distinguish **selected direction** from **persisted artifact** and do not claim review readiness without an inspectable representation. Do not save to Figma or another store or create a downloadable representation without a human request/authorization. The Harness does not force Markdown export or Figma-specific organization.
+An unapplied PRD patch must identify its target, exact text, PM decision status and whether it was applied. A proposal is not a final PRD, and an unresolved Product decision that invalidates implementation blocks unconditional handoff. Keep product requirements in the PRD and experience decisions in Design.
+
+A selected direction does not prove that Figma was implemented, Designer polish returned, conformance checked, or the artifact saved. The integrated request authorizes local working representations and, once the direction/execution is approved and the destination established, the Figma writes and artifact maintenance within that scope. Do not ask again for authorization already given. Ask only for a genuinely missing destination, decision or write scope; tool availability alone grants none.
+
+If persistence or a required representation is unavailable, report exactly what exists and what remains pending. Give the smallest next action rather than claiming completion or silently creating a second authoritative artifact. An explicitly exploration-only request may stop at the selected inspectable direction with later work clearly identified.
 
 ## Readiness for Design Review
 
@@ -114,3 +124,7 @@ The selected Design Artifact is ready for Design Review + PRD Stress Test when:
 - and the solution can meaningfully be evaluated against the PRD and acceptance criteria.
 
 Pixel-perfect completeness is not required.
+
+## Readiness for development handoff
+
+Use Step 12 of `../workflows/design-exploration.md`: the Designer-returned Figma has been inspected, material design details are sufficient, bidirectional review findings have been resolved or bounded, and the Figma, specification and PRD/change set are consistent and retrievable. Any material detailing or frame changes made after review must have their affected conformance/alignment checked again; the readiness statement applies to the actual delivered state. Expose conditional scope and blockers. This is design handoff readiness, not certification of engineering feasibility, implementation QA, release or the broader Delivery Readiness lifecycle.

@@ -11,6 +11,10 @@ The review is intentionally two-way:
 
 The goal is Product & Design Alignment, not a generic design-quality score.
 
+This review can run as a standalone task or as an activity inside the integrated Product Design workflow in `design-exploration.md`. In an existing integrated task, reuse its resolved Product Scope and current artifacts without a new chat or redundant confirmation. Read this contract before reviewing. The full design workflow includes this check before handoff; standalone review still follows its own entry gates.
+
+When reviewing Designer-returned Figma after polish, inspect the actual current frames against the last agreed material Design decisions and current PRD. Ask a targeted intent/rationale question for consequential departures before assuming a regression or reverting the Designer's work; routine consistent polish needs no justification. An intentional Design change may supersede an earlier selection, while Product changes require PM authority. This conformance review complements the bidirectional checks below; it is not a software regression test.
+
 ## Inputs
 
 - Current PRD.
@@ -130,4 +134,4 @@ Generic visual-craft scoring is not part of the Shared Harness review contract.
 
 ## Lifecycle implication
 
-`Delivery Readiness` comes after Technical Planning and subsequent Product / Design / Technical reconciliation. This workflow ends at `Product & Design Aligned`, not `Delivery Ready`.
+`Delivery Readiness` comes after Technical Planning and subsequent Product / Design / Technical reconciliation. This review activity ends at `Product & Design Aligned`, not `Delivery Ready`. In integrated Product Design, return to detailing, Designer polish or reconciliation when findings require it, then continue to the Figma + Design Artifact + PRD/change-set handoff criteria; alignment alone does not certify complete design handoff.

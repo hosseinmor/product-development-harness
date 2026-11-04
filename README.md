@@ -33,7 +33,7 @@ Language and Content foundation are both in
 The current Harness MVP covers three product-development capabilities:
 
 1. PRD Draft + Clarification
-2. Design Exploration
+2. Product Design (exploration through Figma, Designer polish, review and handoff)
 3. Design Review + PRD Stress Test
 
 The implemented product/design path is:
@@ -43,13 +43,17 @@ PM Intent
 → Context Retrieval
 → PRD Draft + Clarification
 → Problem Aligned
-→ Design Exploration
-→ Selected Design Direction
-→ Design Review + PRD Stress Test
-→ Product & Design Aligned
+→ Product Design
+  ↔ Exploration / PM reconciliation
+  → Selected direction / approved Figma execution
+  → Designer polish
+  ↔ Conformance review / PRD ↔ Design Stress Test
+  → Reconciled design handoff
 ```
 
-Engineering and QA workflows are intentionally not yet defined as full Harness workflows.
+Product Design is one continuous task, not a sequence of manual workflow launches. The existing `workflows/design-exploration.md` path and Design Exploration prompt remain entry aliases; explicitly exploration-only requests may stop earlier. Its final package is current reviewed Figma, the reconciled Design Artifact and the current PRD or exact PRD changes. A standalone Design Review remains available; the same review is an integrated activity before design handoff.
+
+Direction selection and Product & Design Alignment are intermediate conditions, not proof that Figma detailing or Designer polish is complete. Design handoff is preparation for development/Technical Planning, not certification of engineering feasibility, implementation QA or release. Engineering and QA workflows are intentionally not yet defined as full Harness workflows.
 
 ## Provisional future lifecycle
 
@@ -90,7 +94,7 @@ The Harness rules themselves remain in `AGENTS.md`, the shared contract, workflo
 
 Give the agent the direct entry point `https://github.com/hosseinmor/product-development-harness/blob/main/AGENTS.md`. The URL is an entry hint, **not proof of access**. Before any task execution, Gate 0 requires actually reading the entire `AGENTS.md`, `shared-harness-contract.md`, the routed workflow, required artifact contract(s) and `context-sources.yml` from canonical GitHub `main` by default, or from **one explicitly pinned GitHub ref** when testing an unmerged PR. Do not mix files from different refs; label a branch-based run as a preview.
 
-Direct GitHub reads and GitHub-validated clones are equivalent transport options when fully readable at the selected ref; MCP or a particular runtime is not required. If any required file cannot be read, **stop** and report the missing file(s); do not generate a generic PRD, ask product confirmation, or silently switch to Standalone. After successful reads, for each **product-scoped PRD/Design task**, propose Product Scope and **ask for one human confirmation**, even if the task already names a product. Generic Harness Improvement that does not affect a specific product artifact does not require an artificial Product Scope gate. The organization's Harness name must not influence that proposal.
+Direct GitHub reads and GitHub-validated clones are equivalent transport options when fully readable at the selected ref; MCP or a particular runtime is not required. If any required file cannot be read, **stop** and report the missing file(s); do not generate a generic PRD, ask product confirmation, or silently switch to Standalone. After successful reads, for each **product-scoped PRD/Design task**, propose Product Scope and **ask for one human confirmation**, even if the task already names a product, **except Product Design / Design Exploration whose supplied current PRD explicitly and unambiguously establishes non-conflicting ownership**: state that inherited scope and continue under Gate 1 in `AGENTS.md`. Generic Harness Improvement that does not affect a specific product artifact does not require an artificial Product Scope gate. The organization's Harness name must not influence that proposal.
 
 ### Current pilot: manual Harness access
 
