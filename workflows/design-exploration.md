@@ -24,7 +24,7 @@ Design Exploration is not a one-shot prototype generation step. The workflow sho
 
 After Gate 0, read the supplied current PRD and resolve Product Scope under Gate 1 in `../AGENTS.md`. Inherit explicit, unambiguous, non-conflicting PRD ownership without another confirmation; otherwise ask the smallest scope question. Check that the PRD is sufficiently Problem Aligned for the requested exploration. A separate Design Intent is optional; when absent, explore the relevant PRD scope rather than asking the Designer to invent an initial direction.
 
-The steps below are a revisitable design loop, not a one-way checklist. Proceed autonomously through useful retrieval, synthesis, visual exploration and critique. Pause only for consequential human judgment or a real access/capability dependency; when pausing, identify the exact decision or evidence needed and what it unlocks.
+The steps below are a revisitable design loop, not a one-way checklist. Proceed autonomously through useful retrieval, synthesis, visual exploration and critique. Pause only for consequential human judgment or a real access/capability dependency; when pausing, identify the exact decision or evidence needed and what it unlocks. Recommending the next step is not a reason to pause: perform already-authorized useful work in the same turn when possible. A working-direction choice authorizes the next detailing/critique work within the existing task scope; do not replace that work with an offer to do it later.
 
 ## Workflow
 
@@ -45,7 +45,7 @@ Retrieve and reconstruct only the parts of the current experience needed for the
 
 Use canonical Product Knowledge as the primary documented source for established product meaning and behavior. For end-to-end journeys, current flows, handoffs, and feature walkthroughs, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
 
-Retrieve deeper evidence when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting implementation, existing design files, screenshots, prototypes, or other directly relevant product evidence. Treat those sources as evidence, not as a silent replacement for the canonical Product Knowledge **of the human-confirmed product scope**. Do not assume a specific code host or repository provider unless the environment establishes one.
+Retrieve deeper evidence when a material design recommendation depends on behavior that is not sufficiently established. Depending on available tools, this may include inspecting implementation, existing design files, screenshots, prototypes, or other directly relevant product evidence. Treat those sources as evidence, not as a silent replacement for the canonical Product Knowledge **of the resolved product scope**. Do not assume a specific code host or repository provider unless the environment establishes one.
 
 If canonical Product Knowledge, reviewed walkthrough evidence, direct observation, or implementation evidence materially conflict, keep the discrepancy visible for reconciliation rather than choosing the most convenient source.
 
@@ -187,9 +187,11 @@ Revisit earlier steps whenever discussion, critique, or new evidence changes the
 - the main experience, hierarchy and interaction choices have stabilized through Designer input;
 - the current visible representation covers the material flow and states;
 - critique has addressed material weaknesses and there is no active competing direction requiring comparison;
-- remaining Design questions are minor or explicitly bounded, and Product dependencies are identified.
+- remaining Design questions are minor or explicitly bounded, and Product dependencies are identified with their effect on selection and review readiness.
 
 When these conditions hold, recommend closing exploration and establishing the selected design direction. Briefly show the current visual, settled decisions, remaining gaps and PRD implications, then ask only for any still-needed Designer selection. Do not wait for the human to ask "what next?". Convergence is an advisory signal, not authority: silence, elapsed time, number of rounds, or lack of objections is not selection. If a new substantive objection or alternative appears, return to exploration; if the Designer has already clearly selected the critiqued direction, proceed without asking for the same decision again.
+
+Convergence is scope-specific. Agreement on one screen, control, or branch does not establish convergence of the whole requested flow. A material unresolved Product decision or current-experience uncertainty that could invalidate the direction prevents unconditional closure of that affected scope; continue independent parts and route the dependency to its owner.
 
 This internal Design critique is distinct from `Design Review + PRD Stress Test`. It improves the candidate solution before cross-artifact alignment review.
 
@@ -236,6 +238,8 @@ Detailed visual refinement may be deferred, including until after Product & Desi
 
 If later refinement materially changes the selected design, re-review the affected Product and Design decisions before relying on the revised design downstream.
 
+After selection, curate the current representation and concise Design handoff from the settled solution: material flows/states/interactions, necessary rationale, open dependencies, PRD proposals or the statement that no Product-semantic update is needed, and readiness for the next workflow. Do this within existing authorization rather than stopping at "the design is selected". Reuse the designated artifact and visual; if its storage or write authorization is not established, recommend a concrete representation/location and ask only for that missing operational choice. State what has actually been prepared or persisted.
+
 The durable Design Artifact follows `../artifacts/design.md`.
 
 Before handing off or materially updating the selected artifact, apply its `Exploration history` review: write for a reader absent from the conversation, describe the current selected solution directly, and remove superseded proposals or debate that add no material value. Preserve meaningful interaction/scope boundaries, rationale, remaining decisions and reference limitations. Do not convert discarded exploration into an assumed future phase. This is an editorial review within the existing handoff, not another approval gate, artifact or workflow stage.
@@ -258,6 +262,23 @@ Pixel-perfect completeness and exhaustive edge-state coverage are not required.
 ## Output and interaction contract
 
 The durable output is the **Designer-selected Design Artifact**, following `../artifacts/design.md`. Do **not** turn every intermediate conversation, mockup, or alternative into a competing durable artifact.
+
+### Always make the next step clear
+
+Every substantive Designer-facing response that advances, pauses, or hands off this work must make three things clear, concisely and in natural language: **where the work stands, the recommended next action and its owner, and what inspectable output or decision that action will produce**. This is a conversation rule, not a repeated status form or additional artifact. A narrow factual answer can refer back to the still-current next step rather than restating the whole workflow.
+
+Recommend the highest-value next action, with a short reason when not obvious; avoid generic endings such as "let me know", "what next?", or "I can make a wireframe if you want". Do not invent new work when the requested scope is complete.
+
+| Current situation | Next action to communicate | Expected next delivery |
+| --- | --- | --- |
+| Context is insufficient | Retrieve the missing evidence autonomously, or request the precise unavailable page/state/transition and explain the decision it unlocks. | A grounded comparison or an explicitly conditional visual, within available evidence. |
+| Directions have not converged | Name the most consequential unresolved choice and recommend how to distinguish the alternatives; ask only the needed Designer judgment after doing available comparison work. | Comparable sketches, a targeted interaction test/prototype, or a revised recommendation for that choice. |
+| A working direction needs testing | Detail and critique the relevant flow/states; ask only for a new consequential choice if the work exposes one. | The updated visible representation and material critique findings. |
+| Convergence supports selection | Recommend closing this exploration scope and identify any still-needed Designer selection; if selection is already explicit, proceed. | The curated selected visual/Design handoff and reviewable PRD proposals, or an explicit statement that no Product-semantic PRD change is needed. |
+| Product judgment or persistence blocks handoff | Name the specific PM decision or operational action, responsible owner, and its effect; continue useful independent work. | A copy-ready PRD proposal/pending patch, or the selected artifact saved at the authorized location once the dependency is resolved. |
+| The selected artifact is persisted and reviewable | Recommend Design Review + PRD Stress Test against the identified current PRD and Design Artifact; identify remaining material gaps honestly. | Bidirectional findings and reconciliation, followed by an alignment assessment under that workflow. |
+
+Recommending Design Review does not claim it has run or that Technical Planning/Delivery is ready. If the user has asked to continue through review, route to and read its required contracts before performing it; otherwise hand off the concrete next action and inputs without fabricating completion.
 
 Use three clear **interaction modes**, without imposing a tool or an additional artifact schema:
 

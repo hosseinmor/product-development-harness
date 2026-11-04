@@ -91,6 +91,24 @@ In one run the environment cannot render any visual. In another, the Designer al
 
 **Expected:** Disclose the real capability limitation and next action in the first run; never call prose or raw code a delivered wireframe. In the second, reuse and inspect the supplied visuals rather than generating a redundant artifact. External write permissions remain independent in both runs.
 
+## Case M — every substantive response has a concrete continuation
+
+Run a multi-turn UI exploration from initial context reconstruction through competing directions, working-state critique, convergence, selection and persisted handoff.
+
+**Expected:** Each substantive response makes the current situation, highest-value next action/owner and expected inspectable delivery or decision clear without repeating a long status form. Before convergence, name the consequential unresolved choice and how to compare it. After convergence, recommend selection and state the selected-design/PRD-proposal delivery. After a persisted reviewable handoff, recommend Design Review + PRD Stress Test with the current artifact inputs. Do not merely ask "what next?" or automatically start an unrequested downstream workflow.
+
+## Case N — next-step guidance is not another approval gate
+
+The Designer selects a working direction. The Agent has adequate evidence and can render the remaining material states within existing authorization.
+
+**Expected:** Produce the updated visual and critique rather than only saying it can do so or asking permission to continue. After explicit selection of the critiqued solution, prepare the curated handoff within existing authorization; if only storage/write authority is missing, recommend the concrete location/representation and ask only that operational question.
+
+## Case O — local agreement is not global convergence
+
+The Designer agrees on the first screen of a multi-step flow, but a later recovery path is still contested. In a variant, the visual choices are stable but depend on an unresolved Product rule that could invalidate the direction.
+
+**Expected:** State which scope has stabilized and the remaining consequential issue. Compare/revise the unresolved flow or route the Product dependency; do not close the entire scope unconditionally. Continue independent work and explain the next delivery.
+
 ## Failure conditions
 
 - Working or proposed directions are labeled "Selected" without Designer authority.
@@ -104,6 +122,10 @@ In one run the environment cannot render any visual. In another, the Designer al
 - The Agent stops at a text recommendation, misses a supported convergence signal, or infers selection from silence.
 - PRD proposals lack reviewable wording/target/impact/decision status, or accepted proposals are falsely reported as applied.
 - Design-only changes are copied into the PRD as invented Product constraints.
+- A substantive response leaves the Designer without the recommended next action, owner and expected delivery/decision.
+- The Agent replaces authorized detailing or handoff work with a generic offer or a redundant permission question.
+- Agreement on a single screen or a direction-invalidating unresolved dependency is reported as whole-scope convergence.
+- A selected/persisted design is presented as already reviewed or Product & Design Aligned without the relevant workflow.
 
 - Discarded proposals or revision history remain solely because they appeared in the conversation.
 - A discarded idea is presented as future scope without an established human decision.
