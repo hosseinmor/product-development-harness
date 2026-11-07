@@ -82,6 +82,8 @@ Experience copy is owned by Design by default.
 
 When copy communicates a product policy, irreversible consequence, eligibility rule, or other product requirement, the semantic requirement belongs in the PRD while the selected wording may remain a Design decision.
 
+AI-written copy follows the Content System copy brief contract. The brief is working reasoning and is not stored in this artifact. Record here only what a downstream reader needs: new concept names introduced by this design with their PRD reference, so they can be matched to Product Knowledge after publish; copy that carries a product rule, referencing the PRD requirement; and open copy questions under Open Issues & Dependencies with their owner. Do not transcribe UI copy that the Figma frames already show unambiguously.
+
 ## Relationship to the PRD
 
 The Design Artifact should contain enough experience context to inspect the selected solution while relying on the PRD for product intent and behavioral authority.

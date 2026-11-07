@@ -30,11 +30,12 @@ Language and Content foundation are both in
 
 ## Implemented Harness scope
 
-The current Harness MVP covers three product-development capabilities:
+The current Harness MVP covers four product-development capabilities:
 
 1. PRD Draft + Clarification
 2. Product Design (exploration through Figma, Designer polish, review and handoff)
 3. Design Review + PRD Stress Test
+4. Product Copy (write or revise UI copy without a full design task)
 
 The implemented product/design path is:
 
@@ -174,6 +175,7 @@ These directories are validation infrastructure, not additional sources of Produ
 │   ├── prd-draft-clarification.md
 │   ├── design-exploration.md
 │   ├── design-review-prd-stress-test.md
+│   ├── product-copy.md
 │   └── harness-improvement.md
 ├── artifacts/
 │   ├── prd.md
