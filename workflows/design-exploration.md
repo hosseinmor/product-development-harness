@@ -19,7 +19,7 @@ This is not a one-shot prototype generation step. The workflow should reconstruc
 - Existing product patterns or flows when they materially constrain the experience.
 - Relevant Design System guidance when available and applicable.
 - Relevant reusable components and interaction patterns.
-- Relevant content or language guidance.
+- Relevant content or language guidance, including the Content System copy brief contract used to write UI copy.
 - Available evidence, screenshots, implementation references, analytics, or other experience context when materially useful.
 
 ## Entry and progression
@@ -154,6 +154,8 @@ Ensure that multiple affected surfaces represent one coherent Product state and 
 
 Before or during detailing, account for relevant retrieved Design System constraints, reusable patterns, and content guidance.
 
+**UI copy.** Write the material UI copy of the detailed flow and states through the Content System's copy brief (`foundations/content/copy-brief.md` in the Design Language repository). Build each brief yourself from the current Figma or working representation, the current PRD, canonical Product Knowledge of the resolved product and the Content terminology; do not ask the Designer or PM to author briefs. A brief is working reasoning, not a durable artifact: rebuild it from these sources whenever they change. A fact the brief cannot source stays Unknown or Unresolved under the shared contract and becomes the smallest question for its owner — the PM for intended behavior, the Product Knowledge owner for a gap in documented current behavior — instead of guessed copy. Name a concept that exists in neither Product Knowledge nor terminology with the Content System naming rules. AI-written copy is a proposal; the selected wording remains a Design decision.
+
 Design System guidance constrains choices within the Design domain; it does not establish Product intent or Product behavior.
 
 If Design System guidance appears to conflict with the PRD, surface the conflict rather than changing Product intent to conform to the Design System. Identify whether resolution requires a Product decision or a Design/System decision.
@@ -252,7 +254,7 @@ After explicit Designer approval to proceed with the direction in Figma, impleme
 
 Before writing, read the current target and relevant source-owned Figma, Design Language and Content guidance. Follow the environment's applicable Figma skills/tools for actual execution. Reuse valid components, variables and established product patterns; respect existing content and masters. This workflow does not prescribe a Figma file structure. Do not replace unrelated frames, redesign shared components or publish a library as incidental implementation work.
 
-Implement the approved material flow and states, including responsive relationships, content and interactions necessary for this change. Inspect the rendered result and material behavior rather than assuming successful tool calls prove fidelity. State the actual file/frame location, what was implemented, and any limitations. If access or write capabilities are unavailable, request the smallest remedy, retain the prepared design and state the outstanding Figma work; do not claim completion from a local visual.
+Implement the approved material flow and states, including responsive relationships, content and interactions necessary for this change. Use the copy written under Step 5; leave a placeholder only where an open copy question is identified. Inspect the rendered result and material behavior rather than assuming successful tool calls prove fidelity. State the actual file/frame location, what was implemented, and any limitations. If access or write capabilities are unavailable, request the smallest remedy, retain the prepared design and state the outstanding Figma work; do not claim completion from a local visual.
 
 Before the Designer takes over, reconcile the current Design Artifact with the approved solution and verified Figma representation. Retain enough of this agreed baseline to compare later changes, using the same artifact and available Figma/version history rather than a new baseline document, duplicate file or exhaustive property snapshot. It must be possible to tell what material behavior, hierarchy, flow, constraints and states were agreed.
 
@@ -279,9 +281,11 @@ Use `design-review-prd-stress-test.md` for the bidirectional PRD ↔ Design chec
 
 This is **design conformance and change-impact review**, not a runtime software regression test. Regression evals protect whether the Harness performs this review correctly; they do not establish that a real product design is correct. A tool diff or pixel comparison alone cannot establish semantic conformance.
 
+Include content conformance. When returned frames change copy, states or text slots, rebuild the affected copy briefs and check that copy against the Content System rules. A Designer wording change that still satisfies those rules and the PRD is consistent refinement; a copy change that alters a product rule, consequence or eligibility is a Product-semantic change.
+
 ### 12. Prepare development handoff
 
-Complete and verify the design details needed for the actual handoff scope: material screens and responsive behavior, relevant states, actions/transitions, validation/recovery, content and applicable accessibility/interaction constraints. Do not require exhaustive irrelevant states or pixel perfection, but do not defer a material decision to developers under the label "polish".
+Complete and verify the design details needed for the actual handoff scope: material screens and responsive behavior, relevant states, actions/transitions, validation/recovery, content and applicable accessibility/interaction constraints. Do not require exhaustive irrelevant states or pixel perfection, but do not defer a material decision to developers under the label "polish". State content conformance for the handoff scope: whether its copy was checked against the Content System rules, the remaining open copy questions and their owners, and any new concept names this design introduces.
 
 If this completion changes the Designer-returned design after review, re-check the affected conformance and PRD alignment before declaring handoff ready. A material new Design choice returns to Designer judgment, and a Product-semantic change returns to PM; routine authorized detailing can proceed without another approval ceremony. Keep the actual delivered Figma and specification synchronized. If the frames materially change while review/handoff is in progress, inspect the changed scope again rather than handing off a stale review. Identify the reviewed frame set and its revision/version when the tool exposes one; never invent version evidence.
 
@@ -305,7 +309,7 @@ Continuing in the same conversation needs no new prompt: a PM outcome or Designe
 
 On resume, read the latest artifacts and returned frames, reconcile new PM/Designer decisions, remove stale assumptions and continue from the affected step. Do not restart discovery or reconfirm unchanged product scope solely because time passed or a new conversation is used; apply entry gates for the resumed task and inherit clear current PRD scope.
 
-After handoff, classify new changes by Design/Product/technical impact, identify affected screens/specifications/PRD sections and any previously delivered guidance now superseded, and reopen only the relevant work. Obtain responsible-role decisions where needed, update the same current artifacts and re-run the affected conformance/alignment checks. State the updated handoff location and outstanding downstream reconciliation without claiming developers were notified or code was changed.
+After handoff, classify new changes by Design/Product/technical impact, identify affected screens/specifications/PRD sections, affected copy and any previously delivered guidance now superseded, and reopen only the relevant work. Obtain responsible-role decisions where needed, update the same current artifacts and re-run the affected conformance/alignment checks. State the updated handoff location and outstanding downstream reconciliation without claiming developers were notified or code was changed.
 
 ## Readiness for Design Review
 
