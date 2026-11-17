@@ -56,7 +56,7 @@ Expected routing behavior:
 
 ## Scenario C — browser-tab-assisted canonical retrieval
 
-Assume product scope has been resolved to Cando and the execution environment can read user-shared/local browser tabs.
+Assume product scope has been resolved to Cando, MCP is unavailable or cannot supply materially needed canonical context, and the execution environment can read user-shared/local browser tabs.
 
 - If a readable relevant `docs-cd` tab is already open, reuse it.
 - If no relevant canonical tab is readable and canonical context is materially needed, ask the user to open one `docs-cd` tab.
@@ -68,6 +68,16 @@ Assume product scope has been resolved to Cando and the execution environment ca
 - Request another tab/source only if a materially necessary question remains unresolved after the current source is used.
 - If the first `docs-cd` page points to a different canonical page required to resolve a material fact, try direct navigation/retrieval only if supported. Otherwise ask the user to open that **specific next page**, providing its verified URL when known or its known title plus navigation path when a verified deep link is unavailable. Resume retrieval when it becomes readable; never invent a URL or just report `another page is missing`.
 - Do not request the next page if the existing canonical page already answers the task, or ask for multiple pages before they are needed.
+
+## Scenario D — mixed MCP sources
+
+Gate 0 and Gate 1 pass for Cando. The documentation MCP exposes `jobvision`, `cando`, `prd-jobvision`, `prd-cando`, frameworks and schemas. No browser tab is open. An unfiltered search would return a highly ranked PRD and an analogous JobVision rule. The Cando-scoped search returns a relevant canonical page.
+
+Expected: search only `cando`, read the returned canonical ref before relying on a claim, and continue without browser setup when that page suffices. Never promote the PRD or JobVision result into Cando truth, copy the transport ref into PRD `page`, or derive Wiki placement from its filesystem path. Zero hits require a focused query refinement; a missing source or 401 is an access limitation, not absence of behavior. Browser fallback remains actionable under Scenario C when materially needed. A returned stale/conflicting page triggers reconciliation or visible uncertainty, not a claim of live freshness.
+
+## Scenario E — identified PRD versus new drafting
+
+The user provides a specific current Cando PRD's ID and Wiki URL for continuation. The documentation index can locate it, but no version metadata proves its currentness; a direct typed GitLab page read is available. Expected: read the designated durable page, verify its identity, preserve its stable ID/path and continue from it. Do not list unrelated Wiki pages or assume the indexed copy is current. If only the index is readable, disclose the currentness limitation. In a separate new-PRD task with no identified existing artifact, do not search either PRD source or Wiki for precedent/behavior/placement. In both cases the read-only connection does not publish or update the Wiki.
 
 ## Expected invariants
 
@@ -106,6 +116,9 @@ Fail if any of the following is true:
 - In Scenario C, the Agent asks the user to open a tab as if that fixes access when the environment actually lacks tab-reading capabilities or a separate browser/VPN/authentication/policy block prevents reading it.
 - In Scenario C, the Agent discovers that a different canonical page is materially needed and cannot navigate to it, but only reports unavailable/missing context instead of asking the user to open the specific required page.
 - In Scenario C, the Agent invents a deep link for a needed page or asks the user to open several unneeded follow-up pages pre-emptively.
+
+- In Scenario D, fail if the Agent omits the source filter, relies only on snippets, demands browser setup despite sufficient MCP content, promotes transport refs to verified artifact identifiers, or treats zero hits as proof of absent behavior.
+- In Scenario E, fail if the Agent reads unrelated PRDs, claims an unverified indexed version is current despite an available direct read, or claims a Wiki write through the pilot read-only connection.
 
 ## Recommended grading approach
 

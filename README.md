@@ -98,7 +98,7 @@ Direct GitHub reads and GitHub-validated clones are equivalent transport options
 
 ### Current pilot: manual Harness access
 
-MCP is **not required** to use the Harness.
+MCP is **not required** to use the Harness. When available and verified, the read-only `jv-platform` documentation connection is the preferred Product Knowledge access path; source-scoped search and page reads are defined in [context integration](docs/context-source-integration.md). Browser access remains a fallback, and PRD publication remains manual.
 
 During this pilot, repository-backed Harness execution is **fail-closed**: if neither direct retrieval nor a verified current clone can read all required files, the Agent cannot proceed under the Harness. Pasted/older copies of files are not an automatic substitute for the GitHub source. A separately requested offline or Standalone exercise must be explicitly identified as **not** this normal repository-backed execution.
 
@@ -116,7 +116,9 @@ A repository or artifact-store integration may later automate retrieval and pers
 
 Provide access to or the location of relevant external sources such as canonical Product Knowledge, reviewed Product Walkthrough evidence, current working artifacts, other evidence, Product Content/Design System guidance, or implementation evidence. The Harness defines how those sources should be treated; it does not require a specific storage or retrieval tool.
 
-For JobVision, the current canonical Product Knowledge entry point is `https://docs-jv.jvoffice.ir/`. In the documented ChatGPT Desktop / Work pilot, the recorded supported access path is local Chrome on the same company-VPN-connected machine, controlled through Computer Use + the Chrome extension. ChatGPT Built-in Browser, Cloud Browser, and ordinary Web Search are not supported substitutes for this internal source. Verify access in each execution environment; if unavailable, preserve that limitation. Reusable Design Language and Content guidance is in `https://github.com/hosseinmor/design-language` (see `context-sources.yml`); it is never a fallback store for JobVision product behavior.
+Canonical Product Knowledge remains `https://docs-jv.jvoffice.ir/` for JobVision and `https://docs-cd.jvoffice.ir/` for Cando. Prefer the verified documentation MCP with `source: jobvision` or `source: cando`, then read relevant pages; never use an unfiltered search that mixes Knowledge and PRDs. When MCP cannot supply materially needed content, use verified local Chrome on the company-VPN-connected machine (Computer Use + Chrome extension), or an equivalent verified local-browser path. Do not request tabs when MCP already answers the task. Ordinary Web Search, ChatGPT Built-in Browser and Cloud Browser are not substitutes for the internal-source fallback. Setup is described in the [platform guide](https://mcp.jvoffice.ir/); a configured local Codex connection does not establish access in ChatGPT web or managed Work. Reusable Design Language and Content guidance remains in `https://github.com/hosseinmor/design-language`; it never substitutes for product behavior.
+
+An explicitly identified current PRD can be retrieved through the documentation MCP or direct typed GitLab reads with identity/currentness checks. PRD indexes remain excluded from new-product-behavior retrieval and Wiki placement. The pilot connections are read-only; do not infer automatic publication or migrate the Harness repository merely because GitLab MCP is available.
 
 For the current pilot, migration of the **Harness repository** to GitLab is paused. For the current JobVision/Cando pilot, the corresponding product GitLab Wiki is the **default** manual PRD publishing target unless the PM explicitly chooses another durable store; the Harness remains portable across storage providers and does not claim automatic Wiki write access. Identify one canonical durable PRD per Product Change before downstream handoff. A new PRD ID uses product prefix + 10-digit Jalali Iran-local `YYMMDDHHmm` timestamp rather than a registry/Issue sequence; the existing stable `id` must be preserved when updating. For Wiki-bound PRDs, `wiki_path` records the full proposed/established Wiki page path, and the AI must provide only the copy-ready `GitLab Wiki Path` outside the PRD content; the document heading supplies the page title. See `artifacts/prd.md` and the GitLab Wiki publication guide.
 
@@ -161,7 +163,7 @@ The existence of a Codex adapter does not make the core Harness Codex-specific. 
 
 `proofs/` contains focused proof/validation harnesses used to verify runtime behavior and lifecycle properties during hardening.
 
-These directories are validation infrastructure, not additional sources of Product or Design authority. Some HTTP Product Knowledge utilities under `evals/orchestrator/` are diagnostics or experimental snapshot tooling; they are not the supported local-browser Product Knowledge access contract for normal Harness use.
+These directories are validation infrastructure, not additional sources of Product or Design authority. Some HTTP Product Knowledge utilities under `evals/orchestrator/` are diagnostics or experimental snapshot tooling; they are not the supported MCP-first / verified local-browser fallback contract for normal Harness use.
 
 ## Repository structure
 

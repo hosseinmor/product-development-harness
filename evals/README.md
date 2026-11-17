@@ -40,7 +40,7 @@ Contains executable evaluation and validation tooling used during Harness harden
 
 This infrastructure exists to exercise and validate the Harness and its optional runtime guards. It is not itself an authoritative product-development workflow.
 
-Some orchestrator utilities attempt direct HTTP retrieval of the internal Product Knowledge host. These are diagnostics or experimental snapshot tools, not the supported Product Knowledge access contract for normal Harness use. The current supported JobVision access path is a local browser on a company-VPN-connected machine. A failed HTTP diagnostic must not be interpreted as Product Knowledge being unavailable through the supported browser path, and a successful HTTP request does not change source authority.
+Some orchestrator utilities attempt direct HTTP retrieval of the internal Product Knowledge host. These are diagnostics or experimental snapshot tools, not the supported Product Knowledge access contract for normal Harness use. The normal access contract prefers verified source-scoped MCP reads, with a verified internal local browser as fallback. A failed HTTP diagnostic must not be interpreted as Product Knowledge being unavailable through those paths, and a successful HTTP request does not change source authority.
 
 ## Review and grading
 

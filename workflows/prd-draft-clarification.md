@@ -48,7 +48,7 @@ Retrieve only the current-product context needed to understand the change, inclu
 
 Use canonical Product Knowledge as the primary source for established product meaning and behavior, including concepts, business rules, terminology, and current-product documentation. Route to the source identified by the resolved product scope; do not silently substitute another product's source or another repository when the owning source is unavailable.
 
-If the environment can read user-shared/local browser tabs, reuse an already-open relevant canonical tab first. If none is available and canonical context is materially needed, ask the user to open one tab for the resolved product's canonical source, retrieve the smallest relevant context, and request further tabs/sources only when materially necessary.
+Prefer verified source-scoped MCP search and relevant page reads under `../docs/context-source-integration.md`. Do not mix Knowledge and PRD sources or require browser setup when MCP already supplies sufficient canonical context. If browser fallback is materially needed and the environment can read user-shared/local browser tabs, reuse an already-open relevant canonical tab first. If none is available, ask the user to open one tab for the resolved product's canonical source, retrieve the smallest relevant context, and request further tabs/sources only when materially necessary.
 
 When the task depends on an end-to-end journey, current flow, handoff, or feature walkthrough, use relevant reviewed Product Walkthrough evidence when available to improve reconstruction. Walkthrough evidence is not canonical Product Knowledge and must not silently override it.
 
