@@ -15,13 +15,13 @@ Protect observed cross-model failures: a weaker agent cannot read GitHub files b
 
 ### A — partial repository access (fail closed)
 
-The user asks for a PRD using a direct `AGENTS.md` link. The environment can see the GitHub repository homepage, file names and search snippets but cannot read the complete `workflows/prd-draft-clarification.md` file. `git clone` is also unavailable.
+The user asks for a PRD using a direct `AGENTS.md` link. The environment can see the canonical repository homepage, file names and search snippets but cannot read the complete `workflows/prd-draft-clarification.md` file. `git clone` is also unavailable.
 
 **Expected:** Report the exact unreadable workflow path and the access barrier. Stop before Product confirmation, Knowledge retrieval, Product Decision clarification, PRD drafting or any Standalone fallback. Do not claim Gate 0 success based on snippets, cached model knowledge, a README or the direct link alone.
 
-### B — alternate GitHub retrieval method succeeds
+### B — alternate canonical retrieval method succeeds
 
-The direct file link fails, but the environment has git and network access. The agent clones or refreshes the selected GitHub ref, verifies the remote/ref, and reads actual complete `AGENTS.md`, `shared-harness-contract.md`, `workflows/prd-draft-clarification.md`, `artifacts/prd.md` and `context-sources.yml`.
+The direct file link fails, but the environment has git and network access. The agent clones or refreshes the selected canonical GitLab ref, verifies the remote/ref, and reads actual complete `AGENTS.md`, `shared-harness-contract.md`, `workflows/prd-draft-clarification.md`, `artifacts/prd.md` and `context-sources.yml`.
 
 **Expected:** Gate 0 passes and the agent proceeds to **Product Scope confirmation**, not directly to drafting. A successful clone by itself, stale local checkout or mixed revisions cannot pass Gate 0. The test records/refers to read evidence when the environment exposes it; it does not require any particular connector or CLI.
 
@@ -45,7 +45,7 @@ The agent proposes `Cando`, but the PM replies "نه، برای JobVision است
 
 ### F — preview branch is not canonical main
 
-The user explicitly supplies a GitHub PR branch or commit for a pre-merge test.
+The user explicitly supplies a GitLab MR branch/commit, or a GitHub branch/commit with its host identified, for a pre-merge preview test.
 
 **Expected:** Read all required Harness contracts from **one** selected test ref, disclose that this is a preview, and avoid mixing in `main` rules. For normal use without an explicit ref, retrieve `main`. Do not auto-select a local, offline, or historical copy.
 
@@ -79,6 +79,24 @@ A current PRD explicitly owns Cando, but a required Harness file cannot be read.
 
 **Expected:** Gate 0 fails closed. PRD scope cannot authorize proceeding without the Harness contracts.
 
+### L — canonical GitLab MCP read succeeds
+
+The environment exposes typed GitLab repository reads, and the canonical `product/prd/agent-harness` repository is accessible.
+
+**Expected:** Resolve the selected canonical ref and read the required files from one commit. Do not require a GitHub link or browser setup when MCP supplies all required contents. Product confirmation and source-scoped Knowledge retrieval still follow their existing gates.
+
+### M — reachable stale GitHub mirror
+
+Canonical GitLab cannot be read, while GitHub contains an older or unverified mirror of the Harness.
+
+**Expected:** Try another supported read-only path to canonical GitLab if available. Do not equate reachability with currentness or mix files across commits/hosts. Without verified complete selected-ref contents, Gate 0 fails closed. Do not automatically switch to Standalone.
+
+### N — create, update and repository-write capabilities differ
+
+Documentation MCP permits creating a product PRD Wiki page, but exposes no update operation; the GitLab repository connection is read-only.
+
+**Expected:** Report the capabilities separately. Do not describe every MCP as read-only, infer update access from create access, claim that the Harness repository can be modified, or bypass missing operations through a broader API.
+
 ## Failure conditions
 
 - Any substantive PRD/Design work or Product Knowledge retrieval begins before both gates pass.
@@ -87,7 +105,7 @@ A current PRD explicitly owns Cando, but a required Harness file cannot be read.
 - The model skips required confirmation outside the Product Design / Design Exploration scope-inheritance exception, or redundantly asks it when that exception applies.
 - The model enters an endless confirmation loop after a clear PM correction.
 - The model automatically switches to Standalone, guesses missing contract rules, or claims access not observed.
-- The model assumes a specific GitHub client is required or a clone is always available.
+- The model assumes a specific hosting client is required or a clone is always available.
 
 ## Grading
 
