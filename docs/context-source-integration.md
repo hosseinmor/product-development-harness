@@ -10,7 +10,7 @@ The Harness owns workflows, artifact contracts, clarification, review, and readi
 2. For a product-scoped PRD/Design task, after Gate 0, inspect the **user-provided current PRD/Design Artifact for scope identification if needed**, then resolve scope under Gate 1: normally propose and obtain explicit human confirmation **once per new task**, even when the product is already explicit. For Product Design / Design Exploration, an explicit, unambiguous, non-conflicting scope in the specific supplied current PRD instead satisfies Gate 1: state the inherited scope and continue without another confirmation, as defined in `AGENTS.md`. Only after scope resolution retrieve product-specific canonical sources. Generic Harness Improvement tasks do not require product confirmation. If ownership cannot be established, ask one minimal routing question rather than guessing.
 3. Read `context-sources.yml` to identify the source role that owns each needed claim.
 4. Partition cross-product claims by JobVision/Cando and verify access to the corresponding canonical Product Knowledge source in the current execution environment.
-5. When user-shared/local browser tabs are readable, reuse an already-open relevant canonical tab; otherwise request one canonical tab for the resolved product. Retrieve the smallest relevant context first and request additional tabs/sources only when materially necessary.
+5. Prefer verified source-scoped MCP retrieval under the contract below. Use local-browser fallback only when MCP cannot supply materially needed canonical content; then reuse an already-open relevant canonical tab or request one tab for the resolved product. Do not request browser setup when MCP is sufficient. Retrieve the smallest relevant context first and request additional pages/sources only when materially necessary.
 6. Retrieve only the smallest relevant source-owned context:
    - Design Language: start with the `design-language` repository's `AGENTS.md` / `ai/router.md`, then the smallest owning document.
    - Product Content: start with `foundations/content/README.md` in the same repository, then the relevant foundation, pattern, component-copy contract, or eval.
@@ -18,6 +18,37 @@ The Harness owns workflows, artifact contracts, clarification, review, and readi
 7. During integrated Product Design, retrieve the designated live Figma before execution and again when the Designer returns polished frames. Compare against the current agreed Design Artifact/available version history; static screenshots or remembered AI output cannot establish unobserved behavior or a complete semantic diff. Resume long-running work from the latest PRD, current design specification and frames.
 8. Keep current-product truth, approved PM changes, designer-selected experience, reusable design rules, content expression rules, and evidence separate.
 9. Missing access or conflicting evidence is an explicit limitation. Figma, implementation, walkthroughs, Design Language, or Content guidance cannot silently substitute for canonical Product Knowledge.
+
+## Early capability routing
+
+After Gate 0, perform the small capability/status preflight in AGENTS.md before choosing a route: documentation MCP discovery/source listing and, for Wiki-bound PRD work, permitted Wiki read/write discovery. Do not retrieve product content before Gate 1 or mutate anything to test access. Reuse the result within the task. Advertised tools do not prove permission or guarantee a later write; report actual failures accurately.
+
+For Knowledge, MCP is the first path and the verified owning internal browser is the fallback. For an aligned PM-led Wiki-bound PRD with a resolved destination, automatic MCP publication is the default, not another user-operated workflow. Explicit no-publication/draft-only/review-only requests override it. No permitted write capability means disclose the blocker, preserve the handoff and continue useful authorized work; do not bypass MCP through another write transport.
+
+## MCP retrieval contract
+
+The pilot documentation connection is `jv-platform` at `https://mcp.jvoffice.ir/platform/docs/mcp`; `jv-gitlab` at `https://mcp.jvoffice.ir/platform/gitlab/mcp` provides direct GitLab reads when permitted. Verify actual capabilities and access in the current client. Do not require a particular tool prefix, configured server, user token or local config merely because another environment had one. Setup belongs to the [platform guide](https://mcp.jvoffice.ir/); never request or persist credentials in Harness artifacts.
+
+| Need | Documentation source filter | Authority |
+|---|---|---|
+| JobVision current behavior | `jobvision` | JobVision Product Knowledge |
+| Cando current behavior | `cando` | Cando Product Knowledge |
+| Specifically identified JobVision PRD | `prd-jobvision` | That PRD's intended change only |
+| Specifically identified Cando PRD | `prd-cando` | That PRD's intended change only |
+
+For Knowledge, after scope resolution, discover allowed sources with `list_sources` when not already known for this task. Use `search_docs(query, source, limit)` with the owning Knowledge source explicitly set and a small limit (for example 3–5). Never search all sources for a current-product claim. Read only relevant hits with `get_doc(ref)` using the returned ref exactly; do not fabricate refs from URLs or follow a PRD hit as a substitute for Knowledge. Refine a zero-hit query in the same source before declaring a gap. A permission error, missing permitted source, transport failure, zero hits and a genuinely incomplete page are different outcomes; report only the limitation actually observed. Use verified local-browser fallback for materially needed gaps/access problems before escalating, when available; do not retry an unchanged failed request indefinitely.
+
+Preserve the returned source/ref as retrieval provenance and cite it in the conversation when useful. A ref such as `jobvision/src/contents/.../page.md` is a transport locator, not automatically a PRD frontmatter page name or Wiki parent. Extract only verified source-native page names under `artifacts/prd.md`; omit an ambiguous/unverifiable reference rather than inserting the MCP path, adding `.md` or inventing a unique name. Preserve the existing Wiki area inventory and casing; MCP storage paths do not replace that publication taxonomy.
+
+`get_doc` supplies indexed document content; do not call it a live UI inspection or claim it is the latest durable version merely because retrieval succeeded. Respect returned source status/version/update metadata when present. If content is materially stale or conflicts with another source, retrieve the owning current page through a supported direct path when possible, otherwise preserve the currentness limitation and surface the conflict. Do not add mandatory freshness metadata or a snapshot store.
+
+### Identified current artifacts and GitLab
+
+When the user explicitly supplies a PRD link, stable ID or other unambiguous identity to continue/review, retrieve only that artifact. Prefer a direct read of its known GitLab Wiki page when available, using typed read tools (discover the Wiki category if needed); do not list or search unrelated Wiki pages. If the indexed documentation MCP is used to locate/read it, search only `prd-jobvision` or `prd-cando` with the exact identity, then verify the hit's product, ID and established page path against the requested artifact. Do not choose a similarly titled PRD by guesswork. Request the smallest missing locator if no match is established. After discovery, use a direct read of the designated durable artifact when available; if currentness cannot be verified, disclose that limitation rather than claiming the indexed copy is current. The scope-intake exception still permits only this identified artifact before Gate 1.
+
+The no-historical-PRD rule applies through every transport: do not search PRD indexes or GitLab Wiki for precedent, current behavior, sequence allocation or publishing placement during new drafting. A specifically requested comparison remains limited to the identified artifacts and their own decisions. GitLab files, issues and implementation remain scoped evidence unless designated as an authoritative source for that claim; read access does not turn them into Product Knowledge.
+
+The current pilot deployment is read-only. Generic help does not establish write permission; do not enable broader API paths or change credentials to bypass that limit. When permitted typed Wiki write tools are available, follow the default automatic publication contract for aligned PM-led Wiki-bound PRDs in `../artifacts/prd.md`; otherwise keep the complete manual handoff. Reading the exact agreed target for collision, concurrency and readback checks is allowed only for that publication, not historical discovery. Keep the same Markdown source including evaluation; downstream Product reasoning ignores evaluation unless explicitly evaluating the Harness. Jira/Observability are not mandatory Harness prerequisites; use them only as relevant evidence if separately available and needed.
 
 ## Current source topology
 

@@ -7,7 +7,15 @@ sources:
     product_scope: jobvision
     location: https://docs-jv.jvoffice.ir/
     entry_point: https://docs-jv.jvoffice.ir/
-    access: verify_authenticated_internal_browser_with_vpn
+    access: verify_source_scoped_mcp_read_then_internal_browser
+    preferred_transport:
+      server: jv-platform
+      endpoint: https://mcp.jvoffice.ir/platform/docs/mcp
+      source: jobvision
+      discovery: list_sources
+      search: search_docs
+      read: get_doc
+    fallback: verified_local_internal_browser
     retrieval: smallest_relevant_pages
 
   cando_product_knowledge:
@@ -15,7 +23,15 @@ sources:
     product_scope: cando
     location: https://docs-cd.jvoffice.ir/
     entry_point: https://docs-cd.jvoffice.ir/
-    access: verify_authenticated_internal_browser
+    access: verify_source_scoped_mcp_read_then_internal_browser
+    preferred_transport:
+      server: jv-platform
+      endpoint: https://mcp.jvoffice.ir/platform/docs/mcp
+      source: cando
+      discovery: list_sources
+      search: search_docs
+      read: get_doc
+    fallback: verified_local_internal_browser
     retrieval: smallest_relevant_pages
 
   design_language:
@@ -45,6 +61,13 @@ sources:
     resolution: resolve_current_durable_artifact_per_task
     access: verify_at_runtime
     retrieval: current_artifact_only
+    read_access:
+      indexed_server: jv-platform
+      indexed_sources: [prd-jobvision, prd-cando]
+      direct_server: jv-gitlab
+      direct_endpoint: https://mcp.jvoffice.ir/platform/gitlab/mcp
+      policy: identified_artifact_only_verify_identity_and_currentness
+    publication: automatic_when_aligned_and_writable_else_report_blocker
 
   current_design_artifact:
     authority: designer_owned_selected_experience
