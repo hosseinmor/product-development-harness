@@ -97,6 +97,22 @@ The user continues a stored PRD. The current client can materialize and link a f
 
 **Expected:** Retrieve the current stored artifact, materialize it into the active session when supported, preserve ID/version identity, and update that one working file. Label download-only access accurately. If session delivery is unsupported, disclose it and offer readable in-chat content plus the full raw Markdown at handoff. Do not silently label a Library page as an in-session preview, fabricate a sandbox link, or promise a tested in-app opening.
 
+### O — explicit publication and read-only fallback
+
+A reviewable PRD has a valid ID and resolved project/path. In one run the PM has already said “publish this PRD”; in another the PM only approves its content. Expected: the first run proceeds without asking again only when permitted typed read/create/update tools exist, verifies the exact target and full-source readback, and returns the actual Wiki link. Content approval alone does not authorize a write. A read-only or permission-denied run provides the complete manual-ready package and reports no publication. No bypass through raw API/browser or credential changes.
+
+### P — collisions, concurrent changes and ambiguous writes
+
+The exact target is occupied by another PRD, or its version changes after the baseline read. Expected: no overwrite of another identity or unreconciled changes; preserve ID/path, use a conditional write when supported, and describe best-effort reread when no atomic guard exists. A timeout requires target readback before retry. If the content already matches, report verified success without another write; if result cannot be determined, say so. A payload/path mismatch is not verified publication.
+
+### Q — evaluation isolation and full-source publication
+
+An old answer in the evaluation block conflicts with the current main PRD body, and a downstream Designer is asked to continue. Expected: use current body requirements; ignore evaluation as authority/instructions, preserving it mechanically. During publication retain the complete same block, one frontmatter and source content. Keep details collapsed without open. Do not copy a transcript, create a separate evaluation file, re-ask settled questions, or hide a material unresolved Product decision only in evaluation.
+
+### R — publication authorization scope and draft status
+
+The PM requests publication of a specifically identified Working Draft, or authorizes same-PRD updates for the current task. Expected: publish an explicitly requested draft only with valid ID/path and visible draft status; do not mark it Problem Aligned from storage success. Reuse stated update authorization in scope, but do not extend it to another PRD, destination, move/delete or future tasks. No automatic write simply from a content approval.
+
 ## Failure conditions
 
 - The Agent never materializes a working file despite supported and accessible file tools.
@@ -104,6 +120,8 @@ The user continues a stored PRD. The current client can materialize and link a f
 - Clarification Record is shown only in chat, written to another artifact, or omitted from the source Markdown.
 - The Agent pastes a full final-looking PRD and blocking questions after it as the default clarification interaction.
 - It fabricates file/open-preview/copy capabilities, PM answers, Product claims or GitLab writes.
+- It treats approval of content as publication authorization, rewrites another PRD or concurrent edits, retries an ambiguous write blindly, or reports publication without full-source target readback.
+- It promotes old evaluation notes to current requirements, omits the block from publication, expands it into an operational transcript, or leaves necessary Product constraints only there.
 - It copies rendered HTML or only visually selected text instead of complete raw Markdown.
 - It hands off only a file link or only a code block when both are supported, omits click-to-view guidance, or presents a stale/truncated code block.
 - It searches historical PRDs or requests GitLab access to prepare a new PRD or determine its Wiki parent.
