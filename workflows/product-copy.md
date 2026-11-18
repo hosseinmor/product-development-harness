@@ -16,7 +16,9 @@ Use Product Design instead when the task needs a new or changed experience, flow
 
 ## Entry
 
-After Gate 0, resolve Product Scope under Gate 1 in `../AGENTS.md`; a supplied current PRD with explicit, unambiguous ownership satisfies it. Cando copy follows the Content System rule for products without a verbal-identity layer.
+After Gate 0, resolve Product Scope under Gate 1 in `../AGENTS.md` before product-specific retrieval or copy generation. Standalone Product Copy uses the normal scope confirmation rule; the Product Design / Design Exploration scope-inheritance exception does not apply.
+
+Follow the current Content System product-layer availability rule. If the resolved product has no supported verbal-identity layer, return the blocked outcome and its reason rather than generating substitute copy. At review time, this applies to Cando; verify the current source-owned contract rather than treating this deployment state as permanent.
 
 ## Workflow
 
