@@ -67,7 +67,7 @@ sources:
       direct_server: jv-gitlab
       direct_endpoint: https://mcp.jvoffice.ir/platform/gitlab/mcp
       policy: identified_artifact_only_verify_identity_and_currentness
-    publication: pm_authorized_mcp_write_when_available_else_manual
+    publication: automatic_when_aligned_and_writable_else_report_blocker
 
   current_design_artifact:
     authority: designer_owned_selected_experience

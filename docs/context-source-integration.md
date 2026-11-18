@@ -19,6 +19,12 @@ The Harness owns workflows, artifact contracts, clarification, review, and readi
 8. Keep current-product truth, approved PM changes, designer-selected experience, reusable design rules, content expression rules, and evidence separate.
 9. Missing access or conflicting evidence is an explicit limitation. Figma, implementation, walkthroughs, Design Language, or Content guidance cannot silently substitute for canonical Product Knowledge.
 
+## Early capability routing
+
+After Gate 0, perform the small capability/status preflight in AGENTS.md before choosing a route: documentation MCP discovery/source listing and, for Wiki-bound PRD work, permitted Wiki read/write discovery. Do not retrieve product content before Gate 1 or mutate anything to test access. Reuse the result within the task. Advertised tools do not prove permission or guarantee a later write; report actual failures accurately.
+
+For Knowledge, MCP is the first path and the verified owning internal browser is the fallback. For an aligned PM-led Wiki-bound PRD with a resolved destination, automatic MCP publication is the default, not another user-operated workflow. Explicit no-publication/draft-only/review-only requests override it. No permitted write capability means disclose the blocker, preserve the handoff and continue useful authorized work; do not bypass MCP through another write transport.
+
 ## MCP retrieval contract
 
 The pilot documentation connection is `jv-platform` at `https://mcp.jvoffice.ir/platform/docs/mcp`; `jv-gitlab` at `https://mcp.jvoffice.ir/platform/gitlab/mcp` provides direct GitLab reads when permitted. Verify actual capabilities and access in the current client. Do not require a particular tool prefix, configured server, user token or local config merely because another environment had one. Setup belongs to the [platform guide](https://mcp.jvoffice.ir/); never request or persist credentials in Harness artifacts.
@@ -42,7 +48,7 @@ When the user explicitly supplies a PRD link, stable ID or other unambiguous ide
 
 The no-historical-PRD rule applies through every transport: do not search PRD indexes or GitLab Wiki for precedent, current behavior, sequence allocation or publishing placement during new drafting. A specifically requested comparison remains limited to the identified artifacts and their own decisions. GitLab files, issues and implementation remain scoped evidence unless designated as an authoritative source for that claim; read access does not turn them into Product Knowledge.
 
-The current pilot deployment is read-only. Generic help does not establish write permission; do not enable broader API paths or change credentials to bypass that limit. If permitted typed Wiki write tools become available, follow the PM-authorized publication contract in `../artifacts/prd.md`; otherwise keep the complete manual handoff. Reading the exact agreed target for collision, concurrency and readback checks is allowed only for that publication, not historical discovery. Keep the same Markdown source including evaluation; downstream Product reasoning ignores evaluation unless explicitly evaluating the Harness. Jira/Observability are not mandatory Harness prerequisites; use them only as relevant evidence if separately available and needed.
+The current pilot deployment is read-only. Generic help does not establish write permission; do not enable broader API paths or change credentials to bypass that limit. When permitted typed Wiki write tools are available, follow the default automatic publication contract for aligned PM-led Wiki-bound PRDs in `../artifacts/prd.md`; otherwise keep the complete manual handoff. Reading the exact agreed target for collision, concurrency and readback checks is allowed only for that publication, not historical discovery. Keep the same Markdown source including evaluation; downstream Product reasoning ignores evaluation unless explicitly evaluating the Harness. Jira/Observability are not mandatory Harness prerequisites; use them only as relevant evidence if separately available and needed.
 
 ## Current source topology
 

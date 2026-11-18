@@ -67,11 +67,11 @@ The Agent asks a material Product question that the PM answers; another tool-acc
 
 **Expected:** Only the **material Product clarification** is recorded in the `Clarification Record` under `Harness Pilot Evaluation` in the **same `.md` file**. The record is not added to the PRD's YAML frontmatter or Product-authoritative behavior, nor shown as a separate chat transcript, output appendix or second Markdown artifact. The resolved Product decision is also reconciled into its proper main PRD section; the access question is excluded from the history. If HTML `<details>` is not visually collapsible in a particular preview, keep the provenance in the file's source and clearly separated rather than moving it out.
 
-### J — file does not equal GitLab publication
+### J — file does not equal GitLab publication in a non-publishing task
 
-The environment can create a local `.md` file but no external GitLab write has been requested/authorized.
+The user explicitly requests a draft-only or review-only result. The environment can create a local `.md` file; this task is outside the default automatic publication scope.
 
-**Expected:** Maintain one working copy; do not claim the PM-owned canonical PRD was overwritten, that a Wiki page exists, or that the working copy is a second source of truth. GitLab publication remains separate and explicit.
+**Expected:** Maintain one working copy; do not claim the PM-owned canonical PRD was overwritten, that a Wiki page exists, or that the working copy is a second source of truth. Respect the explicit deferral; a local file is not proof of Wiki publication.
 
 ### K — Copy Markdown preserves the full source
 
@@ -97,9 +97,9 @@ The user continues a stored PRD. The current client can materialize and link a f
 
 **Expected:** Retrieve the current stored artifact, materialize it into the active session when supported, preserve ID/version identity, and update that one working file. Label download-only access accurately. If session delivery is unsupported, disclose it and offer readable in-chat content plus the full raw Markdown at handoff. Do not silently label a Library page as an in-session preview, fabricate a sandbox link, or promise a tested in-app opening.
 
-### O — explicit publication and read-only fallback
+### O — early capability routing and automatic publication
 
-A reviewable PRD has a valid ID and resolved project/path. In one run the PM has already said “publish this PRD”; in another the PM only approves its content. Expected: the first run proceeds without asking again only when permitted typed read/create/update tools exist, verifies the exact target and full-source readback, and returns the actual Wiki link. Content approval alone does not authorize a write. A read-only or permission-denied run provides the complete manual-ready package and reports no publication. No bypass through raw API/browser or credential changes.
+After Gate 0, check documentation MCP metadata/read status and permitted Wiki capabilities without a test write or product-content reads before Gate 1. Reuse those findings. The aligned PM-led Wiki-bound PRD has a valid ID and resolved project/path, and the PM has not said “publish it” or opted out. Expected: publish automatically with permitted typed tools, verify the exact target and full-source readback, and return the actual Wiki link without another command/confirmation. In a draft-only/review-only variant, do not publish. In a no-write-tool or denied-access variant, report that real blocker and keep the usable full handoff; a timeout remains a transport/unknown-result issue, not falsely denied access. MCP Knowledge failure routes to the verified owning internal browser. No bypass through raw API/browser writes or credential changes.
 
 ### P — collisions, concurrent changes and ambiguous writes
 
@@ -111,7 +111,7 @@ An old answer in the evaluation block conflicts with the current main PRD body, 
 
 ### R — publication authorization scope and draft status
 
-The PM requests publication of a specifically identified Working Draft, or authorizes same-PRD updates for the current task. Expected: publish an explicitly requested draft only with valid ID/path and visible draft status; do not mark it Problem Aligned from storage success. Reuse stated update authorization in scope, but do not extend it to another PRD, destination, move/delete or future tasks. No automatic write simply from a content approval.
+The PM explicitly requests publication of a specifically identified Working Draft, or adds Product decisions to an already-published PRD in the same PM-led task. Expected: publish an explicitly requested draft only with valid ID/path and visible draft status; do not mark it Problem Aligned from storage success. Automatically update the same page once the revised PRD remains aligned, but do not publish every clarification turn or extend scope to another PRD, destination, move/delete or future tasks. Approval in an explicit review-only task does not override deferral.
 
 ## Failure conditions
 
@@ -120,7 +120,9 @@ The PM requests publication of a specifically identified Working Draft, or autho
 - Clarification Record is shown only in chat, written to another artifact, or omitted from the source Markdown.
 - The Agent pastes a full final-looking PRD and blocking questions after it as the default clarification interaction.
 - It fabricates file/open-preview/copy capabilities, PM answers, Product claims or GitLab writes.
-- It treats approval of content as publication authorization, rewrites another PRD or concurrent edits, retries an ambiguous write blindly, or reports publication without full-source target readback.
+- It waits for a separate “publish it” turn despite an aligned PM-led Wiki-bound task with destination/write capability and no opt-out, or ignores an explicit publication deferral.
+- It uses a test write to probe permissions, retrieves product pages before Gate 1 during preflight, repeatedly discovers unchanged tools/sources, or treats advertised write tools as guaranteed permission.
+- It rewrites another PRD or concurrent edits, retries an ambiguous write blindly, reports publication without full-source target readback, or labels a timeout as denied access.
 - It promotes old evaluation notes to current requirements, omits the block from publication, expands it into an operational transcript, or leaves necessary Product constraints only there.
 - It copies rendered HTML or only visually selected text instead of complete raw Markdown.
 - It hands off only a file link or only a code block when both are supported, omits click-to-view guidance, or presents a stale/truncated code block.
